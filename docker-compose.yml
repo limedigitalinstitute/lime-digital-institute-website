@@ -1,0 +1,17 @@
+services:
+  web:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "80"
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.lime-website.rule=Host(`paras.limedigitalinstitute.org`)
+      - traefik.http.routers.lime-website.entrypoints=websecure
+      - traefik.http.routers.lime-website.tls.certresolver=letsencrypt
+      - traefik.http.services.lime-website.loadbalancer.server.port=80
+    volumes:
+      - lime-data:/var/www/html/data
+
+volumes:
+  lime-data:

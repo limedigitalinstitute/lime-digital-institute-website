@@ -1,0 +1,12 @@
+.DS_Store
+.gstack/
+*.tmp
+*.log
+*.zip
+*.tar.gz
+*.rar
+
+# Backend runtime data — contains lead PII (name/email/phone/IP) and session tokens
+data/registrations.json
+data/tokens.json
+

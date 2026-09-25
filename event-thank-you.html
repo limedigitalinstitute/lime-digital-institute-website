@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Registration Confirmed | Lime Digital Institute</title>
+  <link rel="icon" href="assets/lime-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css?v=20260921">
+  <style>
+    .ty-hero {
+      background: radial-gradient(circle at top right, rgba(237,50,55,0.15), transparent 40%),
+                  radial-gradient(circle at bottom left, rgba(15,23,42,0.9), transparent 60%),
+                  #0B111E;
+      color: #FFFFFF;
+      padding: 130px 0 80px;
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+    }
+    .ty-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 48px;
+      max-width: 840px;
+      margin: 0 auto;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    }
+    .ty-check {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: rgba(16,185,129,0.2);
+      border: 2px solid #10B981;
+      color: #10B981;
+      font-size: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    @keyframes popIn {
+      from { transform: scale(0.5); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .ty-title {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+      color: #FFFFFF;
+    }
+    .ty-lead {
+      font-size: 16px;
+      color: #94A3B8;
+      max-width: 600px;
+      margin: 0 auto 32px;
+      line-height: 1.6;
+    }
+    .ty-event-box {
+      background: #FFFFFF;
+      border-radius: 14px;
+      padding: 24px 32px;
+      color: var(--ink-900);
+      text-align: left;
+      margin-bottom: 32px;
+      border: 1.5px solid var(--border);
+    }
+    .ty-event-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--ink-900);
+      margin-bottom: 8px;
+    }
+    .ty-event-meta {
+      display: flex;
+      gap: 24px;
+      font-size: 13.5px;
+      color: var(--ink-700);
+      flex-wrap: wrap;
+    }
+    .cal-actions-row {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+    .btn-cal {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 22px;
+      border-radius: 9999px;
+      font-size: 13.5px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-cal-google {
+      background: #4285F4;
+      color: #FFFFFF;
+    }
+    .btn-cal-google:hover { background: #3367D6; }
+    .btn-cal-outlook {
+      background: #0078D4;
+      color: #FFFFFF;
+    }
+    .btn-cal-outlook:hover { background: #005A9E; }
+    .btn-cal-wa {
+      background: #25D366;
+      color: #FFFFFF;
+    }
+    .btn-cal-wa:hover { background: #1EBE5D; }
+    .btn-cal-back {
+      background: rgba(255,255,255,0.1);
+      color: #FFFFFF;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .btn-cal-back:hover { background: rgba(255,255,255,0.2); }
+  </style>
+</head>
+<body class="has-reveal-footer">
+
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <div class="nav-inner">
+        <a class="nav-logo" href="index.html">
+          <img src="assets/lime-logo.png" alt="Lime Digital Institute">
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html"><span>Home</span></a></li>
+          <li><a href="courses.html"><span>Courses</span></a></li>
+          <li><a href="free-masterclass.html"><span>Free Masterclass</span></a></li>
+          <li><a href="contact.html"><span>Contact</span></a></li>
+        </ul>
+        <div class="nav-cta">
+          <a href="free-masterclass.html" class="btn btn-glow btn-sm">Explore More Sessions &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="site-main-wrapper" id="siteMainWrapper">
+    <section class="ty-hero">
+      <div class="wrap">
+        <div class="ty-card">
+          <div class="ty-check">✓</div>
+          <h1 class="ty-title">You're Registered! We've Saved Your Seat.</h1>
+          <p class="ty-lead" id="tyPersonalMsg">
+            Welcome to the masterclass! We have emailed you the confirmation details and will send your direct entry link via WhatsApp.
+          </p>
+
+          <!-- Confirmed Session Details -->
+          <div class="ty-event-box">
+            <span style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--primary);">Confirmed Session:</span>
+            <h2 id="confTitle" class="ty-event-title">AI Prompting &amp; Growth Hacking Masterclass</h2>
+            <div class="ty-event-meta">
+              <span id="confDate">📅 Saturday, Sep 28, 2026</span>
+              <span id="confTime">⏰ 5:00 PM - 6:30 PM IST</span>
+              <span id="confLocation">📍 Live on Zoom</span>
+            </div>
+          </div>
+
+          <!-- Add to Calendar & WhatsApp Actions -->
+          <div style="font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#94A3B8; margin-bottom:14px;">Add To Your Calendar So You Don't Miss It:</div>
+          <div class="cal-actions-row">
+            <a id="btnGoogleCal" href="#" target="_blank" rel="noopener" class="btn-cal btn-cal-google">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zm-7 5h5v5h-5v-5z"/></svg>
+              <span>Add to Google Calendar</span>
+            </a>
+            <a id="btnOutlookCal" href="#" target="_blank" rel="noopener" class="btn-cal btn-cal-outlook">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/></svg>
+              <span>Outlook Calendar</span>
+            </a>
+            <a href="https://chat.whatsapp.com/" target="_blank" rel="noopener" class="btn-cal btn-cal-wa">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.9-4.45 9.9-9.91C21.96 6.45 17.5 2 12.04 2z"/></svg>
+              <span>Join WhatsApp Group</span>
+            </a>
+            <a href="free-masterclass.html" class="btn-cal btn-cal-back">
+              <span>&larr; Browse Other Sessions</span>
+            </a>
+          </div>
+
+          <p style="font-size:12px; color:#64748B;">Questions? Need help? Call or WhatsApp our mentors at <a href="tel:+917567787232" style="color:#FFF; text-decoration:underline;">+91 75677 87232</a>.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="footer-reveal-spacer" id="footerRevealSpacer" aria-hidden="true"></div>
+
+  <footer class="antigravity-footer" id="antigravityFooter">
+    <div class="wrap">
+      <div class="ag-footer-bottom-group">
+        <div class="ag-footer-wordmark-wrap" aria-hidden="true">
+          <span class="ag-footer-wordmark">Lime Digital Institute</span>
+        </div>
+        <div class="ag-footer-bottom">
+          <div class="ag-footer-bottom-left">
+            <span class="ag-copyright">&copy; 2026 Lime Digital Institute. All rights reserved.</span>
+          </div>
+          <div class="ag-footer-bottom-right">
+            <a href="free-masterclass.html">Free Masterclasses</a>
+            <span class="ag-sep">&bull;</span>
+            <a href="courses.html">All Courses</a>
+            <span class="ag-sep">&bull;</span>
+            <a href="contact.html">Contact Us</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      const p = new URLSearchParams(window.location.search);
+      const name = p.get('name') || '';
+      const title = p.get('title') || 'AI Marketing Masterclass';
+      const date = p.get('date') || 'Upcoming Saturday';
+      const time = p.get('time') || '5:00 PM IST';
+      const loc = p.get('location') || 'Live on Zoom';
+
+      if (name) {
+        document.getElementById('tyPersonalMsg').textContent =
+          `Welcome, ${name}! We're thrilled to have you join us for this session. A WhatsApp invitation and reminder will be delivered to your phone.`;
+      }
+      document.getElementById('confTitle').textContent = title;
+      document.getElementById('confDate').textContent = `📅 ${date}`;
+      document.getElementById('confTime').textContent = `⏰ ${time}`;
+      document.getElementById('confLocation').textContent = `📍 ${loc}`;
+
+      // Google Calendar URL Generator
+      const gcalTitle = encodeURIComponent(`${title} - Lime Digital Institute`);
+      const gcalDetails = encodeURIComponent(`Free live masterclass session by Lime Digital Institute. Location: ${loc}. Contact: +91 7567787232.`);
+      const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${gcalTitle}&details=${gcalDetails}&location=${encodeURIComponent(loc)}`;
+      document.getElementById('btnGoogleCal').href = gcalUrl;
+
+      // Outlook URL
+      const outUrl = `https://outlook.live.com/calendar/0/deeplink/compose?subject=${gcalTitle}&body=${gcalDetails}&location=${encodeURIComponent(loc)}`;
+      document.getElementById('btnOutlookCal').href = outUrl;
+
+      // Spacer sync
+      function syncSpacer() {
+        const footer = document.getElementById('antigravityFooter');
+        const spacer = document.getElementById('footerRevealSpacer');
+        if (footer && spacer && window.innerWidth > 768) {
+          spacer.style.height = footer.offsetHeight + 'px';
+        } else if (spacer) {
+          spacer.style.height = '0px';
+        }
+      }
+      syncSpacer();
+      window.addEventListener('resize', syncSpacer);
+    })();
+  </script>
+  <!-- NAV + SITE-WIDE SCRIPTS (same as index.html) -->
+  <script src="assets/zoho-tracking.js"></script>
+  <script src="assets/lead-collector.js?v=20260921fix"></script>
+  <script src="assets/country-picker.js?v=20260919b"></script>
+  <script src="assets/main.js?v=20260919b"></script>
+</body>
+</html>
+

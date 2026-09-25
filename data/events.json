@@ -1,0 +1,167 @@
+[
+  {
+    "id": "ai-prompting-growth-hacking",
+    "title": "AI Prompting & Growth Hacking with ChatGPT-4o & Claude",
+    "subtitle": "Master prompt engineering frameworks to write ad copy, design funnels, and build campaign workflows in minutes.",
+    "type": "online",
+    "status": "upcoming",
+    "badge": "High Demand",
+    "date": "2026-09-28",
+    "dateDisplay": "Monday, Sep 28, 2026",
+    "time": "5:00 PM - 6:30 PM IST",
+    "duration": "90 Mins",
+    "location": "Live on Zoom (Interactive Q&A)",
+    "thumbnail": "assets/webinars/masterclass-ai-prompting.jpg",
+    "videoUrl": "",
+    "seatsLeft": 18,
+    "speaker": {
+      "name": "Paras Patel",
+      "role": "Founder & AI Marketing Strategist",
+      "photo": "assets/mentors/paras-patel.webp",
+      "bio": "Mentored 800+ students and consulted top brands on integrating generative AI into automated performance marketing engines."
+    },
+    "takeaways": [
+      "Battle-tested prompt frameworks for high-converting Meta & Google ad copy",
+      "Automating SEO content calendars with ChatGPT-4o & Claude 3.5",
+      "Setting up n8n multi-agent marketing workflows with zero coding",
+      "Live teardown of a real ₹10L/month e-commerce advertising funnel"
+    ],
+    "whoIsThisFor": [
+      "Job seekers & fresh graduates wanting high-salary AI skills",
+      "Performance marketers looking to 10x output and campaign ROAS",
+      "Founders & agency owners wanting to automate lead generation"
+    ]
+  },
+  {
+    "id": "meta-google-ads-bootcamp",
+    "title": "Meta & Google Performance Ads Bootcamp",
+    "subtitle": "How to structure campaigns, set up CBO/ABO budgets, and scale profitable advertising without burning cash.",
+    "type": "online",
+    "status": "upcoming",
+    "badge": "Live Bootcamp",
+    "date": "2026-10-03",
+    "dateDisplay": "Saturday, Oct 3, 2026",
+    "time": "11:00 AM - 12:30 PM IST",
+    "duration": "90 Mins",
+    "location": "Live on Zoom (Screen-Share Session)",
+    "thumbnail": "assets/webinars/masterclass-meta-ads.jpg",
+    "videoUrl": "",
+    "seatsLeft": 12,
+    "speaker": {
+      "name": "Alpesh Patel",
+      "role": "International Market & Media Buying Expert",
+      "photo": "assets/mentors/alpesh-patel.webp",
+      "bio": "15+ years experience counseling 5000+ businesses and running cross-border paid media campaigns across global markets."
+    },
+    "takeaways": [
+      "Meta Ads Manager account architecture: Advantage+ vs manual campaigns",
+      "Google Search & Performance Max bidding strategies for maximum ROAS",
+      "Conversion API (CAPI) and GA4 server-side event deduplication basics",
+      "Live audit of student ad creatives with instant mentor feedback"
+    ],
+    "whoIsThisFor": [
+      "Entrepreneurs running their own e-commerce and local business ads",
+      "Marketing professionals who want to transition into high-ticket media buying",
+      "Freelancers wanting to offer guaranteed ROI client packages"
+    ]
+  },
+  {
+    "id": "seo-generative-engine-optimization",
+    "title": "Full-Funnel SEO & Generative Engine Optimization (GEO)",
+    "subtitle": "How to rank #1 on Google Search and win top citations in AI Search Overviews (ChatGPT, Perplexity & Gemini).",
+    "type": "online",
+    "status": "upcoming",
+    "badge": "Future-Proof",
+    "date": "2026-10-07",
+    "dateDisplay": "Wednesday, Oct 7, 2026",
+    "time": "6:00 PM - 7:30 PM IST",
+    "duration": "90 Mins",
+    "location": "Live on Zoom (Interactive Q&A)",
+    "thumbnail": "assets/webinars/masterclass-seo-geo.jpg",
+    "videoUrl": "",
+    "seatsLeft": 25,
+    "speaker": {
+      "name": "Ketan Patel",
+      "role": "Senior Growth Consultant & SEO Coach",
+      "photo": "assets/mentors/ketan-patel.webp",
+      "bio": "Built organic traffic engines driving millions of impressions for consumer brands and export businesses worldwide."
+    },
+    "takeaways": [
+      "The new rules of Google search algorithms in the AI search era",
+      "How to optimize brand content to be cited in ChatGPT and Perplexity AI answers",
+      "Finding high-intent commercial keywords with SEMrush & Ahrefs in under 15 mins",
+      "Technical site hygiene: Core Web Vitals, schema markup, and internal link silos"
+    ],
+    "whoIsThisFor": [
+      "Content writers looking to master high-paying technical SEO",
+      "Brand managers wanting consistent, zero-ad-cost organic customer acquisition",
+      "College students aspiring to build authority websites or niche affiliate blogs"
+    ]
+  },
+  {
+    "id": "rajkot-campus-growth-lab",
+    "title": "Rajkot Campus Open Day & Live Growth Lab",
+    "subtitle": "Hands-on classroom experience at our Rajkot campus. Meet mentors, tour high-tech labs, and sit in on live campaign war-rooms.",
+    "type": "offline",
+    "status": "upcoming",
+    "badge": "In-Person Experience",
+    "date": "2026-10-10",
+    "dateDisplay": "Saturday, Oct 10, 2026",
+    "time": "10:30 AM - 1:00 PM IST",
+    "duration": "2.5 Hours",
+    "location": "Lime Digital Campus, 5th Floor, Jyoti Nagar Main Rd, behind Crystal Mall, Rajkot 360005",
+    "thumbnail": "assets/webinars/masterclass-offline-campus.jpg",
+    "videoUrl": "",
+    "seatsLeft": 9,
+    "speaker": {
+      "name": "Faculty & Mentor Panel",
+      "role": "Lime Digital Institute Mentors",
+      "photo": "assets/mentors/paras-patel.webp",
+      "bio": "Interactive session hosted by the full Lime faculty team with live 1-on-1 career counselling."
+    },
+    "takeaways": [
+      "Hands-on practice in our modern Rajkot workstation labs",
+      "1-on-1 profile evaluation with our career mentors to map your 6-figure marketing trajectory",
+      "Preview of live student client accounts running active ad spend",
+      "Complimentary masterclass participation certificate & campus networking"
+    ],
+    "whoIsThisFor": [
+      "Students & parents exploring career opportunities in digital business and AI",
+      "Saurashtra and Gujarat students seeking Rajkot's leading practical marketing institute",
+      "Local business owners wanting to scale their stores and exports"
+    ]
+  },
+  {
+    "id": "2026-ai-marketing-playbook",
+    "title": "The 2026 AI Marketing Playbook: From Prompt to Profit",
+    "subtitle": "Complete on-demand recording of our keynote masterclass on generative AI workflows, agentic automation, and high-ticket client acquisition.",
+    "type": "online",
+    "status": "completed",
+    "badge": "Watch Recording",
+    "date": "2026-09-15",
+    "dateDisplay": "Recorded Live Session",
+    "time": "Instant On-Demand Access",
+    "duration": "48 Mins",
+    "location": "Online Video Stream",
+    "thumbnail": "assets/webinars/masterclass-ondemand-blueprint.jpg",
+    "videoUrl": "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ",
+    "seatsLeft": 0,
+    "speaker": {
+      "name": "Paras Patel",
+      "role": "Founder, Lime Digital Institute",
+      "photo": "assets/mentors/paras-patel.webp",
+      "bio": "Keynote presentation delivered to 400+ attendees breaking down the modern AI tech stack."
+    },
+    "takeaways": [
+      "The 5 foundational pillars of generative AI marketing in 2026",
+      "Full breakdown of the 60+ AI tools taught in Lime Digital programs",
+      "Case study: How an alumni scaled a freelancing agency to ₹2.5L/month within 90 days",
+      "Downloadable masterclass slides and prompt cheatsheet PDF"
+    ],
+    "whoIsThisFor": [
+      "Anyone who missed the live session and wants immediate access",
+      "Learners who want to watch at 1.5x speed with complete chapter timestamps"
+    ]
+  }
+]
+

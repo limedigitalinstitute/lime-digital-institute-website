@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Portal | Lime Digital Institute</title>
+  <link rel="icon" href="../assets/lime-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css?v=20260920">
+</head>
+<body>
+
+  <!-- LOGIN SCREEN -->
+  <div id="loginScreen" class="auth-wrapper">
+    <div class="auth-card">
+      <div class="auth-brand">
+        <img src="../assets/lime-logo.png" alt="Lime Digital Institute" class="auth-logo">
+        <div class="auth-badge">Events &amp; Masterclasses</div>
+      </div>
+      <h1 class="auth-title">Admin Sign In</h1>
+      <p class="auth-sub">Manage masterclass sessions, toggle recordings, and review registrations.</p>
+
+      <div id="loginAlert" class="admin-alert hidden"></div>
+
+      <form id="loginForm" class="admin-form">
+        <div class="form-field">
+          <label for="adminUser">Admin ID or Email</label>
+          <input type="text" id="adminUser" class="form-input" placeholder="paras or admin@limeinstitute.org" required autocomplete="username">
+        </div>
+        <div class="form-field">
+          <label for="adminPass">Password</label>
+          <div class="input-with-toggle">
+            <input type="password" id="adminPass" class="form-input" placeholder="Enter password" required autocomplete="current-password">
+            <button type="button" id="togglePassBtn" class="pass-toggle-btn" aria-label="Toggle password visibility">👁️</button>
+          </div>
+        </div>
+        <button type="submit" id="loginBtn" class="btn-admin-primary" style="width:100%; margin-top:10px;">
+          <span>Sign In to Dashboard &rarr;</span>
+        </button>
+      </form>
+      <div class="auth-footer">
+        <span>Protected Admin System &middot; Lime Digital Institute</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD WRAPPER (Shown after login) -->
+  <div id="dashboardScreen" class="dash-wrapper hidden">
+    
+    <!-- Top Nav -->
+    <header class="dash-topbar">
+      <div class="topbar-left">
+        <img src="../assets/lime-logo.png" alt="Lime Digital Institute" class="dash-logo">
+        <span class="topbar-divider"></span>
+        <span class="topbar-tag">Masterclass Control Center</span>
+      </div>
+      <div class="topbar-right">
+        <a href="../free-masterclass.html" target="_blank" class="topbar-link">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          <span>View Live Hub</span>
+        </a>
+        <div class="user-pill">
+          <span class="user-avatar">P</span>
+          <span class="user-name">Paras Patel</span>
+        </div>
+        <button type="button" id="logoutBtn" class="btn-logout" title="Sign out">Log Out</button>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="dash-main">
+      <div class="dash-container">
+
+        <!-- Global Toast / Alert -->
+        <div id="dashToast" class="dash-toast hidden"></div>
+
+        <!-- Metrics Row -->
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-icon">📅</div>
+            <div class="metric-info">
+              <span class="metric-label">Total Sessions</span>
+              <span class="metric-val" id="statTotalEvents">0</span>
+            </div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon">🟢</div>
+            <div class="metric-info">
+              <span class="metric-label">Live / Upcoming</span>
+              <span class="metric-val" id="statUpcomingEvents">0</span>
+            </div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon">▶️</div>
+            <div class="metric-info">
+              <span class="metric-label">Watch Recording</span>
+              <span class="metric-val" id="statOnDemandEvents">0</span>
+            </div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon">👥</div>
+            <div class="metric-info">
+              <span class="metric-label">Total Registrations</span>
+              <span class="metric-val" id="statTotalLeads">0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabs Navigation -->
+        <div class="dash-tabs-bar">
+          <div class="tab-buttons">
+            <button type="button" class="tab-btn active" data-tab="eventsTab">
+              <span>Masterclass Sessions</span>
+              <span class="tab-count-badge" id="badgeEventsCount">0</span>
+            </button>
+            <button type="button" class="tab-btn" data-tab="leadsTab">
+              <span>Attendee Registrations</span>
+              <span class="tab-count-badge" id="badgeLeadsCount">0</span>
+            </button>
+            <button type="button" class="tab-btn" data-tab="sectionsTab">
+              <span>Page Sections</span>
+            </button>
+            <button type="button" class="tab-btn" data-tab="globalSectionsTab">
+              <span>Global Sections</span>
+            </button>
+          </div>
+          <div class="tab-actions">
+            <button type="button" id="openCreateModalBtn" class="btn-admin-primary">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              <span>Create New Session</span>
+            </button>
+            <button type="button" id="exportLeadsBtn" class="btn-admin-secondary hidden">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>Download Leads CSV</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- TAB 1: SESSIONS MANAGER -->
+        <section id="eventsTab" class="tab-pane active">
+          
+          <!-- Filter Controls -->
+          <div class="pane-filters">
+            <div class="filter-pills-group">
+              <button type="button" class="filter-chip active" data-filter="all">All (<span id="countFilterAll">0</span>)</button>
+              <button type="button" class="filter-chip" data-filter="upcoming">Upcoming (<span id="countFilterUpcoming">0</span>)</button>
+              <button type="button" class="filter-chip" data-filter="completed">Watch Recording (<span id="countFilterCompleted">0</span>)</button>
+              <button type="button" class="filter-chip" data-filter="online">Online</button>
+              <button type="button" class="filter-chip" data-filter="offline">Offline Campus</button>
+            </div>
+            <div class="search-box">
+              <input type="text" id="eventSearchInput" class="form-input search-input" placeholder="Search sessions by title...">
+            </div>
+          </div>
+
+          <!-- Sessions List Table / Cards -->
+          <div id="eventsListContainer" class="events-admin-list">
+            <!-- Dynamically Rendered via admin.js -->
+          </div>
+
+        </section>
+
+        <!-- TAB 2: ATTENDEE LEADS -->
+        <section id="leadsTab" class="tab-pane hidden">
+          
+          <div class="pane-filters">
+            <div class="leads-filter-select-wrap">
+              <label for="leadsEventFilter" class="filter-label">Filter by Masterclass:</label>
+              <select id="leadsEventFilter" class="form-input">
+                <option value="all">All Masterclasses</option>
+              </select>
+            </div>
+            <div class="search-box">
+              <input type="text" id="leadsSearchInput" class="form-input search-input" placeholder="Search attendee name, phone, email...">
+            </div>
+          </div>
+
+          <!-- Leads Table -->
+          <div class="table-card">
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Date &amp; Time</th>
+                    <th>Attendee Name</th>
+                    <th>WhatsApp Phone</th>
+                    <th>Email Address</th>
+                    <th>Masterclass Session</th>
+                    <th>Goal / Role</th>
+                  </tr>
+                </thead>
+                <tbody id="leadsTableBody">
+                  <!-- Dynamically populated -->
+                </tbody>
+              </table>
+            </div>
+            <div id="leadsEmptyState" class="empty-state hidden">
+              <div class="empty-icon">👥</div>
+              <div class="empty-title">No registrations recorded yet</div>
+              <p class="empty-sub">When students register on the event page, their entries will appear here in real-time.</p>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- TAB 3: PAGE SECTIONS (Mini CMS) -->
+        <section id="sectionsTab" class="tab-pane hidden">
+
+          <div class="pane-filters">
+            <div class="leads-filter-select-wrap">
+              <label for="sectionsPageSelect" class="filter-label">Page:</label>
+              <select id="sectionsPageSelect" class="form-input">
+                <option value="homepage">Homepage (index.html)</option>
+              </select>
+            </div>
+          </div>
+
+          <p class="empty-sub" style="margin-bottom:18px;">Edit the text below and click Save on a field to publish it live. Leaving a field blank keeps the original text on the page.</p>
+
+          <div id="sectionsFieldsContainer" class="table-card" style="padding:22px;">
+            <!-- Dynamically rendered via admin.js -->
+          </div>
+
+        </section>
+
+        <!-- TAB 4: GLOBAL SECTIONS (reusable blocks shared across pages) -->
+        <section id="globalSectionsTab" class="tab-pane hidden">
+
+          <p class="empty-sub" style="margin-bottom:18px;">
+            A global section's content is stored once and shared by every page that includes it. Edit it here and every page using it updates together &mdash; no per-page copy/paste.
+          </p>
+
+          <div id="globalSectionsList">
+            <!-- Dynamically rendered via admin.js: one card per registered global section -->
+          </div>
+
+        </section>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- CREATE / EDIT SESSION MODAL -->
+  <div id="sessionModal" class="modal-backdrop hidden">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div>
+          <h2 id="modalDialogTitle" class="modal-title">Create New Masterclass</h2>
+          <p class="modal-sub">Add a live session or on-demand recording to the masterclass portal.</p>
+        </div>
+        <button type="button" id="closeModalBtn" class="modal-close-btn">&times;</button>
+      </div>
+
+      <form id="sessionForm" class="modal-form">
+        <input type="hidden" id="editSessionId">
+
+        <div class="form-grid-2">
+          <div class="form-field">
+            <label for="eventTitle">Session Title *</label>
+            <input type="text" id="eventTitle" class="form-input" placeholder="e.g. AI Prompting &amp; Growth Hacking" required>
+          </div>
+          <div class="form-field">
+            <label for="eventSlug">URL Slug (unique ID)</label>
+            <input type="text" id="eventSlug" class="form-input" placeholder="e.g. ai-prompting-growth-hacking">
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="eventSubtitle">Short Subtitle / Hook</label>
+          <input type="text" id="eventSubtitle" class="form-input" placeholder="One clear sentence on what attendees will master.">
+        </div>
+
+        <div class="form-grid-3">
+          <div class="form-field">
+            <label for="eventType">Format / Type *</label>
+            <select id="eventType" class="form-input">
+              <option value="online">Online (Zoom / Web)</option>
+              <option value="offline">Offline (Rajkot Campus)</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="eventStatus">Status (Live vs Recording) *</label>
+            <select id="eventStatus" class="form-input">
+              <option value="upcoming">Upcoming (Open Registration)</option>
+              <option value="completed">Completed (Watch Recording)</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="eventBadge">Card Badge</label>
+            <input type="text" id="eventBadge" class="form-input" placeholder="e.g. High Demand, Live Bootcamp">
+          </div>
+        </div>
+
+        <div class="form-grid-3">
+          <div class="form-field">
+            <label for="eventDate">Date (YYYY-MM-DD)</label>
+            <input type="date" id="eventDate" class="form-input">
+          </div>
+          <div class="form-field">
+            <label for="eventDateDisplay">Date Display Text *</label>
+            <input type="text" id="eventDateDisplay" class="form-input" placeholder="e.g. Saturday, Oct 10, 2026" required>
+          </div>
+          <div class="form-field">
+            <label for="eventTime">Time &amp; Duration *</label>
+            <input type="text" id="eventTime" class="form-input" placeholder="e.g. 5:00 PM - 6:30 PM IST (90 Mins)" required>
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-field">
+            <label for="eventLocation">Location / Venue / Link</label>
+            <input type="text" id="eventLocation" class="form-input" placeholder="e.g. Live on Zoom or Rajkot Campus">
+          </div>
+          <div class="form-field">
+            <label for="eventSeatsLeft">Available Seats Count</label>
+            <input type="number" id="eventSeatsLeft" class="form-input" value="20" min="0">
+          </div>
+        </div>
+
+        <!-- Thumbnail & Video -->
+        <div class="form-grid-2">
+          <div class="form-field">
+            <label for="eventThumbnail">Thumbnail Banner Image *</label>
+            <select id="eventThumbnail" class="form-input">
+              <option value="assets/webinars/masterclass-ai-prompting.jpg">AI Prompting &amp; Automation Dashboard</option>
+              <option value="assets/webinars/masterclass-meta-ads.jpg">Meta &amp; Google Performance Ads</option>
+              <option value="assets/webinars/masterclass-seo-geo.jpg">SEO &amp; Generative Engine Optimization</option>
+              <option value="assets/webinars/masterclass-offline-campus.jpg">Rajkot Campus Workshop Photo</option>
+              <option value="assets/webinars/masterclass-ondemand-blueprint.jpg">On-Demand Recording Presentation</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="eventVideoUrl">Video Embed URL (for Watch Recording state)</label>
+            <input type="url" id="eventVideoUrl" class="form-input" placeholder="e.g. https://www.youtube-nocookie.com/embed/...">
+          </div>
+        </div>
+
+        <!-- Speaker Info -->
+        <div class="form-fieldset">
+          <div class="fieldset-title">Mentor / Speaker Details</div>
+          <div class="form-grid-3">
+            <div class="form-field">
+              <label for="speakerName">Speaker Name *</label>
+              <input type="text" id="speakerName" class="form-input" placeholder="e.g. Paras Patel" required>
+            </div>
+            <div class="form-field">
+              <label for="speakerRole">Speaker Title / Role</label>
+              <input type="text" id="speakerRole" class="form-input" placeholder="e.g. Founder &amp; AI Strategist">
+            </div>
+            <div class="form-field">
+              <label for="speakerPhoto">Speaker Photo Asset</label>
+              <select id="speakerPhoto" class="form-input">
+                <option value="assets/mentors/paras-patel.webp">Paras Patel (Founder)</option>
+                <option value="assets/mentors/alpesh-patel.webp">Alpesh Patel (International Expert)</option>
+                <option value="assets/mentors/ketan-patel.webp">Ketan Patel (SEO Growth Coach)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Content Lists -->
+        <div class="form-grid-2">
+          <div class="form-field">
+            <label for="eventTakeaways">Key Learnings / Takeaways (one per line)</label>
+            <textarea id="eventTakeaways" class="form-textarea" rows="4" placeholder="How to automate ad creatives&#10;Structuring CBO campaigns&#10;Live client teardown"></textarea>
+          </div>
+          <div class="form-field">
+            <label for="eventWhoIsThisFor">Who Should Attend (one per line)</label>
+            <textarea id="eventWhoIsThisFor" class="form-textarea" rows="4" placeholder="Job seekers wanting high-paying skills&#10;Marketers wanting to scale ROAS&#10;Local business owners"></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" id="cancelModalBtn" class="btn-admin-secondary">Cancel</button>
+          <button type="submit" id="saveSessionBtn" class="btn-admin-primary">Save Masterclass &rarr;</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="admin.js?v=20260920"></script>
+</body>
+</html>
+

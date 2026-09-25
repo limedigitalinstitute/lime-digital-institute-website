@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title id="pageTitle">Masterclass Registration | Lime Digital Institute</title>
+  <meta name="description" id="pageMetaDesc" content="Register for free live digital marketing and AI masterclasses at Lime Digital Institute.">
+  <link rel="icon" href="assets/lime-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css?v=20260921">
+  <style>
+    /* EVENT LP SPECIFIC STYLES */
+    :root {
+      --primary: #ED3237;
+      --event-accent: #ED3237;
+      --event-dark: #090D14;
+    }
+    .event-nav .nav-cta { display: flex !important; }
+    @media (max-width: 980px) {
+      .event-nav .nav-cta .btn-sm { padding: 9px 14px; font-size: 12.5px; }
+    }
+    .event-hero-section {
+      background: radial-gradient(circle at top right, rgba(237,50,55,0.18), transparent 45%),
+                  radial-gradient(circle at bottom left, rgba(15,23,42,0.9), transparent 60%),
+                  #0B111E;
+      color: #FFFFFF;
+      padding: 120px 0 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .event-hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 48px;
+      align-items: flex-start;
+    }
+    .event-badge-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .event-pill {
+      font-size: 11.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 5px 12px;
+      border-radius: 9999px;
+    }
+    .pill-format {
+      background: rgba(237,50,55,0.2);
+      color: #FF6B6B;
+      border: 1px solid rgba(237,50,55,0.4);
+    }
+    .pill-live {
+      background: rgba(16,185,129,0.2);
+      color: #34D399;
+      border: 1px solid rgba(16,185,129,0.4);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .pill-live .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #10B981;
+      animation: pulseDot 1.8s infinite;
+    }
+    @keyframes pulseDot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.6; }
+    }
+    .event-hero-title {
+      font-size: clamp(28px, 3.8vw, 44px);
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+      color: #FFFFFF;
+    }
+    .event-hero-sub {
+      font-size: 15.5px;
+      line-height: 1.6;
+      color: #94A3B8;
+      margin-bottom: 24px;
+    }
+    .event-meta-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      padding: 16px 20px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    .em-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .em-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #64748B;
+    }
+    .em-val {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #FFFFFF;
+    }
+
+    /* COUNTDOWN */
+    .countdown-block {
+      background: rgba(237,50,55,0.08);
+      border: 1px solid rgba(237,50,55,0.25);
+      border-radius: 12px;
+      padding: 18px 22px;
+      margin-bottom: 36px;
+    }
+    .countdown-header {
+      font-size: 11.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #FF8A8D;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .countdown-timer-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      text-align: center;
+    }
+    .cd-box {
+      background: rgba(15,23,42,0.8);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      padding: 10px 4px;
+    }
+    .cd-num {
+      font-size: 24px;
+      font-weight: 800;
+      color: #FFFFFF;
+      line-height: 1;
+      font-feature-settings: "tnum";
+    }
+    .cd-lbl {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #94A3B8;
+      margin-top: 4px;
+    }
+
+    /* STICKY REGISTRATION FORM */
+    .event-form-rail {
+      position: sticky;
+      top: 100px;
+      z-index: 20;
+    }
+    .event-form-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 45px rgba(0,0,0,0.25);
+      color: var(--ink-900);
+    }
+    .ef-banner-wrap {
+      position: relative;
+      height: 160px;
+      background: #0B111E;
+      overflow: hidden;
+    }
+    .ef-banner-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.9;
+    }
+    .ef-banner-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 80%);
+      display: flex;
+      align-items: flex-end;
+      padding: 16px 20px;
+    }
+    .ef-pass-badge {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 4px 10px;
+      background: var(--primary);
+      color: #FFFFFF;
+      border-radius: 9999px;
+    }
+    .ef-form-body {
+      padding: 24px 28px;
+    }
+    .ef-heading {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--ink-900);
+      margin-bottom: 4px;
+    }
+    .ef-sub {
+      font-size: 12.5px;
+      color: var(--ink-500);
+      margin-bottom: 18px;
+    }
+    .ef-trust-strip {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      font-size: 11.5px;
+      color: var(--ink-500);
+      font-weight: 600;
+    }
+
+    /* LEFT DETAIL SECTIONS */
+    .event-detail-section {
+      padding: 60px 0;
+      background: #FFFFFF;
+    }
+    .detail-block {
+      margin-bottom: 48px;
+    }
+    .detail-heading {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--ink-900);
+      margin-bottom: 20px;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .takeaways-checklist {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .takeaways-checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-size: 15px;
+      color: #94A3B8;
+      line-height: 1.5;
+    }
+    .tc-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: rgba(237,50,55,0.1);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: none;
+      font-weight: 800;
+      font-size: 13px;
+      margin-top: 2px;
+    }
+
+    /* SPEAKER BIO CARD */
+    .speaker-profile-box {
+      background: #F8FAFC;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px 28px;
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
+    .sp-photo {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #FFFFFF;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      flex: none;
+    }
+    .sp-name {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--ink-900);
+      margin-bottom: 2px;
+    }
+    .sp-role {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+    .sp-bio {
+      font-size: 13.5px;
+      color: var(--ink-500);
+      line-height: 1.5;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* STATE B: WATCH RECORDING CINEMA */
+    .cinema-wrapper {
+      background: #06090F;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.12);
+      overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+      margin-bottom: 36px;
+    }
+    .cinema-player {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 Aspect */
+      height: 0;
+      background: #000000;
+    }
+    .cinema-player iframe, .cinema-player video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .cinema-bar {
+      padding: 18px 24px;
+      background: #0F172A;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #FFFFFF;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+    .cinema-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #34D399;
+      background: rgba(16,185,129,0.15);
+      padding: 4px 10px;
+      border-radius: 9999px;
+    }
+    .cinema-download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      border-radius: 9999px;
+      background: #FFFFFF;
+      color: var(--ink-900);
+      font-size: 12.5px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .cinema-download-btn:hover {
+      background: #F1F5F9;
+    }
+
+    @media (max-width: 980px) {
+      .event-hero-grid {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+      .event-form-rail {
+        position: static;
+      }
+      .event-meta-card {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+    }
+  </style>
+</head>
+<body class="has-reveal-footer">
+
+  <!-- TOP TICKER -->
+  <div class="ticker-bar">
+    <div class="ticker-scroll">
+      <div class="ticker-track">
+        <span class="ticker-item">🔥 <strong>Live Masterclasses &amp; Workshops</strong> &middot; 100% Free &middot; Limited Batch Seats.</span>
+        <span class="ticker-item" aria-hidden="true">🔥 <strong>Live Masterclasses &amp; Workshops</strong> &middot; 100% Free &middot; Limited Batch Seats.</span>
+      </div>
+    </div>
+    <div class="ticker-divider"></div>
+    <a href="free-masterclass.html" class="ticker-cta">Browse All Sessions &rarr;</a>
+  </div>
+
+  <!-- EVENT NAV - minimal distraction-free bar, mirrors landing-page pattern -->
+  <nav class="nav event-nav has-ticker" id="nav">
+    <div class="wrap">
+      <div class="nav-inner">
+        <a class="nav-logo" href="index.html">
+          <img src="assets/lime-logo.png" alt="Lime Digital Institute">
+        </a>
+        <div class="nav-cta">
+          <a href="#registerCard" class="btn btn-glow btn-sm">Claim Free Seat &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT WRAPPER (Curtain-reveal architecture) -->
+  <main class="site-main-wrapper" id="siteMainWrapper">
+
+    <!-- HERO SECTION -->
+    <section class="event-hero-section">
+      <div class="wrap">
+        <div class="event-hero-grid">
+          
+          <!-- Left: Overview & Countdown -->
+          <div class="event-hero-left">
+            <div class="event-badge-row">
+              <span id="eventFormatPill" class="event-pill pill-format">Online Webinar</span>
+              <span id="eventStatusPill" class="event-pill pill-live"><span class="dot"></span> Live / Upcoming</span>
+              <span id="eventCategoryBadge" class="event-pill" style="background:rgba(255,255,255,0.1); color:#fff;">High Demand</span>
+            </div>
+
+            <h1 id="eventTitle" class="event-hero-title">AI Prompting &amp; Growth Hacking Masterclass</h1>
+            <p id="eventSubtitle" class="event-hero-sub">
+              Master prompt engineering frameworks to write ad copy, design funnels, and build campaign workflows in minutes.
+            </p>
+
+            <div class="event-meta-card">
+              <div class="em-item">
+                <span class="em-label">Date</span>
+                <span class="em-val" id="metaDate">Saturday, Sep 28</span>
+              </div>
+              <div class="em-item">
+                <span class="em-label">Time &amp; Duration</span>
+                <span class="em-val" id="metaTime">5:00 PM (90 Mins)</span>
+              </div>
+              <div class="em-item">
+                <span class="em-label">Venue / Mode</span>
+                <span class="em-val" id="metaVenue">Live on Zoom</span>
+              </div>
+            </div>
+
+            <!-- LIVE REGISTRATION STATE: COUNTDOWN -->
+            <div id="countdownBox" class="countdown-block">
+              <div class="countdown-header">
+                <span>Registration Closes In:</span>
+                <span id="countdownSeatsNotice" style="color:#FFFFFF; font-weight:700;">Limited Seats Left</span>
+              </div>
+              <div class="countdown-timer-grid">
+                <div class="cd-box"><div class="cd-num" id="cdDays">00</div><div class="cd-lbl">Days</div></div>
+                <div class="cd-box"><div class="cd-num" id="cdHours">00</div><div class="cd-lbl">Hours</div></div>
+                <div class="cd-box"><div class="cd-num" id="cdMins">00</div><div class="cd-lbl">Mins</div></div>
+                <div class="cd-box"><div class="cd-num" id="cdSecs">00</div><div class="cd-lbl">Secs</div></div>
+              </div>
+            </div>
+
+            <!-- STATE B: ON-DEMAND VIDEO CINEMA (Hidden for upcoming, active for completed) -->
+            <div id="cinemaBox" class="cinema-wrapper hidden">
+              <div class="cinema-player">
+                <iframe id="cinemaIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </div>
+              <div class="cinema-bar">
+                <span class="cinema-badge">✓ Full On-Demand Recording Available</span>
+                <a href="#" class="cinema-download-btn" onclick="alert('Session presentation slides and prompt cheat sheet PDF will download immediately.'); return false;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  <span>Download Slides PDF</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- KEY TAKEAWAYS -->
+            <div class="detail-block">
+              <h2 class="detail-heading" style="color:#fff;">What You Will Master:</h2>
+              <ul id="takeawaysList" class="takeaways-checklist" style="color:#94A3B8;">
+                <!-- Populated dynamically -->
+              </ul>
+            </div>
+
+            <!-- SPEAKER BIO -->
+            <div class="detail-block">
+              <h2 class="detail-heading" style="color:#fff;">Meet Your Mentor:</h2>
+              <div class="speaker-profile-box" style="background:rgba(255,255,255,0.04); border-color:rgba(255,255,255,0.1);">
+                <img id="speakerPhoto" src="assets/mentors/paras-patel.webp" alt="Speaker" class="sp-photo">
+                <div>
+                  <h3 id="speakerName" class="sp-name" style="color:#fff;">Paras Patel</h3>
+                  <div id="speakerRole" class="sp-role">Founder &amp; AI Marketing Strategist</div>
+                  <p id="speakerBio" class="sp-bio" style="color:#94A3B8;">Mentored 800+ students and consulted top brands on integrating generative AI into automated performance marketing engines.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- WHO IS THIS FOR -->
+            <div class="detail-block">
+              <h2 class="detail-heading" style="color:#fff;">Who Should Attend:</h2>
+              <ul id="whoIsThisForList" class="takeaways-checklist" style="color:#94A3B8;">
+                <!-- Populated dynamically -->
+              </ul>
+            </div>
+
+          </div>
+
+          <!-- Right Column: Registration Card / Sticky Rail -->
+          <div class="event-form-rail" id="registerCard">
+            <div class="event-form-card">
+              <div class="ef-banner-wrap">
+                <img src="assets/webinars/event-registration-side.jpg" alt="Masterclass Access Pass" class="ef-banner-img">
+                <div class="ef-banner-overlay">
+                  <span id="formPassBadge" class="ef-pass-badge">Official Free Pass</span>
+                </div>
+              </div>
+
+              <div class="ef-form-body">
+                <h3 id="formHeading" class="ef-heading">Reserve Your Free Seat</h3>
+                <p id="formSub" class="ef-sub">100% Free · Live Interactive Q&amp;A · Instant Access Details on WhatsApp</p>
+
+                <div id="formAlert" class="admin-alert hidden" style="margin-bottom:14px;"></div>
+
+                <form id="eventRegistrationForm" class="admin-form">
+                  <input type="hidden" id="formEventId" name="eventId">
+                  <input type="hidden" id="formEventTitle" name="eventTitle">
+
+                  <div class="form-field">
+                    <label for="regName">Full Name *</label>
+                    <input type="text" id="regName" class="form-input" placeholder="e.g. Rahul Sharma" required>
+                  </div>
+
+                  <div class="form-field">
+                    <label for="regPhone">WhatsApp Phone Number *</label>
+                    <div style="display:flex; gap:6px;">
+                      <select id="regCountryCode" class="form-input" style="width:105px !important; flex:none; font-weight:700; font-size:12.5px;">
+                        <option value="+91" selected>🇮🇳 +91</option>
+                        <option value="+1">🇺🇸 +1</option>
+                        <option value="+44">🇬🇧 +44</option>
+                        <option value="+971">🇦🇪 +971</option>
+                        <option value="+1">🇨🇦 +1</option>
+                        <option value="+61">🇦🇺 +61</option>
+                      </select>
+                      <input type="tel" id="regPhone" class="form-input" placeholder="Enter phone number" required pattern="[0-9]{7,15}" style="flex:1 1 0%; min-width:0; width:100% !important;">
+                    </div>
+                    <span style="font-size:11px; color:var(--ink-500); margin-top:2px;">You will receive the Zoom/Campus pass on WhatsApp</span>
+                  </div>
+
+                  <div class="form-field">
+                    <label for="regEmail">Email Address *</label>
+                    <input type="email" id="regEmail" class="form-input" placeholder="you@example.com" required>
+                  </div>
+
+                  <div class="form-field">
+                    <label for="regGoal">Your Current Goal / Status</label>
+                    <select id="regGoal" class="form-input">
+                      <option value="Seeking Job / Career Switch">Seeking High-Paying Digital Marketing Job</option>
+                      <option value="College Student">College Student / Fresh Graduate</option>
+                      <option value="Business Owner">Business Owner / Scaling Brand</option>
+                      <option value="Freelancer">Freelancer / Agency Founder</option>
+                    </select>
+                  </div>
+
+                  <label style="display:flex; align-items:flex-start; gap:8px; font-size:11.5px; color:var(--ink-500); cursor:pointer; margin-top:4px;">
+                    <input type="checkbox" checked required style="margin-top:2px;">
+                    <span>I agree to Lime Digital Institute's T&amp;C and Privacy Policy. Override NDNC.</span>
+                  </label>
+
+                  <button type="submit" id="submitRegBtn" class="btn btn-glow" style="width:100%; justify-content:center; margin-top:10px;">
+                    <span id="submitBtnText">Claim Free Masterclass Pass &rarr;</span>
+                  </button>
+                </form>
+
+                <div class="ef-trust-strip">
+                  <span>✓ 100% Free Forever</span>
+                  <span>✓ 4.9/5 Rating</span>
+                  <span>✓ Live Certificate</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- TOOLS SECTION -->
+    <section style="padding: 70px 0; background: #FFFFFF;">
+      <div class="wrap">
+        <div class="section-head center">
+          <div class="eyebrow center" style="color:var(--primary); font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:8px;">Industry Standard Stack</div>
+          <h2 class="h2" style="font-weight:800; font-size:32px; color:var(--ink-900);">Tools Explored In This Session</h2>
+        </div>
+        <div class="tools-grid">
+          <div class="tool-tile"><span class="tool-icon">🤖</span><span>ChatGPT-4o</span></div>
+          <div class="tool-tile"><span class="tool-icon">🧠</span><span>Claude 3.5</span></div>
+          <div class="tool-tile"><span class="tool-icon">📈</span><span>Meta Ads Manager</span></div>
+          <div class="tool-tile"><span class="tool-icon">🎯</span><span>Google Ads</span></div>
+          <div class="tool-tile"><span class="tool-icon">🔍</span><span>SEMrush</span></div>
+          <div class="tool-tile"><span class="tool-icon">⚙️</span><span>n8n Automations</span></div>
+        </div>
+      </div>
+    </section>
+
+  </main><!-- /#siteMainWrapper -->
+
+  <!-- FOOTER REVEAL SPACER (Curtain Reveal) -->
+  <div class="footer-reveal-spacer" id="footerRevealSpacer" aria-hidden="true"></div>
+
+  <!-- ANTIGRAVITY STICKY REVEAL FOOTER (Cleaned, no duplicate logo) -->
+  <footer class="antigravity-footer" id="antigravityFooter">
+    <div class="wrap">
+      <div class="ag-footer-top">
+        <div class="ag-footer-brand-col">
+          <span class="ag-footer-eyebrow">LIME DIGITAL INSTITUTE</span>
+          <h2 class="ag-footer-headline">Experience liftoff</h2>
+          <p class="ag-footer-desc">India's premier AI-powered digital business school. Where ambitious learners transform into industry-ready marketing leaders.</p>
+          <div class="ag-footer-actions">
+            <div class="ag-footer-socials">
+              <a href="https://instagram.com/limedigitalinstitute" target="_blank" rel="noopener" aria-label="Instagram" class="ag-social-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+              <a href="https://linkedin.com/school/limedigitalinstitute" target="_blank" rel="noopener" aria-label="LinkedIn" class="ag-social-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+              <a href="https://youtube.com/@limedigitalinstitute" target="_blank" rel="noopener" aria-label="YouTube" class="ag-social-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+            </div>
+          </div>
+        </div>
+        <div class="ag-footer-nav">
+          <div class="ag-footer-nav-col">
+            <span class="ag-col-label">Programs</span>
+            <ul class="ag-col-list">
+              <li><a href="foundation-program.html">Foundation (1.5 Mo)</a></li>
+              <li><a href="digital-marketing-professional.html">Advance Pro (3 Mo)</a></li>
+              <li><a href="bachelors-in-digital-business.html">Bachelor's Degree</a></li>
+              <li><a href="courses.html">Compare All Programs &rarr;</a></li>
+            </ul>
+          </div>
+          <div class="ag-footer-nav-col">
+            <span class="ag-col-label">Resources</span>
+            <ul class="ag-col-list">
+              <li><a href="free-masterclass.html">Free Masterclasses</a></li>
+              <li><a href="case-studies.html">Case Studies</a></li>
+              <li><a href="placements.html">Placement Report</a></li>
+            </ul>
+          </div>
+          <div class="ag-footer-nav-col ag-contact-col">
+            <div class="ag-contact-group">
+              <span class="ag-office-label">Contact:</span>
+              <div class="ag-contact-list">
+                <a href="mailto:digital@limeinstitute.org" class="ag-contact-item"><span>digital@limeinstitute.org</span></a>
+                <a href="tel:+917567787232" class="ag-contact-item"><span>+91 75677 87232</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ag-footer-bottom-group">
+        <div class="ag-footer-wordmark-wrap" aria-hidden="true">
+          <span class="ag-footer-wordmark">Lime Digital Institute</span>
+        </div>
+        <div class="ag-footer-bottom">
+          <div class="ag-footer-bottom-left">
+            <span class="ag-copyright">&copy; 2026 Lime Digital Institute. All rights reserved.</span>
+          </div>
+          <div class="ag-footer-bottom-right">
+            <a href="maintenance.html">Privacy Policy</a>
+            <span class="ag-sep">&bull;</span>
+            <a href="maintenance.html">Refund Policy</a>
+            <span class="ag-sep">&bull;</span>
+            <a href="contact.html">Contact Us</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- DYNAMIC LOADER & SUBMISSION LOGIC -->
+  <script>
+    (async function() {
+      // 1. Get event id from query string ?id=slug
+      const urlParams = new URLSearchParams(window.location.search);
+      const eventSlug = urlParams.get('id') || 'ai-prompting-growth-hacking';
+
+      let currentEvent = null;
+
+      try {
+        const res = await fetch(`/api/events?id=${encodeURIComponent(eventSlug)}`);
+        const data = await res.json();
+        if (data.success && data.event) {
+          currentEvent = data.event;
+        }
+      } catch (e) {
+        console.warn('Direct API fetch failed, trying static data fallback', e);
+      }
+
+      // If not loaded from API, try fetching all
+      if (!currentEvent) {
+        try {
+          const res = await fetch('/data/events.json');
+          const events = await res.json();
+          currentEvent = events.find(e => e.id === eventSlug) || events[0];
+        } catch (err) {
+          console.error('Failed to load event data', err);
+        }
+      }
+
+      if (!currentEvent) return;
+
+      // Populate DOM with Event Data
+      document.getElementById('pageTitle').textContent = `${currentEvent.title} | Lime Digital Institute`;
+      document.getElementById('eventTitle').textContent = currentEvent.title;
+      document.getElementById('eventSubtitle').textContent = currentEvent.subtitle || '';
+      document.getElementById('metaDate').textContent = currentEvent.dateDisplay || currentEvent.date;
+      document.getElementById('metaTime').textContent = currentEvent.time || '';
+      document.getElementById('metaVenue').textContent = currentEvent.location || '';
+      document.getElementById('formEventId').value = currentEvent.id;
+      document.getElementById('formEventTitle').value = currentEvent.title;
+
+      // Format Pill
+      const formatPill = document.getElementById('eventFormatPill');
+      formatPill.textContent = currentEvent.type === 'offline' ? 'Offline Campus Workshop' : 'Online Webinar';
+
+      // Status Pill
+      const statusPill = document.getElementById('eventStatusPill');
+      const isCompleted = currentEvent.status === 'completed' || currentEvent.status === 'ondemand';
+
+      if (isCompleted) {
+        statusPill.className = 'event-pill';
+        statusPill.style.background = 'rgba(168,85,247,0.2)';
+        statusPill.style.color = '#C084FC';
+        statusPill.style.border = '1px solid rgba(168,85,247,0.4)';
+        statusPill.innerHTML = '▶ Watch Recording On-Demand';
+
+        // Show Cinema Player Box, Hide Countdown
+        document.getElementById('countdownBox').classList.add('hidden');
+        const cinemaBox = document.getElementById('cinemaBox');
+        cinemaBox.classList.remove('hidden');
+        if (currentEvent.videoUrl) {
+          document.getElementById('cinemaIframe').src = currentEvent.videoUrl;
+        }
+
+        // Adjust Form Heading
+        document.getElementById('formHeading').textContent = 'Get Recording Pass & Slides';
+        document.getElementById('formSub').textContent = 'Enter your details to receive instant access to this full masterclass recording and downloadable resource pack.';
+        document.getElementById('submitBtnText').textContent = 'Unlock Recording & Slides →';
+      } else {
+        statusPill.className = 'event-pill pill-live';
+        statusPill.innerHTML = '<span class="dot"></span> Live / Upcoming';
+        document.getElementById('countdownBox').classList.remove('hidden');
+        document.getElementById('cinemaBox').classList.add('hidden');
+      }
+
+      // Takeaways
+      const takeawaysList = document.getElementById('takeawaysList');
+      if (Array.isArray(currentEvent.takeaways) && currentEvent.takeaways.length > 0) {
+        takeawaysList.innerHTML = currentEvent.takeaways.map(t => `
+          <li><span class="tc-icon">✓</span><span>${t}</span></li>
+        `).join('');
+      }
+
+      // Speaker
+      if (currentEvent.speaker) {
+        document.getElementById('speakerName').textContent = currentEvent.speaker.name || 'Lime Digital Mentor';
+        document.getElementById('speakerRole').textContent = currentEvent.speaker.role || 'Industry Practitioner';
+        document.getElementById('speakerBio').textContent = currentEvent.speaker.bio || '';
+        if (currentEvent.speaker.photo) {
+          document.getElementById('speakerPhoto').src = currentEvent.speaker.photo;
+        }
+      }
+
+      // Who should attend
+      const whoList = document.getElementById('whoIsThisForList');
+      if (Array.isArray(currentEvent.whoIsThisFor) && currentEvent.whoIsThisFor.length > 0) {
+        whoList.innerHTML = currentEvent.whoIsThisFor.map(w => `
+          <li><span class="tc-icon">→</span><span>${w}</span></li>
+        `).join('');
+      }
+
+      // Countdown Timer
+      function startCountdown() {
+        const eventDateStr = currentEvent.date || '2026-09-28';
+        const target = new Date(`${eventDateStr}T17:00:00+05:30`).getTime();
+
+        function tick() {
+          const now = new Date().getTime();
+          const diff = target - now;
+          if (diff <= 0) {
+            document.getElementById('cdDays').textContent = '00';
+            document.getElementById('cdHours').textContent = '00';
+            document.getElementById('cdMins').textContent = '00';
+            document.getElementById('cdSecs').textContent = '00';
+            return;
+          }
+          const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+          const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+          document.getElementById('cdDays').textContent = String(days).padStart(2, '0');
+          document.getElementById('cdHours').textContent = String(hours).padStart(2, '0');
+          document.getElementById('cdMins').textContent = String(mins).padStart(2, '0');
+          document.getElementById('cdSecs').textContent = String(secs).padStart(2, '0');
+        }
+        tick();
+        setInterval(tick, 1000);
+      }
+      if (!isCompleted) startCountdown();
+
+      // Form Submission
+      const form = document.getElementById('eventRegistrationForm');
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const submitBtn = document.getElementById('submitRegBtn');
+        const submitBtnText = document.getElementById('submitBtnText');
+        const originalText = submitBtnText.textContent;
+        submitBtn.disabled = true;
+        submitBtnText.textContent = 'Saving Your Seat...';
+
+        const name = document.getElementById('regName').value.trim();
+        const phone = document.getElementById('regPhone').value.trim();
+        const countryCode = document.getElementById('regCountryCode').value;
+        const email = document.getElementById('regEmail').value.trim();
+        const goal = document.getElementById('regGoal').value;
+        const isCompletedEvent = isCompleted;
+        const formLabel = isCompletedEvent ? 'Free Masterclass - Get Recording Pass' : 'Free Masterclass - Register Free Seat';
+        const utmFormLabel = isCompletedEvent ? 'masterclass_recording_pass' : 'masterclass_register_seat';
+
+        const payload = {
+          eventId: currentEvent.id,
+          eventTitle: currentEvent.title,
+          name,
+          phone,
+          country_code: countryCode,
+          email,
+          goal
+        };
+
+        // ── 1. Fire LimeLeadCollector (Supabase + Zoho) with full UTM attribution ──
+        if (window.LimeLeadCollector) {
+          try {
+            window.LimeLeadCollector.submitLead({
+              name,
+              phone,
+              country_code: countryCode,
+              email,
+              goal,
+              event_id: currentEvent.id,
+              event_title: currentEvent.title,
+              form_name: formLabel,
+              utm_form: utmFormLabel,
+              cta_text: originalText,
+              button_id: 'btn-event-register'
+            });
+          } catch (lcErr) {
+            console.warn('[Lime Leads] LimeLeadCollector call error:', lcErr);
+          }
+        }
+
+        // ── 2. Also POST to local /api/register (saves to registrations.json, decrements seats) ──
+        try {
+          const res = await fetch('/api/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          const result = await res.json();
+          if (result.success) {
+            const redirectParams = new URLSearchParams({
+              id: currentEvent.id,
+              name: payload.name,
+              email: payload.email,
+              phone: payload.phone,
+              title: currentEvent.title,
+              date: currentEvent.dateDisplay || currentEvent.date,
+              time: currentEvent.time || '',
+              location: currentEvent.location || ''
+            });
+            window.location.href = `event-thank-you.html?${redirectParams.toString()}`;
+            return;
+          }
+        } catch (err) {
+          console.warn('API error, falling back to direct redirect', err);
+        }
+
+        // ── 3. Fallback redirect ──
+        const redirectParams = new URLSearchParams({
+          id: currentEvent.id,
+          name: payload.name,
+          title: currentEvent.title
+        });
+        window.location.href = `event-thank-you.html?${redirectParams.toString()}`;
+      });
+
+      // Footer spacer sync
+      function syncSpacer() {
+        const footer = document.getElementById('antigravityFooter');
+        const spacer = document.getElementById('footerRevealSpacer');
+        if (footer && spacer && window.innerWidth > 768) {
+          spacer.style.height = footer.offsetHeight + 'px';
+        } else if (spacer) {
+          spacer.style.height = '0px';
+        }
+      }
+      syncSpacer();
+      window.addEventListener('resize', syncSpacer);
+    })();
+  </script>
+  <!-- NAV + SITE-WIDE SCRIPTS (same as index.html) -->
+  <script src="assets/zoho-tracking.js"></script>
+  <script src="assets/lead-collector.js?v=20260921fix"></script>
+  <script src="assets/country-picker.js?v=20260919b"></script>
+  <script src="assets/main.js?v=20260919b"></script>
+</body>
+</html>

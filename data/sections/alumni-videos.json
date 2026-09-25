@@ -1,0 +1,27 @@
+{
+  "type": "video-testimonials",
+  "heading": "Hear From <span>Our Alumni</span>",
+  "subhead": "Discover student success stories and how Lime Digital shaped careers.",
+  "items": [
+    {
+      "name": "Patel Drashti",
+      "role": "Founder, Dhritiva",
+      "photo": "assets/video-testimonials/patel-drashti.jpg"
+    },
+    {
+      "name": "Vedang Pedhadiya",
+      "role": "Co Founder, Polygen",
+      "photo": "assets/video-testimonials/vedang-pedhadiya.jpg"
+    },
+    {
+      "name": "Abhishek Malani",
+      "role": "Co Founder, Pletinus Group",
+      "photo": "assets/video-testimonials/abhishek-malani.jpg"
+    },
+    {
+      "name": "Ripal Dudhagara",
+      "role": "Founder, Antra Auto Tech",
+      "photo": "assets/video-testimonials/ripal-dudhagara.jpg"
+    }
+  ]
+}
