@@ -556,12 +556,36 @@
     sectionsIdList.innerHTML = sections.map((sec, i) => {
       const heading = sec.querySelector('h1, h2, h3');
       const label = heading ? heading.textContent.trim().slice(0, 40) : sec.id;
-      return `<button type="button" class="section-id-chip" data-section-id="${sec.id}"><span class="chip-pos">${i + 1}</span><span class="chip-hash">#</span>${sec.id}${heading ? ' — ' + label : ''}</button>`;
+      return `<span class="section-id-chip-wrap">
+        <button type="button" class="chip-move-btn" data-move="up" data-section-id="${sec.id}" title="Move up" ${i === 0 ? 'disabled' : ''}>&#8593;</button>
+        <button type="button" class="chip-move-btn" data-move="down" data-section-id="${sec.id}" title="Move down" ${i === sections.length - 1 ? 'disabled' : ''}>&#8595;</button>
+        <button type="button" class="section-id-chip" data-section-id="${sec.id}"><span class="chip-pos">${i + 1}</span><span class="chip-hash">#</span>${sec.id}${heading ? ' — ' + label : ''}</button>
+      </span>`;
     }).join('');
 
     sectionsIdList.querySelectorAll('.section-id-chip').forEach(chip => {
       chip.addEventListener('click', () => openPreviewModal(page, chip.dataset.sectionId));
     });
+
+    sectionsIdList.querySelectorAll('.chip-move-btn').forEach(btn => {
+      btn.addEventListener('click', () => moveSection(page, btn.dataset.sectionId, btn.dataset.move));
+    });
+  }
+
+  // Calls the server-side reorder endpoint, which swaps the two adjacent
+  // top-level <section> blocks directly in the live HTML file (byte-exact,
+  // nothing else in the file is touched). Re-scans the chip list after.
+  async function moveSection(page, sectionId, direction) {
+    const res = await apiRequest(`${API_BASE}/reorder-section`, {
+      method: 'POST',
+      body: { page, sectionId, direction }
+    });
+    if (res.success) {
+      showToast(`Moved #${sectionId} ${direction}`);
+      renderSectionIdList(page);
+    } else {
+      showToast(res.error || 'Could not move section');
+    }
   }
 
   // Opens the full preview popup for a page, at the current viewport

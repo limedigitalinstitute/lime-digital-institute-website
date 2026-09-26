@@ -926,14 +926,49 @@ body {
   gap: 8px;
 }
 
+.section-id-chip-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--border);
+  background: #fff;
+  padding: 3px;
+}
+
+.chip-move-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border: 0;
+  background: transparent;
+  border-radius: 50%;
+  color: var(--ink-500);
+  font-size: 13px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.chip-move-btn:hover:not(:disabled) {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+.chip-move-btn:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
 .section-id-chip {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   padding: 6px 12px;
   border-radius: var(--r-pill);
-  border: 1px solid var(--border);
-  background: #fff;
+  border: 0;
+  background: transparent;
   font-size: 12.5px;
   font-weight: 600;
   color: var(--ink-700);
