@@ -2715,12 +2715,36 @@ h1, h2, h3, h4, h5, h6 {
 @media (max-width: 680px) {
   .hiw { padding: 48px 0; }
   .hiw-head-block { margin-bottom: 36px; }
-  .hiw-grid { grid-template-columns: 1fr; gap: 16px; }
-  .hiw-card { padding: 28px 22px 32px; }
-  .hiw-icon { width: 90px; height: 90px; margin-bottom: 20px; }
-  .hiw-icon img { width: 90px; height: 90px; }
-  .hiw-icon svg { width: 30px; height: 30px; }
-  .hiw-card h3 { font-size: 18px; }
+  .hiw-grid { grid-template-columns: 1fr; gap: 12px; }
+  /* Icon-left, text-right card — matches courses.html's #who mobile layout */
+  .hiw-card {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    grid-template-areas: "icon step" "icon title" "icon text";
+    align-items: start;
+    column-gap: 14px;
+    row-gap: 4px;
+    padding: 12px;
+    border-radius: 14px;
+    text-align: left;
+  }
+  .hiw-step {
+    grid-area: step;
+    margin: 0;
+    display: inline-block;
+    width: fit-content;
+    padding: 3px 8px;
+    font-size: 11px;
+    font-weight: 800;
+    border-radius: 4px;
+    background: rgba(237, 50, 55, .1);
+    color: var(--primary);
+  }
+  .hiw-icon { grid-area: icon; width: 64px; height: 64px; margin-bottom: 0; }
+  .hiw-icon img { width: 64px; height: 64px; }
+  .hiw-icon svg { width: 24px; height: 24px; }
+  .hiw-card h3 { grid-area: title; margin: 0; font-size: 15px; }
+  .hiw-card p { grid-area: text; font-size: 12.5px; }
 }
 
 .system-steps { padding: 110px 0; background: var(--surface-alt); }
@@ -5139,19 +5163,38 @@ select.curr-country-select:hover {
   }
   .why-lime-grid {
     grid-template-columns: 1fr;
-    gap: 14px;
+    gap: 12px;
   }
+  /* Icon-left, text-right card — matches courses.html's #who mobile layout */
   .why-lime-card {
-    padding: 28px 20px 24px;
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    grid-template-areas: "icon title" "icon text";
+    align-items: start;
+    column-gap: 14px;
+    row-gap: 4px;
+    padding: 12px;
+    border-radius: 14px;
+    text-align: left;
   }
   .why-lime-icon-wrap {
-    width: 72px;
-    height: 72px;
-    margin-bottom: 16px;
+    grid-area: icon;
+    width: 64px;
+    height: 64px;
+    margin-bottom: 0;
   }
   .why-lime-icon {
-    width: 68px;
-    height: 68px;
+    width: 64px;
+    height: 64px;
+  }
+  .why-lime-card-title {
+    grid-area: title;
+    margin: 0;
+    font-size: 15px;
+  }
+  .why-lime-card-text {
+    grid-area: text;
+    font-size: 12.5px;
   }
 }
 
