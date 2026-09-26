@@ -1518,8 +1518,10 @@ body.footer-revealed .desktop-dock {
   .lid-testimonials-section{padding:24px 0 48px;}
   .lid-testi-head{margin-bottom:24px;}
 }
-@media(max-width:580px){
-  .lid-video-grid{gap:12px;margin-bottom:28px;}
+@media(max-width:768px){
+  .lid-video-grid{display:flex;grid-template-columns:none;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:12px;margin-bottom:28px;padding-bottom:2px;}
+  .lid-video-grid::-webkit-scrollbar{display:none;}
+  .lid-video-card{flex:0 0 88%;scroll-snap-align:start;}
   .lid-play-pill{bottom:10px;padding:6px 12px;font-size:11px;gap:5px;}
 }
 .lid-video-carousel-wrap{position:relative}

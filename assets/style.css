@@ -1817,10 +1817,22 @@ select.lid-country-select:hover {
     text-align: center;
   }
 }
-@media (max-width: 580px) {
+@media (max-width: 768px) {
   .lid-video-grid {
+    display: flex;
+    grid-template-columns: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
     gap: 12px;
     margin-bottom: 28px;
+    padding-bottom: 2px;
+  }
+  .lid-video-grid::-webkit-scrollbar { display: none; }
+  .lid-video-card {
+    flex: 0 0 88%;
+    scroll-snap-align: start;
   }
   .lid-play-pill {
     bottom: 10px;
