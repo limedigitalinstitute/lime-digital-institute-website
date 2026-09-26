@@ -104,7 +104,7 @@
     submitBtn.disabled = true;
     submitBtn.textContent = 'Verifying credentials...';
 
-    const res = await apiRequest(`${API_BASE}/auth/login`, {
+    const res = await apiRequest(`${API_BASE}/auth`, {
       method: 'POST',
       body: { username: adminUser.value.trim(), password: adminPass.value }
     });
