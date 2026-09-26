@@ -3161,6 +3161,25 @@ h1, h2, h3, h4, h5, h6 {
   color: #ffffff; font-size: 13px; font-weight: 600;
 }
 
+/* ===== RAJKOT CAMPUS VISIT CARD (paired with marquee gallery below) ===== */
+.campus-visit-row { display: flex; flex-direction: column; gap: 20px; padding: 0 0 4px; }
+.campus-visit-card {
+  flex: 0 0 auto; background: #fff; border: 1px solid #e5e5e5; border-radius: 16px;
+  padding: 22px 20px; box-shadow: 0 2px 10px rgba(0,0,0,.04);
+}
+.campus-visit-card h3 { font-size: 19px; font-weight: 800; color: #0b1329; margin-bottom: 8px; line-height: 1.28; }
+.campus-visit-card > p { font-size: 13.5px; color: #64748b; line-height: 1.55; margin-bottom: 16px; }
+.campus-visit-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+.campus-visit-list li { display: flex; align-items: flex-start; gap: 9px; font-size: 13px; font-weight: 600; color: #1e293b; }
+.campus-visit-list svg { color: var(--primary); flex-shrink: 0; margin-top: 1px; }
+.campus-visit-btn { width: 100%; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+@media (min-width: 900px) {
+  .campus-visit-row { flex-direction: row; align-items: center; gap: 32px; }
+  .campus-visit-card { flex: 0 0 340px; padding: 28px 26px; }
+  .campus-visit-card h3 { font-size: 22px; }
+  .campus-marquee-container { flex: 1; min-width: 0; }
+}
+
 /* ===== LID-STYLE CAMPUS EXPERIENCE MARQUEE GALLERY ===== */
 .campus-marquee-container {
   position: relative;
