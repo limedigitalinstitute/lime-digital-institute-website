@@ -553,10 +553,10 @@
       return;
     }
 
-    sectionsIdList.innerHTML = sections.map(sec => {
+    sectionsIdList.innerHTML = sections.map((sec, i) => {
       const heading = sec.querySelector('h1, h2, h3');
       const label = heading ? heading.textContent.trim().slice(0, 40) : sec.id;
-      return `<button type="button" class="section-id-chip" data-section-id="${sec.id}"><span class="chip-hash">#</span>${sec.id}${heading ? ' — ' + label : ''}</button>`;
+      return `<button type="button" class="section-id-chip" data-section-id="${sec.id}"><span class="chip-pos">${i + 1}</span><span class="chip-hash">#</span>${sec.id}${heading ? ' — ' + label : ''}</button>`;
     }).join('');
 
     sectionsIdList.querySelectorAll('.section-id-chip').forEach(chip => {
