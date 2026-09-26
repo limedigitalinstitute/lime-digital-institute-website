@@ -2,7 +2,7 @@
 require_once __DIR__ . '/_auth.php';
 
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, PUT, OPTIONS");
+header("Access-Control-Allow-Methods: GET, PUT, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Content-Type: application/json; charset=UTF-8");
 
@@ -71,6 +71,22 @@ if ($method === 'PUT' || $method === 'POST') {
     if (!is_dir($SECTIONS_DIR)) mkdir($SECTIONS_DIR, 0755, true);
     file_put_contents($file, json_encode($body, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
     echo json_encode(["success" => true, "name" => $name, "section" => $body]);
+    exit;
+}
+
+if ($method === 'DELETE') {
+    if (!checkAuthHeader()) {
+        http_response_code(401);
+        echo json_encode(["success" => false, "error" => "Unauthorized"]);
+        exit;
+    }
+    if (!file_exists($file)) {
+        http_response_code(404);
+        echo json_encode(["success" => false, "error" => "Section not found"]);
+        exit;
+    }
+    @unlink($file);
+    echo json_encode(["success" => true, "name" => $name]);
     exit;
 }
 
