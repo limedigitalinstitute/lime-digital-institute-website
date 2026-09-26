@@ -514,9 +514,13 @@
   const sectionsPageSelect = document.getElementById('sectionsPageSelect');
   const sectionsFieldsContainer = document.getElementById('sectionsFieldsContainer');
   const sectionsIdList = document.getElementById('sectionsIdList');
+  const previewModal = document.getElementById('previewModal');
   const previewFrame = document.getElementById('previewFrame');
   const previewFrameWrap = document.getElementById('previewFrameWrap');
+  const previewModalSectionLabel = document.getElementById('previewModalSectionLabel');
   let sectionsLoaded = false;
+  let currentPreviewPage = null;
+  let currentPreviewSectionId = null;
 
   // Populate the page dropdown from PAGES_MAP once, in display order.
   if (sectionsPageSelect) {
@@ -525,20 +529,23 @@
     ).join('');
   }
 
-  // Scans the loaded preview iframe for every <section id="..."> and
-  // renders them as clickable chips. Clicking one scrolls the iframe to
-  // that section and briefly outlines it, so it's easy to point at a
-  // section visually and read off its exact id to hand to Claude.
-  function renderSectionIdList() {
+  // Fetches the page's raw HTML (no iframe needed) and parses every
+  // <section id="..."> out of it, rendering them as clickable chips.
+  // Clicking a chip opens the full preview popup scrolled to that section.
+  async function renderSectionIdList(page) {
     if (!sectionsIdList) return;
+    const p = PAGES_MAP[page];
+    if (!p) return;
+    sectionsIdList.innerHTML = '<p class="empty-sub">Loading sections...</p>';
+
     let doc;
     try {
-      doc = previewFrame.contentDocument;
+      const html = await fetch(p.file).then(r => r.text());
+      doc = new DOMParser().parseFromString(html, 'text/html');
     } catch (e) {
-      sectionsIdList.innerHTML = '<p class="empty-sub">Preview not loaded yet.</p>';
+      sectionsIdList.innerHTML = '<p class="empty-sub">Could not load this page to scan sections.</p>';
       return;
     }
-    if (!doc) return;
 
     const sections = Array.from(doc.querySelectorAll('section[id]'));
     if (sections.length === 0) {
@@ -553,43 +560,59 @@
     }).join('');
 
     sectionsIdList.querySelectorAll('.section-id-chip').forEach(chip => {
-      chip.addEventListener('click', () => {
-        const id = chip.dataset.sectionId;
-        const target = doc.getElementById(id);
-        if (!target) return;
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        target.classList.add('section-highlight-flash');
-        setTimeout(() => target.classList.remove('section-highlight-flash'), 1600);
-      });
+      chip.addEventListener('click', () => openPreviewModal(page, chip.dataset.sectionId));
     });
   }
 
-  function loadPreviewForPage(page) {
+  // Opens the full preview popup for a page, at the current viewport
+  // (desktop/tablet/mobile), scrolled to the given section id via #hash
+  // navigation (native browser scroll, no cross-frame DOM access needed).
+  function openPreviewModal(page, sectionId) {
     const p = PAGES_MAP[page];
-    if (!p || !previewFrame) return;
-    previewFrame.onload = renderSectionIdList;
-    previewFrame.src = p.file;
+    if (!p || !previewModal) return;
+    currentPreviewPage = page;
+    currentPreviewSectionId = sectionId || null;
+    previewModalSectionLabel.textContent = sectionId ? `→ #${sectionId}` : '';
+    previewFrame.src = p.file + (sectionId ? '#' + sectionId : '');
+    previewModal.classList.remove('hidden');
   }
+
+  function closePreviewModal() {
+    if (!previewModal) return;
+    previewModal.classList.add('hidden');
+    previewFrame.src = 'about:blank';
+  }
+
+  const previewCloseBtn = document.getElementById('previewCloseBtn');
+  if (previewCloseBtn) previewCloseBtn.addEventListener('click', closePreviewModal);
+  if (previewModal) {
+    previewModal.addEventListener('click', (e) => {
+      if (e.target === previewModal) closePreviewModal();
+    });
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && previewModal && !previewModal.classList.contains('hidden')) closePreviewModal();
+  });
 
   const previewRefreshBtn = document.getElementById('previewRefreshBtn');
   if (previewRefreshBtn) {
-    previewRefreshBtn.addEventListener('click', () => loadPreviewForPage(sectionsPageSelect.value));
+    previewRefreshBtn.addEventListener('click', () => {
+      if (currentPreviewPage) openPreviewModal(currentPreviewPage, currentPreviewSectionId);
+    });
   }
 
   document.querySelectorAll('.preview-toggle-btn[data-viewport]').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.preview-toggle-btn[data-viewport]').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      if (btn.dataset.viewport === 'mobile') {
-        previewFrameWrap.classList.add('mobile');
-      } else {
-        previewFrameWrap.classList.remove('mobile');
-      }
+      previewFrameWrap.classList.remove('tablet', 'mobile');
+      if (btn.dataset.viewport === 'tablet') previewFrameWrap.classList.add('tablet');
+      if (btn.dataset.viewport === 'mobile') previewFrameWrap.classList.add('mobile');
     });
   });
 
   async function loadSectionsForPage(page) {
-    loadPreviewForPage(page);
+    renderSectionIdList(page);
     const fields = SECTIONS_REGISTRY[page] || [];
     sectionsFieldsContainer.innerHTML = '<p class="empty-sub">Loading...</p>';
 
