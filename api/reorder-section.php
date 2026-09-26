@@ -5,6 +5,7 @@ ini_set('display_errors', '0');
 error_reporting(0);
 
 require_once __DIR__ . '/_auth.php';
+require_once __DIR__ . '/_section-parser.php';
 
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, OPTIONS");
@@ -28,33 +29,7 @@ if (!checkAuthHeader()) {
     exit;
 }
 
-// Whitelist of page keys -> real file path, so the request body can never
-// point this at an arbitrary file on disk. Keep in sync with PAGES_MAP in
-// lime-admin/admin.js.
-$PAGE_FILES = [
-    'homepage' => 'index.html',
-    'about' => 'about.html',
-    'courses' => 'courses.html',
-    'foundation-program' => 'foundation-program.html',
-    'digital-marketing-professional' => 'digital-marketing-professional.html',
-    'bachelors-in-digital-business' => 'bachelors-in-digital-business.html',
-    'masters-in-digital-business' => 'masters-in-digital-business.html',
-    'case-studies' => 'case-studies.html',
-    'placements' => 'placements.html',
-    'hire-from-us' => 'hire-from-us.html',
-    'trainers' => 'trainers.html',
-    'student-life' => 'student-life.html',
-    'alumni' => 'alumni.html',
-    'reviews' => 'reviews.html',
-    'blog' => 'blog.html',
-    'contact' => 'contact.html',
-    'refer-earn' => 'refer-earn.html',
-    'free-masterclass' => 'free-masterclass.html',
-    'event' => 'event.html',
-    '3-day-demo-class' => '3-day-demo-class.html',
-    'thank-you' => 'thank-you.html',
-    'event-thank-you' => 'event-thank-you.html',
-];
+$PAGE_FILES = lime_page_files();
 
 $body = json_decode(file_get_contents('php://input'), true);
 if (!is_array($body)) {
@@ -91,62 +66,6 @@ if (!file_exists($filePath)) {
 }
 
 $original = file_get_contents($filePath);
-
-// --- Locate every TOP-LEVEL <section>...</section> block in the file. ---
-// A "block" is: the gap text right after the previous block (whitespace,
-// HTML comments) + the section tag itself + its content, up to the matching
-// </section>. Depth tracking means a <section> nested inside another one
-// (none exist in this codebase today, but stay safe) is absorbed into its
-// parent's block instead of being treated as a sibling.
-function find_top_level_sections($html) {
-    $blocks = [];
-    $offset = 0;
-    $len = strlen($html);
-    $cursor = 0; // end of the previously closed top-level block
-
-    while (preg_match('/<section\b/i', $html, $m, PREG_OFFSET_CAPTURE, $offset)) {
-        $tagStart = $m[0][1];
-        $depth = 1;
-        $scan = $tagStart + strlen($m[0][0]);
-        $endOfBlock = null;
-
-        while (preg_match('/<section\b|<\/section\s*>/i', $html, $m2, PREG_OFFSET_CAPTURE, $scan)) {
-            $isClose = (stripos($m2[0][0], '/') !== false);
-            $pos = $m2[0][1];
-            $tokLen = strlen($m2[0][0]);
-            if ($isClose) {
-                $depth--;
-                if ($depth === 0) {
-                    $endOfBlock = $pos + $tokLen;
-                    break;
-                }
-            } else {
-                $depth++;
-            }
-            $scan = $pos + $tokLen;
-        }
-
-        if ($endOfBlock === null) {
-            // Unbalanced tags somewhere — bail out, caller treats this as failure.
-            return null;
-        }
-
-        $idMatch = null;
-        preg_match('/<section\b[^>]*\bid=["\']([a-zA-Z0-9\-]+)["\']/i', substr($html, $tagStart, $endOfBlock - $tagStart), $idm);
-        $id = isset($idm[1]) ? $idm[1] : null;
-
-        $blocks[] = [
-            'gap' => substr($html, $cursor, $tagStart - $cursor),
-            'html' => substr($html, $tagStart, $endOfBlock - $tagStart),
-            'id' => $id,
-        ];
-
-        $cursor = $endOfBlock;
-        $offset = $endOfBlock;
-    }
-
-    return ['blocks' => $blocks, 'tail' => substr($html, $cursor)];
-}
 
 $parsed = find_top_level_sections($original);
 if ($parsed === null) {

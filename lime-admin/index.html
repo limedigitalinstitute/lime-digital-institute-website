@@ -249,6 +249,21 @@
           </div>
         </div>
 
+        <!-- PAGE SECTIONS — page-local HTML editor (not a Global Section, this page only) -->
+        <div id="sectionEditorModal" class="preview-modal-backdrop hidden">
+          <div class="preview-modal-dialog" style="max-width:760px;">
+            <div class="preview-toolbar">
+              <span id="sectionEditorLabel" class="preview-modal-section-label" style="margin-left:0;"></span>
+              <button type="button" class="preview-toggle-btn" id="sectionEditorSaveBtn" style="margin-left:auto;">Save</button>
+              <button type="button" class="preview-toggle-btn" id="sectionEditorCloseBtn" title="Close">✕</button>
+            </div>
+            <div style="padding:16px; overflow-y:auto;">
+              <p class="empty-sub" style="margin-bottom:10px;">Editing this page's HTML only &mdash; not shared with other pages. Edit carefully, this is injected as-is.</p>
+              <textarea id="sectionEditorTextarea" class="form-textarea" rows="20" style="font-family:monospace; font-size:12.5px; width:100%;"></textarea>
+            </div>
+          </div>
+        </div>
+
         <!-- TAB 4: GLOBAL SECTIONS (reusable blocks shared across pages) -->
         <section id="globalSectionsTab" class="tab-pane hidden">
 

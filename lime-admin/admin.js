@@ -518,6 +518,9 @@
   const previewFrame = document.getElementById('previewFrame');
   const previewFrameWrap = document.getElementById('previewFrameWrap');
   const previewModalSectionLabel = document.getElementById('previewModalSectionLabel');
+  const sectionEditorModal = document.getElementById('sectionEditorModal');
+  const sectionEditorLabel = document.getElementById('sectionEditorLabel');
+  const sectionEditorTextarea = document.getElementById('sectionEditorTextarea');
   let sectionsLoaded = false;
   let currentPreviewPage = null;
   let currentPreviewSectionId = null;
@@ -556,20 +559,22 @@
     sectionsIdList.innerHTML = sections.map((sec, i) => {
       const heading = sec.querySelector('h1, h2, h3');
       const label = heading ? heading.textContent.trim().slice(0, 40) : sec.id;
-      // A section can wrap one or more [data-global-section] blocks — that
-      // content isn't page-specific text, it's shared and already edited
-      // once in the Global Sections tab. Surface that as a jump-there badge
-      // instead of pretending it's editable per-page.
-      const globalNames = Array.from(sec.querySelectorAll('[data-global-section]'))
-        .map(el => el.getAttribute('data-global-section'));
-      const globalBadges = globalNames.map(name =>
-        `<button type="button" class="chip-global-badge" data-global-name="${name}" title="Edit in Global Sections — updates every page that uses it">🌐 ${name}</button>`
-      ).join('');
+      // A section already wrapping a [data-global-section] block is global —
+      // star shows filled, click jumps to Global Sections. Otherwise the
+      // star promotes it (star click), and a separate pencil opens a
+      // page-local editor (this page only, no global section created).
+      const globalName = sec.querySelector('[data-global-section]')?.getAttribute('data-global-section') || null;
+      const starBtn = globalName
+        ? `<button type="button" class="chip-star chip-star-filled" data-global-name="${globalName}" title="Global section (${globalName}) — click to edit in Global Sections">★</button>`
+        : `<button type="button" class="chip-star" data-section-id="${sec.id}" title="Make this a Global Section">☆</button>`;
+      const editBtn = globalName ? '' :
+        `<button type="button" class="chip-edit-btn" data-section-id="${sec.id}" title="Edit this section's HTML (this page only)">✎</button>`;
       return `<span class="section-id-chip-wrap">
         <button type="button" class="chip-move-btn" data-move="up" data-section-id="${sec.id}" title="Move up" ${i === 0 ? 'disabled' : ''}>&#8593;</button>
         <button type="button" class="chip-move-btn" data-move="down" data-section-id="${sec.id}" title="Move down" ${i === sections.length - 1 ? 'disabled' : ''}>&#8595;</button>
         <button type="button" class="section-id-chip" data-section-id="${sec.id}"><span class="chip-pos">${i + 1}</span><span class="chip-hash">#</span>${sec.id}${heading ? ' — ' + label : ''}</button>
-      </span>${globalBadges}`;
+        ${starBtn}${editBtn}
+      </span>`;
     }).join('');
 
     sectionsIdList.querySelectorAll('.section-id-chip').forEach(chip => {
@@ -580,11 +585,90 @@
       btn.addEventListener('click', () => moveSection(page, btn.dataset.sectionId, btn.dataset.move));
     });
 
-    sectionsIdList.querySelectorAll('.chip-global-badge').forEach(btn => {
+    sectionsIdList.querySelectorAll('.chip-star').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
-        jumpToGlobalSection(btn.dataset.globalName);
+        if (btn.classList.contains('chip-star-filled')) {
+          jumpToGlobalSection(btn.dataset.globalName);
+        } else {
+          promoteToGlobal(page, btn.dataset.sectionId);
+        }
       });
+    });
+
+    sectionsIdList.querySelectorAll('.chip-edit-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openSectionEditor(page, btn.dataset.sectionId);
+      });
+    });
+  }
+
+  // Extracts this section's inner HTML into a new Global Section (named
+  // after the section id) and replaces it on the page with a
+  // data-global-section placeholder. From then on it's edited once in the
+  // Global Sections tab and updates every page that reuses it.
+  async function promoteToGlobal(page, sectionId) {
+    if (!confirm(`Make #${sectionId} a Global Section?\n\nIts content moves to Global Sections (edited once, updates everywhere it's reused) and can't be edited per-page anymore.`)) return;
+    const res = await apiRequest(`${API_BASE}/promote-to-global`, {
+      method: 'POST',
+      body: { page, sectionId, globalName: sectionId }
+    });
+    if (res.success) {
+      showToast(`#${sectionId} is now a Global Section`);
+      renderSectionIdList(page);
+      jumpToGlobalSection(res.globalName);
+    } else {
+      showToast(res.error || 'Could not promote this section');
+    }
+  }
+
+  // Page-local HTML editor for a section that ISN'T a Global Section — the
+  // change only applies to this one page's file.
+  async function openSectionEditor(page, sectionId) {
+    const res = await apiRequest(`${API_BASE}/edit-section?page=${encodeURIComponent(page)}&sectionId=${encodeURIComponent(sectionId)}`, { method: 'GET' });
+    if (!res.success) {
+      showToast(res.error || 'Could not load this section');
+      return;
+    }
+    sectionEditorLabel.textContent = `#${sectionId} — this page only`;
+    sectionEditorTextarea.value = res.html;
+    sectionEditorTextarea.dataset.page = page;
+    sectionEditorTextarea.dataset.sectionId = sectionId;
+    sectionEditorModal.classList.remove('hidden');
+  }
+
+  function closeSectionEditor() {
+    sectionEditorModal.classList.add('hidden');
+  }
+
+  const sectionEditorCloseBtn = document.getElementById('sectionEditorCloseBtn');
+  const sectionEditorSaveBtn = document.getElementById('sectionEditorSaveBtn');
+  if (sectionEditorCloseBtn) sectionEditorCloseBtn.addEventListener('click', closeSectionEditor);
+  if (sectionEditorModal) {
+    sectionEditorModal.addEventListener('click', (e) => {
+      if (e.target === sectionEditorModal) closeSectionEditor();
+    });
+  }
+  if (sectionEditorSaveBtn) {
+    sectionEditorSaveBtn.addEventListener('click', async () => {
+      const page = sectionEditorTextarea.dataset.page;
+      const sectionId = sectionEditorTextarea.dataset.sectionId;
+      sectionEditorSaveBtn.disabled = true;
+      sectionEditorSaveBtn.textContent = 'Saving...';
+      const res = await apiRequest(`${API_BASE}/edit-section`, {
+        method: 'POST',
+        body: { page, sectionId, html: sectionEditorTextarea.value }
+      });
+      sectionEditorSaveBtn.disabled = false;
+      sectionEditorSaveBtn.textContent = 'Save';
+      if (res.success) {
+        showToast(`Saved #${sectionId}`);
+        closeSectionEditor();
+        renderSectionIdList(page);
+      } else {
+        showToast(res.error || 'Could not save this section');
+      }
     });
   }
 
