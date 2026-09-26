@@ -107,7 +107,7 @@ function find_top_level_sections($html) {
 
         while (preg_match('/<section\b|<\/section\s*>/i', $html, $m2, PREG_OFFSET_CAPTURE, $scan)) {
             $isClose = (stripos($m2[0][0], '/') !== false);
-            $pos = $m2[1][1];
+            $pos = $m2[0][1];
             $tokLen = strlen($m2[0][0]);
             if ($isClose) {
                 $depth--;
