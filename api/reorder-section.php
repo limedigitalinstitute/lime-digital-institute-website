@@ -1,4 +1,9 @@
 <?php
+// Never let PHP warnings/notices leak into the response body — this endpoint
+// must always return pure JSON, or the admin UI's res.json() call breaks.
+ini_set('display_errors', '0');
+error_reporting(0);
+
 require_once __DIR__ . '/_auth.php';
 
 header("Access-Control-Allow-Origin: *");
@@ -192,7 +197,12 @@ if (strlen($rebuilt) !== strlen($original)) {
     exit;
 }
 
-file_put_contents($filePath, $rebuilt);
+$written = @file_put_contents($filePath, $rebuilt);
+if ($written === false) {
+    http_response_code(500);
+    echo json_encode(["success" => false, "error" => "Could not write file (permission denied?) — no changes made"]);
+    exit;
+}
 
 echo json_encode([
     "success" => true,
