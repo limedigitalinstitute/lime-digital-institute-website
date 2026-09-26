@@ -1819,19 +1819,8 @@ select.lid-country-select:hover {
 }
 @media (max-width: 580px) {
   .lid-video-grid {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
     gap: 12px;
     margin-bottom: 28px;
-    padding-bottom: 2px;
-  }
-  .lid-video-grid::-webkit-scrollbar { display: none; }
-  .lid-video-card {
-    flex: 0 0 72%;
-    scroll-snap-align: start;
   }
   .lid-play-pill {
     bottom: 10px;
@@ -5618,6 +5607,3 @@ select.curr-country-select:hover {
 .lid-carousel-next{right:10px}
 .lid-video-cta-wrap{text-align:center;margin-top:28px}
 .lid-video-cta-wrap .btn{width:auto;padding:16px 44px;font-size:15.5px}
-@media(max-width:580px){
-  .lid-carousel-arrow{display:flex}
-}

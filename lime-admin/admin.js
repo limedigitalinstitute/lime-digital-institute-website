@@ -556,11 +556,20 @@
     sectionsIdList.innerHTML = sections.map((sec, i) => {
       const heading = sec.querySelector('h1, h2, h3');
       const label = heading ? heading.textContent.trim().slice(0, 40) : sec.id;
+      // A section can wrap one or more [data-global-section] blocks — that
+      // content isn't page-specific text, it's shared and already edited
+      // once in the Global Sections tab. Surface that as a jump-there badge
+      // instead of pretending it's editable per-page.
+      const globalNames = Array.from(sec.querySelectorAll('[data-global-section]'))
+        .map(el => el.getAttribute('data-global-section'));
+      const globalBadges = globalNames.map(name =>
+        `<button type="button" class="chip-global-badge" data-global-name="${name}" title="Edit in Global Sections — updates every page that uses it">🌐 ${name}</button>`
+      ).join('');
       return `<span class="section-id-chip-wrap">
         <button type="button" class="chip-move-btn" data-move="up" data-section-id="${sec.id}" title="Move up" ${i === 0 ? 'disabled' : ''}>&#8593;</button>
         <button type="button" class="chip-move-btn" data-move="down" data-section-id="${sec.id}" title="Move down" ${i === sections.length - 1 ? 'disabled' : ''}>&#8595;</button>
         <button type="button" class="section-id-chip" data-section-id="${sec.id}"><span class="chip-pos">${i + 1}</span><span class="chip-hash">#</span>${sec.id}${heading ? ' — ' + label : ''}</button>
-      </span>`;
+      </span>${globalBadges}`;
     }).join('');
 
     sectionsIdList.querySelectorAll('.section-id-chip').forEach(chip => {
@@ -570,6 +579,33 @@
     sectionsIdList.querySelectorAll('.chip-move-btn').forEach(btn => {
       btn.addEventListener('click', () => moveSection(page, btn.dataset.sectionId, btn.dataset.move));
     });
+
+    sectionsIdList.querySelectorAll('.chip-global-badge').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        jumpToGlobalSection(btn.dataset.globalName);
+      });
+    });
+  }
+
+  // Switches to the Global Sections tab and scrolls to + highlights the
+  // card for the given section name. Editing there updates every page that
+  // includes it (Page Sections has no separate edit path for these — the
+  // content isn't page-specific, so there's nothing to duplicate).
+  async function jumpToGlobalSection(name) {
+    const tabBtn = document.querySelector('.tab-btn[data-tab="globalSectionsTab"]');
+    if (tabBtn) tabBtn.click();
+    if (!globalSectionsLoaded) {
+      globalSectionsLoaded = true;
+      await loadGlobalSections();
+    }
+    setTimeout(() => {
+      const card = globalSectionsList.querySelector(`.gs-card[data-name="${CSS.escape(name)}"]`);
+      if (!card) return;
+      card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      card.classList.add('section-highlight-flash');
+      setTimeout(() => card.classList.remove('section-highlight-flash'), 1600);
+    }, 150);
   }
 
   // Calls the server-side reorder endpoint, which swaps the two adjacent
