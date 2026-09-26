@@ -565,7 +565,7 @@
       // page-local editor (this page only, no global section created).
       const globalName = sec.querySelector('[data-global-section]')?.getAttribute('data-global-section') || null;
       const starBtn = globalName
-        ? `<button type="button" class="chip-star chip-star-filled" data-global-name="${globalName}" title="Global section (${globalName}) — click to edit in Global Sections">★</button>`
+        ? `<button type="button" class="chip-star chip-star-filled" data-global-name="${globalName}" title="Global section (${globalName}) — click to edit, updates every page">★</button>`
         : `<button type="button" class="chip-star" data-section-id="${sec.id}" title="Make this a Global Section">☆</button>`;
       const editBtn = globalName ? '' :
         `<button type="button" class="chip-edit-btn" data-section-id="${sec.id}" title="Edit this section's HTML (this page only)">✎</button>`;
@@ -589,7 +589,7 @@
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
         if (btn.classList.contains('chip-star-filled')) {
-          jumpToGlobalSection(btn.dataset.globalName);
+          openGlobalSectionEditor(btn.dataset.globalName);
         } else {
           promoteToGlobal(page, btn.dataset.sectionId);
         }
@@ -617,14 +617,16 @@
     if (res.success) {
       showToast(`#${sectionId} is now a Global Section`);
       renderSectionIdList(page);
-      jumpToGlobalSection(res.globalName);
+      openGlobalSectionEditor(res.globalName);
     } else {
       showToast(res.error || 'Could not promote this section');
     }
   }
 
-  // Page-local HTML editor for a section that ISN'T a Global Section — the
-  // change only applies to this one page's file.
+  // One editor modal, two modes:
+  // - 'page' — this section's HTML lives in one page's file only (edit-section.php)
+  // - 'global' — this section is a Global Section, shared JSON (sections.php);
+  //   editing it updates every page that includes it, shown as raw JSON here.
   async function openSectionEditor(page, sectionId) {
     const res = await apiRequest(`${API_BASE}/edit-section?page=${encodeURIComponent(page)}&sectionId=${encodeURIComponent(sectionId)}`, { method: 'GET' });
     if (!res.success) {
@@ -633,8 +635,22 @@
     }
     sectionEditorLabel.textContent = `#${sectionId} — this page only`;
     sectionEditorTextarea.value = res.html;
+    sectionEditorTextarea.dataset.mode = 'page';
     sectionEditorTextarea.dataset.page = page;
     sectionEditorTextarea.dataset.sectionId = sectionId;
+    sectionEditorModal.classList.remove('hidden');
+  }
+
+  async function openGlobalSectionEditor(name) {
+    const res = await apiRequest(`${API_BASE}/sections?name=${encodeURIComponent(name)}`, { method: 'GET' });
+    if (!res.success) {
+      showToast(res.error || 'Could not load this global section');
+      return;
+    }
+    sectionEditorLabel.textContent = `🌐 ${name} — updates every page using it`;
+    sectionEditorTextarea.value = JSON.stringify(res.section, null, 2);
+    sectionEditorTextarea.dataset.mode = 'global';
+    sectionEditorTextarea.dataset.globalName = name;
     sectionEditorModal.classList.remove('hidden');
   }
 
@@ -652,44 +668,41 @@
   }
   if (sectionEditorSaveBtn) {
     sectionEditorSaveBtn.addEventListener('click', async () => {
-      const page = sectionEditorTextarea.dataset.page;
-      const sectionId = sectionEditorTextarea.dataset.sectionId;
+      const mode = sectionEditorTextarea.dataset.mode;
       sectionEditorSaveBtn.disabled = true;
       sectionEditorSaveBtn.textContent = 'Saving...';
-      const res = await apiRequest(`${API_BASE}/edit-section`, {
-        method: 'POST',
-        body: { page, sectionId, html: sectionEditorTextarea.value }
-      });
+
+      let res, currentPage;
+      if (mode === 'global') {
+        const name = sectionEditorTextarea.dataset.globalName;
+        let payload;
+        try { payload = JSON.parse(sectionEditorTextarea.value); }
+        catch (e) {
+          showToast('Invalid JSON — fix before saving');
+          sectionEditorSaveBtn.disabled = false;
+          sectionEditorSaveBtn.textContent = 'Save';
+          return;
+        }
+        res = await apiRequest(`${API_BASE}/sections?name=${encodeURIComponent(name)}`, { method: 'PUT', body: payload });
+      } else {
+        currentPage = sectionEditorTextarea.dataset.page;
+        const sectionId = sectionEditorTextarea.dataset.sectionId;
+        res = await apiRequest(`${API_BASE}/edit-section`, {
+          method: 'POST',
+          body: { page: currentPage, sectionId, html: sectionEditorTextarea.value }
+        });
+      }
+
       sectionEditorSaveBtn.disabled = false;
       sectionEditorSaveBtn.textContent = 'Save';
       if (res.success) {
-        showToast(`Saved #${sectionId}`);
+        showToast(mode === 'global' ? 'Global section updated everywhere' : 'Saved');
         closeSectionEditor();
-        renderSectionIdList(page);
+        if (currentPage) renderSectionIdList(currentPage);
       } else {
-        showToast(res.error || 'Could not save this section');
+        showToast(res.error || 'Could not save');
       }
     });
-  }
-
-  // Switches to the Global Sections tab and scrolls to + highlights the
-  // card for the given section name. Editing there updates every page that
-  // includes it (Page Sections has no separate edit path for these — the
-  // content isn't page-specific, so there's nothing to duplicate).
-  async function jumpToGlobalSection(name) {
-    const tabBtn = document.querySelector('.tab-btn[data-tab="globalSectionsTab"]');
-    if (tabBtn) tabBtn.click();
-    if (!globalSectionsLoaded) {
-      globalSectionsLoaded = true;
-      await loadGlobalSections();
-    }
-    setTimeout(() => {
-      const card = globalSectionsList.querySelector(`.gs-card[data-name="${CSS.escape(name)}"]`);
-      if (!card) return;
-      card.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      card.classList.add('section-highlight-flash');
-      setTimeout(() => card.classList.remove('section-highlight-flash'), 1600);
-    }, 150);
   }
 
   // Calls the server-side reorder endpoint, which swaps the two adjacent
@@ -817,207 +830,6 @@
     sectionsPageSelect.addEventListener('change', () => loadSectionsForPage(sectionsPageSelect.value));
   }
 
-  // --- GLOBAL SECTIONS (reusable blocks shared across pages) ---
-  const globalSectionsList = document.getElementById('globalSectionsList');
-  let globalSectionsLoaded = false;
-
-  // Same rendering logic as assets/section-loader.js, duplicated here so the
-  // admin preview matches exactly what visitors see. Keep both in sync when
-  // adding a new section type.
-  const GLOBAL_SECTION_RENDERERS = {
-    // Preview-only: rewrite root-relative asset paths so images resolve
-    // correctly from inside /lime-admin/ (live pages already sit at root).
-    'raw-html': function (data) { return (data.html || '').replace(/(src|href)="assets\//g, '$1="../assets/'); },
-    'video-testimonials': function (data) {
-      var items = Array.isArray(data.items) ? data.items : [];
-      var cards = items.map(function (v) {
-        var alt = (v.name || '') + (v.role ? ' - ' + v.role : '');
-        return (
-          '<div class="lid-video-card">' +
-            '<img src="../' + v.photo + '" alt="' + alt.replace(/"/g, '&quot;') + '" class="lid-video-poster" loading="lazy">' +
-            '<div class="lid-play-pill">&#9654; Watch Video</div>' +
-          '</div>'
-        );
-      }).join('');
-      return (
-        '<div class="lid-testi-head"><h2>' + (data.heading || '') + '</h2><p>' + (data.subhead || '') + '</p></div>' +
-        '<div class="lid-video-carousel-wrap">' +
-          '<div class="lid-video-grid">' + cards + '</div>' +
-          '<button type="button" class="lid-carousel-arrow lid-carousel-prev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>' +
-          '<button type="button" class="lid-carousel-arrow lid-carousel-next" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>' +
-        '</div>' +
-        '<div class="lid-video-cta-wrap"><a href="#book-seat" class="btn btn-primary">Start Your 3-Day Trial</a></div>'
-      );
-    }
-  };
-
-  function renderPreviewFrame(html) {
-    var iframe = document.createElement('iframe');
-    iframe.style.cssText = 'width:100%; border:1px solid var(--border, #e5e5e5); border-radius:10px; background:#fff;';
-    iframe.srcdoc =
-      '<!DOCTYPE html><html><head><link rel="stylesheet" href="../assets/style.css">' +
-      '<style>body{margin:0;padding:24px;font-family:Poppins,sans-serif;}</style></head>' +
-      '<body>' + html + '</body></html>';
-    iframe.addEventListener('load', function () {
-      try {
-        var doc = iframe.contentDocument;
-        iframe.style.height = Math.max(120, doc.body.scrollHeight + 40) + 'px';
-      } catch (e) { iframe.style.height = '320px'; }
-    });
-    return iframe;
-  }
-
-  // Structured editor for the "video-testimonials" type: heading, subhead,
-  // and a repeatable list of {name, role, photo} rows.
-  function videoTestimonialsEditorHTML(name, data) {
-    var items = Array.isArray(data.items) ? data.items : [];
-    var rows = items.map(function (v, i) {
-      return `
-        <div class="form-grid-3 gs-item-row" data-idx="${i}" style="margin-bottom:10px; align-items:end;">
-          <div class="form-field"><label>Name</label><input type="text" class="form-input gs-item-name" value="${(v.name || '').replace(/"/g, '&quot;')}"></div>
-          <div class="form-field"><label>Role / Company</label><input type="text" class="form-input gs-item-role" value="${(v.role || '').replace(/"/g, '&quot;')}"></div>
-          <div class="form-field"><label>Photo path (assets/...)</label><input type="text" class="form-input gs-item-photo" value="${(v.photo || '').replace(/"/g, '&quot;')}"></div>
-        </div>`;
-    }).join('');
-
-    return `
-      <div class="form-field" style="margin-bottom:14px;">
-        <label>Heading (HTML allowed, e.g. &lt;span&gt; for accent color)</label>
-        <input type="text" class="form-input gs-heading" value="${(data.heading || '').replace(/"/g, '&quot;')}">
-      </div>
-      <div class="form-field" style="margin-bottom:14px;">
-        <label>Subheading</label>
-        <input type="text" class="form-input gs-subhead" value="${(data.subhead || '').replace(/"/g, '&quot;')}">
-      </div>
-      <div class="gs-items-wrap">${rows}</div>
-      <button type="button" class="btn-admin-secondary btn-sm-action gs-add-item" style="margin-top:6px;">+ Add Person</button>
-    `;
-  }
-
-  function collectVideoTestimonialsData(card) {
-    var items = [];
-    card.querySelectorAll('.gs-item-row').forEach(function (row) {
-      items.push({
-        name: row.querySelector('.gs-item-name').value.trim(),
-        role: row.querySelector('.gs-item-role').value.trim(),
-        photo: row.querySelector('.gs-item-photo').value.trim()
-      });
-    });
-    return {
-      type: 'video-testimonials',
-      heading: card.querySelector('.gs-heading').value,
-      subhead: card.querySelector('.gs-subhead').value,
-      items: items
-    };
-  }
-
-  async function loadGlobalSections() {
-    globalSectionsList.innerHTML = '<p class="empty-sub">Loading...</p>';
-    const res = await apiRequest(`${API_BASE}/sections`, { method: 'GET' });
-    const sections = (res.success && res.sections) ? res.sections : {};
-    const names = Object.keys(sections);
-
-    if (names.length === 0) {
-      globalSectionsList.innerHTML = '<p class="empty-sub">No global sections registered yet.</p>';
-      return;
-    }
-
-    globalSectionsList.innerHTML = names.map(name => `
-      <div class="table-card gs-card" data-name="${name}" style="padding:22px; margin-bottom:20px;">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-          <div>
-            <h3 style="margin:0 0 2px; font-size:16px;">${name}</h3>
-            <span class="empty-sub" style="font-size:12px;">Type: ${sections[name].type || 'unknown'}</span>
-          </div>
-          <span class="cms-save-status" data-gs-status="${name}" style="font-size:12.5px;"></span>
-        </div>
-        <div class="gs-editor" data-editor-for="${name}"></div>
-        <div style="display:flex; gap:10px; margin-top:16px;">
-          <button type="button" class="btn-admin-primary gs-save-btn" data-name="${name}">Save &amp; Publish Everywhere</button>
-        </div>
-        <div style="margin-top:18px;">
-          <div class="empty-sub" style="font-size:12px; margin-bottom:6px;">Live preview (how it renders on any page):</div>
-          <div class="gs-preview" data-preview-for="${name}"></div>
-        </div>
-      </div>
-    `).join('');
-
-    names.forEach(name => {
-      const data = sections[name];
-      const card = globalSectionsList.querySelector(`.gs-card[data-name="${CSS.escape(name)}"]`);
-      const editorEl = card.querySelector('.gs-editor');
-      const previewEl = card.querySelector('.gs-preview');
-
-      if (data.type === 'video-testimonials') {
-        editorEl.innerHTML = videoTestimonialsEditorHTML(name, data);
-      } else if (data.type === 'raw-html') {
-        const escaped = (data.html || '').replace(/</g, '&lt;');
-        editorEl.innerHTML = `<p class="empty-sub">Raw HTML &mdash; edit carefully, this is injected as-is on every page that uses it.</p>
-          <textarea class="form-textarea gs-raw-html" rows="16" style="font-family:monospace; font-size:12.5px;">${escaped}</textarea>`;
-      } else {
-        editorEl.innerHTML = `<p class="empty-sub">No structured editor yet for type "${data.type}". Raw JSON:</p>
-          <textarea class="form-textarea gs-raw-json" rows="6">${JSON.stringify(data, null, 2)}</textarea>`;
-      }
-
-      const renderer = GLOBAL_SECTION_RENDERERS[data.type];
-      if (renderer) previewEl.appendChild(renderPreviewFrame(renderer(data)));
-      else previewEl.innerHTML = '<p class="empty-sub">No preview renderer for this type.</p>';
-
-      const addBtn = card.querySelector('.gs-add-item');
-      if (addBtn) {
-        addBtn.addEventListener('click', () => {
-          const wrap = card.querySelector('.gs-items-wrap');
-          const idx = wrap.querySelectorAll('.gs-item-row').length;
-          const div = document.createElement('div');
-          div.innerHTML = `
-            <div class="form-grid-3 gs-item-row" data-idx="${idx}" style="margin-bottom:10px; align-items:end;">
-              <div class="form-field"><label>Name</label><input type="text" class="form-input gs-item-name" value=""></div>
-              <div class="form-field"><label>Role / Company</label><input type="text" class="form-input gs-item-role" value=""></div>
-              <div class="form-field"><label>Photo path (assets/...)</label><input type="text" class="form-input gs-item-photo" value=""></div>
-            </div>`;
-          wrap.appendChild(div.firstElementChild);
-        });
-      }
-
-      card.querySelector('.gs-save-btn').addEventListener('click', async () => {
-        const btn = card.querySelector('.gs-save-btn');
-        const statusEl = card.querySelector(`[data-gs-status="${name}"]`);
-        btn.disabled = true;
-        const prevLabel = btn.textContent;
-        btn.textContent = 'Saving...';
-
-        let payload;
-        const rawHtmlTextarea = editorEl.querySelector('.gs-raw-html');
-        const rawJsonTextarea = editorEl.querySelector('.gs-raw-json');
-        if (rawHtmlTextarea) {
-          payload = { type: 'raw-html', html: rawHtmlTextarea.value };
-        } else if (rawJsonTextarea) {
-          try { payload = JSON.parse(rawJsonTextarea.value); }
-          catch (e) { statusEl.textContent = 'Invalid JSON'; statusEl.style.color = '#dc2626'; btn.disabled = false; btn.textContent = prevLabel; return; }
-        } else {
-          payload = collectVideoTestimonialsData(card);
-        }
-
-        const saveRes = await apiRequest(`${API_BASE}/sections?name=${encodeURIComponent(name)}`, { method: 'PUT', body: payload });
-
-        btn.disabled = false;
-        btn.textContent = prevLabel;
-
-        if (saveRes.success) {
-          statusEl.textContent = '✓ Saved — live on every page using it';
-          statusEl.style.color = '#16a34a';
-          showToast('Global section updated');
-          const renderer2 = GLOBAL_SECTION_RENDERERS[payload.type];
-          if (renderer2) { previewEl.innerHTML = ''; previewEl.appendChild(renderPreviewFrame(renderer2(payload))); }
-        } else {
-          statusEl.textContent = saveRes.error || 'Save failed';
-          statusEl.style.color = '#dc2626';
-        }
-        setTimeout(() => { statusEl.textContent = ''; }, 5000);
-      });
-    });
-  }
-
   // --- TABS SWITCHING ---
   document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -1039,10 +851,6 @@
       if (btn.dataset.tab === 'sectionsTab' && !sectionsLoaded) {
         sectionsLoaded = true;
         loadSectionsForPage(sectionsPageSelect.value);
-      }
-      if (btn.dataset.tab === 'globalSectionsTab' && !globalSectionsLoaded) {
-        globalSectionsLoaded = true;
-        loadGlobalSections();
       }
     });
   });
