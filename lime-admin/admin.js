@@ -483,11 +483,113 @@
     ]
   };
 
+  // All live pages on the site, mapped to their file path (relative to
+  // /lime-admin/) so the preview iframe and the page-picker dropdown always
+  // cover every page, not just the ones with editable text fields yet.
+  const PAGES_MAP = {
+    homepage: { label: 'Homepage', file: '../index.html' },
+    about: { label: 'About', file: '../about.html' },
+    courses: { label: 'Courses', file: '../courses.html' },
+    'foundation-program': { label: 'Foundation Program', file: '../foundation-program.html' },
+    'digital-marketing-professional': { label: 'Digital Marketing Professional', file: '../digital-marketing-professional.html' },
+    'bachelors-in-digital-business': { label: "Bachelor's in Digital Business", file: '../bachelors-in-digital-business.html' },
+    'masters-in-digital-business': { label: "Master's in Digital Business", file: '../masters-in-digital-business.html' },
+    'case-studies': { label: 'Case Studies', file: '../case-studies.html' },
+    placements: { label: 'Placements', file: '../placements.html' },
+    'hire-from-us': { label: 'Hire From Us', file: '../hire-from-us.html' },
+    trainers: { label: 'Trainers', file: '../trainers.html' },
+    'student-life': { label: 'Student Life', file: '../student-life.html' },
+    alumni: { label: 'Alumni', file: '../alumni.html' },
+    reviews: { label: 'Reviews', file: '../reviews.html' },
+    blog: { label: 'Blog', file: '../blog.html' },
+    contact: { label: 'Contact', file: '../contact.html' },
+    'refer-earn': { label: 'Refer & Earn', file: '../refer-earn.html' },
+    'free-masterclass': { label: 'Free Masterclass', file: '../free-masterclass.html' },
+    event: { label: 'Event Hub', file: '../event.html' },
+    '3-day-demo-class': { label: '3-Day Demo Class', file: '../3-day-demo-class.html' },
+    'thank-you': { label: 'Thank You', file: '../thank-you.html' },
+    'event-thank-you': { label: 'Event Thank You', file: '../event-thank-you.html' }
+  };
+
   const sectionsPageSelect = document.getElementById('sectionsPageSelect');
   const sectionsFieldsContainer = document.getElementById('sectionsFieldsContainer');
+  const sectionsIdList = document.getElementById('sectionsIdList');
+  const previewFrame = document.getElementById('previewFrame');
+  const previewFrameWrap = document.getElementById('previewFrameWrap');
   let sectionsLoaded = false;
 
+  // Populate the page dropdown from PAGES_MAP once, in display order.
+  if (sectionsPageSelect) {
+    sectionsPageSelect.innerHTML = Object.entries(PAGES_MAP).map(([key, p]) =>
+      `<option value="${key}">${p.label} (${p.file.replace('../', '')})</option>`
+    ).join('');
+  }
+
+  // Scans the loaded preview iframe for every <section id="..."> and
+  // renders them as clickable chips. Clicking one scrolls the iframe to
+  // that section and briefly outlines it, so it's easy to point at a
+  // section visually and read off its exact id to hand to Claude.
+  function renderSectionIdList() {
+    if (!sectionsIdList) return;
+    let doc;
+    try {
+      doc = previewFrame.contentDocument;
+    } catch (e) {
+      sectionsIdList.innerHTML = '<p class="empty-sub">Preview not loaded yet.</p>';
+      return;
+    }
+    if (!doc) return;
+
+    const sections = Array.from(doc.querySelectorAll('section[id]'));
+    if (sections.length === 0) {
+      sectionsIdList.innerHTML = '<p class="empty-sub">No named sections found on this page.</p>';
+      return;
+    }
+
+    sectionsIdList.innerHTML = sections.map(sec => {
+      const heading = sec.querySelector('h1, h2, h3');
+      const label = heading ? heading.textContent.trim().slice(0, 40) : sec.id;
+      return `<button type="button" class="section-id-chip" data-section-id="${sec.id}"><span class="chip-hash">#</span>${sec.id}${heading ? ' — ' + label : ''}</button>`;
+    }).join('');
+
+    sectionsIdList.querySelectorAll('.section-id-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        const id = chip.dataset.sectionId;
+        const target = doc.getElementById(id);
+        if (!target) return;
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        target.classList.add('section-highlight-flash');
+        setTimeout(() => target.classList.remove('section-highlight-flash'), 1600);
+      });
+    });
+  }
+
+  function loadPreviewForPage(page) {
+    const p = PAGES_MAP[page];
+    if (!p || !previewFrame) return;
+    previewFrame.onload = renderSectionIdList;
+    previewFrame.src = p.file;
+  }
+
+  const previewRefreshBtn = document.getElementById('previewRefreshBtn');
+  if (previewRefreshBtn) {
+    previewRefreshBtn.addEventListener('click', () => loadPreviewForPage(sectionsPageSelect.value));
+  }
+
+  document.querySelectorAll('.preview-toggle-btn[data-viewport]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.preview-toggle-btn[data-viewport]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      if (btn.dataset.viewport === 'mobile') {
+        previewFrameWrap.classList.add('mobile');
+      } else {
+        previewFrameWrap.classList.remove('mobile');
+      }
+    });
+  });
+
   async function loadSectionsForPage(page) {
+    loadPreviewForPage(page);
     const fields = SECTIONS_REGISTRY[page] || [];
     sectionsFieldsContainer.innerHTML = '<p class="empty-sub">Loading...</p>';
 

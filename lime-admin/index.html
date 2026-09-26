@@ -212,15 +212,43 @@
             <div class="leads-filter-select-wrap">
               <label for="sectionsPageSelect" class="filter-label">Page:</label>
               <select id="sectionsPageSelect" class="form-input">
-                <option value="homepage">Homepage (index.html)</option>
+                <!-- Populated via admin.js PAGES_MAP -->
               </select>
             </div>
           </div>
 
-          <p class="empty-sub" style="margin-bottom:18px;">Edit the text below and click Save on a field to publish it live. Leaving a field blank keeps the original text on the page.</p>
+          <div class="sections-layout">
 
-          <div id="sectionsFieldsContainer" class="table-card" style="padding:22px;">
-            <!-- Dynamically rendered via admin.js -->
+            <div class="sections-layout-left">
+
+              <div class="table-card" style="padding:18px 22px; margin-bottom:18px;">
+                <p class="empty-sub" style="margin-bottom:10px;">Sections on this page — click one to jump to it in the preview. Copy the name when telling Claude what to change.</p>
+                <div id="sectionsIdList" class="section-id-list">
+                  <!-- Dynamically rendered via admin.js -->
+                </div>
+              </div>
+
+              <p class="empty-sub" style="margin-bottom:18px;">Edit the text below and click Save on a field to publish it live. Leaving a field blank keeps the original text on the page.</p>
+
+              <div id="sectionsFieldsContainer" class="table-card" style="padding:22px;">
+                <!-- Dynamically rendered via admin.js -->
+              </div>
+
+            </div>
+
+            <div class="sections-layout-right">
+              <div class="preview-panel">
+                <div class="preview-toolbar">
+                  <button type="button" class="preview-toggle-btn active" data-viewport="desktop">🖥 Desktop</button>
+                  <button type="button" class="preview-toggle-btn" data-viewport="mobile">📱 Mobile</button>
+                  <button type="button" class="preview-toggle-btn" id="previewRefreshBtn" title="Reload preview">⟳</button>
+                </div>
+                <div class="preview-frame-wrap" id="previewFrameWrap">
+                  <iframe id="previewFrame" title="Live page preview"></iframe>
+                </div>
+              </div>
+            </div>
+
           </div>
 
         </section>
