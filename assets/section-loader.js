@@ -73,6 +73,14 @@
         var html = renderer(res.section);
         document.querySelectorAll('[data-global-section="' + name + '"]').forEach(function (el) {
           el.innerHTML = html;
+          // main.js's scroll-reveal IntersectionObserver already ran on
+          // DOMContentLoaded and only knows about the nodes that existed
+          // then — the innerHTML swap above creates brand-new nodes it
+          // never sees, so any .reveal/.reveal-stagger inside would stay
+          // stuck at opacity:0 forever. Make them visible immediately.
+          el.querySelectorAll('.reveal, .reveal-stagger').forEach(function (r) {
+            r.classList.add('in');
+          });
         });
       })
       .catch(function () { /* placeholder stays empty — page still loads fine */ });
