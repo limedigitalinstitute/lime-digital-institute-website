@@ -119,9 +119,6 @@
               <span>Attendee Registrations</span>
               <span class="tab-count-badge" id="badgeLeadsCount">0</span>
             </button>
-            <button type="button" class="tab-btn" data-tab="sectionsTab">
-              <span>Page Sections</span>
-            </button>
           </div>
           <div class="tab-actions">
             <button type="button" id="openCreateModalBtn" class="btn-admin-primary">
@@ -198,33 +195,6 @@
               <div class="empty-title">No registrations recorded yet</div>
               <p class="empty-sub">When students register on the event page, their entries will appear here in real-time.</p>
             </div>
-          </div>
-
-        </section>
-
-        <!-- TAB 3: PAGE SECTIONS (Mini CMS) -->
-        <section id="sectionsTab" class="tab-pane hidden">
-
-          <div class="pane-filters">
-            <div class="leads-filter-select-wrap">
-              <label for="sectionsPageSelect" class="filter-label">Page:</label>
-              <select id="sectionsPageSelect" class="form-input">
-                <!-- Populated via admin.js PAGES_MAP -->
-              </select>
-            </div>
-          </div>
-
-          <div class="table-card" style="padding:18px 22px; margin-bottom:18px;">
-            <p class="empty-sub" style="margin-bottom:10px;">Sections on this page — click one to open a full preview popup (Desktop / Tablet / Mobile), scrolled straight to it. Copy the name when telling Claude what to change.</p>
-            <div id="sectionsIdList" class="section-id-list">
-              <!-- Dynamically rendered via admin.js -->
-            </div>
-          </div>
-
-          <p class="empty-sub" style="margin-bottom:18px;">Edit the text below and click Save on a field to publish it live. Leaving a field blank keeps the original text on the page.</p>
-
-          <div id="sectionsFieldsContainer" class="table-card" style="padding:22px;">
-            <!-- Dynamically rendered via admin.js -->
           </div>
 
         </section>
