@@ -15,7 +15,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=20260926e">
+<link rel="stylesheet" href="assets/style.css?v=20260926f">
 <style>
 :root{
   --lime-red:var(--primary); --deep-red:var(--primary-dim); --link-red:var(--primary-dim);
@@ -570,7 +570,7 @@ h1,h2,h3,h4,h5,h6{font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe 
 .tool-tile span{font-size:13.5px;font-weight:500;color:var(--secondary);line-height:1.2;}
 
 /* ===== GLOBAL SECTION: curriculum-modules tools grid (portable, no page vars) ===== */
-.cur-tools-section{padding:90px 0 100px;scroll-margin-top:90px;}
+.cur-tools-section{padding:90px 0 0px;scroll-margin-top:90px;}
 .cur-tools-section .cur-head-block{margin-bottom:44px;}
 .cur-tools-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;position:relative;transition:max-height .35s ease;}
 .cur-tools-grid.is-collapsed{max-height:430px;overflow:hidden;-webkit-mask-image:linear-gradient(to bottom,#000 0,#000 60%,rgba(0,0,0,.25) 84%,transparent 100%);mask-image:linear-gradient(to bottom,#000 0,#000 60%,rgba(0,0,0,.25) 84%,transparent 100%);}
@@ -597,13 +597,15 @@ h1,h2,h3,h4,h5,h6{font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe 
   .btn-tools-toggle{padding:13px 26px;font-size:14px;}
 }
 
-.tools-toggle-wrap{display:flex;justify-content:center;margin-top:30px;}
+.tools-toggle-wrap{display:flex;justify-content:center;margin-top:-26px;position:relative;z-index:2;}
+.cur-tools-grid:not(.is-collapsed) + .tools-toggle-wrap{margin-top:34px;}
 .btn-tools-toggle{
   display:inline-flex;align-items:center;gap:9px;
   background:var(--primary);color:#fff;border:none;cursor:pointer;
-  font-size:15px;font-weight:600;padding:15px 34px;border-radius:var(--r-full);
+  font-size:15px;font-weight:600;padding:17px 38px;border-radius:var(--r-full);
+  box-shadow:0 8px 24px rgba(227,30,36,.28);
   transition:background .25s ease, transform .2s ease;
-  position:relative;z-index:5;touch-action:manipulation;
+  touch-action:manipulation;
 }
 .btn-tools-toggle:hover{background:var(--secondary);transform:translateY(-1px);}
 .tools-toggle-icon{transition:transform .3s ease;}
@@ -623,7 +625,7 @@ h1,h2,h3,h4,h5,h6{font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe 
 }
 
 /* ===== COMPARE (spotlight column, ref-style) ===== */
-.compare{padding:24px 0 60px;background:#fff;}
+.compare{padding:0 0 60px;background:#fff;}
 .cmp-head-block{margin-bottom:22px;}
 .cmp-head-block h2{
   text-transform:none;letter-spacing:-.02em;
@@ -764,7 +766,7 @@ h1,h2,h3,h4,h5,h6{font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe 
 }
 
 /* ===== CAREER OPPORTUNITIES (Redesigned Pathway Cards) ===== */
-.careers{padding:90px 0;scroll-margin-top:100px;}
+.careers{padding:20px 0 90px;scroll-margin-top:100px;}
 .co-head-block{margin-bottom:44px;}
 .co-head-block h2{
   text-transform:none;letter-spacing:-.02em;
@@ -2936,7 +2938,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- CURRICULUM - MODULE BY MODULE -->
 <div class="cur-layout wrap">
 <div class="cur-main">
-<section class="curriculum" id="curriculum" style="padding-top:40px;">
+<section class="curriculum" id="curriculum" style="padding-top:0;padding-bottom:10px;">
   <div data-global-section="curriculum-modules">
   <div class="cur-head-block reveal">
     <div class="eyebrow">16-Module Curriculum</div>
@@ -5308,7 +5310,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script src="assets/zoho-tracking.js"></script>
 <script src="assets/lead-collector.js?v=20260921fix"></script>
 <script src="assets/country-picker.js?v=20260919b"></script>
-<script src="assets/main.js?v=20260926e"></script>
+<script src="assets/main.js?v=20260926f"></script>
 <script>
 // Curriculum accordion: one card open at a time
 function toggleModule(btn) {
