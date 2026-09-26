@@ -5029,8 +5029,7 @@ select.curr-country-select:hover {
 @media (max-width: 720px) {
   .curr-modal-card { max-width: 440px !important; }
   .curr-modal-grid { grid-template-columns: 1fr; }
-  .curr-modal-left { padding: 14px 14px 0; }
-  .curr-modal-thumb { aspect-ratio: 16 / 9; max-height: 180px; }
+  .curr-modal-left { display: none; }
   .curr-modal-right { padding: 14px 16px 18px; }
   .curr-modal-close { top: 10px; right: 10px; }
 }
