@@ -1536,12 +1536,12 @@ body.footer-revealed .desktop-dock {
 /* ============================================
    TOOLS YOU WILL MASTER
    ============================================ */
-.tools-section{padding:64px 0 0;}
+.tools-section{padding:64px 0 64px;}
 .tools-section .section-head{max-width:720px;margin-bottom:50px;}
 .tools-section .section-head.center{max-width:680px;margin-left:auto;margin-right:auto;text-align:center;}
 .tools-section .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:14px;}
 .tools-section .eyebrow.center{justify-content:center;}
-.tools-section .h2{font-size:clamp(26px,3.5vw,42px);font-weight:600;line-height:1.18;letter-spacing:normal;color:var(--dark);}
+.tools-section .h2{font-size:clamp(26px,3.5vw,42px);font-weight:800;line-height:1.18;letter-spacing:-.4px;color:var(--dark);}
 .tools-section .lead{font-size:clamp(15px,1.6vw,18px);font-weight:500;color:var(--muted);}
 .tools-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:32px;position:relative;transition:max-height .35s ease;}
 .tools-grid.is-collapsed{
@@ -3034,21 +3034,6 @@ select.curr-country-select:hover {
 </aside>
 </div><!-- /.cur-layout -->
 
-<!-- NEED TO KNOW MORE - HORIZONTAL BROCHURE CARD -->
-<section class="know-more wrap">
-  <div class="know-more-card">
-    <div class="know-more-text">
-      <h3>Try the course<br>before you commit.</h3>
-      <p>Sit in on live classes, meet your mentors and get hands-on with the AI tools you'll master — 100% free, zero obligation. Seats fill up fast every week.</p>
-      <div class="know-more-actions">
-        <a href="#" onclick="openCurriculumModal('Free Trial Class', this.textContent.trim()); return false;" class="btn-know-more">Claim My Free Seat &rarr;</a>
-      </div>
-    </div>
-    <div class="know-more-visual">
-      <img src="assets/free-3-day-demo.webp" alt="Lime Digital Institute 3-Day Free Demo Class" loading="lazy">
-    </div>
-  </div>
-</section>
 
 <!-- ② OUTCOMES SECTION -->
 <section class="section section-white" id="outcomes" style="padding: 44px 0 24px;">
@@ -3432,7 +3417,7 @@ select.curr-country-select:hover {
 </section>
 
 <!-- ⑧ 30+ AI & MARKETING TOOLS (ported from homepage) -->
-<section class="tools-section section-white" id="tools" style="background:#f8f9fa;">
+<section class="tools-section section-white" id="tools">
 <div data-global-section="ai-tools-marquee">
   <div class="wrap">
     <div class="section-head center reveal">
@@ -3744,6 +3729,22 @@ select.curr-country-select:hover {
   </div>
 </section>
 
+
+<!-- NEED TO KNOW MORE - HORIZONTAL BROCHURE CARD -->
+<section class="know-more wrap">
+  <div class="know-more-card">
+    <div class="know-more-text">
+      <h3>Try the course<br>before you commit.</h3>
+      <p>Sit in on live classes, meet your mentors and get hands-on with the AI tools you'll master — 100% free, zero obligation. Seats fill up fast every week.</p>
+      <div class="know-more-actions">
+        <a href="#" onclick="openCurriculumModal('Free Trial Class', this.textContent.trim()); return false;" class="btn-know-more">Claim My Free Seat &rarr;</a>
+      </div>
+    </div>
+    <div class="know-more-visual">
+      <img src="assets/free-3-day-demo.webp" alt="Lime Digital Institute 3-Day Free Demo Class" loading="lazy">
+    </div>
+  </div>
+</section>
 
 <!-- OUR PHILOSOPHY (ported from homepage) -->
 <section class="our-philosophy-section" id="philosophy">
