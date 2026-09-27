@@ -15,7 +15,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=20260927b">
+<link rel="stylesheet" href="assets/style.css?v=20260927d">
 <style>
 :root{
   --lime-red:var(--primary); --deep-red:var(--primary-dim); --link-red:var(--primary-dim);
@@ -2114,9 +2114,6 @@ body.footer-revealed .sticky-bottom-bar {
 .pm-right {
   animation: pm-scroll-right 65s linear infinite;
 }
-.pm-outer:hover .pm-track {
-  animation-play-state: paused;
-}
 @keyframes pm-scroll-left {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
@@ -2311,7 +2308,8 @@ body.footer-revealed .sticky-bottom-bar {
 
 @media (max-width: 768px) {
   .wrap {
-    padding: 0 16px !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
   }
   .stats-strip {
     margin-top: 20px;
@@ -2871,7 +2869,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="cap">Live Industry Tools</div>
     </div>
     <div class="stat-box">
-      <div class="num"><span class="counter" data-target="4.9" data-decimal="1">0</span></div>
+      <div class="num"><span class="counter" data-target="4.9" data-decimal="1">0</span><span class="accent">/5</span></div>
       <div class="cap">Average Student Rating</div>
     </div>
   </div>
@@ -5230,7 +5228,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script src="assets/zoho-tracking.js"></script>
 <script src="assets/lead-collector.js?v=20260921fix"></script>
 <script src="assets/country-picker.js?v=20260919b"></script>
-<script src="assets/main.js?v=20260927b"></script>
+<script src="assets/main.js?v=20260927d"></script>
 <script>
 // Curriculum accordion: one card open at a time
 function toggleModule(btn) {

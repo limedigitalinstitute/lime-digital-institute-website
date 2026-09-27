@@ -1645,7 +1645,6 @@ select.lid-country-select:hover {
   display: flex; gap: 20px; width: max-content;
   animation: alumniMarquee 50s linear infinite;
 }
-.alumni-video-marquee:hover .alumni-video-track { animation-play-state: paused; }
 .alumni-video-track .lid-video-card { flex: 0 0 230px; }
 .alumni-video-track .lid-video-poster { object-position: top; }
 @media (max-width: 580px) {
@@ -2935,7 +2934,6 @@ h1, h2, h3, h4, h5, h6 {
   mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
 }
 .marquee { display: flex; gap: 16px; width: max-content; animation: scroll 34s linear infinite; }
-.marquee:hover { animation-play-state: paused; }
 .marquee-reverse { animation-direction: reverse; }
 @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
@@ -3067,9 +3065,6 @@ h1, h2, h3, h4, h5, h6 {
 .pm-right {
   animation: pm-scroll-right 65s linear infinite;
 }
-.pm-outer:hover .pm-track {
-  animation-play-state: paused;
-}
 @keyframes pm-scroll-left {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
@@ -3169,7 +3164,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .campus-visit-card h3 { font-size: 19px; font-weight: 800; color: #0b1329; margin-bottom: 8px; line-height: 1.28; }
 .campus-visit-card > p { font-size: 13.5px; color: #64748b; line-height: 1.55; margin-bottom: 16px; }
-.campus-visit-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+.campus-visit-list { list-style: none; display: flex; flex-direction: column; gap: 10px; padding-right: 0; margin-bottom: 18px; padding-left: 0; }
 .campus-visit-list li { display: flex; align-items: flex-start; gap: 9px; font-size: 13px; font-weight: 600; color: #1e293b; }
 .campus-visit-list svg { color: var(--primary); flex-shrink: 0; margin-top: 1px; }
 .campus-visit-btn { width: 100%; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
