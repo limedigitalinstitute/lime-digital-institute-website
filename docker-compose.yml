@@ -12,7 +12,7 @@ services:
       ADMIN_PASSWORD: ${ADMIN_PASSWORD}
     labels:
       - traefik.enable=true
-      - traefik.http.routers.lime-website.rule=Host(`limedigitalinstitute.org`) || Host(`www.limedigitalinstitute.org`)
+      - traefik.http.routers.lime-website.rule=Host(`limedigitalinstitute.org`)
       - traefik.http.routers.lime-website.entrypoints=websecure
       - traefik.http.routers.lime-website.tls.certresolver=letsencrypt
       - traefik.http.services.lime-website.loadbalancer.server.port=80
