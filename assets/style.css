@@ -5671,8 +5671,8 @@ select.curr-country-select:hover {
   }
   .testi-arrow svg{width:18px;height:18px;display:block}
   .testi-arrow:hover{background:#ED3237;border-color:#ED3237;color:#fff}
-  .testi-arrow-prev{right:16px;left:auto;}
-  .testi-arrow-next{right:-20px}
+  .testi-arrow-prev{right:64px;left:auto;}
+  .testi-arrow-next{right:16px}
 }
 #testi-r0:checked ~ .testi-carousel-body .testi-card[data-slide="0"],
 #testi-r1:checked ~ .testi-carousel-body .testi-card[data-slide="1"],
