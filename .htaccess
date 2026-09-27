@@ -9,6 +9,11 @@ ErrorDocument 404 /404.html
   RewriteEngine On
   RewriteBase /
 
+  # For courses subdomain, serve 3-day-demo-class.html as root
+  RewriteCond %{HTTP_HOST} ^courses\. [NC]
+  RewriteCond %{REQUEST_URI} ^/?$
+  RewriteRule ^$ 3-day-demo-class.html [L]
+
   # Redirect Trailing Slashes If not a folder
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteCond %{REQUEST_URI} (.+)/$

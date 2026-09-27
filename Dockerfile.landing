@@ -6,7 +6,8 @@ COPY apache-vhost-landing.conf /etc/apache2/sites-available/000-default.conf
 
 COPY . /var/www/html/
 
-RUN mkdir -p /var/www/html/data \
+RUN sed -i 's/DirectoryIndex index.html/DirectoryIndex 3-day-demo-class.html index.html/' /var/www/html/.htaccess \
+ && mkdir -p /var/www/html/data \
  && chown -R www-data:www-data /var/www/html \
  && chmod -R 775 /var/www/html/data
 
