@@ -38,6 +38,12 @@ body{
   overflow-x:clip;max-width:100vw;width:100%;padding-bottom:80px;
 }
 @media(min-width:992px){body{padding-bottom:0}}
+/* Generic eyebrow label — most sections scope their own .eyebrow (e.g.
+   .sh .eyebrow, .cur-head-block .eyebrow), but sections ported straight
+   from courses.html (.cert-copy, .co-head-block) use a bare "eyebrow"
+   class with no scoped rule of their own, so this base rule is the
+   fallback that actually styles them. */
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--red);margin-bottom:16px;}
 img{max-width:100%;height:auto;display:block}
 a{color:inherit;text-decoration:none}
 
@@ -59,6 +65,15 @@ a{color:inherit;text-decoration:none}
 /* --- LAYOUT --- */
 .wrap{width:100%;max-width:var(--mw);margin:0 auto;padding:0 16px}
 @media(min-width:768px){.wrap{padding:0 24px}}
+/* Safety net: several sections combine a second class onto the same
+   element as "wrap" (e.g. class="know-more wrap", class="campus-visit-row
+   wrap") and declare their own top/bottom padding with the shorthand
+   "padding: Xpx 0", which — same specificity, declared later — zeroes
+   out wrap's side padding and pins the card flush to the screen edge.
+   Matches the equivalent safety net already on courses.html. */
+@media (max-width: 768px) {
+  .wrap { padding: 0 16px !important; }
+}
 .section{padding:56px 0}
 @media(min-width:768px){.section{padding:80px 0}}
 .section-white{background:var(--white)}
@@ -599,8 +614,9 @@ a{color:inherit;text-decoration:none}
 }
 .trial-split p{color:var(--muted);font-size:14.5px;line-height:1.6;margin-bottom:18px}
 .trial-list-label{font-weight:700;color:var(--dark);margin-bottom:10px!important}
-.trial-list{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:22px}
-.trial-list li{font-size:14px;color:var(--ink);display:flex;align-items:flex-start;gap:8px;font-weight:500}
+.trial-list{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:22px;text-align:left}
+.trial-list li{font-size:14px;color:var(--ink);display:flex;align-items:flex-start;gap:8px;font-weight:500;text-align:left}
+.trial-list-label{text-align:left}
 .trial-list .check-red{margin-top:3px}
 .trial-split .trial-img{
   width:100%;max-width:440px;border-radius:var(--r16);overflow:hidden;
@@ -650,7 +666,7 @@ a{color:inherit;text-decoration:none}
 /* ============================================
    ⑨ RAJKOT CAMPUS TOUR
    ============================================ */
-.campus-visit-row{display:flex;flex-direction:column;gap:20px;padding:0 0 4px}
+.campus-visit-row{display:flex;flex-direction:column;gap:20px;padding-bottom:4px}
 .campus-visit-card{
   flex:0 0 auto;background:#fff;border:1px solid var(--border);border-radius:var(--r16);
   padding:22px 20px;box-shadow:var(--sh1);
@@ -889,6 +905,10 @@ a{color:inherit;text-decoration:none}
 .final-cta .btn-glow:hover { background: var(--red); color: #ffffff; border-color: var(--red); }
 .final-cta .btn-inverse { background: var(--red); color: #ffffff; border-radius: 9999px; font-weight: 700; border: 1px solid var(--red); padding: 11px 22px; font-size: 13px; display: inline-flex; align-items: center; }
 .final-cta .btn-inverse:hover { background: #000000; border-color: #000000; color: #ffffff; }
+
+@media (max-width: 768px) {
+  .final-cta { padding: 40px 0; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; }
+}
 
 /* ============================================
    FOOTER (Antigravity Curtain Reveal - Home Page Style)
@@ -1646,11 +1666,19 @@ body.footer-revealed .desktop-dock {
   }
 }
 @media(max-width:860px){
-  .testi-carousel-body{grid-template-columns:1fr;grid-template-rows:auto auto auto;gap:20px}
+  .testi-carousel-body{grid-template-columns:1fr;grid-template-rows:auto auto;gap:20px}
   .testi-carousel-image{grid-column:1;grid-row:1;aspect-ratio:4/3;height:auto}
-  .testi-carousel-cards{grid-column:1;grid-row:2;height:auto}
-  .testi-card{height:auto;min-height:380px;padding:22px 20px}
-  .testi-dots{grid-column:1;grid-row:3;margin-top:0}
+  .testi-carousel-cards{
+    grid-column:1;grid-row:2;height:auto;
+    display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+    scrollbar-width:none;gap:12px;padding-bottom:2px;
+  }
+  .testi-carousel-cards::-webkit-scrollbar{display:none}
+  .testi-card{
+    display:flex !important;position:static;opacity:1;visibility:visible;pointer-events:auto;transform:none;
+    flex:0 0 88%;scroll-snap-align:start;height:auto;min-height:380px;padding:22px 20px;
+  }
+  .testi-dots{display:none}
   .testi-headline{font-size:18px}
 }
 
