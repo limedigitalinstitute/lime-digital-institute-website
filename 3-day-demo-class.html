@@ -1634,8 +1634,8 @@ body.footer-revealed .desktop-dock {
 
 /* ===== GLOBAL SECTION: student-testimonials carousel (portable, no page vars) ===== */
 .testi-carousel-head{max-width:680px;margin:0 auto 44px;text-align:center}
-.testi-carousel-head h2{font-size:clamp(26px,3.2vw,36px);font-weight:700;color:#111827;line-height:1.24;letter-spacing:-0.02em;margin:0;font-family:'Poppins',sans-serif;}
-.testi-carousel-head h2 span{color:#ED3237}
+.testi-carousel-head h2{font-size:clamp(28px,3.8vw,42px);font-weight:800;color:var(--ink-900);line-height:1.2;letter-spacing:-0.02em;margin:0;font-family:'Poppins',sans-serif;}
+.testi-carousel-head h2 span{color:var(--lime-red,#ED3237)}
 .testi-carousel-head p{color:#64748b;font-size:15px;margin-top:10px}
 .testi-carousel{max-width:1060px;margin:0 auto;position:relative}
 .testi-radio{position:absolute;opacity:0;pointer-events:none;width:1px;height:1px}
@@ -1672,8 +1672,8 @@ body.footer-revealed .desktop-dock {
   }
   .testi-arrow svg{width:18px;height:18px;display:block}
   .testi-arrow:hover{background:var(--red);border-color:var(--red);color:#fff}
-  .testi-arrow-prev{right:64px;left:auto;}
-  .testi-arrow-next{right:16px}
+  .testi-arrow-prev{left:-20px;right:auto;}
+  .testi-arrow-next{right:-20px;left:auto;}
 }
 #testi-r0:checked ~ .testi-carousel-body .testi-card[data-slide="0"],
 #testi-r1:checked ~ .testi-carousel-body .testi-card[data-slide="1"],
@@ -1687,6 +1687,8 @@ body.footer-revealed .desktop-dock {
     opacity:0;visibility:hidden;pointer-events:none;transform:translateX(14px);
     transition:opacity .4s ease,transform .4s ease,visibility .4s;
   }
+  .testi-carousel-cards.dir-next .testi-card{transform:translateX(48px);}
+  .testi-carousel-cards.dir-prev .testi-card{transform:translateX(-48px);}
   #testi-r0:checked ~ .testi-carousel-body .testi-card[data-slide="0"],
   #testi-r1:checked ~ .testi-carousel-body .testi-card[data-slide="1"],
   #testi-r2:checked ~ .testi-carousel-body .testi-card[data-slide="2"] {
@@ -1786,8 +1788,114 @@ body.footer-revealed .desktop-dock {
   .philosophy-grid{grid-template-columns:1fr;gap:20px}
   .philosophy-card-white,.philosophy-card-red{padding:32px 24px}
 }
-/* ===== CURRICULUM POPUP MODAL (ported from shared style.css — this
-   standalone page doesn't load assets/style.css) ===== */
+
+/* ===== TRUSTED BY 800+ COMPANIES STRIP MARQUEE ===== */
+.trusted-marquee-section {
+  padding: 24px 0;
+  background: #FFFFFF;
+  border-top: 1px solid #ECEEF2;
+  border-bottom: 1px solid #ECEEF2;
+  overflow: hidden;
+}
+.trusted-marquee-container {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.trusted-marquee-label {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1F2937;
+  white-space: nowrap;
+  flex-shrink: 0;
+  font-family: var(--font, 'Poppins', sans-serif);
+  letter-spacing: -0.01em;
+}
+.trusted-marquee-slider {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  position: relative;
+  mask-image: linear-gradient(to right, transparent 0%, #000 4%, #000 96%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 4%, #000 96%, transparent 100%);
+}
+.trusted-marquee-track {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: max-content;
+  will-change: transform;
+  animation: trustedMarqueeScroll 55s linear infinite;
+}
+/* marquee continuous scroll - no pause on hover as requested */
+@keyframes trustedMarqueeScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.trusted-marquee-card {
+  background: #FFFFFF;
+  border: 1px solid #EEF0F2;
+  border-radius: 10px;
+  padding: 8px 16px;
+  height: 54px;
+  width: 140px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+.trusted-marquee-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(237, 50, 55, 0.3);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+.trusted-marquee-card img {
+  max-height: 36px;
+  max-width: 105px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+@media (max-width: 768px) {
+  .trusted-marquee-section {
+    padding: 18px 0;
+  }
+  .trusted-marquee-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 0;
+  }
+  .trusted-marquee-label {
+    padding: 0 20px;
+    font-size: 14.5px;
+  }
+  .trusted-marquee-slider {
+    width: 100%;
+  }
+  .trusted-marquee-track {
+    gap: 12px;
+    animation-duration: 45s;
+  }
+  .trusted-marquee-card {
+    height: 48px;
+    width: 122px;
+    padding: 6px 12px;
+  }
+  .trusted-marquee-card img {
+    max-height: 30px;
+    max-width: 90px;
+  }
+}
+
+/* ===== CURRICULUM POPUP MODAL (ported from shared style.css?v=20260928m — this
+   standalone page doesn't load assets/style.css?v=20260928m) ===== */
 .curr-modal-overlay {
   position: fixed; inset: 0; background: rgba(0, 0, 0, 0.75);
   backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
@@ -3427,7 +3535,7 @@ select.curr-country-select:hover {
       <img src="assets/brochure-cover.jpg" alt="Lime Digital Institute Digital Marketing Program brochure" loading="lazy">
     </div>
     <div class="brochure-form">
-      <input type="text" id="brochureName" name="name" placeholder="Enter first name" required>
+      <input type="text" id="brochureName" name="name" placeholder="Enter full name" required>
       <input type="email" id="brochureEmail" name="email" placeholder="Enter your email" required>
       <div class="brochure-phone">
         <select name="country_code" id="brochureCountryCode" class="curr-phone-prefix curr-country-select" aria-label="Country Code">
@@ -3462,8 +3570,8 @@ select.curr-country-select:hover {
     </div>
     <button type="submit" class="btn-brochure-submit">Download Brochure PDF &rarr;</button>
     <div class="brochure-trust">
-      <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>100% data privacy</span>
-      <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>400+ enrolled</span>
+      <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>No spam</span>
+      <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>PDF arrives on WhatsApp instantly</span>
     </div>
   </form>
   </div>
@@ -3837,6 +3945,8 @@ select.curr-country-select:hover {
           </div>
         </div>
       </div>
+      <button type="button" class="testi-arrow testi-arrow-prev" onclick="testiNav(this,-1)" aria-label="Previous story"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+      <button type="button" class="testi-arrow testi-arrow-next" onclick="testiNav(this,1)" aria-label="Next story"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
     </div>
 
     <div class="testi-dots">
@@ -3844,9 +3954,6 @@ select.curr-country-select:hover {
       <button type="button" class="testi-dot" data-dot="1" onclick="document.getElementById('testi-r1').checked=true" aria-label="Story 2"></button>
       <button type="button" class="testi-dot" data-dot="2" onclick="document.getElementById('testi-r2').checked=true" aria-label="Story 3"></button>
     </div>
-
-    <button type="button" class="testi-arrow testi-arrow-prev" onclick="testiNav(-1)" aria-label="Previous story"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
-    <button type="button" class="testi-arrow testi-arrow-next" onclick="testiNav(1)" aria-label="Next story"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
   </div>
 </div>
     </div>
@@ -4246,6 +4353,68 @@ select.curr-country-select:hover {
   </div>
 </section>
 
+<!-- TRUSTED BY 800+ COMPANIES MARQUEE -->
+<section class="trusted-marquee-section" id="trusted-partners">
+  <div class="trusted-marquee-container">
+    <div class="trusted-marquee-label">Trusted by 800+ companies</div>
+    <div class="trusted-marquee-slider">
+      <div class="trusted-marquee-track">
+        <!-- Set A -->
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/amul-1603039906.jpg" alt="Amul" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/adani-1603039788.jpg" alt="Adani" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/angel-1603039918.jpg" alt="Angel One" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/simpolo-1603042670.jpg" alt="Simpolo" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/kich-1603041105.jpg" alt="Kich" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/accord-1603039754.jpg" alt="Accord" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/jyoti-1603041036.jpg" alt="Jyoti" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/hathi-1603040852.jpg" alt="Hathi" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/falcon-1603040719.jpg" alt="Falcon" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/shaktiman-1603042628.jpg" alt="Shaktiman" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/crossword-1603040609.jpg" alt="Crossword" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/butterfly-1603040536.jpg" alt="Butterfly" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/adani-foods-1603039805.jpg" alt="Adani Foods" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/action-ware-1603039772.jpg" alt="Action Ware" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/gold-coin-1603040787.jpg" alt="Gold Coin" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/sagar-1603042582.jpg" alt="Sagar" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/vermora-1603043025.jpg" alt="Vermora" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/inext-group-1603040916.jpg" alt="Inext Group" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/eagle-1603040686.jpg" alt="Eagle" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/bhumi-1603040510.jpg" alt="Bhumi" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/mac-power-1603041151.jpg" alt="Mac Power" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/metro-1603041194.jpg" alt="Metro" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/neon-1603041277.jpg" alt="Neon" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/silver-1603042650.jpg" alt="Silver Pumps" loading="lazy"></div>
+
+        <!-- Set B (Duplicate for continuous loop) -->
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/amul-1603039906.jpg" alt="Amul" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/adani-1603039788.jpg" alt="Adani" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/angel-1603039918.jpg" alt="Angel One" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/simpolo-1603042670.jpg" alt="Simpolo" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/kich-1603041105.jpg" alt="Kich" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/accord-1603039754.jpg" alt="Accord" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/jyoti-1603041036.jpg" alt="Jyoti" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/hathi-1603040852.jpg" alt="Hathi" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/falcon-1603040719.jpg" alt="Falcon" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/shaktiman-1603042628.jpg" alt="Shaktiman" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/crossword-1603040609.jpg" alt="Crossword" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/butterfly-1603040536.jpg" alt="Butterfly" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/adani-foods-1603039805.jpg" alt="Adani Foods" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/action-ware-1603039772.jpg" alt="Action Ware" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/gold-coin-1603040787.jpg" alt="Gold Coin" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/sagar-1603042582.jpg" alt="Sagar" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/vermora-1603043025.jpg" alt="Vermora" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/inext-group-1603040916.jpg" alt="Inext Group" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/eagle-1603040686.jpg" alt="Eagle" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/bhumi-1603040510.jpg" alt="Bhumi" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/mac-power-1603041151.jpg" alt="Mac Power" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/metro-1603041194.jpg" alt="Metro" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/neon-1603041277.jpg" alt="Neon" loading="lazy"></div>
+        <div class="trusted-marquee-card"><img src="assets/hiring-partners/silver-1603042650.jpg" alt="Silver Pumps" loading="lazy"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ⑪ FAQ SECTION -->
 <section class="faq" id="faq">
   <div class="wrap">
@@ -4491,11 +4660,11 @@ select.curr-country-select:hover {
           <span class="ag-copyright">&copy; 2026 Lime Digital Institute. All rights reserved.</span>
         </div>
         <div class="ag-footer-bottom-right">
-          <a href="maintenance.html">Privacy Policy</a>
+          <a href="#" class="open-maintenance-modal">Privacy Policy</a>
           <span class="ag-sep">&bull;</span>
-          <a href="maintenance.html">Refund Policy</a>
+          <a href="#" class="open-maintenance-modal">Refund Policy</a>
           <span class="ag-sep">&bull;</span>
-          <a href="maintenance.html">Terms of Use</a>
+          <a href="#" class="open-maintenance-modal">Terms of Use</a>
           <span class="ag-sep">&bull;</span>
           <a href="contact.html">Contact Us</a>
         </div>
@@ -4590,12 +4759,21 @@ select.curr-country-select:hover {
 })();
 
 // ── 0. Curriculum Module Accordion + Brochure Form ──────────────────
-function testiNav(dir){
-  const radios = document.querySelectorAll('.testi-radio');
+function testiNav(btnOrDir, maybeDir){
+  const dir = typeof btnOrDir === 'number' ? btnOrDir : (typeof maybeDir === 'number' ? maybeDir : 1);
+  const btn = (typeof btnOrDir === 'object' && btnOrDir && btnOrDir.nodeType) ? btnOrDir : null;
+  const root = btn ? (btn.closest('.testi-carousel') || document) : document;
+  const radios = Array.from(root.querySelectorAll('.testi-radio'));
   if (!radios.length) return;
   let i = 0;
   radios.forEach((r, idx) => { if (r.checked) i = idx; });
   let next = (i + dir + radios.length) % radios.length;
+  const cards = root.querySelector('.testi-carousel-cards');
+  if (cards) {
+    cards.classList.remove('dir-next', 'dir-prev');
+    void cards.offsetWidth;
+    cards.classList.add(dir > 0 ? 'dir-next' : 'dir-prev');
+  }
   radios[next].checked = true;
 }
 function toggleModule(btn){
@@ -4845,8 +5023,8 @@ async function handleModalSubmit(e){
 }
 
 // "Unlock Full Syllabus" buttons call openCurriculumModal(), same as
-// index.html/courses.html — this page doesn't load assets/main.js (its own
-// inline scripts would collide with main.js's top-level declarations), so
+// index.html/courses.html — this page doesn't load assets/main.js?v=20260928c (its own
+// inline scripts would collide with main.js?v=20260928c's top-level declarations), so
 // the same modal logic is duplicated here rather than shared.
 function ensureCurriculumModalExists() {
   let modal = document.getElementById('curriculumModal');
@@ -4872,7 +5050,7 @@ function ensureCurriculumModalExists() {
           </div>
           <form class="curr-modal-form lead-form" id="curriculumPopupForm" data-form-name="Download Complete Curriculum (Popup form)" data-redirect-course="Digital Marketing Professional" onsubmit="handleCurriculumPopupSubmit(event)">
             <div class="curr-form-group">
-              <label>First Name *</label>
+              <label>Full Name *</label>
               <input type="text" id="popName" name="name" placeholder="e.g. Rahul" required>
             </div>
             <div class="curr-form-group">
@@ -4917,8 +5095,8 @@ function ensureCurriculumModalExists() {
               Download Brochure PDF &rarr;
             </button>
             <div class="curr-trust-row">
-              <span><strong class="tick">&#10003;</strong> 100% data privacy</span>
-              <span><strong class="tick">&#10003;</strong> 400+ enrolled</span>
+              <span>⚡ PDF arrives on WhatsApp instantly</span>
+              <span>🔒 No spam</span>
             </div>
           </form>
         </div>

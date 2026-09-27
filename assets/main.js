@@ -1021,14 +1021,212 @@ if (document.readyState === 'loading') {
 
 // Testimonial carousel (.testi-carousel): desktop prev/next arrows step
 // through the same radio inputs the dots already drive.
-function testiNav(dir) {
-  const radios = document.querySelectorAll('.testi-radio');
+function testiNav(btnOrDir, maybeDir) {
+  const dir = typeof btnOrDir === 'number' ? btnOrDir : (typeof maybeDir === 'number' ? maybeDir : 1);
+  const btn = (typeof btnOrDir === 'object' && btnOrDir && btnOrDir.nodeType) ? btnOrDir : null;
+  const root = btn ? (btn.closest('.testi-carousel') || document) : document;
+  const radios = Array.from(root.querySelectorAll('.testi-radio'));
   if (!radios.length) return;
   let i = 0;
   radios.forEach((r, idx) => { if (r.checked) i = idx; });
   let next = (i + dir + radios.length) % radios.length;
+  const cards = root.querySelector('.testi-carousel-cards');
+  if (cards) {
+    cards.classList.remove('dir-next', 'dir-prev');
+    void cards.offsetWidth;
+    cards.classList.add(dir > 0 ? 'dir-next' : 'dir-prev');
+  }
   radios[next].checked = true;
 }
 window.testiNav = testiNav;
+
+// ===== GLOBAL SITE-WIDE MAINTENANCE MODAL POPUP =====
+(function initMaintenanceModal() {
+  const PUBLIC_PAGES = [
+    'index.html',
+    '',
+    '/',
+    'courses.html',
+    '3-day-demo-class.html',
+    'free-masterclass.html',
+    'event.html',
+    'event-thank-you.html',
+    'thank-you.html'
+  ];
+
+  const SECRET_KEY = 'Paras@123';
+  const AUTH_STORAGE_KEY = 'ldi_admin_unlocked';
+
+  function isUnlocked() {
+    try {
+      return localStorage.getItem(AUTH_STORAGE_KEY) === SECRET_KEY || sessionStorage.getItem(AUTH_STORAGE_KEY) === SECRET_KEY;
+    } catch(e) {
+      return false;
+    }
+  }
+
+  function isPublicPage(url) {
+    if (!url) return true;
+    const cleanUrl = url.split('#')[0].split('?')[0].split('/').pop() || 'index.html';
+    return PUBLIC_PAGES.includes(cleanUrl);
+  }
+
+  const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+  const isCurrentPageProtected = !isPublicPage(currentPath);
+
+  function ensureModalExists() {
+    if (document.getElementById('siteMaintenanceModal')) return;
+
+    const overlay = document.createElement('div');
+    overlay.id = 'siteMaintenanceModal';
+    overlay.className = 'maintenance-modal-overlay';
+    overlay.innerHTML = `
+      <div class="maintenance-modal-card">
+        <button type="button" class="modal-close" id="siteMaintenanceCloseBtn" aria-label="Close">&times;</button>
+        
+        <div class="maintenance-badge">System Update in Progress</div>
+        
+        <h3 class="maintenance-title">This Page is<br><span>Under Maintenance</span></h3>
+        <p class="maintenance-sub">We're making improvements. Back very shortly!</p>
+        
+        <div class="maintenance-info-box">
+          <div class="maintenance-info-title">🎁 Meanwhile, attend a Free Demo Class</div>
+          <div class="maintenance-info-desc">Attend live class sessions before making any decision. Zero fee, 100% practical experience.</div>
+        </div>
+
+        <a href="3-day-demo-class.html" class="maintenance-btn-cta" id="siteMaintenanceDemoBtn">
+          🎁 3-Day Free Demo &rarr;
+        </a>
+
+        <div class="maintenance-auth-wrap">
+          <button type="button" class="maintenance-auth-toggle" id="maintenanceAuthToggle">
+            🔒 Preview Access (Staff Login)
+          </button>
+          <form class="maintenance-auth-form" id="maintenanceAuthForm">
+            <input type="password" placeholder="Enter password" class="maintenance-pwd-input" id="maintenancePwdInput" required autocomplete="current-password">
+            <button type="submit" class="maintenance-pwd-btn">Unlock</button>
+          </form>
+          <div class="maintenance-auth-error" id="maintenanceAuthError">Incorrect password. Try again.</div>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(overlay);
+
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) handleClose();
+    });
+
+    const closeBtn = overlay.querySelector('#siteMaintenanceCloseBtn');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', handleClose);
+    }
+
+    const authToggle = overlay.querySelector('#maintenanceAuthToggle');
+    const authForm = overlay.querySelector('#maintenanceAuthForm');
+    const pwdInput = overlay.querySelector('#maintenancePwdInput');
+    const authError = overlay.querySelector('#maintenanceAuthError');
+
+    if (authToggle && authForm) {
+      authToggle.addEventListener('click', () => {
+        authForm.classList.toggle('open');
+        if (authForm.classList.contains('open') && pwdInput) {
+          pwdInput.focus();
+        }
+      });
+    }
+
+    if (authForm) {
+      authForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const pwd = pwdInput ? pwdInput.value.trim() : '';
+        if (pwd === SECRET_KEY) {
+          try {
+            localStorage.setItem(AUTH_STORAGE_KEY, SECRET_KEY);
+            sessionStorage.setItem(AUTH_STORAGE_KEY, SECRET_KEY);
+          } catch(err) {}
+          closeMaintenanceModal();
+          if (authError) authError.style.display = 'none';
+        } else {
+          if (authError) authError.style.display = 'block';
+          if (pwdInput) {
+            pwdInput.value = '';
+            pwdInput.focus();
+          }
+        }
+      });
+    }
+  }
+
+  function handleClose() {
+    if (isCurrentPageProtected && !isUnlocked()) {
+      window.location.href = 'index.html';
+    } else {
+      closeMaintenanceModal();
+    }
+  }
+
+  function openMaintenanceModal() {
+    if (isUnlocked()) return;
+    ensureModalExists();
+    const modal = document.getElementById('siteMaintenanceModal');
+    if (modal) {
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  function closeMaintenanceModal() {
+    const modal = document.getElementById('siteMaintenanceModal');
+    if (modal) {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  }
+
+  window.openMaintenanceModal = openMaintenanceModal;
+  window.closeMaintenanceModal = closeMaintenanceModal;
+
+  // Intercept any clicks to protected pages if not unlocked
+  document.addEventListener('click', (e) => {
+    if (isUnlocked()) return;
+
+    const trigger = e.target.closest('a, button, .open-maintenance-modal, [data-maintenance]');
+    if (!trigger) return;
+
+    if (trigger.classList.contains('open-maintenance-modal') || trigger.hasAttribute('data-maintenance')) {
+      e.preventDefault();
+      openMaintenanceModal();
+      return;
+    }
+
+    if (trigger.tagName === 'A') {
+      const href = trigger.getAttribute('href');
+      if (href && !href.startsWith('http') && !href.startsWith('tel:') && !href.startsWith('mailto:') && !href.startsWith('#')) {
+        if (!isPublicPage(href)) {
+          e.preventDefault();
+          openMaintenanceModal();
+        }
+      }
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      handleClose();
+    }
+  });
+
+  // If directly visiting a protected page and not unlocked, show modal immediately
+  if (isCurrentPageProtected && !isUnlocked()) {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', openMaintenanceModal);
+    } else {
+      openMaintenanceModal();
+    }
+  }
+})();
+
+
 
 
