@@ -1647,6 +1647,20 @@ body.footer-revealed .desktop-dock {
 .testi-dots{grid-column:2;grid-row:2;display:flex;justify-content:center;gap:10px}
 .testi-dot{width:10px;height:10px;border-radius:50%;background:#E2E8F0;border:none;cursor:pointer;transition:background .2s ease,transform .2s ease;display:block;padding:0}
 .testi-dot:hover{background:#CBD5E1}
+.testi-arrow{display:none}
+@media(min-width:861px){
+  .testi-arrow{
+    display:flex;position:absolute;top:50%;transform:translateY(-50%);
+    width:40px;height:40px;border-radius:50%;background:#fff;
+    border:1.5px solid #E2E8F0;box-shadow:0 4px 14px rgba(0,0,0,.1);
+    align-items:center;justify-content:center;color:#0f172a;cursor:pointer;z-index:6;padding:0;
+    transition:background .2s ease,border-color .2s ease,transform .2s ease;
+  }
+  .testi-arrow svg{width:18px;height:18px;display:block}
+  .testi-arrow:hover{background:var(--red);border-color:var(--red);color:#fff}
+  .testi-arrow-prev{left:-20px}
+  .testi-arrow-next{right:-20px}
+}
 #testi-r0:checked ~ .testi-carousel-body .testi-card[data-slide="0"],
 #testi-r1:checked ~ .testi-carousel-body .testi-card[data-slide="1"],
 #testi-r2:checked ~ .testi-carousel-body .testi-card[data-slide="2"] { display:flex; }
@@ -3785,6 +3799,9 @@ select.curr-country-select:hover {
       <button type="button" class="testi-dot" data-dot="1" onclick="document.getElementById('testi-r1').checked=true" aria-label="Story 2"></button>
       <button type="button" class="testi-dot" data-dot="2" onclick="document.getElementById('testi-r2').checked=true" aria-label="Story 3"></button>
     </div>
+
+    <button type="button" class="testi-arrow testi-arrow-prev" onclick="testiNav(-1)" aria-label="Previous story"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+    <button type="button" class="testi-arrow testi-arrow-next" onclick="testiNav(1)" aria-label="Next story"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
   </div>
 </div>
     </div>
@@ -4528,6 +4545,14 @@ select.curr-country-select:hover {
 })();
 
 // ── 0. Curriculum Module Accordion + Brochure Form ──────────────────
+function testiNav(dir){
+  const radios = document.querySelectorAll('.testi-radio');
+  if (!radios.length) return;
+  let i = 0;
+  radios.forEach((r, idx) => { if (r.checked) i = idx; });
+  let next = (i + dir + radios.length) % radios.length;
+  radios[next].checked = true;
+}
 function toggleModule(btn){
   const card = btn.closest('.cur-card');
   const list = card.closest('.cur-list');

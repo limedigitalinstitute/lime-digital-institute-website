@@ -1019,4 +1019,16 @@ if (document.readyState === 'loading') {
   initWeeklyLiveTimer();
 }
 
+// Testimonial carousel (.testi-carousel): desktop prev/next arrows step
+// through the same radio inputs the dots already drive.
+function testiNav(dir) {
+  const radios = document.querySelectorAll('.testi-radio');
+  if (!radios.length) return;
+  let i = 0;
+  radios.forEach((r, idx) => { if (r.checked) i = idx; });
+  let next = (i + dir + radios.length) % radios.length;
+  radios[next].checked = true;
+}
+window.testiNav = testiNav;
+
 

@@ -5631,6 +5631,20 @@ select.curr-country-select:hover {
 .testi-dots{grid-column:2;grid-row:2;display:flex;justify-content:center;gap:10px}
 .testi-dot{width:10px;height:10px;border-radius:50%;background:#E2E8F0;border:none;cursor:pointer;transition:background .2s ease,transform .2s ease;display:block;padding:0}
 .testi-dot:hover{background:#CBD5E1}
+.testi-arrow{display:none}
+@media(min-width:861px){
+  .testi-arrow{
+    display:flex;position:absolute;top:50%;transform:translateY(-50%);
+    width:40px;height:40px;border-radius:50%;background:#fff;
+    border:1.5px solid #E2E8F0;box-shadow:0 4px 14px rgba(0,0,0,.1);
+    align-items:center;justify-content:center;color:#0f172a;cursor:pointer;z-index:6;padding:0;
+    transition:background .2s ease,border-color .2s ease,transform .2s ease;
+  }
+  .testi-arrow svg{width:18px;height:18px;display:block}
+  .testi-arrow:hover{background:#ED3237;border-color:#ED3237;color:#fff}
+  .testi-arrow-prev{left:-20px}
+  .testi-arrow-next{right:-20px}
+}
 #testi-r0:checked ~ .testi-carousel-body .testi-card[data-slide="0"],
 #testi-r1:checked ~ .testi-carousel-body .testi-card[data-slide="1"],
 #testi-r2:checked ~ .testi-carousel-body .testi-card[data-slide="2"] { display:flex; }
