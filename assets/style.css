@@ -5639,7 +5639,7 @@ select.curr-country-select:hover {
 .testi-carousel{max-width:1060px;margin:0 auto;position:relative}
 .testi-radio{position:absolute;opacity:0;pointer-events:none;width:1px;height:1px}
 .testi-carousel-body{display:grid;grid-template-columns:1.1fr 1fr;grid-template-rows:auto auto;column-gap:36px;row-gap:18px;align-items:stretch}
-.testi-carousel-image{grid-column:1;grid-row:1;position:relative;border-radius:20px;overflow:hidden;background:#fff;height:100%;box-shadow:none;border:none}
+.testi-carousel-image{grid-column:1;grid-row:1;position:relative;z-index:0;border-radius:20px;overflow:hidden;background:#fff;height:100%;box-shadow:none;border:none}
 .testi-static-img{width:100%;height:100%;object-fit:contain;display:block}
 .testi-carousel-cards{grid-column:2;grid-row:1;position:relative;height:100%}
 .testi-card{display:none;flex-direction:column;background:#fff;border:1.5px solid #ED3237;border-radius:20px;padding:26px 26px;box-shadow:none;box-sizing:border-box;overflow:visible;gap:14px}
@@ -5666,7 +5666,7 @@ select.curr-country-select:hover {
     display:flex;position:absolute;top:50%;transform:translateY(-50%);
     width:40px;height:40px;border-radius:50%;background:#fff;
     border:1.5px solid #E2E8F0;box-shadow:0 4px 14px rgba(0,0,0,.1);
-    align-items:center;justify-content:center;color:#0f172a;cursor:pointer;z-index:6;padding:0;
+    align-items:center;justify-content:center;color:#0f172a;cursor:pointer;z-index:10;padding:0;
     transition:background .2s ease,border-color .2s ease,transform .2s ease;
   }
   .testi-arrow svg{width:18px;height:18px;display:block}

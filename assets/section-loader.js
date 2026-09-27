@@ -35,9 +35,6 @@
           '<div class="lid-video-grid">' + cards + '</div>' +
           '<button type="button" class="lid-carousel-arrow lid-carousel-prev" onclick="limeScrollCarousel(this,-1)" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>' +
           '<button type="button" class="lid-carousel-arrow lid-carousel-next" onclick="limeScrollCarousel(this,1)" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>' +
-        '</div>' +
-        '<div class="lid-video-cta-wrap">' +
-          '<a href="#book-seat" class="btn btn-primary open-modal-btn" data-course="Free Trial Class">Start Your 3-Day Trial</a>' +
         '</div>'
       );
     }
