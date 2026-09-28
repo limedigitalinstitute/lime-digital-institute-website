@@ -35,4 +35,10 @@ Allow: /
 User-agent: anthropic-ai
 Allow: /
 
+User-agent: FacebookBot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
 Sitemap: https://limedigitalinstitute.org/sitemap.xml
