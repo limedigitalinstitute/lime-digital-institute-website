@@ -1,0 +1,35 @@
+# Lime Digital Institute — Full Program & Institute Documentation
+
+## Overview
+Lime Digital Institute (LDI) is Rajkot's leading educational institute for practical digital marketing, performance advertising, and artificial intelligence automation. Founded with the mission to eliminate theoretical-only marketing education, LDI teaches students and business owners through live ad budgets, real Indian brand case studies, and agency simulations.
+
+## Curriculum & 16 Modules
+1. Website Creation & Conversion Architecture (WordPress, Elementor, Landing Page CRO)
+2. Search Engine Optimization (Technical SEO, On-Page, Off-Page, Schema Markup, GEO)
+3. Performance Paid Ads (Meta Ads Manager, Campaign Budget Optimization, Scaling)
+4. Search Advertising (Google Ads, Search, Display, YouTube, Shopping)
+5. AI-Powered Marketing (ChatGPT, Claude, Gemini prompt engineering, creative automation)
+6. Marketing Automation & Workflows (n8n, Zapier, Webhooks, Zoho CRM integration)
+7. Content Marketing & Copywriting (Direct-response copywriting, storytelling, video scripts)
+8. Social Media Marketing (Organic Instagram, LinkedIn personal branding, viral formats)
+9. E-commerce Marketing (Shopify, Amazon Ads, Catalog Sales, Retention)
+10. Analytics & Data-Driven Growth (GA4, Google Tag Manager, Looker Studio, Server-Side Tracking)
+11. Lead Generation & Funnels (B2B lead generation, WhatsApp funnels, email automation)
+12. Influencer Marketing & PR (Affiliate campaigns, brand outreach, contract management)
+13. Mobile Marketing & App Growth (App store optimization, push campaigns)
+14. Local SEO & Google Business Profile (Map pack ranking, local citations, review generation)
+15. Agency Business & Freelancing (Client acquisition, pricing, pitching, retainer models)
+16. Capstone Live Project & Portfolio Defense (Live campaign execution with real ad spend)
+
+## Key Stats & Social Proof
+- 800+ Students Placed
+- 93% Placement Rate within 60 days
+- 60+ Live Industry Tools taught hands-on
+- 4.9/5 Average Student Rating
+- 100% Practical Training with Live Ad Budgets
+
+## Campus & Contact
+- City: Rajkot, Gujarat, India
+- Official Website: https://limedigitalinstitute.org/
+- Free 3-Day Demo: https://courses.limedigitalinstitute.org/
+- Contact: admin@limeinstitute.org | +91-9998887772

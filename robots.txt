@@ -1,0 +1,38 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /data/
+Disallow: /lime-admin/
+Disallow: /404.html
+Disallow: /thank-you.html
+Disallow: /event-thank-you.html
+
+# AI Search Crawlers & Assistants (GEO & AEO)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+Sitemap: https://limedigitalinstitute.org/sitemap.xml
