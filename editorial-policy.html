@@ -11,13 +11,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Case Studies | Lime Digital Institute, Rajkot</title>
-<meta content="Real student businesses built during the course - case studies from Lime Digital Institute, Rajkot alumni." name="description"/>
+<title>About Us | Lime Digital Institute, Rajkot</title>
+<meta content="Meet the leadership and mentors at Lime Digital Institute, Rajkot. Founded by Director Paras Gadara with international coaches and proven alumni founders." name="description"/>
 <!-- Open Graph / Social Sharing -->
 <meta content="website" property="og:type"/>
-<meta content="https://limedigitalinstitute.org/case-studies.html" property="og:url"/>
-<meta content="Student Case Studies &amp; ROI Results | Lime Digital Institute" property="og:title"/>
-<meta content="Real campaign outcomes, e-commerce scale-ups, B2B exports, and lead generation case studies executed by Lime Digital students." property="og:description"/>
+<meta content="https://limedigitalinstitute.org/editorial-policy.html" property="og:url"/>
+<meta content="About Us | Lime Digital Institute Rajkot" property="og:title"/>
+<meta content="Learn about Lime Digital Institute — India’s premier agency-style business school for practical digital marketing and AI in Rajkot, Gujarat." property="og:description"/>
 <meta content="https://limedigitalinstitute.org/assets/lime-logo.png" property="og:image"/>
 <meta content="1200" property="og:image:width"/>
 <meta content="630" property="og:image:height"/>
@@ -25,25 +25,191 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta content="en_IN" property="og:locale"/>
 <!-- Twitter Cards -->
 <meta content="summary_large_image" name="twitter:card"/>
-<meta content="https://limedigitalinstitute.org/case-studies.html" name="twitter:url"/>
-<meta content="Student Case Studies &amp; ROI Results | Lime Digital Institute" name="twitter:title"/>
-<meta content="Real campaign outcomes, e-commerce scale-ups, B2B exports, and lead generation case studies executed by Lime Digital students." name="twitter:description"/>
+<meta content="https://limedigitalinstitute.org/editorial-policy.html" name="twitter:url"/>
+<meta content="About Us | Lime Digital Institute Rajkot" name="twitter:title"/>
+<meta content="Learn about Lime Digital Institute — India’s premier agency-style business school for practical digital marketing and AI in Rajkot, Gujarat." name="twitter:description"/>
 <meta content="https://limedigitalinstitute.org/assets/lime-logo.png" name="twitter:image"/>
-<link href="https://limedigitalinstitute.org/case-studies.html" rel="canonical"/>
 <link href="assets/lime-logo.png" rel="icon"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
 <link href="assets/style.css?v=20260928m" rel="stylesheet"/>
+<!-- LID-STYLE CAMPUS EXPERIENCE MARQUEE GALLERY STYLES -->
+<style>
+.campus-marquee-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 24px 0 10px;
+  box-sizing: border-box;
+}
+.campus-marquee-container::before,
+.campus-marquee-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100px;
+  z-index: 5;
+  pointer-events: none;
+}
+.campus-marquee-container::before {
+  left: 0;
+  background: linear-gradient(to right, #ffffff 0%, rgba(255,255,255,0) 100%);
+}
+.campus-marquee-container::after {
+  right: 0;
+  background: linear-gradient(to left, #ffffff 0%, rgba(255,255,255,0) 100%);
+}
+.campus-marquee-track {
+  display: flex !important;
+  width: max-content !important;
+  animation: campusMarqueeScroll 45s linear infinite !important;
+  will-change: transform;
+}
+@keyframes campusMarqueeScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.campus-marquee-group {
+  display: flex !important;
+  gap: 14px !important;
+  padding-right: 14px !important;
+  flex-shrink: 0 !important;
+  align-items: stretch !important;
+}
+.campus-col {
+  flex-shrink: 0 !important;
+  width: 270px !important;
+  height: 380px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  box-sizing: border-box !important;
+}
+.campus-col.tall {
+  height: 380px !important;
+}
+.campus-col.tall .campus-pic-wrap {
+  width: 100% !important;
+  height: 380px !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  position: relative !important;
+  background: #1e293b !important;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.06) !important;
+}
+.campus-col.stacked {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  gap: 14px !important;
+  height: 380px !important;
+}
+.campus-col.stacked .campus-pic-wrap {
+  width: 100% !important;
+  height: 183px !important;
+  min-height: 183px !important;
+  max-height: 183px !important;
+  flex: 0 0 183px !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  position: relative !important;
+  background: #1e293b !important;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.06) !important;
+}
+.campus-pic-wrap img {
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 100% !important;
+  min-height: 100% !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+  display: block !important;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.campus-pic-wrap:hover img {
+  transform: scale(1.06) !important;
+}
+.campus-pic-cap { display: none !important; }
+@media (max-width: 900px) {
+  .campus-col {
+    width: 220px !important;
+    height: 310px !important;
+  }
+  .campus-col.tall {
+    height: 310px !important;
+  }
+  .campus-col.tall .campus-pic-wrap {
+    height: 310px !important;
+    border-radius: 12px !important;
+  }
+  .campus-col.stacked {
+    height: 310px !important;
+    gap: 10px !important;
+  }
+  .campus-col.stacked .campus-pic-wrap {
+    height: 150px !important;
+    min-height: 150px !important;
+    max-height: 150px !important;
+    flex: 0 0 150px !important;
+    border-radius: 12px !important;
+  }
+  .campus-marquee-track {
+    animation-duration: 32s !important;
+  }
+  .campus-marquee-group {
+    gap: 12px !important;
+    padding-right: 12px !important;
+  }
+  .campus-marquee-container::before,
+  .campus-marquee-container::after {
+    width: 40px !important;
+  }
+}
+@media (max-width: 576px) {
+  .campus-col {
+    width: 200px !important;
+    height: 280px !important;
+  }
+  .campus-col.tall {
+    height: 280px !important;
+  }
+  .campus-col.tall .campus-pic-wrap {
+    height: 280px !important;
+    border-radius: 10px !important;
+  }
+  .campus-col.stacked {
+    height: 280px !important;
+    gap: 8px !important;
+  }
+  .campus-col.stacked .campus-pic-wrap {
+    height: 136px !important;
+    min-height: 136px !important;
+    max-height: 136px !important;
+    flex: 0 0 136px !important;
+    border-radius: 10px !important;
+  }
+  .campus-marquee-group {
+    gap: 10px !important;
+    padding-right: 10px !important;
+  }
+  .campus-marquee-container::before,
+  .campus-marquee-container::after {
+    width: 25px !important;
+  }
+}
+</style>
+<link href="https://limedigitalinstitute.org/editorial-policy.html" rel="canonical"/>
+<meta content="index, follow" name="robots"/>
 <script type="application/ld+json">
   [
     {
       "@context": "https://schema.org",
       "@type": "WebPage",
-      "@id": "https://limedigitalinstitute.org/case-studies.html#webpage",
-      "url": "https://limedigitalinstitute.org/case-studies.html",
-      "name": "Student Case Studies & ROI Results | Lime Digital Institute",
-      "description": "Real campaign outcomes, e-commerce scale-ups, B2B exports, and lead generation case studies executed by Lime Digital students.",
+      "@id": "https://limedigitalinstitute.org/editorial-policy.html#webpage",
+      "url": "https://limedigitalinstitute.org/editorial-policy.html",
+      "name": "About Us | Lime Digital Institute Rajkot",
+      "description": "Learn about Lime Digital Institute — India’s premier agency-style business school for practical digital marketing and AI in Rajkot, Gujarat.",
       "isPartOf": {
         "@type": "WebSite",
         "url": "https://limedigitalinstitute.org/",
@@ -225,124 +391,37 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </div>
 </div>
 </nav>
-<section class="page-hero" data-bg="5">
+<!-- PAGE HERO -->
+<section class="page-hero" style="padding:120px 0 60px; background:radial-gradient(circle at top right, rgba(237,50,55,0.12), transparent 45%), #090D14; color:#FFFFFF;">
 <div class="wrap">
-<div class="page-hero-card">
-<svg aria-hidden="true" class="page-hero-deco page-hero-deco-l" fill="none" viewbox="0 0 220 300" xmlns="http://www.w3.org/2000/svg"><path d="M70 40C40 60 30 100 55 125C80 150 130 140 135 105C140 70 100 55 85 80C70 105 100 130 120 120" stroke="#ffffff" stroke-linecap="round" stroke-width="3"></path><path d="M60 150C70 190 90 220 120 235" stroke="#ffffff" stroke-linecap="round" stroke-width="3"></path><path d="M100 225L120 235L108 255" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path></svg>
-<svg aria-hidden="true" class="page-hero-deco page-hero-deco-r" fill="none" viewbox="0 0 220 300" xmlns="http://www.w3.org/2000/svg"><path d="M110 60L150 110L100 150L150 200L110 250" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path></svg>
-<h1 class="h1">Real students. Real businesses.<br/><span class="underline-device">Built from the classroom.</span></h1>
-<div class="breadcrumb"><a href="index.html">Home</a> / Case Studies</div>
-</div>
-</div>
-<div class="wrap">
-<div class="page-hero-sub">
-<div class="eyebrow" style="color:var(--red-300);">Learning Centre - Case Studies</div>
-<p class="lead">Industry-relevant, not textbook-relevant. Every case study here is a Lime Digital Institute student who turned a course project into a working brand - export businesses, agri-tech content, and D2C labels that didn't exist before they walked in.</p>
+<div class="page-hero-sub" style="text-align:center;">
+<div class="eyebrow" style="color:#ED3237; text-transform:uppercase; letter-spacing:1px; font-weight:700;">Integrity &amp; Standards</div>
+<h1 class="page-hero-title" style="font-size:2.8rem; margin:14px 0;">Editorial &amp; Verification Policy</h1>
+<p class="lead" style="max-width:760px; margin:0 auto; opacity:0.85;">At Lime Digital Institute, educational excellence is anchored in transparent facts, verifiable placement metrics, and continuously audited curriculum standards.</p>
 </div>
 </div>
 </section>
-<section class="wrap" style="padding:60px 0 0;">
-<div class="section-head center reveal">
-<div class="eyebrow center">Real Students. Real Businesses.</div>
-<h2 class="h2">No theory. Just outcomes you can check.</h2>
-<p class="lead">From Rajkot's classrooms to global exports, farmer-first content, and a brand built in one hour a day - here's what our students actually did with what they learned.</p>
+<section class="about-section" style="padding:80px 0; background:#FFFFFF;">
+<div class="wrap" style="max-width:880px; margin:0 auto; line-height:1.8; color:#212529;">
+<div style="margin-bottom:48px;">
+<h2 style="font-size:1.8rem; color:#090D14; margin-bottom:16px;">1. Curriculum Review &amp; Industry Alignment</h2>
+<p>Our 16-module digital marketing and AI syllabus is reviewed every quarter by a panel of active agency directors, performance marketers, and hiring partners. Obsolete tactics are removed immediately, and new developments (such as emerging generative AI models, algorithmic shifts, and privacy tracking regulations) are integrated in real-time.</p>
 </div>
-</section>
-<section class="mentor wrap" style="padding:70px 0; border-bottom:1px solid var(--border);">
-<div class="mentor-grid">
-<div class="reveal">
-<div class="graphic-card spotlight">
-<div class="graphic-card-img" style="height:320px;"><img alt="Patel Drashti" src="assets/student-drashti.jpg"/></div>
-<div class="graphic-card-body" style="background:var(--ink-900); text-align:center;">
-<h4 style="color:#fff; font-size:18px;">Patel Drashti</h4>
-<span style="color:var(--lime-red); font-size:13px; font-weight:700; text-transform:uppercase;">Founder - Dhritiva (1st Student)</span>
+<div style="margin-bottom:48px;">
+<h2 style="font-size:1.8rem; color:#090D14; margin-bottom:16px;">2. Placement &amp; Outcome Verification</h2>
+<p>All placement statistics published by Lime Digital Institute — including our 800+ placed graduates, 93% placement rate within 60 days, and student salary figures — are cross-verified with official offer letters, corporate appointment letters, and hiring partner confirmation records. We do not inflate salary averages or cite speculative projections.</p>
 </div>
+<div style="margin-bottom:48px;">
+<h2 style="font-size:1.8rem; color:#090D14; margin-bottom:16px;">3. Live Ad Budgets &amp; Practical Simulation Guarantee</h2>
+<p>We believe digital marketing cannot be mastered through textbooks or theory alone. Every student is provided access to live campaign simulations and real ad spend on Meta Ads and Google Ads. Campaign outcomes, metrics (ROAS, CPA, CTR), and case studies represent genuine client accounts or structured classroom ad simulations.</p>
 </div>
+<div style="margin-bottom:48px;">
+<h2 style="font-size:1.8rem; color:#090D14; margin-bottom:16px;">4. Responsible AI &amp; Ethical Tool Training</h2>
+<p>Students are trained on 60+ industry AI tools (ChatGPT, Claude, Gemini, n8n, Midjourney, Perplexity) with strict emphasis on ethical disclosure, data privacy, hallucination verification, and compliance with search engine guidelines against programmatic spam.</p>
 </div>
-<div class="reveal">
-<div class="eyebrow">Case Study</div>
-<h2 class="h2">From zero business plan to a global export brand.</h2>
-<div style="margin-top:18px;">
-<strong style="display:block; font-size:12px; text-transform:uppercase; letter-spacing:.6px; color:var(--ink-400); margin-bottom:4px;">The Challenge</strong>
-<p style="font-size:14.5px; color:var(--ink-600); line-height:1.7;">Drashti joined Lime Digital Institute simply to learn digital marketing as a skill - she had no product, no business plan, and no export experience. She didn't know if a home-grown idea like incense sticks and essential oils could ever reach buyers outside India.</p>
-</div>
-<div style="margin-top:16px;">
-<strong style="display:block; font-size:12px; text-transform:uppercase; letter-spacing:.6px; color:var(--ink-400); margin-bottom:4px;">What We Did</strong>
-<p style="font-size:14.5px; color:var(--ink-600); line-height:1.7;">Using what she learned in class, she built an export-ready digital storefront and brand identity for "Dhritiva" from scratch, then used targeted outreach and content to put it in front of international buyers actively searching for incense and essential oil suppliers.</p>
-</div>
-<div style="margin-top:16px;">
-<strong style="display:block; font-size:12px; text-transform:uppercase; letter-spacing:.6px; color:var(--ink-400); margin-bottom:4px;">The Result</strong>
-<p style="font-size:14.5px; color:var(--ink-600); line-height:1.7;">Dhritiva now ships incense sticks and essential oils to buyers around the world - a business that exists today only because a course project became a real export brand.</p>
-</div>
-</div>
-</div>
-</section>
-<section class="mentor wrap" style="padding:70px 0; border-bottom:1px solid var(--border);">
-<div class="mentor-grid">
-<div class="reveal">
-<div class="graphic-card spotlight">
-<div class="graphic-card-img" style="height:320px;"><img alt="Vedang Pedhadiya" src="assets/student-vedang.png"/></div>
-<div class="graphic-card-body" style="background:var(--ink-900); text-align:center;">
-<h4 style="color:#fff; font-size:18px;">Vedang Pedhadiya</h4>
-<span style="color:var(--lime-red); font-size:13px; font-weight:700; text-transform:uppercase;">Co-Founder - Polygen</span>
-</div>
-</div>
-</div>
-<div class="reveal">
-<div class="eyebrow">Case Study</div>
-<h2 class="h2">Stop selling the product. Start solving the farmer's problem.</h2>
-<div style="margin-top:18px;">
-<strong style="display:block; font-size:12px; text-transform:uppercase; letter-spacing:.6px; color:var(--ink-400); margin-bottom:4px;">The Challenge</strong>
-<p style="font-size:14.5px; color:var(--ink-600); line-height:1.7;">Vedang runs Polygen, an agrichem company, and walked in skeptical - he didn't believe farmers or an agricultural chemicals business belonged on social media at all, let alone that it could move the needle.</p>
-</div>
-<div style="margin-top:16px;">
-<strong style="display:block; font-size:12px; text-transform:uppercase; letter-spacing:.6px; color:var(--ink-400); margin-bottom:4px;">What We Did</strong>
-<p style="font-size:14.5px; color:var(--ink-600); line-height:1.7;">Director Paras Sir's advice reframed everything: "Don't sell your product, solve your farmer's problem." Vedang rebuilt Polygen's entire digital presence around practical, farmer-first content instead of direct product pitches - addressing real crop and field problems first.</p>
-</div>
-<div style="margin-top:16px;">
-<strong style="display:block; font-size:12px; text-transform:uppercase; letter-spacing:.6px; color:var(--ink-400); margin-bottom:4px;">The Result</strong>
-<p style="font-size:14.5px; color:var(--ink-600); line-height:1.7;">Polygen now shows up as a trusted problem-solver in farmers' feeds, not just another chemical supplier - turning a channel Vedang once dismissed into a steady source of credibility and inbound trust.</p>
-</div>
-</div>
-</div>
-</section>
-<section class="mentor wrap" style="padding:70px 0; border-bottom:1px solid var(--border);">
-<div class="mentor-grid">
-<div class="reveal">
-<div class="graphic-card spotlight">
-<div class="graphic-card-img" style="height:320px;"><img alt="Prapati Jignesh" src="assets/student-jignesh.png"/></div>
-<div class="graphic-card-body" style="background:var(--ink-900); text-align:center;">
-<h4 style="color:#fff; font-size:18px;">Prapati Jignesh</h4>
-<span style="color:var(--lime-red); font-size:13px; font-weight:700; text-transform:uppercase;">Founder - Rivanta Naturals</span>
-</div>
-</div>
-</div>
-<div class="reveal">
-<div class="eyebrow">Case Study</div>
-<h2 class="h2">One hour a day. One brand that didn't exist before.</h2>
-<div style="margin-top:18px;">
-<strong style="display:block; font-size:12px; text-transform:uppercase; letter-spacing:.6px; color:var(--ink-400); margin-bottom:4px;">The Challenge</strong>
-<p style="font-size:14.5px; color:var(--ink-600); line-height:1.7;">Jignesh is a full-time working professional with exactly one open window in his day - 8 to 9 AM. Any training program that demanded more than that simply wasn't an option for him.</p>
-</div>
-<div style="margin-top:16px;">
-<strong style="display:block; font-size:12px; text-transform:uppercase; letter-spacing:.6px; color:var(--ink-400); margin-bottom:4px;">What We Did</strong>
-<p style="font-size:14.5px; color:var(--ink-600); line-height:1.7;">Lime Digital Institute built a special morning batch specifically for working professionals like him. In that one focused hour daily, he picked up real business and marketing insights he applied immediately outside class.</p>
-</div>
-<div style="margin-top:16px;">
-<strong style="display:block; font-size:12px; text-transform:uppercase; letter-spacing:.6px; color:var(--ink-400); margin-bottom:4px;">The Result</strong>
-<p style="font-size:14.5px; color:var(--ink-600); line-height:1.7;">"Rivanta Naturals" - a natural products brand that didn't exist before the course - now runs alongside his full-time job, proof that a single disciplined hour a day was enough to launch it.</p>
-</div>
-</div>
-</div>
-</section>
-<section class="final-cta">
-<div class="wrap">
-<div class="eyebrow" style="color:#ffffff;">Your Story Starts Here</div>
-<h2 class="h2">Your business could be the next case study.</h2>
-<p class="lead">Drashti, Vedang, and Jignesh all started with a free trial class. Come see what one hour with Paras Sir can do for you.</p>
-<div class="btn-row">
-<a class="btn btn-glow" href="tel:+917567787232">Call +91 75677 87232</a>
-<a class="btn btn-inverse open-modal-btn" data-course="Free Trial Class" href="#">Book a Free Trial Class</a>
+<div style="margin-bottom:48px;">
+<h2 style="font-size:1.8rem; color:#090D14; margin-bottom:16px;">5. Corrections &amp; Public Transparency</h2>
+<p>If you identify any discrepancy in course documentation, blog articles, or public placement reporting, our academic team promptly investigates and publishes corrections. Contact our editorial desk directly at <a href="mailto:digital@limeinstitute.org" style="color:#ED3237; font-weight:600;">digital@limeinstitute.org</a> or visit our campus at 5th Floor, LIME Institute, Jyoti Nagar Main Rd, Rajkot.</p>
 </div>
 </div>
 </section>
@@ -365,8 +444,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </div>
 <div class="footer-col">
 <div class="footer-col-title">Programs</div>
-<a href="courses.html">Foundation Program (1.5 Mo)</a>
-<a href="courses.html">Advance Program (3 Mo)</a>
+<a href="foundation-program.html">Foundation Program (1.5 Mo)</a>
+<a href="digital-marketing-professional.html">Advance Program (3 Mo)</a>
 <a href="bachelors-in-digital-business.html">Bachelor's in Digital Business (3 Yrs)</a>
 <a href="masters-in-digital-business.html">Master's in Digital Business (11 Mo)</a>
 </div>
@@ -374,7 +453,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="footer-col-title">Campus Contact</div>
 <a href="tel:+917567787232">+91 75677 87232</a>
 <a href="tel:+918980626323">Support: +91 89806 26323</a>
-<a href="contact.html">5th Floor, LIME Institute, Jyoti Nagar Main Rd, near Masoom School, behind Crystal Mall, Rajkot 360005</a>
+<a href="contact.html">5th Floor, LIME Institute, Jyoti Nagar Main Rd, Rajkot 360005</a>
 </div>
 </div>
 <div class="footer-bottom">
@@ -483,5 +562,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <script src="assets/lead-collector.js?v=20260918f"></script>
 <script src="assets/country-picker.js?v=20260918g"></script>
 <script src="assets/main.js?v=20260928c"></script>
+<script src="assets/section-loader.js?v=20260924"></script>
 </body>
 </html>
