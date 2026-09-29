@@ -540,36 +540,27 @@
 <div class="wrap">
 <div class="mc-hero-inner reveal">
 <div class="mc-eyebrow">Learning Centre · Free Masterclasses</div>
-<h1>Level Up Your Skills<br/>with <span class="accent">Free Live</span> Sessions</h1>
+<h1>Level Up Your Skills<br/>with <span class="accent">Live</span> Sessions</h1>
 <p class="mc-hero-lead">
-            Expert-led workshops every week — online via Zoom or hands-on at our Rajkot campus. 100% free, no hidden fees, instant access to recordings.
+            Expert-led workshops every week — online via Zoom or hands-on at our Rajkot campus.
           </p>
-<div class="mc-hero-pills">
-<span class="mc-hero-pill">🎟️ 100% Free Forever</span>
-<span class="mc-hero-pill">🎙️ Live Q&amp;A with Mentors</span>
-<span class="mc-hero-pill">📜 Participation Certificate</span>
-</div>
-<a class="mc-hero-cta" href="#workshops">Browse All Sessions ↓</a>
 </div>
 </div>
 </section>
-<!-- FILTER STRIP -->
+<!-- UPCOMING WEBINARS -->
 <section class="mc-filter-strip" id="workshops">
 <div class="wrap">
+<div class="mc-section-head reveal">
+<h2>Upcoming Webinars</h2>
+</div>
 <div class="mc-filter-inner">
 <div class="mc-tabs">
-<button class="mc-tab active" data-filter="all" type="button">
-              All Sessions <span class="mc-tab-count" id="countAll">5</span>
-</button>
 <button class="mc-tab" data-filter="online" type="button">
-              Online · Zoom <span class="mc-tab-count" id="countOnline">4</span>
+              Online Sessions <span class="mc-tab-count" id="countOnline">3</span>
 </button>
 <button class="mc-tab" data-filter="offline" type="button">
-              Offline · Rajkot <span class="mc-tab-count" id="countOffline">1</span>
+              Offline Sessions <span class="mc-tab-count" id="countOffline">1</span>
 </button>
-</div>
-<div class="mc-filter-label">
-            Showing: <strong id="filterLabel">All Sessions</strong>
 </div>
 </div>
 </div>
@@ -702,6 +693,21 @@
               </a>
 </div>
 </article>
+</div><!-- /#masterclassGrid -->
+</div>
+</section>
+<!-- ON-DEMAND WEBINARS -->
+<section class="mc-filter-strip">
+<div class="wrap">
+<div class="mc-section-head reveal">
+<h2>On-demand webinars</h2>
+<p>Watch the recordings of past Lime Digital Institute webinars on demand.</p>
+</div>
+</div>
+</section>
+<section class="mc-grid-section">
+<div class="wrap">
+<div class="mc-grid reveal-stagger" id="masterclassGridOndemand">
 <!-- CARD 5: On-Demand -->
 <article class="mc-card" data-status="completed" data-type="online">
 <div class="mc-card-thumb-wrap">
@@ -733,7 +739,7 @@
               </a>
 </div>
 </article>
-</div><!-- /#masterclassGrid -->
+</div><!-- /#masterclassGridOndemand -->
 </div>
 </section>
 <!-- WHY ATTEND -->
@@ -747,8 +753,8 @@
 <div class="mc-why-grid reveal-stagger">
 <div class="mc-why-card">
 <div class="mc-why-icon">🎟️</div>
-<h3>100% Free Forever</h3>
-<p>No card details, no hidden upsells. Attend live, take notes, and walk away with immediate practical skill.</p>
+<h3>No Hidden Upsells</h3>
+<p>What you see is what you get. Attend live, take notes, and walk away with immediate practical skill.</p>
 </div>
 <div class="mc-why-card">
 <div class="mc-why-icon">🎙️</div>
@@ -789,7 +795,7 @@
 <a class="btn btn-inverse" href="tel:+917567787232">Call +91 75677 87232</a>
 </div>
 <div class="badge-strip">
-<span>✓ Free Forever</span>
+<span>✓ Expert-Led</span>
 <span>✓ Live Every Week</span>
 <span>✓ Rajkot &amp; Online</span>
 <span>✓ Certificate Included</span>
@@ -872,10 +878,9 @@
 <script>
     (async function() {
       const grid = document.getElementById('masterclassGrid');
-      const countAll = document.getElementById('countAll');
+      const ondemandGrid = document.getElementById('masterclassGridOndemand');
       const countOnline = document.getElementById('countOnline');
       const countOffline = document.getElementById('countOffline');
-      const filterLabel = document.getElementById('filterLabel');
 
       // Try live API fetch
       try {
@@ -890,72 +895,77 @@
       }
 
       function updateCounts() {
-        const all = grid.querySelectorAll('.mc-card');
         const online = grid.querySelectorAll('.mc-card[data-type="online"]');
         const offline = grid.querySelectorAll('.mc-card[data-type="offline"]');
-        countAll.textContent = all.length;
         countOnline.textContent = online.length;
         countOffline.textContent = offline.length;
       }
 
-      function renderCards(events) {
-        countAll.textContent = events.length;
-        countOnline.textContent = events.filter(e => e.type === 'online').length;
-        countOffline.textContent = events.filter(e => e.type === 'offline').length;
+      function cardHTML(e) {
+        const isOnline = e.type === 'online';
+        const isCompleted = e.status === 'completed' || e.status === 'ondemand';
+        const badgeFormat = isOnline ? 'Online · Zoom' : 'Offline · Rajkot Campus';
+        const badgeClass = isOnline ? 'mc-badge-online' : 'mc-badge-offline';
+        const statusBadge = isCompleted
+          ? '<span class="mc-badge mc-badge-rec">▶ Recording</span>'
+          : '<span class="mc-badge mc-badge-live"><span class="live-dot"></span> Live</span>';
+        const ctaText = isCompleted ? 'Watch Recording &rarr;' : 'Register Free &rarr;';
+        const ctaClass = isCompleted ? 'mc-cta-rec' : 'mc-cta-upcoming';
+        const url = `event.html?id=${encodeURIComponent(e.id)}`;
 
-        grid.innerHTML = events.map(e => {
-          const isOnline = e.type === 'online';
-          const isCompleted = e.status === 'completed' || e.status === 'ondemand';
-          const badgeFormat = isOnline ? 'Online · Zoom' : 'Offline · Rajkot Campus';
-          const badgeClass = isOnline ? 'mc-badge-online' : 'mc-badge-offline';
-          const statusBadge = isCompleted
-            ? '<span class="mc-badge mc-badge-rec">▶ Recording</span>'
-            : '<span class="mc-badge mc-badge-live"><span class="live-dot"></span> Live</span>';
-          const ctaText = isCompleted ? 'Watch Recording &rarr;' : 'Register Free &rarr;';
-          const ctaClass = isCompleted ? 'mc-cta-rec' : 'mc-cta-upcoming';
-          const url = `event.html?id=${encodeURIComponent(e.id)}`;
-
-          return `
-            <article class="mc-card" data-type="${e.type}" data-status="${e.status}">
-              <div class="mc-card-thumb-wrap">
-                <img src="${e.thumbnail || 'assets/webinars/masterclass-ai-prompting.jpg'}" alt="${e.title}" class="mc-card-thumb" loading="lazy" onerror="this.src='assets/webinars/masterclass-ai-prompting.jpg'">
-                <div class="mc-card-badges">
-                  <span class="mc-badge ${badgeClass}">${badgeFormat}</span>
-                  ${statusBadge}
+        return `
+          <article class="mc-card" data-type="${e.type}" data-status="${e.status}">
+            <div class="mc-card-thumb-wrap">
+              <img src="${e.thumbnail || 'assets/webinars/masterclass-ai-prompting.jpg'}" alt="${e.title}" class="mc-card-thumb" loading="lazy" onerror="this.src='assets/webinars/masterclass-ai-prompting.jpg'">
+              <div class="mc-card-badges">
+                <span class="mc-badge ${badgeClass}">${badgeFormat}</span>
+                ${statusBadge}
+              </div>
+            </div>
+            <div class="mc-card-body">
+              <div class="mc-meta-row">
+                <span>📅 ${e.dateDisplay || e.date}</span>
+                <span class="mc-meta-sep">·</span>
+                <span>⏰ ${e.time || ''}</span>
+                <span class="mc-meta-sep">·</span>
+                <span>⏳ ${e.duration || '90 Mins'}</span>
+              </div>
+              <h2 class="mc-card-title">${e.title}</h2>
+              <p class="mc-card-desc">${e.subtitle || ''}</p>
+              <div class="mc-speaker">
+                <img src="${e.speaker && e.speaker.photo ? e.speaker.photo : 'assets/mentors/paras-patel.webp'}" alt="${e.speaker ? e.speaker.name : 'Mentor'}" class="mc-sp-photo">
+                <div>
+                  <span class="mc-sp-name">${e.speaker ? e.speaker.name : 'Lime Mentor'}</span>
+                  <span class="mc-sp-role">${e.speaker ? e.speaker.role : 'Instructor'}</span>
                 </div>
               </div>
-              <div class="mc-card-body">
-                <div class="mc-meta-row">
-                  <span>📅 ${e.dateDisplay || e.date}</span>
-                  <span class="mc-meta-sep">·</span>
-                  <span>⏰ ${e.time || ''}</span>
-                  <span class="mc-meta-sep">·</span>
-                  <span>⏳ ${e.duration || '90 Mins'}</span>
-                </div>
-                <h2 class="mc-card-title">${e.title}</h2>
-                <p class="mc-card-desc">${e.subtitle || ''}</p>
-                <div class="mc-speaker">
-                  <img src="${e.speaker && e.speaker.photo ? e.speaker.photo : 'assets/mentors/paras-patel.webp'}" alt="${e.speaker ? e.speaker.name : 'Mentor'}" class="mc-sp-photo">
-                  <div>
-                    <span class="mc-sp-name">${e.speaker ? e.speaker.name : 'Lime Mentor'}</span>
-                    <span class="mc-sp-role">${e.speaker ? e.speaker.role : 'Instructor'}</span>
-                  </div>
-                </div>
-                <a href="${url}" class="mc-card-cta ${ctaClass}">${ctaText}</a>
-              </div>
-            </article>`;
-        }).join('');
+              <a href="${url}" class="mc-card-cta ${ctaClass}">${ctaText}</a>
+            </div>
+          </article>`;
       }
 
-      // Filter tabs
+      function renderCards(events) {
+        const upcoming = events.filter(e => !(e.status === 'completed' || e.status === 'ondemand'));
+        const ondemand = events.filter(e => e.status === 'completed' || e.status === 'ondemand');
+
+        countOnline.textContent = upcoming.filter(e => e.type === 'online').length;
+        countOffline.textContent = upcoming.filter(e => e.type === 'offline').length;
+
+        grid.innerHTML = upcoming.map(cardHTML).join('');
+        if (ondemandGrid) {
+          ondemandGrid.innerHTML = ondemand.map(cardHTML).join('');
+        }
+      }
+
+      // Filter tabs (Online Sessions / Offline Sessions) — click again to clear filter
       document.querySelectorAll('.mc-tab').forEach(btn => {
         btn.addEventListener('click', () => {
+          const alreadyActive = btn.classList.contains('active');
           document.querySelectorAll('.mc-tab').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          const filter = btn.dataset.filter;
-          filterLabel.textContent = filter === 'all' ? 'All Sessions' : (filter === 'online' ? 'Online Sessions' : 'Offline · Rajkot Campus');
+          const filter = alreadyActive ? null : btn.dataset.filter;
+          if (filter) btn.classList.add('active');
           grid.querySelectorAll('.mc-card').forEach(card => {
-            card.style.display = (filter === 'all' || card.dataset.type === filter) ? 'flex' : 'none';
+            card.style.display = (!filter || card.dataset.type === filter) ? 'flex' : 'none';
           });
         });
       });
