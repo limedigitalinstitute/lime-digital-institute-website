@@ -119,11 +119,31 @@
     }
     .mc-hero-cta:hover { background: #fff; color: var(--primary); }
 
+    /* ——— VIEW TOGGLE (Upcoming / On-demand) ——— */
+    .mc-view-toggle {
+      display: flex; justify-content: center; gap: 8px;
+      padding: 22px 0; flex-wrap: wrap;
+    }
+    .mc-view-btn {
+      padding: 12px 28px;
+      font-size: 15px; font-weight: 700; font-family: inherit;
+      border-radius: var(--r-full);
+      border: 1.5px solid rgba(0,0,0,0.12);
+      background: #fff; color: #333;
+      cursor: pointer; transition: all .2s ease;
+    }
+    .mc-view-btn:hover { border-color: rgba(0,0,0,0.3); background: #f7f7f7; }
+    .mc-view-btn.active {
+      background: var(--primary); color: #fff;
+      border-color: var(--primary);
+    }
+
     /* ——— FILTER STRIP ——— */
     .mc-filter-strip {
       background: #fff;
       border-bottom: 1px solid rgba(0,0,0,0.1);
     }
+    .mc-filter-strip-sub { border-bottom: none; padding-top: 6px; }
     .mc-filter-inner {
       display: flex; align-items: center;
       justify-content: space-between; gap: 16px;
@@ -547,11 +567,21 @@
 </div>
 </div>
 </section>
-<!-- UPCOMING WEBINARS -->
+<!-- WEBINARS VIEW TOGGLE -->
 <section class="mc-filter-strip" id="workshops">
 <div class="wrap">
+<div class="mc-view-toggle" role="tablist">
+<button aria-selected="true" class="mc-view-btn active" data-view="upcoming" role="tab" type="button">Upcoming Webinars</button>
+<button aria-selected="false" class="mc-view-btn" data-view="ondemand" role="tab" type="button">On-demand webinars</button>
+</div>
+</div>
+</section>
+<!-- UPCOMING WEBINARS VIEW -->
+<div id="viewUpcoming">
+<section class="mc-filter-strip mc-filter-strip-sub">
+<div class="wrap">
 <div class="mc-section-head reveal">
-<h2>Upcoming Webinars</h2>
+<p>Register for a free live session — join online via Zoom or in person at our Rajkot campus.</p>
 </div>
 <div class="mc-filter-inner">
 <div class="mc-tabs">
@@ -696,11 +726,12 @@
 </div><!-- /#masterclassGrid -->
 </div>
 </section>
-<!-- ON-DEMAND WEBINARS -->
-<section class="mc-filter-strip">
+</div><!-- /#viewUpcoming -->
+<!-- ON-DEMAND WEBINARS VIEW -->
+<div id="viewOndemand" style="display:none;">
+<section class="mc-filter-strip mc-filter-strip-sub">
 <div class="wrap">
 <div class="mc-section-head reveal">
-<h2>On-demand webinars</h2>
 <p>Watch the recordings of past Lime Digital Institute webinars on demand.</p>
 </div>
 </div>
@@ -742,44 +773,155 @@
 </div><!-- /#masterclassGridOndemand -->
 </div>
 </section>
-<!-- WHY ATTEND -->
-<section class="mc-why-section">
+</div><!-- /#viewOndemand -->
+<!-- RAJKOT CAMPUS & LIVE LABS (LID-Style Continuous Marquee Gallery) -->
+<section class="gallery" id="campus" style="overflow:hidden;">
 <div class="wrap">
-<div class="mc-section-head reveal">
-<div class="mc-eyebrow-sm">Zero Risk Learning</div>
-<h2>Why Attend Lime Masterclasses?</h2>
-<p>Every session is run by active practitioners — not theory professors. You get live skills you can apply the next day.</p>
+<div class="section-head center reveal" style="max-width:760px; margin:0 auto 36px;">
+<div class="eyebrow center" style="color:#ED3237; font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:12px;">Campus Experience</div>
+<h2 class="h2" style="font-weight:800; font-size:clamp(28px, 4.2vw, 44px); color:#0f172a; margin-bottom:12px; line-height:1.2; letter-spacing:-0.5px;">Life <span style="color:#ED3237;">Beyond Classroom</span> at Lime</h2>
+<p class="lead" style="font-size:16px; color:#555555; max-width:640px; margin:0 auto; line-height:1.6;">From interactive workshops to live campaign war-rooms, experience learning that goes beyond the classroom.</p>
 </div>
-<div class="mc-why-grid reveal-stagger">
-<div class="mc-why-card">
-<div class="mc-why-icon">🎟️</div>
-<h3>No Hidden Upsells</h3>
-<p>What you see is what you get. Attend live, take notes, and walk away with immediate practical skill.</p>
 </div>
-<div class="mc-why-card">
-<div class="mc-why-icon">🎙️</div>
-<h3>Live Practitioner Q&amp;A</h3>
-<p>Ask questions directly to mentors who manage ₹10L+ monthly ad spend campaigns and organic engines.</p>
+<div class="wrap campus-visit-row">
+<div class="campus-visit-card">
+<h3>Visit Our Rajkot Campus</h3>
+<p>Sit in on a live session, walk the floor where students run real ad accounts, and see the setup for yourself before you enrol.</p>
+<ul class="campus-visit-list">
+<li><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"></path><circle cx="12" cy="10" r="3"></circle></svg><span>Free walk-in tour of the Rajkot campus</span></li>
+<li><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"></path></svg><span>Meet a mentor, ask about the curriculum in person</span></li>
+<li><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="18" rx="2" width="18" x="3" y="4"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg><span>Pick a slot that works, no obligation to join</span></li>
+</ul>
+<a class="btn btn-primary campus-visit-btn" href="contact.html">Schedule a Campus Visit →</a>
 </div>
-<div class="mc-why-card">
-<div class="mc-why-icon">📜</div>
-<h3>Participation Certificate</h3>
-<p>Earn a verified digital certificate for every session attended — shareable on LinkedIn to signal active learning.</p>
+<div class="campus-marquee-container">
+<div class="campus-marquee-track">
+<!-- MARQUEE GROUP 1 -->
+<div class="campus-marquee-group">
+<!-- Col 1: Tall (Career Mentorship & Lab) -->
+<div class="campus-col tall">
+<div class="campus-pic-wrap">
+<img alt="Live Career Mentorship at Rajkot Campus" src="assets/Lime Gallery/campus-lab1.jpg"/>
 </div>
-<div class="mc-why-card">
-<div class="mc-why-icon">📲</div>
-<h3>Recording Access</h3>
-<p>Can't make it live? Register anyway and get the full session recording straight to your inbox within 24 hours.</p>
 </div>
-<div class="mc-why-card">
-<div class="mc-why-icon">🤖</div>
-<h3>Real AI Tool Demos</h3>
-<p>Every masterclass uses live demos of ChatGPT, Claude, n8n, and other tools agencies use at scale daily.</p>
+<!-- Col 2: Stacked (Workbooks + War Room) -->
+<div class="campus-col stacked">
+<div class="campus-pic-wrap">
+<img alt="Hands-on Module Workbooks" src="assets/Lime Gallery/img-20240101-wa0047-1704859254.jpg"/>
 </div>
-<div class="mc-why-card">
-<div class="mc-why-icon">📍</div>
-<h3>Online &amp; Rajkot Offline</h3>
-<p>Join via Zoom from anywhere, or visit our Rajkot campus for hands-on offline sessions with our full faculty panel.</p>
+<div class="campus-pic-wrap">
+<img alt="Campaign Strategy War Room with Paras Patel" src="assets/Lime Gallery/img20240202174650-1706962901.jpg"/>
+</div>
+</div>
+<!-- Col 3: Tall (Celebration & Flags) -->
+<div class="campus-col tall">
+<div class="campus-pic-wrap">
+<img alt="Lime Student Cohort &amp; Faculty Celebration" src="assets/Lime Gallery/img-20230705-wa0057-1704859766.jpg"/>
+</div>
+</div>
+<!-- Col 4: Stacked (Live Ads Screen + Rajkot Classroom) -->
+<div class="campus-col stacked">
+<div class="campus-pic-wrap">
+<img alt="Live Ads Campaign Teardown on Smart Screen" src="assets/Lime Gallery/img-20230901-wa0050-1704859937.jpg"/>
+</div>
+<div class="campus-pic-wrap">
+<img alt="Rajkot Live Classroom Session" src="assets/Lime Gallery/img-20231105-wa0003-1704859325.jpg"/>
+</div>
+</div>
+<!-- Col 5: Tall (Student Community Gathering) -->
+<div class="campus-col tall">
+<div class="campus-pic-wrap">
+<img alt="Student Community &amp; Celebratory Gathering" src="assets/Lime Gallery/img-20230923-wa0036-1704859114.jpg"/>
+</div>
+</div>
+<!-- Col 6: Stacked (Digital Board Lecture + Whiteboard Strategy) -->
+<div class="campus-col stacked">
+<div class="campus-pic-wrap">
+<img alt="Instructor-Led Digital Session" src="assets/Lime Gallery/img-20231105-wa0006-1704859242.jpg"/>
+</div>
+<div class="campus-pic-wrap">
+<img alt="Marketing Architecture Whiteboard Strategy" src="assets/Lime Gallery/img-20231213-wa0021-1704859099.jpg"/>
+</div>
+</div>
+<!-- Col 7: Tall (Student Cohort with Lime Backdrop) -->
+<div class="campus-col tall">
+<div class="campus-pic-wrap">
+<img alt="Lime Digital Institute Student Cohort" src="assets/Lime Gallery/img-1511-1722828150.jpg"/>
+</div>
+</div>
+<!-- Col 8: Stacked (Batch with Paras Patel + Students with Brochures) -->
+<div class="campus-col stacked">
+<div class="campus-pic-wrap">
+<img alt="Batch with Paras Patel" src="assets/Lime Gallery/whatsapp-image-2024-08-05-at-085750-1722828520.jpeg"/>
+</div>
+<div class="campus-pic-wrap">
+<img alt="Students with Lime Course Materials" src="assets/Lime Gallery/img-20230807-wa0037-1704859811.jpg"/>
+</div>
+</div>
+</div>
+<!-- MARQUEE GROUP 2 (Duplicate for Infinite Seamless Loop) -->
+<div aria-hidden="true" class="campus-marquee-group">
+<!-- Col 1: Tall (Career Mentorship & Lab) -->
+<div class="campus-col tall">
+<div class="campus-pic-wrap">
+<img alt="Live Career Mentorship at Rajkot Campus" src="assets/Lime Gallery/campus-lab1.jpg"/>
+</div>
+</div>
+<!-- Col 2: Stacked (Workbooks + War Room) -->
+<div class="campus-col stacked">
+<div class="campus-pic-wrap">
+<img alt="Hands-on Module Workbooks" src="assets/Lime Gallery/img-20240101-wa0047-1704859254.jpg"/>
+</div>
+<div class="campus-pic-wrap">
+<img alt="Campaign Strategy War Room with Paras Patel" src="assets/Lime Gallery/img20240202174650-1706962901.jpg"/>
+</div>
+</div>
+<!-- Col 3: Tall (Celebration & Flags) -->
+<div class="campus-col tall">
+<div class="campus-pic-wrap">
+<img alt="Lime Student Cohort &amp; Faculty Celebration" src="assets/Lime Gallery/img-20230705-wa0057-1704859766.jpg"/>
+</div>
+</div>
+<!-- Col 4: Stacked (Live Ads Screen + Rajkot Classroom) -->
+<div class="campus-col stacked">
+<div class="campus-pic-wrap">
+<img alt="Live Ads Campaign Teardown on Smart Screen" src="assets/Lime Gallery/img-20230901-wa0050-1704859937.jpg"/>
+</div>
+<div class="campus-pic-wrap">
+<img alt="Rajkot Live Classroom Session" src="assets/Lime Gallery/img-20231105-wa0003-1704859325.jpg"/>
+</div>
+</div>
+<!-- Col 5: Tall (Student Community Gathering) -->
+<div class="campus-col tall">
+<div class="campus-pic-wrap">
+<img alt="Student Community &amp; Celebratory Gathering" src="assets/Lime Gallery/img-20230923-wa0036-1704859114.jpg"/>
+</div>
+</div>
+<!-- Col 6: Stacked (Digital Board Lecture + Whiteboard Strategy) -->
+<div class="campus-col stacked">
+<div class="campus-pic-wrap">
+<img alt="Instructor-Led Digital Session" src="assets/Lime Gallery/img-20231105-wa0006-1704859242.jpg"/>
+</div>
+<div class="campus-pic-wrap">
+<img alt="Marketing Architecture Whiteboard Strategy" src="assets/Lime Gallery/img-20231213-wa0021-1704859099.jpg"/>
+</div>
+</div>
+<!-- Col 7: Tall (Student Cohort with Lime Backdrop) -->
+<div class="campus-col tall">
+<div class="campus-pic-wrap">
+<img alt="Lime Digital Institute Student Cohort" src="assets/Lime Gallery/img-1511-1722828150.jpg"/>
+</div>
+</div>
+<!-- Col 8: Stacked (Batch with Paras Patel + Students with Brochures) -->
+<div class="campus-col stacked">
+<div class="campus-pic-wrap">
+<img alt="Batch with Paras Patel" src="assets/Lime Gallery/whatsapp-image-2024-08-05-at-085750-1722828520.jpeg"/>
+</div>
+<div class="campus-pic-wrap">
+<img alt="Students with Lime Course Materials" src="assets/Lime Gallery/img-20230807-wa0037-1704859811.jpg"/>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -788,10 +930,10 @@
 <section class="final-cta">
 <div class="wrap">
 <div class="eyebrow" style="color:#fff;">Seats Fill Fast</div>
-<h2 class="h2">Ready to Learn from India's<br/>Top Digital Marketers?</h2>
-<p class="lead">Pick an upcoming session and reserve your free seat in under 60 seconds.</p>
+<h2 class="h2">Start Your 3-Day<br/>Free Demo Class</h2>
+<p class="lead">Attend 3 live classroom sessions at our Rajkot campus (or online) — zero obligation.</p>
 <div class="btn-row">
-<a class="btn btn-glow" href="#workshops">Browse All Sessions ↑</a>
+<a class="btn btn-glow open-modal-btn" data-course="Free Demo Class" href="#">Start 3-Day Free Trial →</a>
 <a class="btn btn-inverse" href="tel:+917567787232">Call +91 75677 87232</a>
 </div>
 <div class="badge-strip">
@@ -869,6 +1011,69 @@
 </div>
 </div>
 </footer>
+<!-- 3-DAY FREE TRIAL POP-UP MODAL -->
+<div class="modal-overlay" id="leadModal">
+<div class="modal-card modal-2col">
+<button aria-label="Close" class="modal-close" id="modalClose">×</button>
+<div class="lead2-grid">
+<div class="lead2-left">
+<img alt="Free 3-Day Demo Class - Lime Digital Institute" src="assets/free-3-day-demo.webp"/>
+</div>
+<div class="lead2-right">
+<div class="lead2-badge">Seats Filling Fast</div>
+<div class="modal-head" style="text-align:left;">
+<h3>Start Your 3-Day Free Trial</h3>
+<p>Attend 3 live classroom sessions at our Rajkot campus with zero obligation.</p>
+</div>
+<form id="modalForm">
+<div class="form-group">
+<label>Full Name *</label>
+<input aria-label="Full Name" class="form-input" id="modalName" name="name" placeholder="e.g. Rahul" required="" type="text"/>
+</div>
+<div class="form-group">
+<label>Phone Number (WhatsApp) *</label>
+<div class="lid-phone-group">
+<select aria-label="Country Code" class="lid-phone-prefix lid-country-select" id="modalCountryCode" name="country_code">
+<option selected="" value="+91">🇮🇳 +91</option>
+<option value="+1">🇺🇸 +1</option>
+<option value="+44">🇬🇧 +44</option>
+<option value="+971">🇦🇪 +971</option>
+<option value="+1">🇨🇦 +1</option>
+<option value="+61">🇦🇺 +61</option>
+<option value="+65">🇸🇬 +65</option>
+<option value="+966">🇸🇦 +966</option>
+<option value="+974">🇶🇦 +974</option>
+<option value="+968">🇴🇲 +968</option>
+<option value="+965">🇰🇼 +965</option>
+<option value="+973">🇧🇭 +973</option>
+<option value="+49">🇩🇪 +49</option>
+<option value="+33">🇫🇷 +33</option>
+<option value="+64">🇳🇿 +64</option>
+<option value="+60">🇲🇾 +60</option>
+<option value="+27">🇿🇦 +27</option>
+<option value="+81">🇯🇵 +81</option>
+<option value="+977">🇳🇵 +977</option>
+<option value="+880">🇧🇩 +880</option>
+<option value="+94">🇱🇰 +94</option>
+</select>
+<input aria-label="Phone Number" class="lid-phone-input" id="modalPhone" maxlength="15" name="phone" pattern="[0-9]{7,15}" placeholder="Enter phone number" required="" type="tel"/>
+</div>
+<div class="lid-whatsapp-hint">You will receive updates on WhatsApp</div>
+</div>
+<div class="form-group">
+<label>Email Address *</label>
+<input aria-label="Email Address" class="form-input" id="modalEmail" name="email" placeholder="e.g. rahul@example.com" required="" type="email"/>
+</div>
+<label class="lid-consent-label">
+<input aria-label="I agree to terms and privacy policy" checked="" id="modalConsent" required="" type="checkbox"/>
+<span>I agree to Lime Digital Institute's <a href="#" style="text-decoration:underline;">T&amp;C</a> and <a href="#" style="text-decoration:underline;">Privacy Policy</a>. This consent overrides any DNC/NDNC registrations.</span>
+</label>
+<button class="btn btn-glow btn-modal-submit" style="width:100%; margin-top:8px;" type="submit">Claim Free Trial Pass →</button>
+</form>
+</div>
+</div>
+</div>
+</div>
 <!-- NAV + SITE-WIDE SCRIPTS (same as index.html) -->
 <script src="assets/zoho-tracking.js"></script>
 <script src="assets/lead-collector.js?v=20260921fix"></script>
@@ -971,6 +1176,23 @@
       });
 
       updateCounts();
+
+      // View toggle (Upcoming Webinars / On-demand webinars)
+      const viewUpcoming = document.getElementById('viewUpcoming');
+      const viewOndemand = document.getElementById('viewOndemand');
+      document.querySelectorAll('.mc-view-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.mc-view-btn').forEach(b => {
+            b.classList.remove('active');
+            b.setAttribute('aria-selected', 'false');
+          });
+          btn.classList.add('active');
+          btn.setAttribute('aria-selected', 'true');
+          const view = btn.dataset.view;
+          if (viewUpcoming) viewUpcoming.style.display = view === 'upcoming' ? '' : 'none';
+          if (viewOndemand) viewOndemand.style.display = view === 'ondemand' ? '' : 'none';
+        });
+      });
 
       // Curtain footer sync
       function syncSpacer() {
