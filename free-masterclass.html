@@ -145,18 +145,20 @@
     .mc-filter-strip-sub { padding-top: 0; }
     .mc-filter-strip-sub .mc-section-head { margin-bottom: 20px; text-align: center; }
     .mc-filter-strip-sub .mc-section-head p { margin: 0 auto; font-size: 15px; }
-    .mc-filter-strip-sub .mc-filter-inner { justify-content: flex-end; }
+    .mc-filter-strip-sub .mc-filter-inner { justify-content: space-between; }
     .mc-search-wrap {
-      display: flex; align-items: center; gap: 8px;
-      padding: 9px 16px;
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 18px;
       border-radius: var(--r-full);
       border: 1.5px solid rgba(0,0,0,0.12);
       background: #fff; color: #999;
+      transition: border-color .2s ease;
     }
+    .mc-search-wrap:focus-within { border-color: var(--primary); }
     .mc-search-icon { flex-shrink: 0; color: #999; }
     .mc-search-input {
       border: none; outline: none; font-family: inherit;
-      font-size: 13.5px; color: #333; width: 160px;
+      font-size: 14px; color: #333; width: 220px;
       background: transparent;
     }
     .mc-search-input::placeholder { color: #999; }
@@ -597,20 +599,23 @@
 <section class="mc-filter-strip mc-filter-strip-sub">
 <div class="wrap">
 <div class="mc-section-head reveal">
-<p>Reserve your free seat — online via Zoom or in person at our Rajkot campus.</p>
+<p>Reserve your seat — online via Zoom or in person at our Rajkot campus.</p>
 </div>
 <div class="mc-filter-inner">
+<div class="mc-search-wrap">
+<svg class="mc-search-icon" fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><circle cx="11" cy="11" r="8"></circle><line x1="21" x2="16.65" y1="21" y2="16.65"></line></svg>
+<input aria-label="Search webinars" class="mc-search-input" id="webinarSearch" placeholder="Search webinars..." type="text"/>
+</div>
 <div class="mc-tabs">
+<button class="mc-tab active" data-filter="all" type="button">
+              All Sessions <span class="mc-tab-count" id="countAll">4</span>
+</button>
 <button class="mc-tab" data-filter="online" type="button">
               Online Sessions <span class="mc-tab-count" id="countOnline">3</span>
 </button>
 <button class="mc-tab" data-filter="offline" type="button">
               Offline Sessions <span class="mc-tab-count" id="countOffline">1</span>
 </button>
-</div>
-<div class="mc-search-wrap">
-<svg class="mc-search-icon" fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><circle cx="11" cy="11" r="8"></circle><line x1="21" x2="16.65" y1="21" y2="16.65"></line></svg>
-<input aria-label="Search webinars" class="mc-search-input" id="webinarSearch" placeholder="Search webinars..." type="text"/>
 </div>
 </div>
 </div>
@@ -638,13 +643,6 @@
 </div>
 <h2 class="mc-card-title">AI Prompting &amp; Growth Hacking with ChatGPT-4o &amp; Claude</h2>
 <p class="mc-card-desc">Master prompt engineering frameworks to write ad copy, design funnels, and build campaign workflows in minutes.</p>
-<div class="mc-speaker">
-<img alt="Paras Patel" class="mc-sp-photo" src="assets/mentors/paras-patel.webp"/>
-<div>
-<span class="mc-sp-name">Paras Patel</span>
-<span class="mc-sp-role">Founder &amp; AI Marketing Strategist</span>
-</div>
-</div>
 <a class="mc-card-cta mc-cta-upcoming" href="event.html?id=ai-prompting-growth-hacking">
                 Register Free →
               </a>
@@ -669,13 +667,6 @@
 </div>
 <h2 class="mc-card-title">Meta &amp; Google Performance Ads Bootcamp</h2>
 <p class="mc-card-desc">How to structure campaigns, set up CBO/ABO budgets, and scale profitable advertising without burning cash.</p>
-<div class="mc-speaker">
-<img alt="Alpesh Patel" class="mc-sp-photo" src="assets/mentors/alpesh-patel.webp"/>
-<div>
-<span class="mc-sp-name">Alpesh Patel</span>
-<span class="mc-sp-role">International Market Expert</span>
-</div>
-</div>
 <a class="mc-card-cta mc-cta-upcoming" href="event.html?id=meta-google-ads-bootcamp">
                 Register Free →
               </a>
@@ -700,13 +691,6 @@
 </div>
 <h2 class="mc-card-title">Full-Funnel SEO &amp; Generative Engine Optimization (GEO)</h2>
 <p class="mc-card-desc">How to rank #1 on Google Search and win top citations in AI Search Overviews (ChatGPT &amp; Perplexity).</p>
-<div class="mc-speaker">
-<img alt="Ketan Patel" class="mc-sp-photo" src="assets/mentors/ketan-patel.webp"/>
-<div>
-<span class="mc-sp-name">Ketan Patel</span>
-<span class="mc-sp-role">SEO Growth Coach</span>
-</div>
-</div>
 <a class="mc-card-cta mc-cta-upcoming" href="event.html?id=seo-generative-engine-optimization">
                 Register Free →
               </a>
@@ -731,13 +715,6 @@
 </div>
 <h2 class="mc-card-title">Rajkot Campus Open Day &amp; Live Growth Lab</h2>
 <p class="mc-card-desc">Hands-on classroom experience at our Rajkot campus. Meet mentors, tour our labs, and sit in on live campaign war-rooms.</p>
-<div class="mc-speaker">
-<img alt="Faculty Panel" class="mc-sp-photo" src="assets/mentors/paras-patel.webp"/>
-<div>
-<span class="mc-sp-name">Lime Faculty Panel</span>
-<span class="mc-sp-role">Senior Mentors</span>
-</div>
-</div>
 <a class="mc-card-cta mc-cta-upcoming" href="event.html?id=rajkot-campus-growth-lab">
                 Register Free →
               </a>
@@ -778,13 +755,6 @@
 </div>
 <h2 class="mc-card-title">The 2026 AI Marketing Playbook: From Prompt to Profit</h2>
 <p class="mc-card-desc">Complete on-demand recording of our keynote masterclass on generative AI workflows, agentic automation, and high-ticket client acquisition.</p>
-<div class="mc-speaker">
-<img alt="Paras Patel" class="mc-sp-photo" src="assets/mentors/paras-patel.webp"/>
-<div>
-<span class="mc-sp-name">Paras Patel</span>
-<span class="mc-sp-role">Founder, Lime Digital Institute</span>
-</div>
-</div>
 <a class="mc-card-cta mc-cta-rec" href="event.html?id=2026-ai-marketing-playbook">
                 Watch Recording →
               </a>
@@ -1174,6 +1144,7 @@
     (async function() {
       const grid = document.getElementById('masterclassGrid');
       const ondemandGrid = document.getElementById('masterclassGridOndemand');
+      const countAll = document.getElementById('countAll');
       const countOnline = document.getElementById('countOnline');
       const countOffline = document.getElementById('countOffline');
 
@@ -1190,8 +1161,10 @@
       }
 
       function updateCounts() {
+        const all = grid.querySelectorAll('.mc-card');
         const online = grid.querySelectorAll('.mc-card[data-type="online"]');
         const offline = grid.querySelectorAll('.mc-card[data-type="offline"]');
+        if (countAll) countAll.textContent = all.length;
         countOnline.textContent = online.length;
         countOffline.textContent = offline.length;
       }
@@ -1227,13 +1200,6 @@
               </div>
               <h2 class="mc-card-title">${e.title}</h2>
               <p class="mc-card-desc">${e.subtitle || ''}</p>
-              <div class="mc-speaker">
-                <img src="${e.speaker && e.speaker.photo ? e.speaker.photo : 'assets/mentors/paras-patel.webp'}" alt="${e.speaker ? e.speaker.name : 'Mentor'}" class="mc-sp-photo">
-                <div>
-                  <span class="mc-sp-name">${e.speaker ? e.speaker.name : 'Lime Mentor'}</span>
-                  <span class="mc-sp-role">${e.speaker ? e.speaker.role : 'Instructor'}</span>
-                </div>
-              </div>
               <a href="${url}" class="mc-card-cta ${ctaClass}">${ctaText}</a>
             </div>
           </article>`;
@@ -1243,6 +1209,7 @@
         const upcoming = events.filter(e => !(e.status === 'completed' || e.status === 'ondemand'));
         const ondemand = events.filter(e => e.status === 'completed' || e.status === 'ondemand');
 
+        if (countAll) countAll.textContent = upcoming.length;
         countOnline.textContent = upcoming.filter(e => e.type === 'online').length;
         countOffline.textContent = upcoming.filter(e => e.type === 'offline').length;
 
@@ -1256,7 +1223,7 @@
       const searchInput = document.getElementById('webinarSearch');
       function applyFilters() {
         const activeTab = document.querySelector('.mc-tab.active');
-        const typeFilter = activeTab ? activeTab.dataset.filter : null;
+        const typeFilter = (activeTab && activeTab.dataset.filter !== 'all') ? activeTab.dataset.filter : null;
         const query = (searchInput && searchInput.value || '').trim().toLowerCase();
         grid.querySelectorAll('.mc-card').forEach(card => {
           const matchesType = !typeFilter || card.dataset.type === typeFilter;
@@ -1267,9 +1234,8 @@
       }
       document.querySelectorAll('.mc-tab').forEach(btn => {
         btn.addEventListener('click', () => {
-          const alreadyActive = btn.classList.contains('active');
           document.querySelectorAll('.mc-tab').forEach(b => b.classList.remove('active'));
-          if (!alreadyActive) btn.classList.add('active');
+          btn.classList.add('active');
           applyFilters();
         });
       });
