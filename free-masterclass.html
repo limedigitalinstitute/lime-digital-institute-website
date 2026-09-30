@@ -143,8 +143,10 @@
       background: #fff;
     }
     .mc-filter-strip-sub { padding-top: 0; }
-    .mc-filter-strip-sub .mc-section-head { margin-bottom: 20px; }
-    .mc-filter-strip-sub .mc-section-head p { margin: 0; font-size: 15px; }
+    .mc-filter-strip-sub .mc-section-head { margin-bottom: 20px; text-align: center; }
+    .mc-filter-strip-sub .mc-section-head p { margin: 0 auto; font-size: 15px; }
+    .mc-filter-strip-sub .mc-filter-inner { justify-content: center; }
+    .mc-filter-strip-sub .mc-tabs { justify-content: center; }
     .mc-filter-inner {
       display: flex; align-items: center;
       justify-content: space-between; gap: 16px;
@@ -186,7 +188,7 @@
     /* ——— GRID ——— */
     .mc-grid-section {
       padding: 60px 0 90px;
-      background: var(--tint);
+      background: #fff;
     }
     .mc-grid {
       display: grid;
@@ -210,7 +212,7 @@
       box-shadow: 0 12px 32px rgba(0,0,0,.07);
     }
     .mc-card-thumb-wrap {
-      position: relative; width: 100%; aspect-ratio: 9 / 16;
+      position: relative; width: 100%; aspect-ratio: 16 / 9;
       background: #111; overflow: hidden;
     }
     .mc-card-thumb {
