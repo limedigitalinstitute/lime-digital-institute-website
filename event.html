@@ -864,6 +864,8 @@
         const formLabel = isCompletedEvent ? 'Free Masterclass - Get Recording Pass' : 'Free Masterclass - Register Free Seat';
         const utmFormLabel = isCompletedEvent ? 'masterclass_recording_pass' : 'masterclass_register_seat';
 
+        const storedUtms = (window.LimeLeadCollector && window.LimeLeadCollector.getUTMs) ? window.LimeLeadCollector.getUTMs() : {};
+
         const payload = {
           eventId: currentEvent.id,
           eventTitle: currentEvent.title,
@@ -871,7 +873,11 @@
           phone,
           country_code: countryCode,
           email,
-          goal
+          goal,
+          utm_source: storedUtms.utm_source || '',
+          utm_medium: storedUtms.utm_medium || '',
+          utm_campaign: storedUtms.utm_campaign || '',
+          utm_form: utmFormLabel
         };
 
         // ── 1. Fire LimeLeadCollector (Supabase + Zoho) with full UTM attribution ──

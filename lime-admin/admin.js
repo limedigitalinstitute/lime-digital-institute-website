@@ -429,7 +429,7 @@
     const filtered = allLeads.filter(lead => {
       if (eventFilter !== 'all' && lead.eventId !== eventFilter) return false;
       if (!term) return true;
-      const haystack = `${lead.name} ${lead.email} ${lead.phone} ${lead.eventTitle}`.toLowerCase();
+      const haystack = `${lead.name} ${lead.email} ${lead.phone} ${lead.eventTitle} ${lead.utm_source || ''} ${lead.utm_medium || ''} ${lead.utm_campaign || ''} ${lead.utm_form || ''}`.toLowerCase();
       return haystack.includes(term);
     });
 
@@ -445,6 +445,9 @@
         dateStyle: 'medium', timeStyle: 'short'
       }) : '—';
 
+      const utmParts = [r.utm_source, r.utm_medium, r.utm_campaign].filter(Boolean);
+      const utmLabel = utmParts.length ? utmParts.join(' / ') : (r.utm_form || '—');
+
       return `
         <tr>
           <td style="font-size:12px; color:var(--ink-500);">${dateStr}</td>
@@ -453,6 +456,7 @@
           <td><a href="mailto:${r.email}" style="color:var(--ink-700);">${r.email || '—'}</a></td>
           <td><span style="font-size:12px; font-weight:600;">${r.eventTitle || r.eventId || '—'}</span></td>
           <td><span style="background:#F1F5F9; padding:3px 8px; border-radius:var(--r-pill); font-size:11.5px; font-weight:600;">${r.goal || 'General'}</span></td>
+          <td><span style="font-size:11.5px; color:var(--ink-500);">${utmLabel}</span></td>
         </tr>`;
     }).join('');
   }

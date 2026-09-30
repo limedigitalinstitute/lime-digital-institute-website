@@ -36,6 +36,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         "email" => strtolower($email),
         "phone" => (!empty($countryCode) ? $countryCode . ' ' : '') . $phone,
         "goal" => isset($body['goal']) ? $body['goal'] : 'Career Growth',
+        "utm_source" => isset($body['utm_source']) ? trim($body['utm_source']) : '',
+        "utm_medium" => isset($body['utm_medium']) ? trim($body['utm_medium']) : '',
+        "utm_campaign" => isset($body['utm_campaign']) ? trim($body['utm_campaign']) : '',
+        "utm_form" => isset($body['utm_form']) ? trim($body['utm_form']) : '',
         "submittedAt" => date('c'),
         "ip" => isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : ''
     ];
