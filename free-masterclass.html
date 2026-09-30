@@ -145,8 +145,21 @@
     .mc-filter-strip-sub { padding-top: 0; }
     .mc-filter-strip-sub .mc-section-head { margin-bottom: 20px; text-align: center; }
     .mc-filter-strip-sub .mc-section-head p { margin: 0 auto; font-size: 15px; }
-    .mc-filter-strip-sub .mc-filter-inner { justify-content: center; }
-    .mc-filter-strip-sub .mc-tabs { justify-content: center; }
+    .mc-filter-strip-sub .mc-filter-inner { justify-content: flex-end; }
+    .mc-search-wrap {
+      display: flex; align-items: center; gap: 8px;
+      padding: 9px 16px;
+      border-radius: var(--r-full);
+      border: 1.5px solid rgba(0,0,0,0.12);
+      background: #fff; color: #999;
+    }
+    .mc-search-icon { flex-shrink: 0; color: #999; }
+    .mc-search-input {
+      border: none; outline: none; font-family: inherit;
+      font-size: 13.5px; color: #333; width: 160px;
+      background: transparent;
+    }
+    .mc-search-input::placeholder { color: #999; }
     .mc-filter-inner {
       display: flex; align-items: center;
       justify-content: space-between; gap: 16px;
@@ -594,6 +607,10 @@
 <button class="mc-tab" data-filter="offline" type="button">
               Offline Sessions <span class="mc-tab-count" id="countOffline">1</span>
 </button>
+</div>
+<div class="mc-search-wrap">
+<svg class="mc-search-icon" fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><circle cx="11" cy="11" r="8"></circle><line x1="21" x2="16.65" y1="21" y2="16.65"></line></svg>
+<input aria-label="Search webinars" class="mc-search-input" id="webinarSearch" placeholder="Search webinars..." type="text"/>
 </div>
 </div>
 </div>
@@ -1235,18 +1252,28 @@
         }
       }
 
-      // Filter tabs (Online Sessions / Offline Sessions) — click again to clear filter
+      // Filter tabs (Online Sessions / Offline Sessions) + search — combined
+      const searchInput = document.getElementById('webinarSearch');
+      function applyFilters() {
+        const activeTab = document.querySelector('.mc-tab.active');
+        const typeFilter = activeTab ? activeTab.dataset.filter : null;
+        const query = (searchInput && searchInput.value || '').trim().toLowerCase();
+        grid.querySelectorAll('.mc-card').forEach(card => {
+          const matchesType = !typeFilter || card.dataset.type === typeFilter;
+          const title = card.querySelector('.mc-card-title');
+          const matchesQuery = !query || (title && title.textContent.toLowerCase().includes(query));
+          card.style.display = (matchesType && matchesQuery) ? 'flex' : 'none';
+        });
+      }
       document.querySelectorAll('.mc-tab').forEach(btn => {
         btn.addEventListener('click', () => {
           const alreadyActive = btn.classList.contains('active');
           document.querySelectorAll('.mc-tab').forEach(b => b.classList.remove('active'));
-          const filter = alreadyActive ? null : btn.dataset.filter;
-          if (filter) btn.classList.add('active');
-          grid.querySelectorAll('.mc-card').forEach(card => {
-            card.style.display = (!filter || card.dataset.type === filter) ? 'flex' : 'none';
-          });
+          if (!alreadyActive) btn.classList.add('active');
+          applyFilters();
         });
       });
+      if (searchInput) searchInput.addEventListener('input', applyFilters);
 
       updateCounts();
 
