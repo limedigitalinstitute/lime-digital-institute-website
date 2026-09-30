@@ -414,6 +414,9 @@
         gap: 12px;
       }
     }
+    /* Footer here has only the contact column left — push it to the right */
+    #antigravityFooter .ag-footer-nav { display: flex; justify-content: flex-end; max-width: none; }
+    #antigravityFooter .ag-contact-col { max-width: 320px; }
   </style>
 <script type="application/ld+json">
   [
@@ -555,13 +558,6 @@
 </div>
 </div>
 </div>
-<!-- WHO IS THIS FOR -->
-<div class="detail-block">
-<h2 class="detail-heading" style="color:#fff;">Who Should Attend:</h2>
-<ul class="takeaways-checklist" id="whoIsThisForList" style="color:#94A3B8;">
-<!-- Populated dynamically -->
-</ul>
-</div>
 </div>
 <!-- Right Column: Registration Card / Sticky Rail -->
 <div class="event-form-rail" id="registerCard">
@@ -630,20 +626,43 @@
 </div>
 </div>
 </section>
-<!-- TOOLS SECTION -->
-<section style="padding: 70px 0; background: #FFFFFF;">
+<!-- OUR PHILOSOPHY SECTION -->
+<section class="our-philosophy-section" id="philosophy">
 <div class="wrap">
-<div class="section-head center">
-<div class="eyebrow center" style="color:var(--primary); font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:8px;">Industry Standard Stack</div>
-<h2 class="h2" style="font-weight:800; font-size:32px; color:var(--ink-900);">Tools Explored In This Session</h2>
+<div class="philosophy-grid reveal-stagger">
+<!-- Left: Philosophy Mission Card -->
+<div class="philosophy-card-white">
+<div class="philosophy-eyebrow">Our Philosophy</div>
+<h2 class="philosophy-heading">Our Philosophy</h2>
+<p class="philosophy-desc">At Lime Digital Institute, everything we do from running high-ROI ad campaigns to teaching paid ads is driven by one mission: to create real, measurable growth. We don’t chase trends or fake promises.</p>
+<ul class="philosophy-list">
+<li class="philosophy-item">
+<svg aria-hidden="true" class="philosophy-item-icon" fill="none" viewbox="0 0 20 20">
+<path d="M4 10.5L8 14.5L16 6.5" stroke="#ED3237" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4"></path>
+</svg>
+<span>No false promises</span>
+</li>
+<li class="philosophy-item">
+<svg aria-hidden="true" class="philosophy-item-icon" fill="none" viewbox="0 0 20 20">
+<path d="M4 10.5L8 14.5L16 6.5" stroke="#ED3237" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4"></path>
+</svg>
+<span>Only real, practical skills</span>
+</li>
+<li class="philosophy-item">
+<svg aria-hidden="true" class="philosophy-item-icon" fill="none" viewbox="0 0 20 20">
+<path d="M4 10.5L8 14.5L16 6.5" stroke="#ED3237" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4"></path>
+</svg>
+<span>Long-term value over short-term sales</span>
+</li>
+</ul>
 </div>
-<div class="tools-grid">
-<div class="tool-tile"><span class="tool-icon">🤖</span><span>ChatGPT-4o</span></div>
-<div class="tool-tile"><span class="tool-icon">🧠</span><span>Claude 3.5</span></div>
-<div class="tool-tile"><span class="tool-icon">📈</span><span>Meta Ads Manager</span></div>
-<div class="tool-tile"><span class="tool-icon">🎯</span><span>Google Ads</span></div>
-<div class="tool-tile"><span class="tool-icon">🔍</span><span>SEMrush</span></div>
-<div class="tool-tile"><span class="tool-icon">⚙️</span><span>n8n Automations</span></div>
+<!-- Right: Philip Kotler Quote Card -->
+<div class="philosophy-card-red">
+<blockquote class="philosophy-quote">
+          “The art of marketing is the art of brand building. If you are not a brand, you are a commodity. Then price is everything and the low cost producer is the only winner.”
+        </blockquote>
+<div class="philosophy-author">Philip Kotler</div>
+</div>
 </div>
 </div>
 </section>
@@ -666,29 +685,22 @@
 </div>
 </div>
 <div class="ag-footer-nav">
-<div class="ag-footer-nav-col">
-<span class="ag-col-label">Programs</span>
-<ul class="ag-col-list">
-<li><a href="courses.html">Digital Marketing Course</a></li>
-<li><a href="courses.html">Diploma Degree Program</a></li>
-<li><a href="courses.html">Bachelor's in Digital Marketing</a></li>
-<li><a href="courses.html">Compare All Programs →</a></li>
-</ul>
-</div>
-<div class="ag-footer-nav-col">
-<span class="ag-col-label">Resources</span>
-<ul class="ag-col-list">
-<li><a href="free-masterclass.html">Free Masterclasses</a></li>
-<li><a href="case-studies.html">Case Studies</a></li>
-<li><a href="placements.html">Placement Report</a></li>
-</ul>
-</div>
 <div class="ag-footer-nav-col ag-contact-col">
 <div class="ag-contact-group">
-<span class="ag-office-label">Contact:</span>
+<span class="ag-office-label">Get in Touch:</span>
 <div class="ag-contact-list">
-<a class="ag-contact-item" href="mailto:digital@limeinstitute.org"><span>digital@limeinstitute.org</span></a>
-<a class="ag-contact-item" href="tel:+917567787232"><span>+91 75677 87232</span></a>
+<a class="ag-contact-item" href="mailto:digital@limeinstitute.org">
+<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+<span>digital@<wbr/>limeinstitute.org</span>
+</a>
+<a class="ag-contact-item" href="tel:+917567787232">
+<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+<span>+91 75677 87232</span>
+</a>
+<a class="ag-contact-item" href="tel:+918980626323">
+<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+<span>+91 89806 26323</span>
+</a>
 </div>
 </div>
 </div>
@@ -706,6 +718,8 @@
 <a class="open-maintenance-modal" href="#">Privacy Policy</a>
 <span class="ag-sep">•</span>
 <a class="open-maintenance-modal" href="#">Refund Policy</a>
+<span class="ag-sep">•</span>
+<a class="open-maintenance-modal" href="#">Terms of Use</a>
 <span class="ag-sep">•</span>
 <a href="contact.html">Contact Us</a>
 </div>
@@ -809,7 +823,7 @@
 
       // Who should attend
       const whoList = document.getElementById('whoIsThisForList');
-      if (Array.isArray(currentEvent.whoIsThisFor) && currentEvent.whoIsThisFor.length > 0) {
+      if (whoList && Array.isArray(currentEvent.whoIsThisFor) && currentEvent.whoIsThisFor.length > 0) {
         whoList.innerHTML = currentEvent.whoIsThisFor.map(w => `
           <li><span class="tc-icon">→</span><span>${w}</span></li>
         `).join('');
