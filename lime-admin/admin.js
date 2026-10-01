@@ -298,6 +298,56 @@
     }
   };
 
+  // --- IMAGE UPLOAD (thumbnail + speaker photo) ---
+  function wireImageUpload(fileInputId, btnId, statusId, selectId, target) {
+    const fileInput = document.getElementById(fileInputId);
+    const btn = document.getElementById(btnId);
+    const status = document.getElementById(statusId);
+    const select = document.getElementById(selectId);
+    if (!fileInput || !btn || !select) return;
+
+    btn.addEventListener('click', () => fileInput.click());
+
+    fileInput.addEventListener('change', async () => {
+      const file = fileInput.files[0];
+      if (!file) return;
+
+      status.textContent = 'Uploading...';
+      btn.disabled = true;
+
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('target', target);
+      formData.append('name', file.name.replace(/\.[^.]+$/, ''));
+
+      try {
+        const res = await apiRequest(`${API_BASE}/upload`, {
+          method: 'POST',
+          body: formData
+        });
+        if (res.success && res.path) {
+          const opt = document.createElement('option');
+          opt.value = res.path;
+          opt.textContent = file.name + ' (uploaded)';
+          select.appendChild(opt);
+          select.value = res.path;
+          status.textContent = '✓ Uploaded';
+        } else {
+          status.textContent = '✗ ' + (res.error || 'Upload failed');
+        }
+      } catch (err) {
+        status.textContent = '✗ Upload failed';
+      } finally {
+        btn.disabled = false;
+        fileInput.value = '';
+        setTimeout(() => { status.textContent = ''; }, 4000);
+      }
+    });
+  }
+
+  wireImageUpload('eventThumbnailFile', 'eventThumbnailUploadBtn', 'eventThumbnailUploadStatus', 'eventThumbnail', 'webinar');
+  wireImageUpload('speakerPhotoFile', 'speakerPhotoUploadBtn', 'speakerPhotoUploadStatus', 'speakerPhoto', 'mentor');
+
   // --- CREATE / EDIT MODAL ---
   openCreateModalBtn.addEventListener('click', () => {
     modalDialogTitle.textContent = 'Create New Masterclass';

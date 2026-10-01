@@ -18,6 +18,7 @@ services:
       - traefik.http.services.lime-website.loadbalancer.server.port=80
     volumes:
       - lime-data:/var/www/html/data
+      - lime-uploads:/var/www/html/assets/uploads
 
   landing:
     build:
@@ -38,6 +39,8 @@ services:
       - traefik.http.services.lime-landing.loadbalancer.server.port=80
     volumes:
       - lime-data:/var/www/html/data
+      - lime-uploads:/var/www/html/assets/uploads
 
 volumes:
   lime-data:
+  lime-uploads:
