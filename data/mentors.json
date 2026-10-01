@@ -1,0 +1,23 @@
+[
+  {
+    "id": "paras-patel",
+    "name": "Paras Patel",
+    "role": "Founder & AI Marketing Strategist",
+    "photo": "assets/mentors/paras-patel.webp",
+    "bio": "Mentored 800+ students and consulted top brands on integrating generative AI into automated performance marketing engines."
+  },
+  {
+    "id": "alpesh-patel",
+    "name": "Alpesh Patel",
+    "role": "International Digital Marketing Expert",
+    "photo": "assets/mentors/alpesh-patel.webp",
+    "bio": "Senior practitioner at Lime Digital Institute with global campaign experience."
+  },
+  {
+    "id": "ketan-patel",
+    "name": "Ketan Patel",
+    "role": "SEO & Growth Coach",
+    "photo": "assets/mentors/ketan-patel.webp",
+    "bio": "Senior practitioner at Lime Digital Institute specializing in SEO-driven growth."
+  }
+]

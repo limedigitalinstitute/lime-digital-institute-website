@@ -415,8 +415,10 @@
       }
     }
     /* Footer here has only the contact column left — push it to the right */
-    #antigravityFooter .ag-footer-nav { display: flex; justify-content: flex-end; max-width: none; }
-    #antigravityFooter .ag-contact-col { max-width: 320px; }
+    @media (min-width: 981px) {
+      #antigravityFooter .ag-footer-nav { display: flex; justify-content: flex-end; max-width: none; }
+      #antigravityFooter .ag-contact-col { max-width: 320px; }
+    }
   </style>
 <script type="application/ld+json">
   [

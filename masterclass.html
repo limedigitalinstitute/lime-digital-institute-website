@@ -384,8 +384,10 @@
       .mc-filter-strip-sub .mc-tabs { justify-content: flex-start; overflow-x: auto; }
     }
     /* Footer here has only the contact column left — push it to the right */
-    #antigravityFooter .ag-footer-nav { display: flex; justify-content: flex-end; max-width: none; }
-    #antigravityFooter .ag-contact-col { max-width: 320px; }
+    @media (min-width: 981px) {
+      #antigravityFooter .ag-footer-nav { display: flex; justify-content: flex-end; max-width: none; }
+      #antigravityFooter .ag-contact-col { max-width: 320px; }
+    }
   </style>
 <script type="application/ld+json">
   [
@@ -475,7 +477,6 @@
 </a>
 </div>
 <div class="mega-promo" style="cursor:default;">
-<img alt="Course preview" loading="lazy" onerror="this.style.display='none'" src="assets/course-preview.png"/>
 <strong>AI-Powered Marketing Curriculum</strong>
 <span>60+ tools · 16 modules · 309+ topics</span>
 </div>

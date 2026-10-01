@@ -13,12 +13,8 @@
   let activeTab = 'eventsTab';
   let activeFilter = 'all';
 
-  // --- MENTOR REGISTRY (multi-select for event speakers) ---
-  const MENTORS = [
-    { id: 'paras-patel', name: 'Paras Patel', role: 'Founder & AI Marketing Strategist', photo: 'assets/mentors/paras-patel.webp', bio: 'Mentored 800+ students and consulted top brands on integrating generative AI into automated performance marketing engines.' },
-    { id: 'alpesh-patel', name: 'Alpesh Patel', role: 'International Digital Marketing Expert', photo: 'assets/mentors/alpesh-patel.webp', bio: 'Senior practitioner at Lime Digital Institute with global campaign experience.' },
-    { id: 'ketan-patel', name: 'Ketan Patel', role: 'SEO & Growth Coach', photo: 'assets/mentors/ketan-patel.webp', bio: 'Senior practitioner at Lime Digital Institute specializing in SEO-driven growth.' }
-  ];
+  // --- MENTOR REGISTRY (multi-select for event speakers; backed by /api/mentors) ---
+  let MENTORS = [];
 
   // --- DOM ELEMENTS ---
   const loginScreen = document.getElementById('loginScreen');
@@ -152,8 +148,117 @@
   async function initDashboard() {
     loginScreen.classList.add('hidden');
     dashboardScreen.classList.remove('hidden');
+    await loadMentors();
     await loadEvents();
     await loadLeads();
+  }
+
+  // --- MENTORS LOAD & RENDER ---
+  const mentorsListContainer = document.getElementById('mentorsListContainer');
+  const mentorsEmptyState = document.getElementById('mentorsEmptyState');
+  const badgeMentorsCount = document.getElementById('badgeMentorsCount');
+
+  async function loadMentors() {
+    try {
+      const res = await fetch(`${API_BASE}/mentors`);
+      const data = await res.json();
+      if (data.success && Array.isArray(data.mentors)) {
+        MENTORS = data.mentors;
+        renderMentorsList();
+        if (badgeMentorsCount) badgeMentorsCount.textContent = MENTORS.length;
+      }
+    } catch (err) {
+      console.warn('Failed to load mentors', err);
+    }
+  }
+
+  function renderMentorsList() {
+    if (!mentorsListContainer) return;
+    if (MENTORS.length === 0) {
+      mentorsListContainer.innerHTML = '';
+      if (mentorsEmptyState) mentorsEmptyState.classList.remove('hidden');
+      return;
+    }
+    if (mentorsEmptyState) mentorsEmptyState.classList.add('hidden');
+    mentorsListContainer.innerHTML = MENTORS.map(m => `
+      <div class="session-admin-card" style="flex-direction:column; align-items:center; text-align:center; padding:18px;" data-id="${m.id}">
+        <img src="../${m.photo}" alt="${m.name}" style="width:72px; height:72px; border-radius:50%; object-fit:cover; margin-bottom:10px;" onerror="this.src='../assets/mentors/paras-patel.webp'">
+        <h3 style="font-size:15px; margin-bottom:2px;">${m.name}</h3>
+        <div style="font-size:12.5px; color:var(--ink-500); margin-bottom:12px;">${m.role || ''}</div>
+        <div class="session-actions-col" style="flex-direction:row; gap:8px;">
+          <button type="button" class="btn-sm-action btn-edit-sm" onclick="openEditMentorModal('${m.id}')">Edit</button>
+          <button type="button" class="btn-sm-action btn-del-sm" onclick="deleteMentor('${m.id}')">Delete</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  const mentorModal = document.getElementById('mentorModal');
+  const mentorForm = document.getElementById('mentorForm');
+  const mentorModalTitle = document.getElementById('mentorModalTitle');
+  const openCreateMentorModalBtn = document.getElementById('openCreateMentorModalBtn');
+  const closeMentorModalBtn = document.getElementById('closeMentorModalBtn');
+  const cancelMentorModalBtn = document.getElementById('cancelMentorModalBtn');
+
+  if (openCreateMentorModalBtn) {
+    openCreateMentorModalBtn.addEventListener('click', () => {
+      mentorModalTitle.textContent = 'Add Mentor';
+      mentorForm.reset();
+      document.getElementById('editMentorId').value = '';
+      mentorModal.classList.remove('hidden');
+    });
+  }
+  if (closeMentorModalBtn) closeMentorModalBtn.addEventListener('click', () => mentorModal.classList.add('hidden'));
+  if (cancelMentorModalBtn) cancelMentorModalBtn.addEventListener('click', () => mentorModal.classList.add('hidden'));
+
+  window.openEditMentorModal = function (id) {
+    const m = MENTORS.find(x => x.id === id);
+    if (!m) return;
+    mentorModalTitle.textContent = 'Edit Mentor';
+    document.getElementById('editMentorId').value = m.id;
+    document.getElementById('mentorName').value = m.name || '';
+    document.getElementById('mentorRole').value = m.role || '';
+    document.getElementById('mentorBio').value = m.bio || '';
+    document.getElementById('mentorPhoto').value = m.photo || 'assets/mentors/paras-patel.webp';
+    mentorModal.classList.remove('hidden');
+  };
+
+  window.deleteMentor = async function (id) {
+    if (!confirm('Delete this mentor? Already-saved sessions keep their speaker snapshot, so this will not affect past events.')) return;
+    const res = await apiRequest(`${API_BASE}/mentors?id=${encodeURIComponent(id)}`, { method: 'DELETE' });
+    if (res.success) {
+      await loadMentors();
+      showToast('Mentor deleted');
+    }
+  };
+
+  if (mentorForm) {
+    mentorForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const editId = document.getElementById('editMentorId').value.trim();
+      const payload = {
+        name: document.getElementById('mentorName').value.trim(),
+        role: document.getElementById('mentorRole').value.trim(),
+        bio: document.getElementById('mentorBio').value.trim(),
+        photo: document.getElementById('mentorPhoto').value
+      };
+      const saveBtn = document.getElementById('saveMentorBtn');
+      saveBtn.disabled = true;
+      try {
+        const res = editId
+          ? await apiRequest(`${API_BASE}/mentors?id=${encodeURIComponent(editId)}`, { method: 'PUT', body: JSON.stringify(payload) })
+          : await apiRequest(`${API_BASE}/mentors`, { method: 'POST', body: JSON.stringify(payload) });
+        if (res.success) {
+          mentorModal.classList.add('hidden');
+          await loadMentors();
+          showToast(editId ? 'Mentor updated' : 'Mentor added');
+        } else {
+          alert(res.error || 'Failed to save mentor');
+        }
+      } finally {
+        saveBtn.disabled = false;
+      }
+    });
   }
 
   // --- EVENTS LOAD & RENDER ---
@@ -353,6 +458,7 @@
   }
 
   wireImageUpload('eventThumbnailFile', 'eventThumbnailUploadBtn', 'eventThumbnailUploadStatus', 'eventThumbnail', 'webinar');
+  wireImageUpload('mentorPhotoFile', 'mentorPhotoUploadBtn', 'mentorPhotoUploadStatus', 'mentorPhoto', 'mentor');
 
   // --- MENTOR CHECKLIST (multi-select) ---
   function renderMentorChecklist(selectedIds) {
@@ -915,11 +1021,15 @@
       const targetPane = document.getElementById(btn.dataset.tab);
       if (targetPane) targetPane.classList.remove('hidden');
 
+      exportLeadsBtn.classList.add('hidden');
+      openCreateModalBtn.classList.add('hidden');
+      if (openCreateMentorModalBtn) openCreateMentorModalBtn.classList.add('hidden');
+
       if (btn.dataset.tab === 'leadsTab') {
         exportLeadsBtn.classList.remove('hidden');
-        openCreateModalBtn.classList.add('hidden');
+      } else if (btn.dataset.tab === 'mentorsTab') {
+        if (openCreateMentorModalBtn) openCreateMentorModalBtn.classList.remove('hidden');
       } else {
-        exportLeadsBtn.classList.add('hidden');
         openCreateModalBtn.classList.remove('hidden');
       }
 

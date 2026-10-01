@@ -119,6 +119,10 @@
               <span>Attendee Registrations</span>
               <span class="tab-count-badge" id="badgeLeadsCount">0</span>
             </button>
+            <button type="button" class="tab-btn" data-tab="mentorsTab">
+              <span>Mentors</span>
+              <span class="tab-count-badge" id="badgeMentorsCount">0</span>
+            </button>
           </div>
           <div class="tab-actions">
             <button type="button" id="openCreateModalBtn" class="btn-admin-primary">
@@ -128,6 +132,10 @@
             <button type="button" id="exportLeadsBtn" class="btn-admin-secondary hidden">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
               <span>Download Leads CSV</span>
+            </button>
+            <button type="button" id="openCreateMentorModalBtn" class="btn-admin-primary hidden">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              <span>Add Mentor</span>
             </button>
           </div>
         </div>
@@ -199,6 +207,63 @@
           </div>
 
         </section>
+
+        <!-- TAB 3: MENTORS MANAGER -->
+        <section id="mentorsTab" class="tab-pane hidden">
+          <div id="mentorsListContainer" class="events-admin-list" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:16px;">
+            <!-- Dynamically Rendered via admin.js -->
+          </div>
+          <div id="mentorsEmptyState" class="empty-state hidden">
+            <div class="empty-icon">🧑‍🏫</div>
+            <div class="empty-title">No mentors added yet</div>
+            <p class="empty-sub">Add mentors here so they can be selected as speakers when creating or editing a masterclass session.</p>
+          </div>
+        </section>
+
+        <!-- MENTOR CREATE / EDIT MODAL -->
+        <div id="mentorModal" class="modal-backdrop hidden">
+          <div class="modal-dialog" style="max-width:520px;">
+            <div class="modal-header">
+              <div>
+                <h2 id="mentorModalTitle" class="modal-title">Add Mentor</h2>
+                <p class="modal-sub">Mentor profile used across masterclass sessions.</p>
+              </div>
+              <button type="button" id="closeMentorModalBtn" class="modal-close-btn">&times;</button>
+            </div>
+            <form id="mentorForm" class="modal-form">
+              <input type="hidden" id="editMentorId">
+              <div class="form-field">
+                <label for="mentorName">Mentor Name *</label>
+                <input type="text" id="mentorName" class="form-input" placeholder="e.g. Paras Patel" required>
+              </div>
+              <div class="form-field">
+                <label for="mentorRole">Title / Role</label>
+                <input type="text" id="mentorRole" class="form-input" placeholder="e.g. Founder & AI Strategist">
+              </div>
+              <div class="form-field">
+                <label for="mentorBio">Short Bio</label>
+                <textarea id="mentorBio" class="form-textarea" rows="3" placeholder="Mentored 800+ students..."></textarea>
+              </div>
+              <div class="form-field">
+                <label for="mentorPhoto">Photo</label>
+                <select id="mentorPhoto" class="form-input">
+                  <option value="assets/mentors/paras-patel.webp">paras-patel.webp</option>
+                  <option value="assets/mentors/alpesh-patel.webp">alpesh-patel.webp</option>
+                  <option value="assets/mentors/ketan-patel.webp">ketan-patel.webp</option>
+                </select>
+                <div style="margin-top:8px; display:flex; align-items:center; gap:10px;">
+                  <input type="file" id="mentorPhotoFile" accept="image/jpeg,image/png,image/webp" style="display:none;">
+                  <button type="button" id="mentorPhotoUploadBtn" class="btn-secondary" style="padding:6px 12px; font-size:12.5px;">Upload New Photo &rarr;</button>
+                  <span id="mentorPhotoUploadStatus" style="font-size:12px; color:var(--ink-500);"></span>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" id="cancelMentorModalBtn" class="btn-admin-secondary">Cancel</button>
+                <button type="submit" id="saveMentorBtn" class="btn-admin-primary">Save Mentor &rarr;</button>
+              </div>
+            </form>
+          </div>
+        </div>
 
         <!-- PAGE SECTIONS — full preview popup (Desktop / Tablet / Mobile) -->
         <div id="previewModal" class="preview-modal-backdrop hidden">
