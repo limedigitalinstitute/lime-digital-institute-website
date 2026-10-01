@@ -186,7 +186,55 @@
     }
   }
 
-  // 6. Background Zoho Form Submission Engine for Demo Class & Inquiries
+  // 6. Background Zoho Form Submission Engine for Demo Class, Events & Inquiries
+  const ZOHO_FORM_TARGETS = {
+    // Default — "Book Your Free Demo Class" Zoho form
+    demo: {
+      url: 'https://forms.zohopublic.in/LimeDigital/form/BookYourFreeDemoClass/formperma/OzywZykQLlNWtM6bcx7MkfJJcdHhqddFTv-HwasQraE/htmlRecords/submit',
+      buildFields: function(ctx) {
+        return {
+          'SingleLine': ctx.firstName,
+          'SingleLine1': ctx.lastName,
+          'Email': ctx.email,
+          'PhoneNumber': ctx.fullInternationalPhone,
+          'PhoneNumber_countrycode': ctx.fullInternationalPhone,
+          'PhoneNumber_countrycodeval': ctx.countryCode,
+          'PhoneNumber_countrycodeVal': ctx.countryCode,
+          'zf_referrer_name': ctx.referrerName,
+          'zf_redirect_url': '',
+          'zc_gad': ctx.gclid,
+          'utm_source': ctx.utm_source,
+          'utm_medium': ctx.utm_medium,
+          'utm_campaign': ctx.utm_campaign,
+          'utm_term': ctx.utm_term,
+          'utm_content': ctx.utm_content,
+          'utm_form': ctx.utmForm
+        };
+      }
+    },
+    // "Events" Zoho form — used for masterclass/webinar event registrations
+    events: {
+      url: 'https://forms.zohopublic.in/LimeDigital/form/Events/formperma/lG7hkvMA6siwgmMNa0NZUcHkVYhqJ_2gLl05e_fHOR4/htmlRecords/submit',
+      buildFields: function(ctx) {
+        return {
+          'Name_First': ctx.firstName,
+          'Name_Last': ctx.lastName,
+          'Email': ctx.email,
+          'PhoneNumber_countrycode': ctx.fullInternationalPhone,
+          'zf_referrer_name': ctx.referrerName,
+          'zf_redirect_url': '',
+          'zc_gad': ctx.gclid,
+          'utm_source': ctx.utm_source,
+          'utm_medium': ctx.utm_medium,
+          'utm_campaign': ctx.utm_campaign,
+          'utm_term': ctx.utm_term,
+          'utm_content': ctx.utm_content,
+          'Event': ctx.eventName
+        };
+      }
+    }
+  };
+
   function submitLeadToZoho(leadPayload) {
     try {
       const utms = getStoredUTMs();
@@ -250,38 +298,40 @@
         return '';
       }
 
-      const zohoUrl = 'https://forms.zohopublic.in/LimeDigital/form/BookYourFreeDemoClass/formperma/OzywZykQLlNWtM6bcx7MkfJJcdHhqddFTv-HwasQraE/htmlRecords/submit';
-
       const utmForm = (leadPayload.utm_form || utms.utm_form || getCookie('utm_form') || leadPayload.form_name || 'Website Form').trim();
 
-      const zohoData = {
-        'SingleLine': firstName,
-        'SingleLine1': lastName,
-        'Email': (leadPayload.email || '').trim(),
-        'PhoneNumber': fullInternationalPhone,
-        'PhoneNumber_countrycode': fullInternationalPhone,
-        'PhoneNumber_countrycodeval': countryCode,
-        'PhoneNumber_countrycodeVal': countryCode,
-        'zf_referrer_name': (document.URL || window.location.href || '').slice(0, 1500),
-        'zf_redirect_url': '',
-        'zc_gad': utms.gclid || getCookie('gclid') || '',
-        'utm_source': utms.utm_source || getCookie('utm_source') || '',
-        'utm_medium': utms.utm_medium || getCookie('utm_medium') || '',
-        'utm_campaign': utms.utm_campaign || getCookie('utm_campaign') || '',
-        'utm_term': utms.utm_term || getCookie('utm_term') || '',
-        'utm_content': utms.utm_content || getCookie('utm_content') || '',
-        'utm_form': utmForm
+      const target = ZOHO_FORM_TARGETS[leadPayload.zoho_form] || ZOHO_FORM_TARGETS.demo;
+
+      const ctx = {
+        firstName: firstName,
+        lastName: lastName,
+        email: (leadPayload.email || '').trim(),
+        fullInternationalPhone: fullInternationalPhone,
+        countryCode: countryCode,
+        referrerName: (document.URL || window.location.href || '').slice(0, 1500),
+        gclid: utms.gclid || getCookie('gclid') || '',
+        utm_source: utms.utm_source || getCookie('utm_source') || '',
+        utm_medium: utms.utm_medium || getCookie('utm_medium') || '',
+        utm_campaign: utms.utm_campaign || getCookie('utm_campaign') || '',
+        utm_term: utms.utm_term || getCookie('utm_term') || '',
+        utm_content: utms.utm_content || getCookie('utm_content') || '',
+        utmForm: utmForm,
+        eventName: (leadPayload.event_title || leadPayload.event || '').trim()
       };
+
+      const zohoUrl = target.url;
+      const zohoData = target.buildFields(ctx);
 
       // Append tracking parameters to URL query string for maximum compatibility
       const qParams = new URLSearchParams();
       if (utmForm) qParams.set('utm_form', utmForm);
-      if (zohoData.utm_source) qParams.set('utm_source', zohoData.utm_source);
-      if (zohoData.utm_medium) qParams.set('utm_medium', zohoData.utm_medium);
-      if (zohoData.utm_campaign) qParams.set('utm_campaign', zohoData.utm_campaign);
-      if (zohoData.utm_term) qParams.set('utm_term', zohoData.utm_term);
-      if (zohoData.utm_content) qParams.set('utm_content', zohoData.utm_content);
-      if (zohoData.zc_gad) qParams.set('zc_gad', zohoData.zc_gad);
+      if (ctx.utm_source) qParams.set('utm_source', ctx.utm_source);
+      if (ctx.utm_medium) qParams.set('utm_medium', ctx.utm_medium);
+      if (ctx.utm_campaign) qParams.set('utm_campaign', ctx.utm_campaign);
+      if (ctx.utm_term) qParams.set('utm_term', ctx.utm_term);
+      if (ctx.utm_content) qParams.set('utm_content', ctx.utm_content);
+      if (ctx.gclid) qParams.set('zc_gad', ctx.gclid);
+      if (ctx.eventName) qParams.set('Event', ctx.eventName);
 
       const finalZohoUrl = zohoUrl + '?' + qParams.toString();
 
