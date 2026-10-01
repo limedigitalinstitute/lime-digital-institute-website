@@ -572,43 +572,9 @@
 <h3 class="ef-heading" id="formHeading">Reserve Your Free Seat</h3>
 <p class="ef-sub" id="formSub">100% Free · Live Interactive Q&amp;A · Instant Access Details on WhatsApp</p>
 <div class="admin-alert hidden" id="formAlert" style="margin-bottom:14px;"></div>
-<form class="curr-modal-form" id="eventRegistrationForm">
-<input id="formEventId" name="eventId" type="hidden"/>
-<input id="formEventTitle" name="eventTitle" type="hidden"/>
-<div class="curr-form-group">
-<label for="regFirstName">Name *</label>
-<div class="curr-phone-row">
-<input id="regFirstName" placeholder="First Name" required="" type="text"/>
-<input id="regLastName" placeholder="Last Name" type="text"/>
+<div class="ef-zoho-embed-wrap" style="min-height:420px;">
+<iframe id="zohoRegFrame" title="Event Registration Form" frameborder="0" style="width:100%;min-height:420px;border:none;display:block;"></iframe>
 </div>
-</div>
-<div class="curr-form-group">
-<label for="regPhone">WhatsApp Phone Number *</label>
-<div class="curr-phone-row">
-<select class="curr-phone-prefix curr-country-select" id="regCountryCode">
-<option selected="" value="+91">🇮🇳 +91</option>
-<option value="+1">🇺🇸 +1</option>
-<option value="+44">🇬🇧 +44</option>
-<option value="+971">🇦🇪 +971</option>
-<option value="+1">🇨🇦 +1</option>
-<option value="+61">🇦🇺 +61</option>
-</select>
-<input id="regPhone" pattern="[0-9]{7,15}" placeholder="Enter phone number" required="" type="tel"/>
-</div>
-<div class="curr-field-hint">You will receive the Zoom/Campus pass on WhatsApp</div>
-</div>
-<div class="curr-form-group">
-<label for="regEmail">Email Address *</label>
-<input id="regEmail" placeholder="you@example.com" required="" type="email"/>
-</div>
-<label class="curr-consent">
-<input checked="" required="" type="checkbox"/>
-<span>I agree to Lime Digital Institute's T&amp;C and Privacy Policy. Override NDNC.</span>
-</label>
-<button class="curr-btn-submit" id="submitRegBtn" type="submit">
-<span id="submitBtnText">Claim Free Masterclass Pass →</span>
-</button>
-</form>
 <div class="curr-trust-row">
 <span><span class="tick">✓</span> Expert-Led</span>
 <span><span class="tick">✓</span> 4.9/5 Rating</span>
@@ -760,8 +726,6 @@
       document.getElementById('metaDate').textContent = currentEvent.dateDisplay || currentEvent.date;
       document.getElementById('metaTime').textContent = currentEvent.time || '';
       document.getElementById('metaVenue').textContent = currentEvent.location || '';
-      document.getElementById('formEventId').value = currentEvent.id;
-      document.getElementById('formEventTitle').value = currentEvent.title;
       if (currentEvent.thumbnail) {
         document.getElementById('formBannerImg').src = currentEvent.thumbnail;
       }
@@ -792,7 +756,6 @@
         // Adjust Form Heading
         document.getElementById('formHeading').textContent = 'Get Recording Pass & Slides';
         document.getElementById('formSub').textContent = 'Enter your details to receive instant access to this full masterclass recording and downloadable resource pack.';
-        document.getElementById('submitBtnText').textContent = 'Unlock Recording & Slides →';
       } else {
         statusPill.className = 'event-pill pill-live';
         statusPill.innerHTML = '<span class="dot"></span> Live / Upcoming';
@@ -856,102 +819,24 @@
       }
       if (!isCompleted) startCountdown();
 
-      // Form Submission
-      const form = document.getElementById('eventRegistrationForm');
-      form.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        const submitBtn = document.getElementById('submitRegBtn');
-        const submitBtnText = document.getElementById('submitBtnText');
-        const originalText = submitBtnText.textContent;
-        submitBtn.disabled = true;
-        submitBtnText.textContent = 'Saving Your Seat...';
-
-        const firstName = document.getElementById('regFirstName').value.trim();
-        const lastName = document.getElementById('regLastName').value.trim();
-        const name = (firstName + ' ' + lastName).trim();
-        const phone = document.getElementById('regPhone').value.trim();
-        const countryCode = document.getElementById('regCountryCode').value;
-        const email = document.getElementById('regEmail').value.trim();
-        const isCompletedEvent = isCompleted;
-        const formLabel = isCompletedEvent ? 'Free Masterclass - Get Recording Pass' : 'Free Masterclass - Register Free Seat';
-        const utmFormLabel = isCompletedEvent ? 'masterclass_recording_pass' : 'masterclass_register_seat';
-
+      // Embed the live Zoho Events registration form (native WhatsApp OTP flow)
+      (function wireZohoRegFrame() {
+        const frame = document.getElementById('zohoRegFrame');
+        if (!frame) return;
         const storedUtms = (window.LimeLeadCollector && window.LimeLeadCollector.getUTMs) ? window.LimeLeadCollector.getUTMs() : {};
-
-        const payload = {
-          eventId: currentEvent.id,
-          eventTitle: currentEvent.title,
-          name,
-          phone,
-          country_code: countryCode,
-          email,
+        const isCompletedEvent = isCompleted;
+        const utmFormLabel = isCompletedEvent ? 'masterclass_recording_pass' : 'masterclass_register_seat';
+        const qParams = new URLSearchParams({
           utm_source: storedUtms.utm_source || '',
           utm_medium: storedUtms.utm_medium || '',
           utm_campaign: storedUtms.utm_campaign || '',
           utm_term: storedUtms.utm_term || '',
           utm_content: storedUtms.utm_content || '',
           utm_form: utmFormLabel,
-          event: currentEvent.title
-        };
-
-        // ── 1. Fire LimeLeadCollector (Supabase + Zoho) with full UTM attribution ──
-        if (window.LimeLeadCollector) {
-          try {
-            window.LimeLeadCollector.submitLead({
-              name,
-              first_name: firstName,
-              last_name: lastName,
-              phone,
-              country_code: countryCode,
-              email,
-              event_id: currentEvent.id,
-              event_title: currentEvent.title,
-              event: currentEvent.title,
-              form_name: formLabel,
-              utm_form: utmFormLabel,
-              zoho_form: 'events',
-              cta_text: originalText,
-              button_id: 'btn-event-register'
-            });
-          } catch (lcErr) {
-            console.warn('[Lime Leads] LimeLeadCollector call error:', lcErr);
-          }
-        }
-
-        // ── 2. Also POST to local /api/register (saves to registrations.json, decrements seats) ──
-        try {
-          const res = await fetch('/api/register', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-          });
-          const result = await res.json();
-          if (result.success) {
-            const redirectParams = new URLSearchParams({
-              id: currentEvent.id,
-              name: payload.name,
-              email: payload.email,
-              phone: payload.phone,
-              title: currentEvent.title,
-              date: currentEvent.dateDisplay || currentEvent.date,
-              time: currentEvent.time || '',
-              location: currentEvent.location || ''
-            });
-            window.location.href = `event-thank-you?${redirectParams.toString()}`;
-            return;
-          }
-        } catch (err) {
-          console.warn('API error, falling back to direct redirect', err);
-        }
-
-        // ── 3. Fallback redirect ──
-        const redirectParams = new URLSearchParams({
-          id: currentEvent.id,
-          name: payload.name,
-          title: currentEvent.title
+          Event: currentEvent.title
         });
-        window.location.href = `event-thank-you?${redirectParams.toString()}`;
-      });
+        frame.src = `https://forms.zohopublic.in/LimeDigital/form/Events/formperma/YngHPUoiq7ZKSfhh9lK8cHLrPbnkCihK_d4hqNDXEG8?${qParams.toString()}`;
+      })();
 
       // Footer spacer sync
       function syncSpacer() {
