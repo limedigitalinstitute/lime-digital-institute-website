@@ -13,6 +13,13 @@
   let activeTab = 'eventsTab';
   let activeFilter = 'all';
 
+  // --- MENTOR REGISTRY (multi-select for event speakers) ---
+  const MENTORS = [
+    { id: 'paras-patel', name: 'Paras Patel', role: 'Founder & AI Marketing Strategist', photo: 'assets/mentors/paras-patel.webp', bio: 'Mentored 800+ students and consulted top brands on integrating generative AI into automated performance marketing engines.' },
+    { id: 'alpesh-patel', name: 'Alpesh Patel', role: 'International Digital Marketing Expert', photo: 'assets/mentors/alpesh-patel.webp', bio: 'Senior practitioner at Lime Digital Institute with global campaign experience.' },
+    { id: 'ketan-patel', name: 'Ketan Patel', role: 'SEO & Growth Coach', photo: 'assets/mentors/ketan-patel.webp', bio: 'Senior practitioner at Lime Digital Institute specializing in SEO-driven growth.' }
+  ];
+
   // --- DOM ELEMENTS ---
   const loginScreen = document.getElementById('loginScreen');
   const dashboardScreen = document.getElementById('dashboardScreen');
@@ -224,7 +231,7 @@
 
           <div class="session-status-col">
             <span class="status-pill ${statusClass}">${statusLabel}</span>
-            <span class="speaker-micro">👤 ${e.speaker ? e.speaker.name : 'Lime Mentor'}</span>
+            <span class="speaker-micro">👤 ${Array.isArray(e.speakers) && e.speakers.length > 0 ? e.speakers.map(s => s.name).join(', ') : (e.speaker ? e.speaker.name : 'Lime Mentor')}</span>
           </div>
 
           <div class="session-actions-col">
@@ -346,7 +353,26 @@
   }
 
   wireImageUpload('eventThumbnailFile', 'eventThumbnailUploadBtn', 'eventThumbnailUploadStatus', 'eventThumbnail', 'webinar');
-  wireImageUpload('speakerPhotoFile', 'speakerPhotoUploadBtn', 'speakerPhotoUploadStatus', 'speakerPhoto', 'mentor');
+
+  // --- MENTOR CHECKLIST (multi-select) ---
+  function renderMentorChecklist(selectedIds) {
+    const container = document.getElementById('mentorChecklist');
+    if (!container) return;
+    const selected = selectedIds || [];
+    container.innerHTML = MENTORS.map(m => `
+      <label style="display:flex; align-items:center; gap:8px; border:1px solid var(--ink-200,#E2E8F0); border-radius:var(--r-pill,999px); padding:6px 14px 6px 6px; cursor:pointer; font-size:13px;">
+        <input type="checkbox" class="mentor-check" value="${m.id}" ${selected.includes(m.id) ? 'checked' : ''}>
+        <img src="../${m.photo}" alt="${m.name}" style="width:26px; height:26px; border-radius:50%; object-fit:cover;">
+        <span>${m.name}</span>
+      </label>
+    `).join('');
+  }
+  renderMentorChecklist([]);
+
+  function getSelectedMentors() {
+    const checked = Array.from(document.querySelectorAll('.mentor-check:checked')).map(el => el.value);
+    return MENTORS.filter(m => checked.includes(m.id)).map(m => ({ name: m.name, role: m.role, photo: m.photo, bio: m.bio }));
+  }
 
   // --- CREATE / EDIT MODAL ---
   openCreateModalBtn.addEventListener('click', () => {
@@ -354,8 +380,7 @@
     sessionForm.reset();
     document.getElementById('editSessionId').value = '';
     document.getElementById('eventSeatsLeft').value = '20';
-    document.getElementById('speakerName').value = 'Paras Patel';
-    document.getElementById('speakerRole').value = 'Founder & AI Marketing Strategist';
+    renderMentorChecklist(['paras-patel']);
     sessionModal.classList.remove('hidden');
   });
 
@@ -382,11 +407,14 @@
     document.getElementById('eventThumbnail').value = ev.thumbnail || 'assets/webinars/masterclass-ai-prompting.jpg';
     document.getElementById('eventVideoUrl').value = ev.videoUrl || '';
 
-    if (ev.speaker) {
-      document.getElementById('speakerName').value = ev.speaker.name || '';
-      document.getElementById('speakerRole').value = ev.speaker.role || '';
-      document.getElementById('speakerPhoto').value = ev.speaker.photo || 'assets/mentors/paras-patel.webp';
-    }
+    const existingSpeakers = Array.isArray(ev.speakers) && ev.speakers.length > 0
+      ? ev.speakers
+      : (ev.speaker ? [ev.speaker] : []);
+    const selectedMentorIds = existingSpeakers.map(sp => {
+      const match = MENTORS.find(m => m.photo === sp.photo || m.name === sp.name);
+      return match ? match.id : null;
+    }).filter(Boolean);
+    renderMentorChecklist(selectedMentorIds);
 
     document.getElementById('eventTakeaways').value = Array.isArray(ev.takeaways) ? ev.takeaways.join('\n') : '';
 
@@ -411,12 +439,7 @@
       seatsLeft: parseInt(document.getElementById('eventSeatsLeft').value, 10) || 0,
       thumbnail: document.getElementById('eventThumbnail').value,
       videoUrl: document.getElementById('eventVideoUrl').value.trim(),
-      speaker: {
-        name: document.getElementById('speakerName').value.trim(),
-        role: document.getElementById('speakerRole').value.trim(),
-        photo: document.getElementById('speakerPhoto').value,
-        bio: 'Senior practitioner at Lime Digital Institute.'
-      },
+      speakers: getSelectedMentors(),
       takeaways: document.getElementById('eventTakeaways').value.split('\n').map(s => s.trim()).filter(Boolean)
     };
 

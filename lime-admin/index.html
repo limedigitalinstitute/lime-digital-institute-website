@@ -340,28 +340,9 @@
         <!-- Speaker Info -->
         <div class="form-fieldset">
           <div class="fieldset-title">Mentor / Speaker Details</div>
-          <div class="form-grid-3">
-            <div class="form-field">
-              <label for="speakerName">Speaker Name *</label>
-              <input type="text" id="speakerName" class="form-input" placeholder="e.g. Paras Patel" required>
-            </div>
-            <div class="form-field">
-              <label for="speakerRole">Speaker Title / Role</label>
-              <input type="text" id="speakerRole" class="form-input" placeholder="e.g. Founder &amp; AI Strategist">
-            </div>
-            <div class="form-field">
-              <label for="speakerPhoto">Speaker Photo Asset</label>
-              <select id="speakerPhoto" class="form-input">
-                <option value="assets/mentors/paras-patel.webp">Paras Patel (Founder)</option>
-                <option value="assets/mentors/alpesh-patel.webp">Alpesh Patel (International Expert)</option>
-                <option value="assets/mentors/ketan-patel.webp">Ketan Patel (SEO Growth Coach)</option>
-              </select>
-              <div style="margin-top:8px; display:flex; align-items:center; gap:10px;">
-                <input type="file" id="speakerPhotoFile" accept="image/jpeg,image/png,image/webp" style="display:none;">
-                <button type="button" id="speakerPhotoUploadBtn" class="btn-secondary" style="padding:6px 12px; font-size:12.5px;">Upload New Photo →</button>
-                <span id="speakerPhotoUploadStatus" style="font-size:12px; color:var(--ink-500);"></span>
-              </div>
-            </div>
+          <div class="form-field">
+            <label>Select Mentor(s) &mdash; choose one or more to co-host this session</label>
+            <div id="mentorChecklist" style="display:flex; flex-wrap:wrap; gap:10px; margin-top:8px;"></div>
           </div>
         </div>
 
