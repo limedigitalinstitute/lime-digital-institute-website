@@ -266,7 +266,7 @@
     const newStatus = ev.status === 'upcoming' ? 'completed' : 'upcoming';
     const newBadge = newStatus === 'completed' ? 'Watch Recording' : 'Upcoming Session';
 
-    const res = await apiRequest(`${API_BASE}/events/${encodeURIComponent(id)}`, {
+    const res = await apiRequest(`${API_BASE}/events?id=${encodeURIComponent(id)}`, {
       method: 'PUT',
       body: { status: newStatus, badge: newBadge }
     });
@@ -285,7 +285,7 @@
   // --- DELETE EVENT ---
   window.deleteEvent = async function (id) {
     if (!confirm('Are you sure you want to delete this masterclass session?')) return;
-    const res = await apiRequest(`${API_BASE}/events/${encodeURIComponent(id)}`, {
+    const res = await apiRequest(`${API_BASE}/events?id=${encodeURIComponent(id)}`, {
       method: 'DELETE'
     });
     if (res.success) {
@@ -378,7 +378,7 @@
 
     let res;
     if (isEdit) {
-      res = await apiRequest(`${API_BASE}/events/${encodeURIComponent(editId)}`, {
+      res = await apiRequest(`${API_BASE}/events?id=${encodeURIComponent(editId)}`, {
         method: 'PUT',
         body: payload
       });
