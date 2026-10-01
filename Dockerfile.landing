@@ -8,7 +8,9 @@ COPY . /var/www/html/
 
 RUN sed -i 's/DirectoryIndex index.html/DirectoryIndex 3-day-demo-class.html index.html/' /var/www/html/.htaccess \
  && mkdir -p /var/www/html/data \
+             /var/www/html/assets/uploads/webinars \
+             /var/www/html/assets/uploads/mentors \
  && chown -R www-data:www-data /var/www/html \
- && chmod -R 775 /var/www/html/data
+ && chmod -R 775 /var/www/html/data /var/www/html/assets/uploads
 
 EXPOSE 80

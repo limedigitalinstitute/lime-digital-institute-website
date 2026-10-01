@@ -389,7 +389,6 @@
     }
 
     document.getElementById('eventTakeaways').value = Array.isArray(ev.takeaways) ? ev.takeaways.join('\n') : '';
-    document.getElementById('eventWhoIsThisFor').value = Array.isArray(ev.whoIsThisFor) ? ev.whoIsThisFor.join('\n') : '';
 
     sessionModal.classList.remove('hidden');
   };
@@ -418,8 +417,7 @@
         photo: document.getElementById('speakerPhoto').value,
         bio: 'Senior practitioner at Lime Digital Institute.'
       },
-      takeaways: document.getElementById('eventTakeaways').value.split('\n').map(s => s.trim()).filter(Boolean),
-      whoIsThisFor: document.getElementById('eventWhoIsThisFor').value.split('\n').map(s => s.trim()).filter(Boolean)
+      takeaways: document.getElementById('eventTakeaways').value.split('\n').map(s => s.trim()).filter(Boolean)
     };
 
     const saveBtn = document.getElementById('saveSessionBtn');

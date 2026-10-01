@@ -67,12 +67,19 @@ if ($slug === '') $slug = 'upload';
 $filename = $slug . '-' . time() . '.' . $ext;
 
 $destDir = __DIR__ . '/../' . $allowedTargets[$target];
-if (!is_dir($destDir)) {
-    mkdir($destDir, 0755, true);
+if (!is_dir($destDir) && !@mkdir($destDir, 0775, true) && !is_dir($destDir)) {
+    http_response_code(500);
+    echo json_encode(["success" => false, "error" => "Server cannot create upload folder (permission issue) — contact support"]);
+    exit;
+}
+if (!is_writable($destDir)) {
+    http_response_code(500);
+    echo json_encode(["success" => false, "error" => "Upload folder is not writable (permission issue) — contact support"]);
+    exit;
 }
 $destPath = $destDir . '/' . $filename;
 
-if (!move_uploaded_file($file['tmp_name'], $destPath)) {
+if (!@move_uploaded_file($file['tmp_name'], $destPath)) {
     http_response_code(500);
     echo json_encode(["success" => false, "error" => "Failed to save file"]);
     exit;
