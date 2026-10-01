@@ -203,7 +203,7 @@
       const statusLabel = isUpcoming ? '<span class="live-dot"></span> Live / Upcoming' : '▶ Watch Recording';
       const toggleBtnClass = isUpcoming ? 'btn-toggle-recording' : 'btn-toggle-upcoming';
       const toggleBtnLabel = isUpcoming ? 'Switch to Recording' : 'Switch to Upcoming';
-      const viewUrl = `../event.html?id=${encodeURIComponent(e.id)}`;
+      const viewUrl = `../event?id=${encodeURIComponent(e.id)}`;
 
       return `
         <div class="session-admin-card" data-id="${e.id}">
@@ -558,7 +558,7 @@
     blog: { label: 'Blog', file: '../blog.html' },
     contact: { label: 'Contact', file: '../contact.html' },
     'refer-earn': { label: 'Refer & Earn', file: '../refer-earn.html' },
-    'free-masterclass': { label: 'Free Masterclass', file: '../free-masterclass.html' },
+    'free-masterclass': { label: 'Free Masterclass', file: '../masterclass.html' },
     event: { label: 'Event Hub', file: '../event.html' },
     '3-day-demo-class': { label: '3-Day Demo Class', file: '../3-day-demo-class.html' },
     'thank-you': { label: 'Thank You', file: '../thank-you.html' },

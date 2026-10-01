@@ -8,7 +8,7 @@
 <meta content="Register for free live digital marketing and AI masterclasses at Lime Digital Institute." id="pageMetaDesc" name="description"/>
 <!-- Open Graph / Social Sharing -->
 <meta content="website" property="og:type"/>
-<meta content="https://limedigitalinstitute.org/event.html" property="og:url"/>
+<meta content="https://limedigitalinstitute.org/event" property="og:url"/>
 <meta content="Upcoming Workshops &amp; Masterclasses | Lime Digital Institute" property="og:title"/>
 <meta content="Register for free practical workshops and masterclasses on AI, SEO, Meta Ads, and Growth Hacking at Rajkot campus." property="og:description"/>
 <meta content="https://limedigitalinstitute.org/assets/lime-logo.png" property="og:image"/>
@@ -18,11 +18,11 @@
 <meta content="en_IN" property="og:locale"/>
 <!-- Twitter Cards -->
 <meta content="summary_large_image" name="twitter:card"/>
-<meta content="https://limedigitalinstitute.org/event.html" name="twitter:url"/>
+<meta content="https://limedigitalinstitute.org/event" name="twitter:url"/>
 <meta content="Upcoming Workshops &amp; Masterclasses | Lime Digital Institute" name="twitter:title"/>
 <meta content="Register for free practical workshops and masterclasses on AI, SEO, Meta Ads, and Growth Hacking at Rajkot campus." name="twitter:description"/>
 <meta content="https://limedigitalinstitute.org/assets/lime-logo.png" name="twitter:image"/>
-<link href="https://limedigitalinstitute.org/event.html" rel="canonical"/>
+<link href="https://limedigitalinstitute.org/event" rel="canonical"/>
 <link href="assets/lime-logo.png" rel="icon"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -423,7 +423,7 @@
     {
       "@context": "https://schema.org",
       "@type": "Course",
-      "@id": "https://limedigitalinstitute.org/event.html#course",
+      "@id": "https://limedigitalinstitute.org/event#course",
       "name": "AI & Digital Marketing Masterclass Series",
       "description": "Register for free practical workshops and masterclasses on AI, SEO, Meta Ads, and Growth Hacking at Rajkot campus.",
       "provider": {
@@ -467,13 +467,13 @@
 </div>
 </div>
 <div class="ticker-divider"></div>
-<a class="ticker-cta" href="free-masterclass.html">Browse All Sessions →</a>
+<a class="ticker-cta" href="masterclass">Browse All Sessions →</a>
 </div>
 <!-- EVENT NAV - minimal distraction-free bar, mirrors landing-page pattern -->
 <nav class="nav event-nav has-ticker" id="nav">
 <div class="wrap">
 <div class="nav-inner">
-<a aria-label="Lime Digital Institute Home" class="nav-logo" href="index.html"><span class="sr-only" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Lime Digital Institute</span>
+<a aria-label="Lime Digital Institute Home" class="nav-logo" href="/"><span class="sr-only" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Lime Digital Institute</span>
 <img alt="Lime Digital Institute" src="assets/lime-logo.png"/>
 </a>
 <div class="nav-cta">
@@ -712,7 +712,7 @@
 <span class="ag-sep">•</span>
 <a class="open-maintenance-modal" href="#">Terms of Use</a>
 <span class="ag-sep">•</span>
-<a href="contact.html">Contact Us</a>
+<a href="contact">Contact Us</a>
 </div>
 </div>
 </div>
@@ -922,7 +922,7 @@
               time: currentEvent.time || '',
               location: currentEvent.location || ''
             });
-            window.location.href = `event-thank-you.html?${redirectParams.toString()}`;
+            window.location.href = `event-thank-you?${redirectParams.toString()}`;
             return;
           }
         } catch (err) {
@@ -935,7 +935,7 @@
           name: payload.name,
           title: currentEvent.title
         });
-        window.location.href = `event-thank-you.html?${redirectParams.toString()}`;
+        window.location.href = `event-thank-you?${redirectParams.toString()}`;
       });
 
       // Footer spacer sync

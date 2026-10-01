@@ -14,6 +14,20 @@ ErrorDocument 404 /404.html
   RewriteCond %{REQUEST_URI} ^/?$
   RewriteRule ^$ 3-day-demo-class.html [L]
 
+  # free-masterclass.html was renamed to masterclass.html — redirect both
+  # the old clean URL and the old .html URL to the new clean URL.
+  RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\s/+free-masterclass(\.html)?[?\s] [NC]
+  RewriteRule ^ /masterclass [R=301,L]
+
+  # Redirect legacy /page.html URLs to the clean extension-less URL
+  # (index.html -> /, everything-else.html -> /everything-else). Must run
+  # on the ORIGINAL request (THE_REQUEST), not the internally rewritten
+  # one, so it never loops with the "serve .html for clean URL" rule below.
+  RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\s/+index\.html[?\s] [NC]
+  RewriteRule ^ /? [R=301,L]
+  RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\s/+(.+)\.html[?\s] [NC]
+  RewriteRule ^ /%1 [R=301,L]
+
   # Redirect Trailing Slashes If not a folder
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteCond %{REQUEST_URI} (.+)/$

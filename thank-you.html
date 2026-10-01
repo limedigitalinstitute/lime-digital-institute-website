@@ -226,14 +226,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- NAVBAR -->
 <header class="top-nav" id="topNav">
 <div class="wrap nav-inner" style="display: flex; align-items: center; justify-content: space-between; padding: 16px 20px;">
-<a aria-label="Lime Digital Institute Home" class="brand-logo" href="index.html">
+<a aria-label="Lime Digital Institute Home" class="brand-logo" href="/">
 <img alt="Lime Digital Institute" height="42" src="assets/lime-logo.png" style="height: 38px; width: auto; object-fit: contain;" width="160"/>
 <span class="sr-only" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Lime Digital Institute</span></a>
 <div style="display: flex; align-items: center; gap: 14px;">
 <a class="nav-phone" href="tel:+917567787232" style="font-size: 13px; font-weight: 600; color: #111827; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
 <span>📞 +91 75677 87232</span>
 </a>
-<a class="thank-you-btn-primary" href="courses.html" style="padding: 9px 18px; font-size: 13px;">
+<a class="thank-you-btn-primary" href="courses" style="padding: 9px 18px; font-size: 13px;">
           View All Courses →
         </a>
 </div>
@@ -256,7 +256,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <a class="thank-you-btn-primary" download="Lime-Digital-Curriculum-V5.pdf" href="assets/brochure/Lime-Digital-Curriculum-V5.pdf" id="tyPrimaryBtn" target="_blank">
           Download Brochure PDF Now ↓
         </a>
-<a class="thank-you-btn-secondary" href="courses.html" id="tySecondaryBtn">
+<a class="thank-you-btn-secondary" href="courses" id="tySecondaryBtn">
           Explore All Courses →
         </a>
 </div>
@@ -324,12 +324,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       }
       if (primaryBtn) {
         primaryBtn.textContent = 'View Campus Experience →';
-        primaryBtn.href = 'student-life.html';
+        primaryBtn.href = 'student-life';
         primaryBtn.removeAttribute('download');
       }
       if (secondaryBtn) {
         secondaryBtn.textContent = 'Return to Homepage →';
-        secondaryBtn.href = 'index.html';
+        secondaryBtn.href = '/';
       }
     } else if (type === 'contact') {
       if (badge) badge.textContent = 'Inquiry Received';
@@ -340,12 +340,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       }
       if (primaryBtn) {
         primaryBtn.textContent = 'Explore All Courses →';
-        primaryBtn.href = 'courses.html';
+        primaryBtn.href = 'courses';
         primaryBtn.removeAttribute('download');
       }
       if (secondaryBtn) {
         secondaryBtn.textContent = 'Return to Homepage →';
-        secondaryBtn.href = 'index.html';
+        secondaryBtn.href = '/';
       }
     } else {
       // Default: Brochure
@@ -362,7 +362,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       }
       if (secondaryBtn) {
         secondaryBtn.textContent = 'Explore All Courses →';
-        secondaryBtn.href = 'courses.html';
+        secondaryBtn.href = 'courses';
       }
     }
 

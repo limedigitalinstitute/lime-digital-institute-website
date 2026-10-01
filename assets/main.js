@@ -229,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         modalForm.reset();
         closeModal();
-        window.location.href = 'thank-you.html?type=trial&name=' + encodeURIComponent(name);
+        window.location.href = 'thank-you?type=trial&name=' + encodeURIComponent(name);
       }, 450);
     });
   }
@@ -415,7 +415,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       closeUnlockModal();
       if (form) form.reset();
-      window.location.href = 'thank-you.html?type=brochure&name=' + encodeURIComponent(name);
+      window.location.href = 'thank-you?type=brochure&name=' + encodeURIComponent(name);
     }, 450);
   };
 
@@ -729,7 +729,7 @@ function handlePopupFormSubmit(e) {
   setTimeout(() => {
     closeCurriculumModal();
     if (form) form.reset();
-    window.location.href = 'thank-you.html?type=brochure&name=' + encodeURIComponent(name);
+    window.location.href = 'thank-you?type=brochure&name=' + encodeURIComponent(name);
   }, 450);
 }
 window.handlePopupFormSubmit = handlePopupFormSubmit;
@@ -785,7 +785,7 @@ function handleBrochureSubmit(e) {
 
   setTimeout(() => {
     if (form) form.reset();
-    window.location.href = 'thank-you.html?type=brochure&name=' + encodeURIComponent(name);
+    window.location.href = 'thank-you?type=brochure&name=' + encodeURIComponent(name);
   }, 450);
 }
 window.handleBrochureSubmit = handleBrochureSubmit;
@@ -1047,11 +1047,17 @@ window.testiNav = testiNav;
     '',
     '/',
     'courses.html',
+    'courses',
     '3-day-demo-class.html',
+    '3-day-demo-class',
     'free-masterclass.html',
+    'masterclass',
     'event.html',
+    'event',
     'event-thank-you.html',
-    'thank-you.html'
+    'event-thank-you',
+    'thank-you.html',
+    'thank-you'
   ];
 
   const SECRET_KEY = 'Paras@123';
@@ -1094,7 +1100,7 @@ window.testiNav = testiNav;
           <div class="maintenance-info-desc">Attend live class sessions before making any decision. Zero fee, 100% practical experience.</div>
         </div>
 
-        <a href="3-day-demo-class.html" class="maintenance-btn-cta" id="siteMaintenanceDemoBtn">
+        <a href="3-day-demo-class" class="maintenance-btn-cta" id="siteMaintenanceDemoBtn">
           🎁 3-Day Free Demo &rarr;
         </a>
 
@@ -1160,7 +1166,7 @@ window.testiNav = testiNav;
 
   function handleClose() {
     if (isCurrentPageProtected && !isUnlocked()) {
-      window.location.href = 'index.html';
+      window.location.href = '/';
     } else {
       closeMaintenanceModal();
     }

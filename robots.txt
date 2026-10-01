@@ -3,9 +3,9 @@ Allow: /
 Disallow: /api/
 Disallow: /data/
 Disallow: /lime-admin/
-Disallow: /404.html
-Disallow: /thank-you.html
-Disallow: /event-thank-you.html
+Disallow: /404
+Disallow: /thank-you
+Disallow: /event-thank-you
 
 # AI Search Crawlers & Assistants (GEO & AEO)
 User-agent: GPTBot

@@ -2400,7 +2400,7 @@ select.curr-country-select:hover {
 <header class="lp-header" id="stickyHeader">
 <div class="wrap">
 <div class="lp-header-inner">
-<a aria-label="Lime Digital Institute 3-Day Demo Class" class="lp-logo" href="3-day-demo-class.html"><img alt="Lime Digital Institute" height="36" src="assets/lime-logo.png" width="160"/><span class="sr-only" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Lime Digital Institute</span></a>
+<a aria-label="Lime Digital Institute 3-Day Demo Class" class="lp-logo" href="3-day-demo-class"><img alt="Lime Digital Institute" height="36" src="assets/lime-logo.png" width="160"/><span class="sr-only" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Lime Digital Institute</span></a>
 <nav aria-label="Page sections" class="scrollnav">
 <a class="active" href="#modules">Courses</a>
 <a href="#outcomes">Outcomes</a>
@@ -4602,7 +4602,7 @@ select.curr-country-select:hover {
 <span class="ag-sep">•</span>
 <a class="open-maintenance-modal" href="#">Terms of Use</a>
 <span class="ag-sep">•</span>
-<a href="contact.html">Contact Us</a>
+<a href="contact">Contact Us</a>
 </div>
 </div>
 </div>
@@ -4913,7 +4913,7 @@ async function handleLeadSubmit(e, formName){
   success.style.display = 'block';
 
   setTimeout(() => {
-    window.location.href = 'thank-you.html?type=trial&name=' + encodeURIComponent(fullName);
+    window.location.href = 'thank-you?type=trial&name=' + encodeURIComponent(fullName);
   }, 1000);
 }
 
@@ -4950,7 +4950,7 @@ async function handleModalSubmit(e){
   success.style.display = 'block';
 
   setTimeout(() => {
-    window.location.href = 'thank-you.html?type=brochure';
+    window.location.href = 'thank-you?type=brochure';
   }, 1000);
 }
 
@@ -5118,7 +5118,7 @@ function handleCurriculumPopupSubmit(e) {
   setTimeout(() => {
     closeCurriculumModal();
     if (form) form.reset();
-    window.location.href = 'thank-you.html?type=brochure&name=' + encodeURIComponent(name);
+    window.location.href = 'thank-you?type=brochure&name=' + encodeURIComponent(name);
   }, 450);
 }
 window.handleCurriculumPopupSubmit = handleCurriculumPopupSubmit;
