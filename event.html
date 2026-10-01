@@ -598,15 +598,6 @@
 <label for="regEmail">Email Address *</label>
 <input class="form-input" id="regEmail" placeholder="you@example.com" required="" type="email"/>
 </div>
-<div class="form-field">
-<label for="regGoal">Your Current Goal / Status</label>
-<select class="form-input" id="regGoal">
-<option value="Seeking Job / Career Switch">Seeking High-Paying Digital Marketing Job</option>
-<option value="College Student">College Student / Fresh Graduate</option>
-<option value="Business Owner">Business Owner / Scaling Brand</option>
-<option value="Freelancer">Freelancer / Agency Founder</option>
-</select>
-</div>
 <label style="display:flex; align-items:flex-start; gap:8px; font-size:11.5px; color:var(--ink-500); cursor:pointer; margin-top:4px;">
 <input checked="" required="" style="margin-top:2px;" type="checkbox"/>
 <span>I agree to Lime Digital Institute's T&amp;C and Privacy Policy. Override NDNC.</span>
@@ -873,7 +864,6 @@
         const phone = document.getElementById('regPhone').value.trim();
         const countryCode = document.getElementById('regCountryCode').value;
         const email = document.getElementById('regEmail').value.trim();
-        const goal = document.getElementById('regGoal').value;
         const isCompletedEvent = isCompleted;
         const formLabel = isCompletedEvent ? 'Free Masterclass - Get Recording Pass' : 'Free Masterclass - Register Free Seat';
         const utmFormLabel = isCompletedEvent ? 'masterclass_recording_pass' : 'masterclass_register_seat';
@@ -887,7 +877,6 @@
           phone,
           country_code: countryCode,
           email,
-          goal,
           utm_source: storedUtms.utm_source || '',
           utm_medium: storedUtms.utm_medium || '',
           utm_campaign: storedUtms.utm_campaign || '',
@@ -902,7 +891,6 @@
               phone,
               country_code: countryCode,
               email,
-              goal,
               event_id: currentEvent.id,
               event_title: currentEvent.title,
               form_name: formLabel,
