@@ -563,7 +563,7 @@
 <div class="event-form-rail" id="registerCard">
 <div class="event-form-card">
 <div class="ef-banner-wrap">
-<img alt="Masterclass Access Pass" class="ef-banner-img" src="assets/webinars/event-registration-side.jpg"/>
+<img alt="Masterclass Access Pass" class="ef-banner-img" id="formBannerImg" src="assets/webinars/event-registration-side.jpg"/>
 <div class="ef-banner-overlay">
 <span class="ef-pass-badge" id="formPassBadge">Official Free Pass</span>
 </div>
@@ -759,6 +759,9 @@
       document.getElementById('metaVenue').textContent = currentEvent.location || '';
       document.getElementById('formEventId').value = currentEvent.id;
       document.getElementById('formEventTitle').value = currentEvent.title;
+      if (currentEvent.thumbnail) {
+        document.getElementById('formBannerImg').src = currentEvent.thumbnail;
+      }
 
       // Format Pill
       const formatPill = document.getElementById('eventFormatPill');
