@@ -477,7 +477,7 @@
     const filtered = allLeads.filter(lead => {
       if (eventFilter !== 'all' && lead.eventId !== eventFilter) return false;
       if (!term) return true;
-      const haystack = `${lead.name} ${lead.email} ${lead.phone} ${lead.eventTitle} ${lead.utm_source || ''} ${lead.utm_medium || ''} ${lead.utm_campaign || ''} ${lead.utm_form || ''}`.toLowerCase();
+      const haystack = `${lead.name} ${lead.email} ${lead.phone} ${lead.eventTitle} ${lead.utm_source || ''} ${lead.utm_medium || ''} ${lead.utm_campaign || ''} ${lead.utm_term || ''} ${lead.utm_content || ''} ${lead.utm_form || ''}`.toLowerCase();
       return haystack.includes(term);
     });
 
@@ -493,7 +493,7 @@
         dateStyle: 'medium', timeStyle: 'short'
       }) : '—';
 
-      const utmParts = [r.utm_source, r.utm_medium, r.utm_campaign].filter(Boolean);
+      const utmParts = [r.utm_source, r.utm_medium, r.utm_campaign, r.utm_term, r.utm_content].filter(Boolean);
       const utmLabel = utmParts.length ? utmParts.join(' / ') : (r.utm_form || '—');
 
       return `

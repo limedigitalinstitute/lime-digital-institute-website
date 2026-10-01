@@ -25,7 +25,7 @@ if ($action === 'export') {
     header("Content-Type: text/csv; charset=UTF-8");
     header('Content-Disposition: attachment; filename="lime-masterclass-leads-' . date('Y-m-d') . '.csv"');
     $output = fopen('php://output', 'w');
-    fputcsv($output, ['ID', 'Event Title', 'Attendee Name', 'Email', 'Phone', 'Goal', 'UTM Source', 'UTM Medium', 'UTM Campaign', 'UTM Form', 'Submitted At']);
+    fputcsv($output, ['ID', 'Event Title', 'Attendee Name', 'Email', 'Phone', 'Goal', 'UTM Source', 'UTM Medium', 'UTM Campaign', 'UTM Term', 'UTM Content', 'UTM Form', 'Submitted At']);
     foreach ($registrations as $r) {
         fputcsv($output, [
             isset($r['id']) ? $r['id'] : '',
@@ -37,6 +37,8 @@ if ($action === 'export') {
             isset($r['utm_source']) ? $r['utm_source'] : '',
             isset($r['utm_medium']) ? $r['utm_medium'] : '',
             isset($r['utm_campaign']) ? $r['utm_campaign'] : '',
+            isset($r['utm_term']) ? $r['utm_term'] : '',
+            isset($r['utm_content']) ? $r['utm_content'] : '',
             isset($r['utm_form']) ? $r['utm_form'] : '',
             isset($r['submittedAt']) ? $r['submittedAt'] : ''
         ]);

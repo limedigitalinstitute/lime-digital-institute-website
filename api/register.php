@@ -39,7 +39,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         "utm_source" => isset($body['utm_source']) ? trim($body['utm_source']) : '',
         "utm_medium" => isset($body['utm_medium']) ? trim($body['utm_medium']) : '',
         "utm_campaign" => isset($body['utm_campaign']) ? trim($body['utm_campaign']) : '',
+        "utm_term" => isset($body['utm_term']) ? trim($body['utm_term']) : '',
+        "utm_content" => isset($body['utm_content']) ? trim($body['utm_content']) : '',
         "utm_form" => isset($body['utm_form']) ? trim($body['utm_form']) : '',
+        "event" => isset($body['event']) ? trim($body['event']) : (isset($body['eventTitle']) ? $body['eventTitle'] : ''),
         "submittedAt" => date('c'),
         "ip" => isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : ''
     ];

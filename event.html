@@ -880,7 +880,10 @@
           utm_source: storedUtms.utm_source || '',
           utm_medium: storedUtms.utm_medium || '',
           utm_campaign: storedUtms.utm_campaign || '',
-          utm_form: utmFormLabel
+          utm_term: storedUtms.utm_term || '',
+          utm_content: storedUtms.utm_content || '',
+          utm_form: utmFormLabel,
+          event: currentEvent.title
         };
 
         // ── 1. Fire LimeLeadCollector (Supabase + Zoho) with full UTM attribution ──
