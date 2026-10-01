@@ -16,17 +16,19 @@ ErrorDocument 404 /404.html
 
   # free-masterclass.html was renamed to masterclass.html — redirect both
   # the old clean URL and the old .html URL to the new clean URL.
+  # QSA preserves any query string (e.g. ?id=...) on the redirect.
   RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\s/+free-masterclass(\.html)?[?\s] [NC]
-  RewriteRule ^ /masterclass [R=301,L]
+  RewriteRule ^ /masterclass [R=301,L,QSA]
 
   # Redirect legacy /page.html URLs to the clean extension-less URL
   # (index.html -> /, everything-else.html -> /everything-else). Must run
   # on the ORIGINAL request (THE_REQUEST), not the internally rewritten
   # one, so it never loops with the "serve .html for clean URL" rule below.
+  # QSA re-appends the original query string, which %1 alone would drop.
   RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\s/+index\.html[?\s] [NC]
-  RewriteRule ^ /? [R=301,L]
+  RewriteRule ^ /? [R=301,L,QSA]
   RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\s/+(.+)\.html[?\s] [NC]
-  RewriteRule ^ /%1 [R=301,L]
+  RewriteRule ^ /%1 [R=301,L,QSA]
 
   # Redirect Trailing Slashes If not a folder
   RewriteCond %{REQUEST_FILENAME} !-d
