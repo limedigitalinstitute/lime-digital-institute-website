@@ -572,17 +572,17 @@
 <h3 class="ef-heading" id="formHeading">Reserve Your Free Seat</h3>
 <p class="ef-sub" id="formSub">100% Free · Live Interactive Q&amp;A · Instant Access Details on WhatsApp</p>
 <div class="admin-alert hidden" id="formAlert" style="margin-bottom:14px;"></div>
-<form class="admin-form" id="eventRegistrationForm">
+<form class="curr-modal-form" id="eventRegistrationForm">
 <input id="formEventId" name="eventId" type="hidden"/>
 <input id="formEventTitle" name="eventTitle" type="hidden"/>
-<div class="form-field">
+<div class="curr-form-group">
 <label for="regName">Full Name *</label>
-<input class="form-input" id="regName" placeholder="e.g. Rahul Sharma" required="" type="text"/>
+<input id="regName" placeholder="e.g. Rahul Sharma" required="" type="text"/>
 </div>
-<div class="form-field">
+<div class="curr-form-group">
 <label for="regPhone">WhatsApp Phone Number *</label>
-<div style="display:flex; gap:6px;">
-<select class="form-input" id="regCountryCode" style="width:105px !important; flex:none; font-weight:700; font-size:12.5px;">
+<div class="curr-phone-row">
+<select class="curr-phone-prefix curr-country-select" id="regCountryCode">
 <option selected="" value="+91">🇮🇳 +91</option>
 <option value="+1">🇺🇸 +1</option>
 <option value="+44">🇬🇧 +44</option>
@@ -590,26 +590,26 @@
 <option value="+1">🇨🇦 +1</option>
 <option value="+61">🇦🇺 +61</option>
 </select>
-<input class="form-input" id="regPhone" pattern="[0-9]{7,15}" placeholder="Enter phone number" required="" style="flex:1 1 0%; min-width:0; width:100% !important;" type="tel"/>
+<input id="regPhone" pattern="[0-9]{7,15}" placeholder="Enter phone number" required="" type="tel"/>
 </div>
-<span style="font-size:11px; color:var(--ink-500); margin-top:2px;">You will receive the Zoom/Campus pass on WhatsApp</span>
+<div class="curr-field-hint">You will receive the Zoom/Campus pass on WhatsApp</div>
 </div>
-<div class="form-field">
+<div class="curr-form-group">
 <label for="regEmail">Email Address *</label>
-<input class="form-input" id="regEmail" placeholder="you@example.com" required="" type="email"/>
+<input id="regEmail" placeholder="you@example.com" required="" type="email"/>
 </div>
-<label style="display:flex; align-items:flex-start; gap:8px; font-size:11.5px; color:var(--ink-500); cursor:pointer; margin-top:4px;">
-<input checked="" required="" style="margin-top:2px;" type="checkbox"/>
+<label class="curr-consent">
+<input checked="" required="" type="checkbox"/>
 <span>I agree to Lime Digital Institute's T&amp;C and Privacy Policy. Override NDNC.</span>
 </label>
-<button class="btn btn-glow" id="submitRegBtn" style="width:100%; justify-content:center; margin-top:10px;" type="submit">
+<button class="curr-btn-submit" id="submitRegBtn" type="submit">
 <span id="submitBtnText">Claim Free Masterclass Pass →</span>
 </button>
 </form>
-<div class="ef-trust-strip">
-<span>✓ Expert-Led</span>
-<span>✓ 4.9/5 Rating</span>
-<span>✓ Live Certificate</span>
+<div class="curr-trust-row">
+<span><span class="tick">✓</span> Expert-Led</span>
+<span><span class="tick">✓</span> 4.9/5 Rating</span>
+<span><span class="tick">✓</span> Live Certificate</span>
 </div>
 </div>
 </div>
