@@ -258,6 +258,7 @@ document.addEventListener('DOMContentLoaded', () => {
           email: email,
           message: message,
           form_name: 'Contact Page - Book Free Counselling Call',
+          utm_form: 'contact_page_counselling',
           cta_text: original.trim(),
           button_id: 'btn-contact-submit'
         });
@@ -273,31 +274,51 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ===== CONSULTATION FORM SUBMISSION =====
-  window.handleConsultationSubmit = function(e) {
-    e.preventDefault();
-    const form = e.target;
-    const name = form.querySelector('input[name="name"]')?.value || '';
-    const course = document.getElementById('consultCourse')?.value || 'Digital Marketing';
-    const phone = document.getElementById('consultPhone')?.value || '';
-    const email = form.querySelector('input[name="email"]')?.value || '';
-    const btn = form.querySelector('button[type="submit"]');
-    const ctaText = btn ? btn.textContent.trim() : 'Book Free Counselling';
+  // ===== PROGRAM HERO FORMS (Master's "pgHeroForm" / Bachelor's "heroForm") =====
+  function wireHeroLeadForm(formId, btnId, formName, utmForm) {
+    const form = document.getElementById(formId);
+    if (!form) return;
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const btn = document.getElementById(btnId) || form.querySelector('button[type="submit"]');
+      const original = btn ? btn.textContent : 'Submit';
+      if (btn) {
+        btn.textContent = '✔ Request Sent — Expect a call within 2 hours';
+        btn.disabled = true;
+      }
 
-    if (window.LimeLeadCollector) {
-      window.LimeLeadCollector.submitLead({
-        name: name,
-        phone: phone,
-        email: email,
-        course: course,
-        form_name: 'Consultation Form',
-        cta_text: ctaText
-      });
-    }
+      const name = (form.querySelector('input[name="name"]')?.value || '').trim();
+      const countryCode = (form.querySelector('select[name="country_code"]')?.value || '+91').trim();
+      const phone = (form.querySelector('input[name="phone"]')?.value || '').trim();
+      const email = (form.querySelector('input[name="email"]')?.value || '').trim();
+      const extra = form.querySelector('select[name="background"], select[name="status"]')?.value || '';
 
-    alert('Thank you! Our senior program advisor will contact you at +91 ' + phone + ' regarding ' + course + ' and WhatsApp your 3-Day Free Trial Pass.');
-    if (form) form.reset();
-  };
+      if (window.LimeLeadCollector) {
+        window.LimeLeadCollector.submitLead({
+          name: name,
+          phone: phone,
+          country_code: countryCode,
+          email: email,
+          course: extra,
+          form_name: formName,
+          utm_form: utmForm,
+          cta_text: original.trim(),
+          button_id: btnId
+        });
+      }
+
+      setTimeout(() => {
+        if (btn) {
+          btn.textContent = original;
+          btn.disabled = false;
+        }
+        form.reset();
+        window.location.href = 'thank-you?type=trial&name=' + encodeURIComponent(name);
+      }, 450);
+    });
+  }
+  wireHeroLeadForm('pgHeroForm', 'pgHeroSubmitBtn', "Master's Program Hero - Apply for Executive Screening", 'hero_masters_executive_screening');
+  wireHeroLeadForm('heroForm', 'heroSubmitBtn', 'Bachelor\'s Program Hero - Request Degree Prospectus', 'hero_bachelors_degree_prospectus');
 
   // ===== LID VIDEO TESTIMONIAL PLAY/PAUSE LOGIC =====
   document.querySelectorAll('.lid-video-card').forEach(card => {
@@ -492,6 +513,7 @@ document.addEventListener('DOMContentLoaded', () => {
             email: email,
             visit_date: date,
             form_name: 'Campus Visit Request',
+            utm_form: 'campus_visit_popup',
             cta_text: original.trim(),
             button_id: 'btn-campus-submit'
           });

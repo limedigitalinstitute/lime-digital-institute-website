@@ -794,12 +794,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <form id="pgHeroForm">
             <div class="form-group" style="margin-bottom:12px;">
               <label style="font-size:11.5px; font-weight:600; color:var(--ink-600); display:block; margin-bottom:5px;">Full Name *</label>
-              <input type="text" class="form-input" placeholder="e.g. Ananya Patel" required>
+              <input type="text" id="pgHeroName" name="name" class="form-input" placeholder="e.g. Ananya Patel" required>
             </div>
             <div class="form-group" style="margin-bottom:12px;">
               <label style="font-size:11.5px; font-weight:600; color:var(--ink-600); display:block; margin-bottom:5px;">WhatsApp Number *</label>
               <div class="lid-phone-group">
-                <select name="country_code" class="lid-phone-prefix lid-country-select" aria-label="Country Code">
+                <select name="country_code" id="pgHeroCountryCode" class="lid-phone-prefix lid-country-select" aria-label="Country Code">
                 <option value="+91" selected>🇮🇳 +91</option>
                 <option value="+1">🇺🇸 +1</option>
                 <option value="+44">🇬🇧 +44</option>
@@ -822,23 +822,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <option value="+880">🇧🇩 +880</option>
                 <option value="+94">🇱🇰 +94</option>
               </select>
-                <input type="tel" class="lid-phone-input" placeholder="Enter 10-digit number" pattern="[0-9]{7,15}" maxlength="15" required>
+                <input type="tel" id="pgHeroPhone" name="phone" class="lid-phone-input" placeholder="Enter 10-digit number" pattern="[0-9]{7,15}" maxlength="15" required>
               </div>
             </div>
             <div class="form-group" style="margin-bottom:12px;">
               <label style="font-size:11.5px; font-weight:600; color:var(--ink-600); display:block; margin-bottom:5px;">Email Address *</label>
-              <input type="email" class="form-input" placeholder="e.g. ananya@gmail.com" required>
+              <input type="email" id="pgHeroEmail" name="email" class="form-input" placeholder="e.g. ananya@gmail.com" required>
             </div>
             <div class="form-group" style="margin-bottom:16px;">
               <label style="font-size:11.5px; font-weight:600; color:var(--ink-600); display:block; margin-bottom:5px;">Your Educational / Professional Background</label>
-              <select class="form-input" style="background:#fff;">
+              <select id="pgHeroBackground" name="background" class="form-input" style="background:#fff;">
                 <option>Final Year College Student (Graduating Soon)</option>
                 <option>Recent Graduate (BBA, B.Com, BA, BCA, B.Tech)</option>
                 <option>Working Professional (0–3 Years Experience)</option>
                 <option>Family Business Owner / Entrepreneur</option>
               </select>
             </div>
-            <button type="submit" class="btn btn-glow" style="width:100%; justify-content:center;">Submit Profile for Review &rarr;</button>
+            <button type="submit" id="pgHeroSubmitBtn" class="btn btn-glow" style="width:100%; justify-content:center;">Submit Profile for Review &rarr;</button>
           </form>
         </div>
       </div>

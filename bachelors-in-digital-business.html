@@ -942,12 +942,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <form id="heroForm">
             <div class="form-group" style="margin-bottom:12px;">
               <label style="font-size:11.5px; font-weight:600; color:var(--ink-600); display:block; margin-bottom:5px;">Student Full Name *</label>
-              <input type="text" class="form-input" placeholder="e.g. Priyansh Mehta" required>
+              <input type="text" id="heroName" name="name" class="form-input" placeholder="e.g. Priyansh Mehta" required>
             </div>
             <div class="form-group" style="margin-bottom:12px;">
               <label style="font-size:11.5px; font-weight:600; color:var(--ink-600); display:block; margin-bottom:5px;">WhatsApp Number *</label>
               <div class="lid-phone-group">
-                <select name="country_code" class="lid-phone-prefix lid-country-select" aria-label="Country Code">
+                <select name="country_code" id="heroCountryCode" class="lid-phone-prefix lid-country-select" aria-label="Country Code">
                 <option value="+91" selected>🇮🇳 +91</option>
                 <option value="+1">🇺🇸 +1</option>
                 <option value="+44">🇬🇧 +44</option>
@@ -970,23 +970,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <option value="+880">🇧🇩 +880</option>
                 <option value="+94">🇱🇰 +94</option>
               </select>
-                <input type="tel" class="lid-phone-input" placeholder="Enter 10-digit number" pattern="[0-9]{7,15}" maxlength="15" required>
+                <input type="tel" id="heroPhone" name="phone" class="lid-phone-input" placeholder="Enter 10-digit number" pattern="[0-9]{7,15}" maxlength="15" required>
               </div>
             </div>
             <div class="form-group" style="margin-bottom:12px;">
               <label style="font-size:11.5px; font-weight:600; color:var(--ink-600); display:block; margin-bottom:5px;">Email Address *</label>
-              <input type="email" class="form-input" placeholder="e.g. priyansh@gmail.com" required>
+              <input type="email" id="heroEmail" name="email" class="form-input" placeholder="e.g. priyansh@gmail.com" required>
             </div>
             <div class="form-group" style="margin-bottom:16px;">
               <label style="font-size:11.5px; font-weight:600; color:var(--ink-600); display:block; margin-bottom:5px;">Select Your Current Status</label>
-              <select class="form-input" style="background:#fff;">
+              <select id="heroStatus" name="status" class="form-input" style="background:#fff;">
                 <option>Currently in 12th Grade (Appearing)</option>
                 <option>12th Passout (Seeking Degree)</option>
                 <option>FY Degree Student (Looking to Transfer/Switch)</option>
                 <option>Parent inquiring for student</option>
               </select>
             </div>
-            <button type="submit" class="btn btn-glow" style="width:100%; justify-content:center;">Get Prospectus &amp; Fee Details &rarr;</button>
+            <button type="submit" id="heroSubmitBtn" class="btn btn-glow" style="width:100%; justify-content:center;">Get Prospectus &amp; Fee Details &rarr;</button>
           </form>
         </div>
       </div>
