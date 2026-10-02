@@ -413,6 +413,14 @@ li.mega-open .mega-panel { opacity: 1; visibility: visible; pointer-events: auto
     border: none; max-height: 0; overflow: hidden; padding: 0;
     transition: max-height .3s ease;
   }
+  /* Desktop centers Learning Centre & More panels with left:50%+translateX(-50%);
+     that selector has no media query of its own, so it still wins here on
+     specificity and shifts the panel content off-screen. Reset it. */
+  .mega-panel[data-mega-panel="learning"],
+  .mega-panel[data-mega-panel="more"] {
+    left: auto;
+    transform: none;
+  }
   li.mega-open .mega-panel { max-height: 1600px; padding: 2px 8px 14px 0px; }
   .mega-panel-inner { padding: 0; max-width: none; display: block; }
   .mega-grid, .mega-list { display: flex; flex-direction: column; gap: 2px; }
