@@ -28,7 +28,7 @@ function lime_page_files() {
         'contact' => 'contact.html',
         'refer-earn' => 'refer-earn.html',
         'free-masterclass' => 'masterclass.html',
-        'event' => 'event.html',
+        'event' => 'event.php',
         '3-day-demo-class' => '3-day-demo-class.html',
         'thank-you' => 'thank-you.html',
         'event-thank-you' => 'event-thank-you.html',

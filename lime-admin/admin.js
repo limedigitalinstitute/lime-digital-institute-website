@@ -686,7 +686,7 @@
     contact: { label: 'Contact', file: '../contact.html' },
     'refer-earn': { label: 'Refer & Earn', file: '../refer-earn.html' },
     'free-masterclass': { label: 'Free Masterclass', file: '../masterclass.html' },
-    event: { label: 'Event Hub', file: '../event.html' },
+    event: { label: 'Event Hub', file: '../event.php' },
     '3-day-demo-class': { label: '3-Day Demo Class', file: '../3-day-demo-class.html' },
     'thank-you': { label: 'Thank You', file: '../thank-you.html' },
     'event-thank-you': { label: 'Event Thank You', file: '../event-thank-you.html' }

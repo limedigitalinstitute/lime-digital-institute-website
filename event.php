@@ -1,28 +1,113 @@
+<?php
+$siteUrl = 'https://limedigitalinstitute.org';
+$defaultImage = $siteUrl . '/assets/lime-logo.png';
+$eventId = isset($_GET['id']) ? trim($_GET['id']) : '';
+$event = null;
+
+$eventsFile = __DIR__ . '/data/events.json';
+if ($eventId && file_exists($eventsFile)) {
+    $events = json_decode(file_get_contents($eventsFile), true) ?: [];
+    foreach ($events as $e) {
+        if (isset($e['id']) && $e['id'] === $eventId) { $event = $e; break; }
+    }
+}
+
+if ($event) {
+    $pageTitle = $event['title'] . ' | Lime Digital Institute';
+    $pageDescription = !empty($event['subtitle']) ? $event['subtitle'] : 'Register for this free live masterclass at Lime Digital Institute.';
+    $thumbPath = ltrim(isset($event['thumbnail']) ? $event['thumbnail'] : '', '/');
+    $ogImage = $thumbPath ? $siteUrl . '/' . $thumbPath : $defaultImage;
+    $canonicalUrl = $siteUrl . '/event?id=' . urlencode($eventId);
+} else {
+    $pageTitle = 'Upcoming Workshops & Masterclasses | Lime Digital Institute';
+    $pageDescription = 'Register for free practical workshops and masterclasses on AI, SEO, Meta Ads, and Growth Hacking at Rajkot campus.';
+    $ogImage = $defaultImage;
+    $canonicalUrl = $siteUrl . '/event';
+}
+
+function ldi_event_start_iso($event) {
+    if (empty($event['date'])) return null;
+    $timeStr = isset($event['time']) ? $event['time'] : '';
+    if (preg_match('/(\d{1,2}):(\d{2})\s*(AM|PM)/i', $timeStr, $m)) {
+        $hour = (int)$m[1];
+        $min = $m[2];
+        $ampm = strtoupper($m[3]);
+        if ($ampm === 'PM' && $hour !== 12) $hour += 12;
+        if ($ampm === 'AM' && $hour === 12) $hour = 0;
+        return sprintf('%sT%02d:%s:00+05:30', $event['date'], $hour, $min);
+    }
+    return $event['date'] . 'T10:00:00+05:30';
+}
+
+$eventSchema = null;
+if ($event) {
+    $isOffline = (isset($event['type']) && $event['type'] === 'offline');
+    $startIso = ldi_event_start_iso($event);
+    $eventSchema = [
+        "@context" => "https://schema.org",
+        "@type" => "Event",
+        "@id" => $canonicalUrl . "#event",
+        "name" => $event['title'],
+        "description" => $pageDescription,
+        "image" => [$ogImage],
+        "eventAttendanceMode" => $isOffline ? "https://schema.org/OfflineEventAttendanceMode" : "https://schema.org/OnlineEventAttendanceMode",
+        "eventStatus" => "https://schema.org/EventScheduled",
+        "startDate" => $startIso,
+        "location" => $isOffline ? [
+            "@type" => "Place",
+            "name" => isset($event['location']) ? $event['location'] : "Lime Digital Institute Campus",
+            "address" => [
+                "@type" => "PostalAddress",
+                "streetAddress" => "5th Floor, LIME Institute, Jyoti Nagar Main Rd, behind Crystal Mall",
+                "addressLocality" => "Rajkot",
+                "addressRegion" => "Gujarat",
+                "postalCode" => "360005",
+                "addressCountry" => "IN"
+            ]
+        ] : [
+            "@type" => "VirtualLocation",
+            "url" => $canonicalUrl
+        ],
+        "organizer" => [
+            "@type" => "Organization",
+            "name" => "Lime Digital Institute",
+            "url" => $siteUrl
+        ],
+        "offers" => [
+            "@type" => "Offer",
+            "price" => "0",
+            "priceCurrency" => "INR",
+            "availability" => (isset($event['seatsLeft']) && $event['seatsLeft'] <= 0) ? "https://schema.org/SoldOut" : "https://schema.org/InStock",
+            "url" => $canonicalUrl
+        ]
+    ];
+}
+?>
 <!DOCTYPE html>
 
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title id="pageTitle">Masterclass Registration | Lime Digital Institute</title>
-<meta content="Register for free live digital marketing and AI masterclasses at Lime Digital Institute." id="pageMetaDesc" name="description"/>
+<title id="pageTitle"><?php echo htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8'); ?></title>
+<meta content="<?php echo htmlspecialchars($pageDescription, ENT_QUOTES, 'UTF-8'); ?>" id="pageMetaDesc" name="description"/>
 <!-- Open Graph / Social Sharing -->
 <meta content="website" property="og:type"/>
-<meta content="https://limedigitalinstitute.org/event" property="og:url"/>
-<meta content="Upcoming Workshops &amp; Masterclasses | Lime Digital Institute" property="og:title"/>
-<meta content="Register for free practical workshops and masterclasses on AI, SEO, Meta Ads, and Growth Hacking at Rajkot campus." property="og:description"/>
-<meta content="https://limedigitalinstitute.org/assets/lime-logo.png" property="og:image"/>
+<meta content="<?php echo htmlspecialchars($canonicalUrl, ENT_QUOTES, 'UTF-8'); ?>" property="og:url"/>
+<meta content="<?php echo htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8'); ?>" property="og:title"/>
+<meta content="<?php echo htmlspecialchars($pageDescription, ENT_QUOTES, 'UTF-8'); ?>" property="og:description"/>
+<meta content="<?php echo htmlspecialchars($ogImage, ENT_QUOTES, 'UTF-8'); ?>" property="og:image"/>
 <meta content="1200" property="og:image:width"/>
 <meta content="630" property="og:image:height"/>
 <meta content="Lime Digital Institute" property="og:site_name"/>
 <meta content="en_IN" property="og:locale"/>
 <!-- Twitter Cards -->
 <meta content="summary_large_image" name="twitter:card"/>
-<meta content="https://limedigitalinstitute.org/event" name="twitter:url"/>
-<meta content="Upcoming Workshops &amp; Masterclasses | Lime Digital Institute" name="twitter:title"/>
-<meta content="Register for free practical workshops and masterclasses on AI, SEO, Meta Ads, and Growth Hacking at Rajkot campus." name="twitter:description"/>
-<meta content="https://limedigitalinstitute.org/assets/lime-logo.png" name="twitter:image"/>
-<link href="https://limedigitalinstitute.org/event" rel="canonical"/>
+<meta content="<?php echo htmlspecialchars($canonicalUrl, ENT_QUOTES, 'UTF-8'); ?>" name="twitter:url"/>
+<meta content="<?php echo htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8'); ?>" name="twitter:title"/>
+<meta content="<?php echo htmlspecialchars($pageDescription, ENT_QUOTES, 'UTF-8'); ?>" name="twitter:description"/>
+<meta content="<?php echo htmlspecialchars($ogImage, ENT_QUOTES, 'UTF-8'); ?>" name="twitter:image"/>
+<link href="<?php echo htmlspecialchars($canonicalUrl, ENT_QUOTES, 'UTF-8'); ?>" rel="canonical"/>
 <link href="assets/lime-logo.png" rel="icon"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -422,6 +507,9 @@
   </style>
 <script type="application/ld+json">
   [
+    <?php if ($eventSchema): ?>
+    <?php echo json_encode($eventSchema, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT); ?>,
+    <?php endif; ?>
     {
       "@context": "https://schema.org",
       "@type": "Course",
