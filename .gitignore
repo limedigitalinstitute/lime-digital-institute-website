@@ -10,3 +10,10 @@
 data/registrations.json
 data/tokens.json
 
+# Unused/duplicate asset files quarantined during cleanup — kept locally for
+# recovery, never deployed. See report for what moved and why.
+.asset-cleanup-quarantine/
+
+# Reference-only Zoho form export, not part of the deployed site
+Forms/
+
