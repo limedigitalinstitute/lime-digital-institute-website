@@ -8,9 +8,11 @@ function toggleFaq(btn) {
   btn.setAttribute('aria-expanded', String(open));
 }
 
-// ===== UTM CAPTURE (session-persisted) + ZOHO EMBED URL BUILDER =====
-// Submission itself now happens inside the embedded Zoho form (Learn Digital
-// Marketing); this only captures UTM params for the iframe prefill + GTM.
+// ===== UTM CAPTURE (session-persisted) + ZOHO AUTO-RESIZE EMBED =====
+// Official Zoho embed script (zf_rszfm=1 + postMessage height sync) instead
+// of a plain iframe with a guessed fixed height — Zoho tells us the real
+// rendered content height on every step change, so the iframe always fits
+// exactly instead of showing its own scrollbar or empty space.
 const ZOHO_EMBED_FORM_URL = 'https://forms.zohopublic.in/LimeDigital/form/MetaAdsForm/formperma/NWFOfA8CyqdZO3Vwp2TQhWMWsYpj9-YM_qghIIHIPGw';
 (function captureUTMs() {
   try {
@@ -31,14 +33,44 @@ function getStoredUTMs() {
     utm_content: get('utm_content')
   };
 }
-function buildZohoEmbedUrl(formName) {
+let zfResizeListenerAttached = false;
+function ensureZohoEmbed(containerId, formName) {
+  const container = document.getElementById(containerId);
+  if (!container || container.querySelector('iframe')) return;
+
   const utms = getStoredUTMs();
-  const p = new URLSearchParams();
-  Object.entries(utms).forEach(([k, v]) => { if (v) p.set(k, v); });
-  p.set('referrername', (window.location.href || '').slice(0, 1800));
+  let ifrmSrc = ZOHO_EMBED_FORM_URL + '?zf_rszfm=1';
+  Object.entries(utms).forEach(([k, v]) => { if (v) ifrmSrc += '&' + k + '=' + encodeURIComponent(v); });
+  const rfr = (window.location.href || '').slice(0, 1800);
+  if (rfr) ifrmSrc += '&referrername=' + encodeURIComponent(rfr);
+
+  const f = document.createElement('iframe');
+  f.src = ifrmSrc;
+  f.style.cssText = 'border:none;width:100%;height:347px;transition:height 0.3s ease;display:block;';
+  f.setAttribute('aria-label', 'Learn Digital Marketing');
+  container.appendChild(f);
+
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({ event: 'zoho_form_open', form_name: formName, ...utms });
-  return ZOHO_EMBED_FORM_URL + '?' + p.toString();
+
+  if (!zfResizeListenerAttached) {
+    zfResizeListenerAttached = true;
+    window.addEventListener('message', function (event) {
+      const evntData = event.data;
+      if (evntData && evntData.constructor === String) {
+        const zf = evntData.split('|');
+        if (zf.length === 2 || zf.length === 3) {
+          const zfPerma = zf[0];
+          const newHeight = (parseInt(zf[1], 10) + 15) + 'px';
+          document.querySelectorAll('.zoho-embed-wrap iframe').forEach((iframe) => {
+            if (iframe.src.indexOf('formperma') > 0 && iframe.src.indexOf(zfPerma) > 0) {
+              if (iframe.style.height !== newHeight) iframe.style.height = newHeight;
+            }
+          });
+        }
+      }
+    }, false);
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -180,8 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
         else if (lower.includes('comparison') || lower.includes('potential')) formName = 'modal_trial_comparison';
         else if (lower.includes('start') || lower.includes('trial')) formName = 'modal_trial_start_trial';
       }
-      const iframe = document.getElementById('zohoLeadIframe');
-      if (iframe) iframe.src = buildZohoEmbedUrl(formName);
+      ensureZohoEmbed('zf_div_lead', formName);
       modal.classList.add('active');
       document.body.style.overflow = 'hidden';
     }

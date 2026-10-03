@@ -1977,8 +1977,8 @@ body.footer-revealed .desktop-dock {
 .curr-modal-overlay.active .curr-modal-card { transform: translateY(0) scale(1); }
 
 /* Embedded Zoho form (Trial popup only — Learn Digital Marketing) */
-.zoho-embed-iframe { width: 100%; height: clamp(480px, calc(90vh - 160px), 760px); border: none; display: block; }
-@media (max-width: 599px) { .zoho-embed-iframe { height: clamp(420px, calc(90vh - 140px), 640px); } }
+.zoho-embed-wrap { width: 100%; }
+.zoho-embed-wrap iframe { max-height: 78vh; }
 
 .curr-modal-close {
   position: absolute; top: 14px; right: 14px; width: 34px; height: 34px; border-radius: 50%;
@@ -4578,7 +4578,7 @@ select.curr-country-select:hover {
 <div class="lead2-badge">Seats Filling Fast</div>
 <h3 id="trialModalTitle">Start Your 3-Day Free Trial</h3>
 <p>Attend 3 live classroom sessions at our Rajkot campus with zero obligation.</p>
-<iframe class="zoho-embed-iframe" frameborder="0" id="zohoTrialIframe" src="" title="Learn Digital Marketing"></iframe>
+<div class="zoho-embed-wrap" id="zf_div_trial"></div>
 </div>
 </div>
 </div>
@@ -4905,9 +4905,9 @@ navLinks.forEach(a => {
   });
 });
 
-// ── UTM capture (session-persisted) + Zoho embed URL builder ───────
-// Submission happens inside the embedded Zoho form itself; this only
-// captures UTM params for the iframe prefill + a GTM dataLayer push.
+// ── UTM capture (session-persisted) + Zoho auto-resize embed ───────
+// Official Zoho embed script (zf_rszfm=1 + postMessage height sync) so the
+// iframe always matches its real rendered content height.
 const ZOHO_EMBED_FORM_URL = 'https://forms.zohopublic.in/LimeDigital/form/MetaAdsForm/formperma/NWFOfA8CyqdZO3Vwp2TQhWMWsYpj9-YM_qghIIHIPGw';
 (function captureUTMs() {
   try {
@@ -4928,14 +4928,44 @@ function getStoredUTMs() {
     utm_content: get('utm_content')
   };
 }
-function buildZohoEmbedUrl(formName) {
+let zfResizeListenerAttached = false;
+function ensureZohoEmbed(containerId, formName) {
+  const container = document.getElementById(containerId);
+  if (!container || container.querySelector('iframe')) return;
+
   const utms = getStoredUTMs();
-  const p = new URLSearchParams();
-  Object.entries(utms).forEach(([k, v]) => { if (v) p.set(k, v); });
-  p.set('referrername', (window.location.href || '').slice(0, 1800));
+  let ifrmSrc = ZOHO_EMBED_FORM_URL + '?zf_rszfm=1';
+  Object.entries(utms).forEach(([k, v]) => { if (v) ifrmSrc += '&' + k + '=' + encodeURIComponent(v); });
+  const rfr = (window.location.href || '').slice(0, 1800);
+  if (rfr) ifrmSrc += '&referrername=' + encodeURIComponent(rfr);
+
+  const f = document.createElement('iframe');
+  f.src = ifrmSrc;
+  f.style.cssText = 'border:none;width:100%;height:347px;transition:height 0.3s ease;display:block;';
+  f.setAttribute('aria-label', 'Learn Digital Marketing');
+  container.appendChild(f);
+
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({ event: 'zoho_form_open', form_name: formName, ...utms });
-  return ZOHO_EMBED_FORM_URL + '?' + p.toString();
+
+  if (!zfResizeListenerAttached) {
+    zfResizeListenerAttached = true;
+    window.addEventListener('message', function (event) {
+      const evntData = event.data;
+      if (evntData && evntData.constructor === String) {
+        const zf = evntData.split('|');
+        if (zf.length === 2 || zf.length === 3) {
+          const zfPerma = zf[0];
+          const newHeight = (parseInt(zf[1], 10) + 15) + 'px';
+          document.querySelectorAll('.zoho-embed-wrap iframe').forEach((iframe) => {
+            if (iframe.src.indexOf('formperma') > 0 && iframe.src.indexOf(zfPerma) > 0) {
+              if (iframe.style.height !== newHeight) iframe.style.height = newHeight;
+            }
+          });
+        }
+      }
+    }, false);
+  }
 }
 
 // ── 4. Brochure Modal Open / Close ─────────────────────────────────
@@ -4982,8 +5012,7 @@ function openTrialModal(sourceContext){
     if (lower.includes('seat')) formName = 'demo_page_claim_seat_trial';
     else if (lower.includes('trial')) formName = 'demo_page_free_trial_cta';
   }
-  const iframe = document.getElementById('zohoTrialIframe');
-  if (iframe) iframe.src = buildZohoEmbedUrl(formName);
+  ensureZohoEmbed('zf_div_trial', formName);
   trialModal.classList.add('open');
 }
 

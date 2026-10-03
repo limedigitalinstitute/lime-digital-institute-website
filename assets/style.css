@@ -5152,15 +5152,11 @@ body.footer-revealed .float-btn {
 .curr-modal-overlay.active .curr-modal-card { transform: translateY(0) scale(1); }
 
 /* ===== EMBEDDED ZOHO FORM (Trial popup only — Learn Digital Marketing) =====
-   Height fills whatever room is left in the card after the badge/heading
-   above it (modal-card is capped at 90vh), so the iframe is the only thing
-   that can ever scroll — the wrapper no longer competes with it. */
-.zoho-embed-iframe {
-  width: 100%; height: clamp(480px, calc(90vh - 160px), 760px); border: none; display: block;
-}
-@media (max-width: 599px) {
-  .zoho-embed-iframe { height: clamp(420px, calc(90vh - 140px), 640px); }
-}
+   Zoho's own auto-resize embed script sets the iframe's height inline via
+   postMessage on every step change, so no fixed/clamped height is needed
+   here — just let it size itself. */
+.zoho-embed-wrap { width: 100%; }
+.zoho-embed-wrap iframe { max-height: 78vh; }
 .curr-modal-close {
   position: absolute; top: 14px; right: 14px; width: 34px; height: 34px; border-radius: 50%;
   background: rgba(0, 0, 0, 0.06); border: none; font-size: 20px; line-height: 1; display: flex;
