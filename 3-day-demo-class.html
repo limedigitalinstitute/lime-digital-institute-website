@@ -4713,6 +4713,16 @@ select.curr-country-select:hover {
       }
     }
     function checkFooterInView() {
+      // Below 768px the footer is static in-flow (not position:fixed, see
+      // the mobile media query), so it never overlaps the mobile sticky
+      // dock — this reveal/hide logic is a desktop-only concern. Running
+      // it on mobile too caused the dock to be wrongly hidden from page
+      // load whenever the spacer's position was measured before
+      // section-loader.js finished growing the page.
+      if (window.innerWidth <= 768) {
+        document.body.classList.remove('footer-revealed');
+        return;
+      }
       // .antigravity-footer is position:fixed, so its own
       // getBoundingClientRect().top never moves with scroll — checking it
       // directly made this permanently true (or false) from page load.
@@ -4746,10 +4756,17 @@ select.curr-country-select:hover {
       });
     }
     if (window.ResizeObserver) {
-      new ResizeObserver(function() {
+      var footerRO = new ResizeObserver(function() {
         syncFooterSpacer();
         checkFooterInView();
-      }).observe(document.getElementById('antigravityFooter'));
+      });
+      footerRO.observe(document.getElementById('antigravityFooter'));
+      // Also watch overall page height: async-injected sections
+      // (alumni-videos, testimonials, AI-tools marquee, upcoming-batches —
+      // loaded later by section-loader.js) grow the page after 'load' and
+      // fonts.ready already fired, which left the spacer's measured
+      // position stale and the mobile sticky dock wrongly hidden.
+      footerRO.observe(document.body);
     }
   })();
 </script>
