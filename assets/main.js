@@ -66,7 +66,9 @@ function ensureZohoEmbed(containerId, formName, formType, formUrl) {
         const zf = evntData.split('|');
         if (zf.length === 2 || zf.length === 3) {
           const zfPerma = zf[0];
-          const newHeight = (parseInt(zf[1], 10) + 15) + 'px';
+          // +110 leaves room for Zoho's searchable dropdown list, which opens inside
+          // the iframe and would otherwise be clipped (Zoho doesn't resize on open)
+          const newHeight = (parseInt(zf[1], 10) + 110) + 'px';
           document.querySelectorAll('.zoho-embed-wrap iframe').forEach((iframe) => {
             if (iframe.src.indexOf('formperma') > 0 && iframe.src.indexOf(zfPerma) > 0) {
               if (iframe.style.height !== newHeight) iframe.style.height = newHeight;
