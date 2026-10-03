@@ -4839,75 +4839,6 @@ navLinks.forEach(a => {
   });
 });
 
-// ── UTM capture (session-persisted) + Zoho auto-resize embed ───────
-// Official Zoho embed script (zf_rszfm=1 + postMessage height sync) so the
-// iframe always matches its real rendered content height.
-const ZOHO_EMBED_FORM_URL = 'https://forms.zohopublic.in/LimeDigital/form/MetaAdsForm/formperma/NWFOfA8CyqdZO3Vwp2TQhWMWsYpj9-YM_qghIIHIPGw';
-const ZOHO_BROCHURE_FORM_URL = 'https://forms.zohopublic.in/LimeDigital/form/DownloadBrochurePDF/formperma/ZpBxUDl_Pe1Wdo9LLFvGlVYj2TzDPUPgSHiejh7H218';
-(function captureUTMs() {
-  try {
-    const params = new URLSearchParams(window.location.search);
-    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'].forEach((key) => {
-      const val = params.get(key);
-      if (val) sessionStorage.setItem('lime_' + key, val);
-    });
-  } catch (e) {}
-})();
-function getStoredUTMs() {
-  const get = (k) => { try { return sessionStorage.getItem('lime_' + k) || ''; } catch (e) { return ''; } };
-  return {
-    utm_source: get('utm_source'),
-    utm_medium: get('utm_medium'),
-    utm_campaign: get('utm_campaign'),
-    utm_term: get('utm_term'),
-    utm_content: get('utm_content')
-  };
-}
-let zfResizeListenerAttached = false;
-function ensureZohoEmbed(containerId, formName, formType, formUrl) {
-  const container = document.getElementById(containerId);
-  if (!container || container.querySelector('iframe')) return;
-
-  const baseUrl = formUrl || ZOHO_EMBED_FORM_URL;
-  const utms = getStoredUTMs();
-  let ifrmSrc = baseUrl + '?zf_rszfm=1';
-  Object.entries(utms).forEach(([k, v]) => { if (v) ifrmSrc += '&' + k + '=' + encodeURIComponent(v); });
-  const rfr = (window.location.href || '').slice(0, 1800);
-  if (rfr) ifrmSrc += '&referrername=' + encodeURIComponent(rfr);
-
-  const f = document.createElement('iframe');
-  f.src = ifrmSrc;
-  f.style.cssText = 'border:none;width:100%;height:347px;transition:height 0.3s ease;display:block;';
-  f.setAttribute('aria-label', 'Learn Digital Marketing');
-  container.appendChild(f);
-
-  // form_type (Brochure/Demo) + form_name (placement) go to GTM only —
-  // Zoho's own utm_* fields stay reserved for real ad-attribution data.
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({ event: 'zoho_form_open', form_type: formType || 'Demo', form_name: formName, page_path: window.location.pathname, ...utms });
-
-  if (!zfResizeListenerAttached) {
-    zfResizeListenerAttached = true;
-    window.addEventListener('message', function (event) {
-      const evntData = event.data;
-      if (evntData && evntData.constructor === String) {
-        const zf = evntData.split('|');
-        if (zf.length === 2 || zf.length === 3) {
-          const zfPerma = zf[0];
-          // +110 leaves room for Zoho's searchable dropdown list, which opens inside
-          // the iframe and would otherwise be clipped (Zoho doesn't resize on open)
-          const newHeight = (parseInt(zf[1], 10) + 110) + 'px';
-          document.querySelectorAll('.zoho-embed-wrap iframe').forEach((iframe) => {
-            if (iframe.src.indexOf('formperma') > 0 && iframe.src.indexOf(zfPerma) > 0) {
-              if (iframe.style.height !== newHeight) iframe.style.height = newHeight;
-            }
-          });
-        }
-      }
-    }, false);
-  }
-}
-
 // ── 4. Brochure Modal Open / Close ─────────────────────────────────
 const brochureModal = document.getElementById('brochureModal');
 
@@ -4952,7 +4883,7 @@ function openTrialModal(sourceContext){
     if (lower.includes('seat')) formName = 'demo_page_claim_seat_trial';
     else if (lower.includes('trial')) formName = 'demo_page_free_trial_cta';
   }
-  ensureZohoEmbed('zf_div_trial', formName, 'Demo');
+  if (window.LimeForm) LimeForm.mount('zf_div_trial', { type: 'demo', formName });
   trialModal.classList.add('open');
 }
 
@@ -5101,7 +5032,7 @@ function openCurriculumModal(courseName, sourceText) {
       else if (lower.includes('placement') || lower.includes('report')) formName = 'modal_curriculum_placements';
       else if (lower.includes('brochure')) formName = 'modal_curriculum_brochure_btn';
     }
-    ensureZohoEmbed('zf_div_curriculum', formName, 'Brochure', ZOHO_BROCHURE_FORM_URL);
+    if (window.LimeForm) LimeForm.mount('zf_div_curriculum', { type: 'brochure', formName });
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
   }
@@ -5122,9 +5053,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Escape') closeCurriculumModal();
   });
   // Sidebar "Download Brochure PDF" card is always visible, load immediately
-  ensureZohoEmbed('zf_div_brochure_sidebar', 'demo_page_sidebar_brochure', 'Brochure', ZOHO_BROCHURE_FORM_URL);
+  if (window.LimeForm) LimeForm.mount('zf_div_brochure_sidebar', { type: 'brochure', formName: 'demo_page_sidebar_brochure' });
 });
 </script>
+<script src="assets/lime-form.js?v=20261004a"></script>
 <script src="assets/country-picker.js?v=20260918g"></script>
 <script src="assets/section-loader.js?v=20260924"></script>
 </body>
