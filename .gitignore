@@ -17,3 +17,6 @@ data/tokens.json
 # Reference-only Zoho form export, not part of the deployed site
 Forms/
 
+# Local-only GEO audit deliverables, not part of deployed site
+GEO-AUDIT-REPORT.md
+GEO-AUDIT-REPORT.pdf
