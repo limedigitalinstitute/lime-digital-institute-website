@@ -560,18 +560,82 @@ function toggleTools() {
 }
 window.toggleTools = toggleTools;
 
-// ===== CURRICULUM POP-UP MODAL (DOWNLOAD COMPLETE CURRICULUM — embedded Zoho form) =====
+// ===== CURRICULUM POP-UP MODAL (DOWNLOAD COMPLETE CURRICULUM - IMAGE 2) =====
 function ensureCurriculumModalExists() {
   let modal = document.getElementById('curriculumModal');
   if (modal) return modal;
 
   modal = document.createElement('div');
-  modal.className = 'curr-modal-overlay zoho-embed-modal';
+  modal.className = 'curr-modal-overlay';
   modal.id = 'curriculumModal';
   modal.innerHTML = `
-    <div class="curr-modal-card zoho-embed-card">
+    <div class="curr-modal-card">
       <button type="button" class="curr-modal-close" onclick="closeCurriculumModal()" aria-label="Close Modal">&times;</button>
-      <iframe class="zoho-embed-iframe" id="zohoCurriculumIframe" src="" title="Learn Digital Marketing" frameborder="0"></iframe>
+      <div class="curr-modal-grid">
+        <div class="curr-modal-left">
+          <div class="curr-modal-thumb">
+            <img src="assets/brochure-cover.jpg" alt="Lime Digital Institute Course Brochure" loading="lazy">
+          </div>
+        </div>
+        <div class="curr-modal-right">
+          <div class="curr-modal-badge">Course Brochure</div>
+          <div class="curr-modal-head">
+            <h3>Download Complete Curriculum</h3>
+            <p>Get the detailed 16-module syllabus, AI tools &amp; fee structure on WhatsApp &amp; email.</p>
+          </div>
+          <form class="curr-modal-form lead-form" id="curriculumPopupForm" data-form-name="Download Complete Curriculum (Popup form)" data-redirect-course="Digital Marketing Professional" onsubmit="handlePopupFormSubmit(event)">
+            <div class="curr-form-group">
+              <label>First Name *</label>
+              <input type="text" id="popName" name="name" placeholder="e.g. Rahul" required>
+            </div>
+            <div class="curr-form-group">
+              <label>Phone Number (WhatsApp) *</label>
+              <div class="curr-phone-row">
+                <select name="country_code" id="popCountryCode" class="curr-phone-prefix curr-country-select" aria-label="Country Code">
+                  <option value="+91" selected>🇮🇳 +91</option>
+                  <option value="+1">🇺🇸 +1</option>
+                  <option value="+44">🇬🇧 +44</option>
+                  <option value="+971">🇦🇪 +971</option>
+                  <option value="+1">🇨🇦 +1</option>
+                  <option value="+61">🇦🇺 +61</option>
+                  <option value="+65">🇸🇬 +65</option>
+                  <option value="+966">🇸🇦 +966</option>
+                  <option value="+974">🇶🇦 +974</option>
+                  <option value="+968">🇴🇲 +968</option>
+                  <option value="+965">🇰🇼 +965</option>
+                  <option value="+973">🇧🇭 +973</option>
+                  <option value="+49">🇩🇪 +49</option>
+                  <option value="+33">🇫🇷 +33</option>
+                  <option value="+64">🇳🇿 +64</option>
+                  <option value="+60">🇲🇾 +60</option>
+                  <option value="+27">🇿🇦 +27</option>
+                  <option value="+81">🇯🇵 +81</option>
+                  <option value="+977">🇳🇵 +977</option>
+                  <option value="+880">🇧🇩 +880</option>
+                  <option value="+94">🇱🇰 +94</option>
+                </select>
+                <input type="tel" id="popPhone" name="phone" placeholder="Enter phone number" pattern="[0-9]{7,15}" maxlength="15" required>
+              </div>
+              <div class="curr-field-hint">You will receive updates on WhatsApp</div>
+            </div>
+            <div class="curr-form-group">
+              <label>Email Address *</label>
+              <input type="email" id="popEmail" name="email" placeholder="e.g. rahul@example.com" required>
+            </div>
+            <label class="curr-consent">
+              <input type="checkbox" name="consent" checked required>
+              <span>I agree to receive course updates from Lime Digital Institute on WhatsApp &amp; email.</span>
+            </label>
+            <button type="submit" class="curr-btn-submit">
+              Download Brochure PDF &rarr;
+            </button>
+            <div class="curr-trust-row">
+              <span><strong class="tick">&#10003;</strong> 100% data privacy</span>
+              <span><strong class="tick">&#10003;</strong> 400+ enrolled</span>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   `;
   modal.addEventListener('click', (e) => {
@@ -584,18 +648,22 @@ function ensureCurriculumModalExists() {
 function openCurriculumModal(courseName, sourceText) {
   const modal = ensureCurriculumModalExists();
   if (modal) {
-    let formName = 'modal_complete_curriculum';
-    if (sourceText) {
-      const lower = sourceText.toLowerCase();
-      if (lower.includes('syllabus')) formName = 'modal_curriculum_unlock_syllabus';
-      else if (lower.includes('navbar') || lower.includes('nav')) formName = 'modal_curriculum_navbar';
-      else if (lower.includes('placement') || lower.includes('report')) formName = 'modal_curriculum_placements';
-      else if (lower.includes('brochure')) formName = 'modal_curriculum_brochure_btn';
+    const form = modal.querySelector('form');
+    if (form) {
+      let utm = 'modal_complete_curriculum';
+      if (sourceText) {
+        const lower = sourceText.toLowerCase();
+        if (lower.includes('syllabus')) utm = 'modal_curriculum_unlock_syllabus';
+        else if (lower.includes('navbar') || lower.includes('nav')) utm = 'modal_curriculum_navbar';
+        else if (lower.includes('placement') || lower.includes('report')) utm = 'modal_curriculum_placements';
+        else if (lower.includes('brochure')) utm = 'modal_curriculum_brochure_btn';
+      }
+      form.dataset.utmForm = utm;
+      if (courseName && form.dataset) form.dataset.redirectCourse = courseName;
     }
-    const iframe = document.getElementById('zohoCurriculumIframe');
-    if (iframe) iframe.src = buildZohoEmbedUrl(formName);
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
+    if (window.initCountryPickers) window.initCountryPickers();
   }
 }
 window.openCurriculumModal = openCurriculumModal;
@@ -620,6 +688,49 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Escape') closeCurriculumModal();
   });
 });
+
+function handlePopupFormSubmit(e) {
+  e.preventDefault();
+  const form = e.target;
+  const name = (document.getElementById('popName')?.value || form.querySelector('input[name="name"]')?.value || '').trim();
+  const countryCode = (form.querySelector('select[name="country_code"]')?.value || document.getElementById('popCountryCode')?.value || '+91').trim();
+  const phone = (document.getElementById('popPhone')?.value || form.querySelector('input[name="phone"]')?.value || '').trim();
+  const email = (document.getElementById('popEmail')?.value || form.querySelector('input[name="email"]')?.value || '').trim();
+  const btn = form.querySelector('button[type="submit"]');
+  const ctaText = btn ? btn.textContent.trim() : 'Download Brochure PDF →';
+
+  if (btn) {
+    btn.innerHTML = 'Sending Brochure...';
+    btn.disabled = true;
+  }
+
+  const utmForm = form.dataset.utmForm || 'modal_complete_curriculum';
+
+  if (window.LimeLeadCollector) {
+    window.LimeLeadCollector.submitLead({
+      name: name,
+      phone: phone,
+      country_code: countryCode,
+      email: email,
+      form_name: 'Download Complete Curriculum (Popup form)',
+      utm_form: utmForm,
+      cta_text: ctaText,
+      button_id: 'btn-curriculum-modal-submit',
+      course: 'Digital Marketing Professional'
+    });
+  }
+
+  try {
+    window.open(BROCHURE_PDF, '_blank', 'noopener');
+  } catch (err) {}
+
+  setTimeout(() => {
+    closeCurriculumModal();
+    if (form) form.reset();
+    window.location.href = 'thank-you?type=brochure&name=' + encodeURIComponent(name);
+  }, 450);
+}
+window.handlePopupFormSubmit = handlePopupFormSubmit;
 
 // Sticky brochure rail -> opens the brochure PDF and records the lead
 const BROCHURE_PDF = 'assets/brochure/Lime-Digital-Curriculum-V5.pdf';
