@@ -74,7 +74,7 @@
   function injectStyles() {
     if (document.getElementById('lime-form-styles')) return;
     const css = `
-.lf{--lf-red:#ED3237;--lf-red-soft:#fff5f5;--lf-ink:#111827;--lf-muted:#64748b;--lf-line:#e2e4e8;font-family:inherit;color:var(--lf-ink);width:100%;text-align:left}
+.lf{container-type:inline-size;--lf-red:#ED3237;--lf-red-soft:#fff5f5;--lf-ink:#111827;--lf-muted:#64748b;--lf-line:#e2e4e8;font-family:inherit;color:var(--lf-ink);width:100%;text-align:left}
 .lf *{box-sizing:border-box}
 .lf-progress{height:5px;background:#f1f2f4;border-radius:99px;overflow:hidden;margin:2px 0 14px}
 .lf-progress span{display:block;height:100%;background:var(--lf-red);border-radius:99px;transition:width .35s ease}
@@ -121,7 +121,8 @@
 .lf-done-icon{width:56px;height:56px;margin:0 auto 12px;border-radius:50%;background:var(--lf-red-soft);color:var(--lf-red);display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:800}
 .lf-done h4{font-size:17px;font-weight:800;margin:0 0 4px}
 .lf-done p{font-size:13px;color:var(--lf-muted);margin:0}
-@media (max-width:420px){.lf-pills.cols-2,.lf-pills.cols-3{grid-template-columns:1fr}}
+@container (max-width:400px){.lf-pills.cols-2{grid-template-columns:1fr}.lf-pill{min-height:42px}}
+@media (max-width:360px){.lf-pills.cols-3{grid-template-columns:1fr}}
 `;
     const style = document.createElement('style');
     style.id = 'lime-form-styles';
@@ -129,9 +130,11 @@
     document.head.appendChild(style);
   }
 
+  // Shorter on-screen labels; the submitted value is always the exact Zoho option
+  const SHORT = { 'Not sure — help me decide': 'Not sure' };
   function pills(name, options, cols) {
     return `<div class="lf-pills cols-${cols}">` + options.map((o) =>
-      `<label class="lf-pill"><input type="radio" name="${name}" value="${esc(o)}"><span class="lf-dot"></span><span>${esc(o)}</span></label>`
+      `<label class="lf-pill"><input type="radio" name="${name}" value="${esc(o)}"><span class="lf-dot"></span><span>${esc(SHORT[o] || o)}</span></label>`
     ).join('') + '</div>';
   }
 
