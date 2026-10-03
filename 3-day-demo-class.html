@@ -850,25 +850,30 @@ a{color:inherit;text-decoration:none}
 .modal-form-wrap h3{font-size:17px;font-weight:800;color:var(--dark);margin-bottom:4px;line-height:1.25}
 .modal-form-wrap p{font-size:11.5px;color:var(--muted);margin-bottom:14px}
 
-/* Trial modal cover: photo + floating stat badges, matches reference design */
-.trial-cover-wrap{position:relative;background:#0b1329;padding:0;border-radius:var(--r8);overflow:hidden;min-height:340px;width:100%}
-.trial-cover-img{width:100%;height:100%;min-height:340px;object-fit:cover;display:block}
-.trial-seats-badge{
-  position:absolute;top:14px;left:14px;background:#000;color:#fff;font-size:10px;font-weight:700;
-  letter-spacing:.3px;padding:6px 12px;border-radius:999px;display:flex;align-items:center;gap:6px;z-index:2;
-}
-.trial-seats-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--red)}
-.trial-stat-badge{
-  position:absolute;background:#fff;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,.18);
-  padding:6px 10px;display:flex;align-items:center;gap:7px;font-size:11px;font-weight:700;color:var(--dark);
-  line-height:1.15;z-index:2;white-space:nowrap;
-}
-.trial-stat-badge small{display:block;font-weight:600;color:var(--muted);font-size:9px}
-.trial-stat-badge .ico{font-size:14px;line-height:1}
-.trial-stat-top{top:16%;right:10px}
-.trial-stat-mid{top:46%;left:10px}
-.trial-stat-bottom{bottom:14px;left:10px}
-@media(max-width:599px){.trial-cover-wrap{min-height:220px}.trial-cover-img{min-height:220px}}
+/* Trial modal: ported verbatim from assets/style.css .modal-card.modal-2col /
+   .lead2-* (the real homepage #leadModal design) since this standalone page
+   doesn't load style.css. Uses the same pre-made badged photo asset. */
+#trialModal .brochure-modal{max-width:760px !important;width:95% !important;border-radius:20px !important}
+.lead2-grid{display:grid;grid-template-columns:0.95fr 1.05fr;align-items:stretch;min-height:100%}
+@media(min-width:600px){.lead2-grid{grid-template-columns:0.95fr 1.05fr}}
+.lead2-left{position:relative;background:#fff;display:flex;align-items:center;justify-content:center;padding:14px 10px 14px 16px;overflow:hidden;border-right:none}
+.lead2-left img{width:100%;height:auto;max-height:440px;object-fit:contain;display:block;border-radius:14px;box-shadow:none}
+.lead2-right{padding:24px 26px 20px;display:flex;flex-direction:column;justify-content:center;overflow-y:auto;max-height:90vh}
+.lead2-badge{display:inline-flex;align-items:center;gap:6px;background:#111;color:#fff;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;padding:4px 12px;border-radius:9999px;margin-bottom:8px;align-self:flex-start}
+.lead2-badge::before{content:"●";color:var(--red);font-size:9px}
+.lead2-right h3{font-size:18px !important;font-weight:800 !important;color:var(--dark) !important;margin-bottom:3px !important;letter-spacing:-0.01em}
+.lead2-right p{font-size:12px !important;color:var(--muted) !important;margin:0 0 14px !important;line-height:1.4 !important}
+.lead2-right .form-fld{margin-bottom:9px !important}
+.lead2-right label.fld-label{display:block;font-size:10px;font-weight:700;margin-bottom:3px;color:var(--dark);text-transform:uppercase;letter-spacing:.4px}
+.lead2-right .form-input{padding:8px 12px !important;font-size:13px !important;border:1.5px solid #d5d5d5 !important;border-radius:8px !important}
+.lead2-right .phone-row{border:1.5px solid #d5d5d5;border-radius:8px;overflow:hidden;background:#fff;display:flex;align-items:stretch;height:42px;box-sizing:border-box}
+.lead2-right .phone-pre{border:none !important;border-right:1px solid #e0e0e0 !important;border-radius:0 !important;background:#f8fafc !important;padding:0 8px !important;font-size:12.5px !important;font-weight:600 !important;min-width:82px !important;height:100% !important}
+.lead2-right .phone-inp{border:none !important;padding:0 12px !important;font-size:13.5px !important;height:100% !important}
+.lead2-right .curr-field-hint, .lead2-right .field-hint{font-size:10px;color:#777;margin-top:2px}
+.lead2-right .consent-row{font-size:9.5px !important;line-height:1.3 !important;color:#666 !important;margin:3px 0 7px !important}
+.lead2-right .consent-row a{text-decoration:underline;color:inherit}
+.lead2-right button[type="submit"]{border-radius:9999px !important;box-shadow:0 4px 14px rgba(237,50,55,.35) !important;text-transform:uppercase;letter-spacing:.3px}
+@media(max-width:860px){#trialModal .brochure-modal{max-width:440px !important}.lead2-grid{grid-template-columns:1fr}.lead2-left{display:none}.lead2-right{padding:24px 18px 20px}}
 
 /* ============================================
    ⑬ STICKY MOBILE BOTTOM DOCK (Strictly 8px Radius)
@@ -4560,22 +4565,21 @@ select.curr-country-select:hover {
 <div class="modal-backdrop" id="trialModal">
 <div class="brochure-modal">
 <button class="modal-close-btn" onclick="closeTrialModal()" type="button">×</button>
-<div class="modal-grid">
-<div class="modal-cover-wrap trial-cover-wrap">
-<img alt="3-Day Free Trial" class="trial-cover-img" onerror="this.src='assets/course-oncampus.jpg'" src="assets/hero-girl.png"/>
-<span class="trial-seats-badge">SEATS FILLING FAST</span>
-<span class="trial-stat-badge trial-stat-top"><span class="ico">💼</span><span>93% Placed<br/><small>Within 60 Days</small></span></span>
-<span class="trial-stat-badge trial-stat-mid"><span class="ico">🤖</span><span>Train on<br/><small>60+ AI Tools</small></span></span>
-<span class="trial-stat-badge trial-stat-bottom"><span class="ico">📁</span><span>8+ Real Client<br/><small>Projects</small></span></span>
+<div class="modal-grid lead2-grid">
+<div class="lead2-left">
+<img alt="Free 3-Day Demo Class - Lime Digital Institute" src="assets/free-3-day-demo.webp"/>
 </div>
-<div class="modal-form-wrap">
+<div class="lead2-right">
+<div class="lead2-badge">Seats Filling Fast</div>
 <h3 id="trialModalTitle">Start Your 3-Day Free Trial</h3>
 <p>Attend 3 live classroom sessions at our Rajkot campus with zero obligation.</p>
 <form id="trialForm" onsubmit="handleTrialSubmit(event)">
 <div class="form-fld">
-<input class="form-input" id="tName" name="name" placeholder="Full Name *" required="" type="text"/>
+<label class="fld-label">Full Name *</label>
+<input class="form-input" id="tName" name="name" placeholder="e.g. Rahul" required="" type="text"/>
 </div>
 <div class="form-fld">
+<label class="fld-label">Phone Number (WhatsApp) *</label>
 <div class="phone-row">
 <select aria-label="Country Code" class="phone-pre phone-select" id="tCountryCode" name="country_code">
 <option selected="" value="+91">🇮🇳 +91</option>
@@ -4602,9 +4606,11 @@ select.curr-country-select:hover {
 </select>
 <input class="phone-inp" id="tPhone" maxlength="15" name="phone" pattern="[0-9]{7,15}" placeholder="Enter phone number" required="" type="tel"/>
 </div>
+<div class="curr-field-hint">You will receive updates on WhatsApp</div>
 </div>
 <div class="form-fld">
-<input class="form-input" id="tEmail" name="email" placeholder="Email Address *" required="" type="email"/>
+<label class="fld-label">Email Address *</label>
+<input class="form-input" id="tEmail" name="email" placeholder="e.g. rahul@example.com" required="" type="email"/>
 </div>
 <label class="consent-row">
 <input checked="" required="" type="checkbox"/>
