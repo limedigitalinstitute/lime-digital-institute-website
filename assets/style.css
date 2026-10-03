@@ -5152,14 +5152,14 @@ body.footer-revealed .float-btn {
 .curr-modal-overlay.active .curr-modal-card { transform: translateY(0) scale(1); }
 
 /* ===== EMBEDDED ZOHO FORM (Trial popup only — Learn Digital Marketing) =====
-   Fixed height tall enough that the longest step (Review Your Details)
-   never needs its own inner scrollbar — the outer .lead2-right scrolls
-   instead if a short viewport still can't fit it. */
+   Height scales with the actual browser viewport (not a fixed px) so the
+   wrapper's own scrollbar doesn't stack on top of whatever Zoho renders
+   inside the iframe on shorter screens. */
 .zoho-embed-iframe {
-  width: 100%; height: 660px; border: none; display: block;
+  width: 100%; height: min(660px, 78vh); border: none; display: block;
 }
 @media (max-width: 599px) {
-  .zoho-embed-iframe { height: 600px; }
+  .zoho-embed-iframe { height: min(600px, 70vh); }
 }
 .curr-modal-close {
   position: absolute; top: 14px; right: 14px; width: 34px; height: 34px; border-radius: 50%;
