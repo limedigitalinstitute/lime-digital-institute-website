@@ -10,14 +10,14 @@
     demo: {
       action: 'https://forms.zohopublic.in/LimeDigital/form/MetaAdsForm/formperma/oTSSTfG3vvVyKolzsHdsx6xIamRyGQrb0LN7Vu57pzw/htmlRecords/submit',
       levelRequired: true,
-      submitText: 'Claim Free Trial Pass →',
+      submitText: 'Claim Free Trial →',
       thankYouType: 'trial',
       gtmType: 'Demo'
     },
     brochure: {
       action: 'https://forms.zohopublic.in/LimeDigital/form/DownloadBrochurePDF/formperma/rJG-pHVYGwwocTq4-0_Q4bdh2CebdiXjBHF-VTd5olY/htmlRecords/submit',
       levelRequired: false,
-      submitText: 'Get Brochure on WhatsApp →',
+      submitText: 'Get Brochure →',
       thankYouType: 'brochure',
       gtmType: 'Brochure'
     }
@@ -108,11 +108,11 @@
 .lf-error{display:none;font-size:12px;font-weight:500;color:var(--lf-red);margin:-4px 0 12px}
 .lf-error.is-on{display:block}
 .lf-actions{display:flex;gap:10px;align-items:center}
-.lf-btn{flex:1;height:46px;border:none;border-radius:999px;background:var(--lf-red);color:#fff;font:inherit;font-size:13.5px;font-weight:700;letter-spacing:.2px;cursor:pointer;box-shadow:0 6px 18px rgba(237,50,55,.32);transition:background .15s,transform .1s,opacity .15s}
+.lf-btn{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 14px;height:46px;border:none;border-radius:999px;background:var(--lf-red);color:#fff;font:inherit;font-size:13.5px;font-weight:700;letter-spacing:.2px;cursor:pointer;box-shadow:0 6px 18px rgba(237,50,55,.32);transition:background .15s,transform .1s,opacity .15s}
 .lf-btn:hover{background:#cc252a}
 .lf-btn:active{transform:scale(.98)}
 .lf-btn[disabled]{opacity:.65;cursor:wait}
-.lf-back{flex:none;height:46px;padding:0 16px;border:1.5px solid var(--lf-line);border-radius:999px;background:#fff;color:var(--lf-ink);font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.lf-back{flex:none;height:46px;padding:0 16px;white-space:nowrap;border:1.5px solid var(--lf-line);border-radius:999px;background:#fff;color:var(--lf-ink);font:inherit;font-size:13px;font-weight:600;cursor:pointer}
 .lf-back:hover{border-color:#cbd0d6}
 .lf-trust{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;font-size:11px;color:var(--lf-muted);margin-top:12px}
 .lf-trust span::before{content:"✓ ";color:var(--lf-red);font-weight:700}
@@ -121,7 +121,7 @@
 .lf-done-icon{width:56px;height:56px;margin:0 auto 12px;border-radius:50%;background:var(--lf-red-soft);color:var(--lf-red);display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:800}
 .lf-done h4{font-size:17px;font-weight:800;margin:0 0 4px}
 .lf-done p{font-size:13px;color:var(--lf-muted);margin:0}
-@container (max-width:400px){.lf-pills.cols-2{grid-template-columns:1fr}.lf-pill{min-height:34px;padding:6px 10px;font-size:11.5px}.lf-pills{gap:6px}.lf-q{font-size:12.5px}.lf-group{margin-bottom:12px}.lf-trust{margin-top:8px}}
+@container (max-width:400px){.lf-back{padding:0 13px;font-size:12.5px}.lf-btn{font-size:13px}.lf-pills.cols-2{grid-template-columns:1fr}.lf-pill{min-height:34px;padding:6px 10px;font-size:11.5px}.lf-pills{gap:6px}.lf-q{font-size:12.5px}.lf-group{margin-bottom:12px}.lf-trust{margin-top:8px}}
 @media (max-width:360px){.lf-pills.cols-3{grid-template-columns:1fr}}
 `;
     const style = document.createElement('style');
