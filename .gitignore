@@ -20,3 +20,6 @@ Forms/
 # Local-only GEO audit deliverables, not part of deployed site
 GEO-AUDIT-REPORT.md
 GEO-AUDIT-REPORT.pdf
+
+# Local-only forms audit, not part of deployed site
+FORMS-AUDIT-REPORT.md
