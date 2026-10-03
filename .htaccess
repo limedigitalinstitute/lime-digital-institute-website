@@ -14,6 +14,13 @@ ErrorDocument 404 /404.html
   RewriteCond %{REQUEST_URI} ^/?$
   RewriteRule ^$ 3-day-demo-class.html [L]
 
+  # /3-day-demo-class lives only on the courses subdomain now — redirect
+  # the apex-domain URL there instead of serving a second, easy-to-confuse
+  # copy of the same page.
+  RewriteCond %{HTTP_HOST} !^courses\. [NC]
+  RewriteCond %{REQUEST_URI} ^/3-day-demo-class(\.html)?/?$ [NC]
+  RewriteRule ^ https://courses.limedigitalinstitute.org/ [R=301,L]
+
   # free-masterclass.html was renamed to masterclass.html — redirect both
   # the old clean URL and the old .html URL to the new clean URL.
   # QSA preserves any query string (e.g. ?id=...) on the redirect.
