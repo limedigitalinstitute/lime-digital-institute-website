@@ -555,6 +555,7 @@ li.mega-open .mega-panel { opacity: 1; visibility: visible; pointer-events: auto
   display: flex;
   flex-direction: column;
   justify-content: center;
+  justify-content: safe center;
   overflow-y: auto;
   max-height: 90vh;
 }
@@ -5206,6 +5207,7 @@ body.footer-revealed .float-btn {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  justify-content: safe center;
   overflow-y: auto;
   max-height: 90vh;
 }
