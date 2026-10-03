@@ -850,6 +850,26 @@ a{color:inherit;text-decoration:none}
 .modal-form-wrap h3{font-size:17px;font-weight:800;color:var(--dark);margin-bottom:4px;line-height:1.25}
 .modal-form-wrap p{font-size:11.5px;color:var(--muted);margin-bottom:14px}
 
+/* Trial modal cover: photo + floating stat badges, matches reference design */
+.trial-cover-wrap{position:relative;background:#0b1329;padding:0;border-radius:var(--r8);overflow:hidden;min-height:340px;width:100%}
+.trial-cover-img{width:100%;height:100%;min-height:340px;object-fit:cover;display:block}
+.trial-seats-badge{
+  position:absolute;top:14px;left:14px;background:#000;color:#fff;font-size:10px;font-weight:700;
+  letter-spacing:.3px;padding:6px 12px;border-radius:999px;display:flex;align-items:center;gap:6px;z-index:2;
+}
+.trial-seats-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--red)}
+.trial-stat-badge{
+  position:absolute;background:#fff;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,.18);
+  padding:6px 10px;display:flex;align-items:center;gap:7px;font-size:11px;font-weight:700;color:var(--dark);
+  line-height:1.15;z-index:2;white-space:nowrap;
+}
+.trial-stat-badge small{display:block;font-weight:600;color:var(--muted);font-size:9px}
+.trial-stat-badge .ico{font-size:14px;line-height:1}
+.trial-stat-top{top:16%;right:10px}
+.trial-stat-mid{top:46%;left:10px}
+.trial-stat-bottom{bottom:14px;left:10px}
+@media(max-width:599px){.trial-cover-wrap{min-height:220px}.trial-cover-img{min-height:220px}}
+
 /* ============================================
    ⑬ STICKY MOBILE BOTTOM DOCK (Strictly 8px Radius)
    ============================================ */
@@ -4541,8 +4561,12 @@ select.curr-country-select:hover {
 <div class="brochure-modal">
 <button class="modal-close-btn" onclick="closeTrialModal()" type="button">×</button>
 <div class="modal-grid">
-<div class="modal-cover-wrap">
-<img alt="3-Day Free Trial" class="modal-cover-img" onerror="this.src='assets/course-oncampus.jpg'" src="assets/hero-girl.png"/>
+<div class="modal-cover-wrap trial-cover-wrap">
+<img alt="3-Day Free Trial" class="trial-cover-img" onerror="this.src='assets/course-oncampus.jpg'" src="assets/hero-girl.png"/>
+<span class="trial-seats-badge">SEATS FILLING FAST</span>
+<span class="trial-stat-badge trial-stat-top"><span class="ico">💼</span><span>93% Placed<br/><small>Within 60 Days</small></span></span>
+<span class="trial-stat-badge trial-stat-mid"><span class="ico">🤖</span><span>Train on<br/><small>60+ AI Tools</small></span></span>
+<span class="trial-stat-badge trial-stat-bottom"><span class="ico">📁</span><span>8+ Real Client<br/><small>Projects</small></span></span>
 </div>
 <div class="modal-form-wrap">
 <h3 id="trialModalTitle">Start Your 3-Day Free Trial</h3>
@@ -4584,10 +4608,10 @@ select.curr-country-select:hover {
 </div>
 <label class="consent-row">
 <input checked="" required="" type="checkbox"/>
-<span>I agree to Lime Digital Institute's T&amp;C and Privacy Policy.</span>
+<span>I agree to Lime Digital Institute's <a href="#" onclick="event.stopPropagation()">T&amp;C</a> and <a href="#" onclick="event.stopPropagation()">Privacy Policy</a>. This consent overrides any DNC/NDNC registrations.</span>
 </label>
 <button class="btn btn-primary btn-block" id="trialSubmitBtn" type="submit">
-            Claim Free Trial Pass →
+            CLAIM FREE TRIAL PASS →
           </button>
 </form>
 <div class="success-state" id="trialSuccessState">
