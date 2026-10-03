@@ -8,10 +8,12 @@ function toggleFaq(btn) {
   btn.setAttribute('aria-expanded', String(open));
 }
 
-// ===== UTM CAPTURE (session-persisted) + ZOHO EMBED URL BUILDER =====
-// Submission itself now happens inside the embedded Zoho form (Learn Digital
-// Marketing); this only captures UTM params for the iframe prefill + GTM.
-const ZOHO_EMBED_FORM_URL = 'https://forms.zohopublic.in/LimeDigital/form/MetaAdsForm/formperma/NWFOfA8CyqdZO3Vwp2TQhWMWsYpj9-YM_qghIIHIPGw';
+// ===== UTM CAPTURE (session-persisted) + TRIAL POPUP -> ZOHO (Learn Digital
+// Marketing) BACKGROUND SUBMIT =====
+// The Trial popup keeps its own custom HTML/CSS (full visual control); this
+// posts its data to Zoho in the background via a hidden iframe, same
+// technique as every other form on the site.
+const ZOHO_TRIAL_FORM_URL = 'https://forms.zohopublic.in/LimeDigital/form/MetaAdsForm/formperma/oTSSTfG3vvVyKolzsHdsx6xIamRyGQrb0LN7Vu57pzw/htmlRecords/submit';
 (function captureUTMs() {
   try {
     const params = new URLSearchParams(window.location.search);
@@ -31,14 +33,65 @@ function getStoredUTMs() {
     utm_content: get('utm_content')
   };
 }
-function buildZohoEmbedUrl(formName) {
-  const utms = getStoredUTMs();
-  const p = new URLSearchParams();
-  Object.entries(utms).forEach(([k, v]) => { if (v) p.set(k, v); });
-  p.set('referrername', (window.location.href || '').slice(0, 1800));
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({ event: 'zoho_form_open', form_name: formName, ...utms });
-  return ZOHO_EMBED_FORM_URL + '?' + p.toString();
+function submitTrialLeadToZoho(lead) {
+  try {
+    const utms = getStoredUTMs();
+    const rawName = (lead.name || '').trim();
+    const parts = rawName.split(/\s+/);
+    const firstName = parts[0] || 'Applicant';
+    const lastName = parts.slice(1).join(' ') || '.';
+
+    const countryDigits = (lead.country_code || '+91').replace(/[^0-9]/g, '') || '91';
+    const phoneDigits = (lead.phone || '').replace(/[^0-9]/g, '');
+    const fullPhone = countryDigits + phoneDigits;
+
+    const fields = {
+      Name_First: firstName,
+      Name_Last: lastName,
+      PhoneNumber_countrycode: fullPhone,
+      PhoneNumber_countrycodeval: '+' + countryDigits,
+      zf_referrer_name: (window.location.href || '').slice(0, 1500),
+      zf_redirect_url: '',
+      zc_gad: '',
+      utm_source: utms.utm_source,
+      utm_medium: utms.utm_medium,
+      utm_campaign: utms.utm_campaign,
+      utm_term: utms.utm_term,
+      utm_content: utms.utm_content
+    };
+
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: 'trial_signup_submit', form_name: lead.utm_form || 'modal_3day_free_trial', ...utms });
+
+    let iframe = document.getElementById('zoho_trial_bg_iframe');
+    if (!iframe) {
+      iframe = document.createElement('iframe');
+      iframe.id = 'zoho_trial_bg_iframe';
+      iframe.name = 'zoho_trial_bg_iframe';
+      iframe.style.cssText = 'position:fixed;top:-9999px;left:-9999px;width:1px;height:1px;opacity:0.01;pointer-events:none;border:none;';
+      document.body.appendChild(iframe);
+    }
+
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = ZOHO_TRIAL_FORM_URL;
+    form.target = 'zoho_trial_bg_iframe';
+    form.enctype = 'multipart/form-data';
+    form.acceptCharset = 'UTF-8';
+    form.style.cssText = 'position:fixed;top:-9999px;left:-9999px;';
+    Object.entries(fields).forEach(([key, value]) => {
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = key;
+      input.value = value || '';
+      form.appendChild(input);
+    });
+    document.body.appendChild(form);
+    form.submit();
+    setTimeout(() => { try { form.remove(); } catch (e) {} }, 3000);
+  } catch (err) {
+    console.warn('[Lime Leads] Trial form Zoho submit error:', err);
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -168,22 +221,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // ===== LEAD CAPTURE / 3-DAY FREE TRIAL MODAL (embedded Zoho form) =====
+  // ===== LEAD CAPTURE / 3-DAY FREE TRIAL MODAL =====
   function openTrialModal(courseName, sourceText) {
     const modal = document.getElementById('leadModal');
     if (modal) {
-      let formName = 'modal_3day_free_trial';
-      if (sourceText) {
-        const lower = sourceText.toLowerCase();
-        if (lower.includes('hold')) formName = 'modal_trial_hold_seat';
-        else if (lower.includes('demo')) formName = 'modal_trial_free_demo';
-        else if (lower.includes('comparison') || lower.includes('potential')) formName = 'modal_trial_comparison';
-        else if (lower.includes('start') || lower.includes('trial')) formName = 'modal_trial_start_trial';
+      const form = document.getElementById('modalForm') || modal.querySelector('form');
+      if (form) {
+        let utm = 'modal_3day_free_trial';
+        if (sourceText) {
+          const lower = sourceText.toLowerCase();
+          if (lower.includes('hold')) utm = 'modal_trial_hold_seat';
+          else if (lower.includes('demo')) utm = 'modal_trial_free_demo';
+          else if (lower.includes('comparison') || lower.includes('potential')) utm = 'modal_trial_comparison';
+          else if (lower.includes('start') || lower.includes('trial')) utm = 'modal_trial_start_trial';
+        }
+        form.dataset.utmForm = utm;
       }
-      const iframe = document.getElementById('zohoLeadIframe');
-      if (iframe) iframe.src = buildZohoEmbedUrl(formName);
       modal.classList.add('active');
       document.body.style.overflow = 'hidden';
+      if (window.initCountryPickers) window.initCountryPickers();
     }
   }
   window.openTrialModal = openTrialModal;
@@ -207,6 +263,36 @@ document.addEventListener('DOMContentLoaded', () => {
   if (modalOverlay) {
     modalOverlay.addEventListener('click', (e) => {
       if (e.target === modalOverlay) closeModal();
+    });
+  }
+
+  const modalForm = document.getElementById('modalForm');
+  if (modalForm) {
+    modalForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const btn = modalForm.querySelector('button[type="submit"]');
+      const original = btn ? btn.textContent : 'Claim Free Trial Pass →';
+      if (btn) {
+        btn.innerHTML = 'Reserving Seat...';
+        btn.disabled = true;
+      }
+
+      const name = (modalForm.querySelector('input[name="name"]')?.value || '').trim();
+      const countryCode = (modalForm.querySelector('select[name="country_code"]')?.value || '+91').trim();
+      const phone = (modalForm.querySelector('input[name="phone"]')?.value || '').trim();
+      const utmForm = modalForm.dataset.utmForm || 'modal_3day_free_trial';
+
+      submitTrialLeadToZoho({ name, phone, country_code: countryCode, utm_form: utmForm });
+
+      setTimeout(() => {
+        if (btn) {
+          btn.textContent = original;
+          btn.disabled = false;
+        }
+        modalForm.reset();
+        closeModal();
+        window.location.href = 'thank-you?type=trial&name=' + encodeURIComponent(name);
+      }, 450);
     });
   }
 
