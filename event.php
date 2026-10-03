@@ -1057,8 +1057,6 @@ if ($event) {
     })();
   </script>
 <!-- NAV + SITE-WIDE SCRIPTS (same as index.html) -->
-<script src="assets/zoho-tracking.js"></script>
-<script src="assets/lead-collector.js?v=20260921fix"></script>
 <script src="assets/country-picker.js?v=20260919b"></script>
 <script src="assets/main.js?v=20260928c"></script>
 </body>
