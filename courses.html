@@ -1838,7 +1838,9 @@ body.footer-revealed .sticky-bottom-bar {
   .cur-rail{
     flex:0 0 340px;width:340px;
     align-self:flex-start;position:sticky;top:88px;
+    max-height:calc(100vh - 104px);overflow-y:auto;scrollbar-width:thin;
   }
+  .cur-rail .brochure-card-visual img{height:120px;}
   /* sections inside the column drop their own gutter and re-flow */
   .cur-main > section{padding-left:0;padding-right:0;}
   .cur-main > .curriculum{padding-top:0;}

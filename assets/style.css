@@ -4888,7 +4888,9 @@ body.footer-revealed .float-btn {
   .cur-rail{
     flex:0 0 340px;width:340px;
     align-self:flex-start;position:sticky;top:88px;
+    max-height:calc(100vh - 104px);overflow-y:auto;scrollbar-width:thin;
   }
+  .cur-rail .brochure-card-visual img{height:120px;}
   .cur-main > section{padding-left:0;padding-right:0;}
   .cur-main > .curriculum{padding-top:0;}
 }
