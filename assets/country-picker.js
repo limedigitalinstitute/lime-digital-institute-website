@@ -145,6 +145,29 @@
     return COUNTRIES.find(c => c.code === clean || c.iso === clean || c.name.toLowerCase() === clean.toLowerCase()) || COUNTRIES[0];
   }
 
+  // India (+91) mobile numbers are always exactly 10 digits — every other
+  // country keeps the generic 7-15 digit range.
+  function findPhoneInput(select) {
+    const group = select.closest('.lid-phone-group, .phone-row, .curr-phone-row, .form-group, .brochure-phone') || select.parentElement;
+    return group ? group.querySelector('input[type="tel"], input[name="phone"]') : null;
+  }
+  function applyPhoneDigitLimit(select, phoneInput) {
+    phoneInput = phoneInput || findPhoneInput(select);
+    if (!phoneInput) return;
+    if (select.value === '+91') {
+      phoneInput.setAttribute('maxlength', '10');
+      phoneInput.setAttribute('pattern', '[0-9]{10}');
+      phoneInput.setAttribute('title', 'Enter a 10-digit mobile number');
+      if (phoneInput.value.replace(/\D/g, '').length > 10) {
+        phoneInput.value = phoneInput.value.replace(/\D/g, '').slice(0, 10);
+      }
+    } else {
+      phoneInput.setAttribute('maxlength', '15');
+      phoneInput.setAttribute('pattern', '[0-9]{7,15}');
+      phoneInput.removeAttribute('title');
+    }
+  }
+
   // Ensure critical styles exist even if external stylesheet is cached
   function injectStyles() {
     if (document.getElementById('lime-cp-injected-styles')) return;
@@ -526,11 +549,12 @@
     select.dispatchEvent(new Event('change', { bubbles: true }));
     select.dispatchEvent(new Event('input', { bubbles: true }));
 
-    // 4. Focus adjacent phone input
+    // 4. Apply India 10-digit limit (or relax it) and focus the phone input
     const parentGroup = trigger.closest('.lid-phone-group, .phone-row, .curr-phone-row, .form-group, .brochure-phone') || trigger.parentElement;
     if (parentGroup) {
       const phoneInput = parentGroup.querySelector('input[type="tel"], input[name="phone"], #popPhone, #fPhone, #mPhone, #unlockPhone, #brochurePhone');
       if (phoneInput) {
+        applyPhoneDigitLimit(select, phoneInput);
         phoneInput.focus();
       }
     }
@@ -718,6 +742,7 @@
 
     // Insert trigger right before the hidden select
     select.parentNode.insertBefore(trigger, select);
+    applyPhoneDigitLimit(select);
 
     // Click handler
     trigger.addEventListener('click', function(e) {
@@ -740,6 +765,7 @@
       trigger.querySelector('.cp-flag').textContent = c.flag;
       trigger.querySelector('.cp-code').textContent = c.code;
       trigger.setAttribute('title', `${c.name} (${c.code})`);
+      applyPhoneDigitLimit(select);
     });
   }
 
