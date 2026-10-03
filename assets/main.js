@@ -14,6 +14,7 @@ function toggleFaq(btn) {
 // rendered content height on every step change, so the iframe always fits
 // exactly instead of showing its own scrollbar or empty space.
 const ZOHO_EMBED_FORM_URL = 'https://forms.zohopublic.in/LimeDigital/form/MetaAdsForm/formperma/NWFOfA8CyqdZO3Vwp2TQhWMWsYpj9-YM_qghIIHIPGw';
+const ZOHO_BROCHURE_FORM_URL = 'https://forms.zohopublic.in/LimeDigital/form/DownloadBrochurePDF/formperma/ZpBxUDl_Pe1Wdo9LLFvGlVYj2TzDPUPgSHiejh7H218';
 (function captureUTMs() {
   try {
     const params = new URLSearchParams(window.location.search);
@@ -34,12 +35,13 @@ function getStoredUTMs() {
   };
 }
 let zfResizeListenerAttached = false;
-function ensureZohoEmbed(containerId, formName, formType) {
+function ensureZohoEmbed(containerId, formName, formType, formUrl) {
   const container = document.getElementById(containerId);
   if (!container || container.querySelector('iframe')) return;
 
+  const baseUrl = formUrl || ZOHO_EMBED_FORM_URL;
   const utms = getStoredUTMs();
-  let ifrmSrc = ZOHO_EMBED_FORM_URL + '?zf_rszfm=1';
+  let ifrmSrc = baseUrl + '?zf_rszfm=1';
   Object.entries(utms).forEach(([k, v]) => { if (v) ifrmSrc += '&' + k + '=' + encodeURIComponent(v); });
   const rfr = (window.location.href || '').slice(0, 1800);
   if (rfr) ifrmSrc += '&referrername=' + encodeURIComponent(rfr);
@@ -47,7 +49,7 @@ function ensureZohoEmbed(containerId, formName, formType) {
   const f = document.createElement('iframe');
   f.src = ifrmSrc;
   f.style.cssText = 'border:none;width:100%;height:347px;transition:height 0.3s ease;display:block;';
-  f.setAttribute('aria-label', 'Learn Digital Marketing');
+  f.setAttribute('aria-label', formType === 'Brochure' ? 'Download Brochure PDF' : 'Learn Digital Marketing');
   container.appendChild(f);
 
   // form_type (Brochure/Demo) + form_name (placement, e.g.
@@ -77,6 +79,10 @@ function ensureZohoEmbed(containerId, formName, formType) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+
+  // Sidebar "Download Brochure PDF" card is always visible (not modal-
+  // triggered), so load its embed immediately rather than lazily.
+  ensureZohoEmbed('zf_div_brochure_sidebar', 'sidebar_brochure_form', 'Brochure', ZOHO_BROCHURE_FORM_URL);
 
   // ===== NAV SCROLL STATE =====
   const nav = document.getElementById('nav');
@@ -640,7 +646,7 @@ function openCurriculumModal(courseName, sourceText) {
       else if (lower.includes('placement') || lower.includes('report')) formName = 'modal_curriculum_placements';
       else if (lower.includes('brochure')) formName = 'modal_curriculum_brochure_btn';
     }
-    ensureZohoEmbed('zf_div_curriculum', formName, 'Brochure');
+    ensureZohoEmbed('zf_div_curriculum', formName, 'Brochure', ZOHO_BROCHURE_FORM_URL);
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
   }
@@ -668,61 +674,9 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// Sticky brochure rail -> opens the brochure PDF and records the lead
+// Unlock Full Syllabus popup PDF link (sidebar brochure form is now the
+// embedded Zoho DownloadBrochurePDF form, which handles its own PDF delivery)
 const BROCHURE_PDF = 'assets/brochure/Lime-Digital-Curriculum-V5.pdf';
-
-function handleBrochureDownload() {
-  window.open(BROCHURE_PDF, '_blank', 'noopener');
-}
-window.handleBrochureDownload = handleBrochureDownload;
-
-function handleBrochureSubmit(e) {
-  e.preventDefault();
-  const form = e.target;
-  const name  = (document.getElementById('brochureName') ? document.getElementById('brochureName').value : form.querySelector('input[name="name"]')?.value || '').trim();
-  const email = (document.getElementById('brochureEmail') ? document.getElementById('brochureEmail').value : form.querySelector('input[name="email"]')?.value || '').trim();
-  const phone = (document.getElementById('brochurePhone') ? document.getElementById('brochurePhone').value : form.querySelector('input[name="phone"]')?.value || '').trim();
-  const countryCode = (document.getElementById('brochureCountryCode')?.value || form.querySelector('select[name="country_code"]')?.value || '+91').trim();
-  const btn = form.querySelector('.btn-brochure-submit') || form.querySelector('button[type="submit"]');
-  const ctaText = btn ? btn.textContent.trim() : 'Download Brochure PDF →';
-
-  // keep the existing curriculum-modal fields in sync
-  if (document.getElementById('popName'))  document.getElementById('popName').value  = name;
-  if (document.getElementById('popEmail')) document.getElementById('popEmail').value = email;
-  if (document.getElementById('popPhone')) document.getElementById('popPhone').value = phone;
-
-  if (btn) {
-    btn.innerHTML = 'Sending Brochure...';
-    btn.disabled = true;
-  }
-
-  const isCourses = window.location.pathname.includes('courses');
-  const utmForm = isCourses ? 'courses_sidebar_brochure' : 'index_sidebar_brochure';
-
-  if (window.LimeLeadCollector) {
-    window.LimeLeadCollector.submitLead({
-      name: name,
-      phone: phone,
-      country_code: countryCode,
-      email: email,
-      form_name: 'Sidebar Download Brochure Form',
-      utm_form: utmForm,
-      cta_text: ctaText,
-      button_id: 'btn-brochure-submit',
-      course: 'Digital Marketing Professional'
-    });
-  }
-
-  try {
-    window.open(BROCHURE_PDF, '_blank', 'noopener');
-  } catch (err) {}
-
-  setTimeout(() => {
-    if (form) form.reset();
-    window.location.href = 'thank-you?type=brochure&name=' + encodeURIComponent(name);
-  }, 450);
-}
-window.handleBrochureSubmit = handleBrochureSubmit;
 
 // ===== UNIVERSAL BUTTON CLICK ROUTER =====
 // Maps "Unlock Full Syllabus" & "[Download Brochure PDF →]" to Download Complete Curriculum (Image 2)
