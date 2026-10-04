@@ -1492,6 +1492,7 @@ body.footer-revealed .desktop-dock {
   .cur-main{flex:1 1 auto;min-width:0;}
   .cur-rail{flex:0 0 320px;width:320px;align-self:flex-start;position:sticky;top:100px;margin-top:72px;max-height:calc(100vh - 116px);overflow-y:auto;scrollbar-width:thin;}
   .cur-rail .brochure-card-visual img{height:120px;}
+  body.desktop-dock-on .cur-rail{max-height:calc(100vh - 210px);}
 }
 @media (max-width:1100px){ .cur-rail{display:none;} }
 
@@ -4574,12 +4575,11 @@ select.curr-country-select:hover {
   var bar = document.getElementById('desktopDock');
   if(!trigger || !bar) return;
   var ticking = false;
-  var locked = false;
+  // Show only while scrolled past Outcomes; hide again when scrolling back up
   function update(){
-    if(!locked && trigger.getBoundingClientRect().bottom < 0){
-      locked = true;
-      bar.classList.add('show');
-    }
+    var on = trigger.getBoundingClientRect().bottom < 0;
+    bar.classList.toggle('show', on);
+    document.body.classList.toggle('desktop-dock-on', on);
     ticking = false;
   }
   window.addEventListener('scroll', function(){
