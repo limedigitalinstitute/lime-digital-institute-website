@@ -794,5 +794,56 @@
 
   // Expose globally for dynamic modals or SPA navigation
   window.initCountryPickers = initAllCountryPickers;
+
+  // ── Site-wide India rule: +91 numbers must be exactly 10 digits ──
+  // Enforced at document level (capture phase) so it covers every form —
+  // including ones that submit via JS handlers and phone fields with no
+  // country selector at all (those are India-only, so treated as +91).
+  const PHONE_GROUP = '.lid-phone-group, .phone-row, .curr-phone-row, .brochure-phone, .lf-phone, .form-group, .curr-form-group';
+  const CODE_SELECT = 'select[name="country_code"], select.lid-country-select, select.curr-country-select, select.phone-select, select[id*="CountryCode"]';
+  const isPhone = (el) => el && el.tagName === 'INPUT' && (el.type === 'tel' || el.name === 'phone');
+  function codeFor(input) {
+    const group = input.closest(PHONE_GROUP);
+    const select = (group && group.querySelector(CODE_SELECT)) || (input.form && input.form.querySelector(CODE_SELECT));
+    return select ? select.value : '+91';
+  }
+
+  document.addEventListener('input', (e) => {
+    const el = e.target;
+    if (!isPhone(el)) return;
+    let digits = el.value.replace(/\D/g, '');
+    if (codeFor(el) === '+91') digits = digits.slice(0, 10);
+    if (digits !== el.value) el.value = digits;
+    el.setCustomValidity('');
+  }, true);
+
+  document.addEventListener('submit', (e) => {
+    const form = e.target;
+    if (!form || form.classList.contains('lf')) return; // LimeForm validates itself
+    const bad = Array.from(form.querySelectorAll('input[type="tel"], input[name="phone"]')).find((el) => {
+      const digits = el.value.replace(/\D/g, '');
+      return codeFor(el) === '+91' && (digits.length !== 10 && (digits.length > 0 || el.required));
+    });
+    if (!bad) return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    bad.setCustomValidity('Please enter a valid 10-digit mobile number.');
+    bad.reportValidity();
+    bad.focus();
+  }, true);
+
+  function tagIndianPhones() {
+    document.querySelectorAll('input[type="tel"], input[name="phone"]').forEach((el) => {
+      if (codeFor(el) !== '+91') return;
+      el.setAttribute('maxlength', '10');
+      el.setAttribute('pattern', '[0-9]{10}');
+      el.setAttribute('inputmode', 'numeric');
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', tagIndianPhones);
+  } else {
+    tagIndianPhones();
+  }
 })();
 
