@@ -9,6 +9,11 @@ ErrorDocument 404 /404.html
   RewriteEngine On
   RewriteBase /
 
+  # Never serve the git folder or other dot-directories
+  RewriteRule (^|/)\.git(/|$) - [F,L]
+
+  # Redirects below use an explicit https:// target: Apache sits behind Traefik
+  # and would otherwise emit http:// Location headers (https -> http -> https).
   # For courses subdomain, serve 3-day-demo-class.html as root
   RewriteCond %{HTTP_HOST} ^courses\. [NC]
   RewriteCond %{REQUEST_URI} ^/?$
@@ -32,7 +37,7 @@ ErrorDocument 404 /404.html
   # the old clean URL and the old .html URL to the new clean URL.
   # QSA preserves any query string (e.g. ?id=...) on the redirect.
   RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\s/+free-masterclass(\.html)?[?\s] [NC]
-  RewriteRule ^ /masterclass [R=301,L,QSA]
+  RewriteRule ^ https://%{HTTP_HOST}/masterclass [R=301,L,QSA]
 
   # Redirect legacy /page.html URLs to the clean extension-less URL
   # (index.html -> /, everything-else.html -> /everything-else). Must run
@@ -40,14 +45,14 @@ ErrorDocument 404 /404.html
   # one, so it never loops with the "serve .html for clean URL" rule below.
   # QSA re-appends the original query string, which %1 alone would drop.
   RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\s/+index\.html[?\s] [NC]
-  RewriteRule ^ /? [R=301,L,QSA]
+  RewriteRule ^ https://%{HTTP_HOST}/ [R=301,L,QSA]
   RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\s/+(.+)\.html[?\s] [NC]
-  RewriteRule ^ /%1 [R=301,L,QSA]
+  RewriteRule ^ https://%{HTTP_HOST}/%1 [R=301,L,QSA]
 
   # Redirect Trailing Slashes If not a folder
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteCond %{REQUEST_URI} (.+)/$
-  RewriteRule ^ %1 [L,R=301]
+  RewriteRule ^ https://%{HTTP_HOST}%1 [L,R=301]
 
   # Clean URLs (serve .php without extension if requested, e.g. /api/register)
   RewriteCond %{REQUEST_FILENAME} !-d
