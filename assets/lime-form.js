@@ -193,14 +193,9 @@
         PhoneNumber_countrycodeval: data.code,
         PhoneNumber_countrycode: data.phone
       }, u);
-      if (cfg === TARGETS.brochure) {
-        fields.SingleLine1 = data.name;
-        fields.form_name = formName;
-      } else {
-        const parts = data.name.split(/\s+/);
-        fields.Name_First = parts[0];
-        fields.Name_Last = parts.slice(1).join(' ') || '.';
-      }
+      // Both Zoho forms now take the full name in SingleLine1 and a placement in form_name.
+      fields.SingleLine1 = data.name;
+      fields.form_name = formName;
 
       const frameName = 'lf_zoho_' + Date.now();
       const iframe = document.createElement('iframe');
