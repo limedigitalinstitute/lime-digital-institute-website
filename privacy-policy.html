@@ -313,10 +313,22 @@ html{scroll-padding-top:110px}
   .pp-contact{padding:24px}
   .pp-part{font-size:1.8rem}
 }
+.pp-hero{padding:140px 0 72px;background:linear-gradient(90deg,rgba(6,4,5,.96) 0%,rgba(6,4,5,.92) 45%,rgba(6,4,5,.6) 100%),radial-gradient(ellipse 70% 65% at 50% 35%,rgba(0,0,0,.92),transparent 68%),repeating-linear-gradient(90deg,#ff3b3f 0px 3px,#b3161b 3px 6px,#4a0608 6px 9px,#0c0203 9px 15px);position:relative;overflow:hidden}
+.pp-hero::after{content:"";position:absolute;inset:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.05;mix-blend-mode:overlay}
+.pp-hero-inner{position:relative;z-index:2;max-width:720px}
+.pp-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#ED3237;margin-bottom:16px}
+.pp-hero h1{font-size:clamp(32px,5.2vw,58px);font-weight:800;line-height:1.1;letter-spacing:-.03em;color:#fff;margin:0 0 20px}
+.pp-hero h1 .accent{color:#ED3237}
+.pp-hero-lead{font-size:clamp(15px,1.6vw,18px);color:rgba(255,255,255,.72);line-height:1.65;max-width:580px;margin:0 0 26px}
+.pp-hero .pp-meta{justify-content:flex-start;margin-top:0;color:rgba(255,255,255,.8)}
+.pp-hero .pp-meta strong{color:#fff}
+.pp-hero .pp-switch{margin-top:22px}
+@media (max-width:680px){.pp-hero{padding:110px 0 56px}}
+@media (min-width:981px){#antigravityFooter .ag-footer-nav{display:flex;justify-content:flex-end;max-width:none}#antigravityFooter .ag-contact-col{max-width:320px}}
 </style>
 
 </head>
-<body>
+<body class="has-reveal-footer">
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-WGBXCPRW" style="display:none;visibility:hidden" width="0"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
@@ -474,13 +486,14 @@ html{scroll-padding-top:110px}
 </div>
 </div>
 </nav>
-<!-- PAGE HERO -->
-<section class="page-hero" style="padding:120px 0 56px; background:radial-gradient(circle at top right, rgba(237,50,55,0.12), transparent 45%), #090D14; color:#FFFFFF;">
+<main class="site-main-wrapper" id="siteMainWrapper">
+<!-- HERO -->
+<section class="pp-hero">
 <div class="wrap">
-<div class="page-hero-sub" style="text-align:center;">
-<div class="eyebrow" style="color:#ED3237; text-transform:uppercase; letter-spacing:1px; font-weight:700;">Legal</div>
-<h1 class="page-hero-title" style="font-size:2.8rem; margin:14px 0; color:#FFFFFF;">Your data, <span style="color:#ED3237;">handled with care</span></h1>
-<p class="lead" style="max-width:760px; margin:0 auto; color:rgba(255,255,255,0.85);">This page explains what personal data Lime Digital Institute collects, why we collect it, how long we keep it, and the choices you have. The cookie policy sits right below it.</p>
+<div class="pp-hero-inner reveal">
+<div class="pp-eyebrow">Legal · Privacy &amp; Cookies</div>
+<h1>Your data,<br/>handled with <span class="accent">care</span></h1>
+<p class="pp-hero-lead">This page explains what personal data Lime Digital Institute collects, why we collect it, how long we keep it, and the choices you have. The cookie policy sits right below it.</p>
 <div class="pp-meta">
 <span>Last updated: <strong>2 October 2026</strong></span>
 <span>Effective from: <strong>2 October 2026</strong></span>
@@ -844,40 +857,82 @@ html{scroll-padding-top:110px}
 </article>
 </div>
 
-<!-- FOOTER -->
-<footer>
+<!-- FINAL CTA -->
+<section class="final-cta">
 <div class="wrap">
-<div class="footer-grid">
-<div class="footer-brand">
-<div class="footer-logo-plate">
-<img alt="Lime Digital Institute" src="assets/lime-logo.png"/>
+<div class="eyebrow" style="color:#fff;">Seats Fill Fast</div>
+<h2 class="h2">Start Your 3-Day<br/>Free Demo Class</h2>
+<p class="lead">Attend 3 live classroom sessions at our Rajkot campus (or online) — zero obligation.</p>
+<div class="btn-row">
+<a class="btn btn-glow open-modal-btn" data-course="Free Demo Class" href="#">Start 3-Day Free Trial →</a>
+<a class="btn btn-inverse" href="tel:+917567787232">Call +91 75677 87232</a>
 </div>
-<p>India's leading digital marketing business school - live + recorded, AI-powered, Rajkot campus.</p>
-</div>
-<div class="footer-col">
-<div class="footer-col-title">Navigation</div>
-<a href="/">Home</a>
-<a href="courses">Courses</a>
-<a href="about">About Us</a>
-<a href="contact">Contact</a>
-</div>
-<div class="footer-col">
-<div class="footer-col-title">Programs</div>
-<a href="foundation-program">Foundation Program (1.5 Mo)</a>
-<a href="digital-marketing-professional">Advance Program (3 Mo)</a>
-<a href="bachelors-in-digital-business">Bachelor's in Digital Business (3 Yrs)</a>
-<a href="masters-in-digital-business">Master's in Digital Business (11 Mo)</a>
-</div>
-<div class="footer-col">
-<div class="footer-col-title">Campus Contact</div>
-<a href="tel:+917567787232">+91 75677 87232</a>
-<a href="tel:+918980626323">Support: +91 89806 26323</a>
-<a href="contact">5th Floor, LIME Institute, Jyoti Nagar Main Rd, Rajkot 360005</a>
+<div class="badge-strip">
+<span>✓ Expert-Led</span>
+<span>✓ Live Every Week</span>
+<span>✓ Rajkot &amp; Online</span>
+<span>✓ Certificate Included</span>
 </div>
 </div>
-<div class="footer-bottom">
-<div>© Lime Digital Institute. All rights reserved.</div>
-<div>Instagram · Facebook · YouTube · LinkedIn - @limedigitalinstitute</div>
+</section>
+</main><!-- /#siteMainWrapper -->
+<!-- FOOTER REVEAL SPACER -->
+<div aria-hidden="true" class="footer-reveal-spacer" id="footerRevealSpacer"></div>
+<!-- FOOTER -->
+<footer class="antigravity-footer" id="antigravityFooter">
+<div class="wrap">
+<div class="ag-footer-top">
+<div class="ag-footer-brand-col">
+<span class="ag-footer-eyebrow">LIME DIGITAL INSTITUTE</span>
+<h2 class="ag-footer-headline">Experience liftoff</h2>
+<div class="ag-footer-actions">
+<div class="ag-footer-socials">
+<a aria-label="Instagram" class="ag-social-btn" href="https://www.instagram.com/limedigitalinstitute/" rel="noopener" target="_blank"><svg fill="currentColor" height="16" viewbox="0 0 24 24" width="16"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg><span class="sr-only" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Instagram</span></a>
+<a aria-label="LinkedIn" class="ag-social-btn" href="https://www.linkedin.com/school/limedigitalinstitute/" rel="noopener" target="_blank"><svg fill="currentColor" height="16" viewbox="0 0 24 24" width="16"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path></svg><span class="sr-only" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">LinkedIn</span></a>
+<a aria-label="YouTube" class="ag-social-btn" href="https://www.youtube.com/@limedigitalinstitute" rel="noopener" target="_blank"><svg fill="currentColor" height="16" viewbox="0 0 24 24" width="16"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path></svg><span class="sr-only" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">YouTube</span></a>
+</div>
+</div>
+</div>
+<div class="ag-footer-nav">
+<div class="ag-footer-nav-col ag-contact-col">
+<div class="ag-contact-group">
+<span class="ag-office-label">Get in Touch:</span>
+<div class="ag-contact-list">
+<a class="ag-contact-item" href="mailto:digital@limeinstitute.org">
+<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+<span>digital@<wbr/>limeinstitute.org</span>
+</a>
+<a class="ag-contact-item" href="tel:+917567787232">
+<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+<span>+91 75677 87232</span>
+</a>
+<a class="ag-contact-item" href="tel:+918980626323">
+<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+<span>+91 89806 26323</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="ag-footer-bottom-group">
+<div aria-hidden="true" class="ag-footer-wordmark-wrap">
+<span class="ag-footer-wordmark">Lime Digital Institute</span>
+</div>
+<div class="ag-footer-bottom">
+<div class="ag-footer-bottom-left">
+<span class="ag-copyright">© 2026 Lime Digital Institute. All rights reserved.</span>
+</div>
+<div class="ag-footer-bottom-right">
+<a href="privacy-policy">Privacy Policy</a>
+<span class="ag-sep">•</span>
+<a class="open-maintenance-modal" href="#">Refund Policy</a>
+<span class="ag-sep">•</span>
+<a class="open-maintenance-modal" href="#">Terms of Use</a>
+<span class="ag-sep">•</span>
+<a href="contact">Contact Us</a>
+</div>
+</div>
 </div>
 </div>
 </footer>
