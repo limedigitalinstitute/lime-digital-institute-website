@@ -4,6 +4,7 @@ Disallow: /api/
 Disallow: /data/
 Disallow: /lime-admin/
 Disallow: /404
+Disallow: /brochure
 Disallow: /thank-you
 Disallow: /event-thank-you
 

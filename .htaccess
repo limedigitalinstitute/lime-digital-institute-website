@@ -12,6 +12,12 @@ ErrorDocument 404 /404.html
   # Old /demo stub page: permanent redirect to the demo landing page
   RewriteRule ^demo(\.html)?/?$ https://courses.limedigitalinstitute.org/ [R=301,L]
 
+  # Private page sources are only readable by PHP
+  RewriteRule ^_private(/|$) - [F,L]
+
+  # Old spelling of the brochure URL
+  RewriteRule ^broucher/?$ /brochure [R=301,L]
+
   # Never serve the git folder or other dot-directories
   RewriteRule (^|/)\.git(/|$) - [F,L]
 

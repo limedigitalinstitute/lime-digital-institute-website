@@ -876,6 +876,7 @@ window.testiNav = testiNav;
     'thank-you.html',
     'thank-you',
     'terms-of-use.html', 'terms-of-use',
+    'brochure.php', 'brochure',
     'privacy-policy.html',
     'privacy-policy'
   ];
