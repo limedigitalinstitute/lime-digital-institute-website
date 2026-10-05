@@ -875,6 +875,7 @@ window.testiNav = testiNav;
     'event-thank-you',
     'thank-you.html',
     'thank-you',
+    'terms-of-use.html', 'terms-of-use',
     'privacy-policy.html',
     'privacy-policy'
   ];
