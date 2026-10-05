@@ -880,16 +880,9 @@ window.testiNav = testiNav;
     'privacy-policy'
   ];
 
-  const SECRET_KEY = 'Paras@123';
-  const AUTH_STORAGE_KEY = 'ldi_admin_unlocked';
-
-  function isUnlocked() {
-    try {
-      return localStorage.getItem(AUTH_STORAGE_KEY) === SECRET_KEY || sessionStorage.getItem(AUTH_STORAGE_KEY) === SECRET_KEY;
-    } catch(e) {
-      return false;
-    }
-  }
+  // Staff preview unlock was removed: it relied on a password stored in this
+  // public file. Staff use /lime-admin (server-side login) instead.
+  function isUnlocked() { return false; }
 
   function isPublicPage(url) {
     if (!url) return true;
@@ -923,17 +916,6 @@ window.testiNav = testiNav;
         <a href="3-day-demo-class" class="maintenance-btn-cta" id="siteMaintenanceDemoBtn">
           🎁 3-Day Free Demo &rarr;
         </a>
-
-        <div class="maintenance-auth-wrap">
-          <button type="button" class="maintenance-auth-toggle" id="maintenanceAuthToggle">
-            🔒 Preview Access (Staff Login)
-          </button>
-          <form class="maintenance-auth-form" id="maintenanceAuthForm">
-            <input type="password" placeholder="Enter password" class="maintenance-pwd-input" id="maintenancePwdInput" required autocomplete="current-password">
-            <button type="submit" class="maintenance-pwd-btn">Unlock</button>
-          </form>
-          <div class="maintenance-auth-error" id="maintenanceAuthError">Incorrect password. Try again.</div>
-        </div>
       </div>
     `;
 
@@ -946,41 +928,6 @@ window.testiNav = testiNav;
     const closeBtn = overlay.querySelector('#siteMaintenanceCloseBtn');
     if (closeBtn) {
       closeBtn.addEventListener('click', handleClose);
-    }
-
-    const authToggle = overlay.querySelector('#maintenanceAuthToggle');
-    const authForm = overlay.querySelector('#maintenanceAuthForm');
-    const pwdInput = overlay.querySelector('#maintenancePwdInput');
-    const authError = overlay.querySelector('#maintenanceAuthError');
-
-    if (authToggle && authForm) {
-      authToggle.addEventListener('click', () => {
-        authForm.classList.toggle('open');
-        if (authForm.classList.contains('open') && pwdInput) {
-          pwdInput.focus();
-        }
-      });
-    }
-
-    if (authForm) {
-      authForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const pwd = pwdInput ? pwdInput.value.trim() : '';
-        if (pwd === SECRET_KEY) {
-          try {
-            localStorage.setItem(AUTH_STORAGE_KEY, SECRET_KEY);
-            sessionStorage.setItem(AUTH_STORAGE_KEY, SECRET_KEY);
-          } catch(err) {}
-          closeMaintenanceModal();
-          if (authError) authError.style.display = 'none';
-        } else {
-          if (authError) authError.style.display = 'block';
-          if (pwdInput) {
-            pwdInput.value = '';
-            pwdInput.focus();
-          }
-        }
-      });
     }
   }
 

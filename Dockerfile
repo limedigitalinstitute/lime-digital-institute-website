@@ -1,6 +1,8 @@
 FROM php:8.2-apache
 
-RUN a2enmod rewrite expires headers deflate
+RUN a2enmod rewrite expires headers deflate \
+ && printf 'ServerTokens Prod\nServerSignature Off\nTraceEnable Off\n' > /etc/apache2/conf-available/zz-hardening.conf \
+ && a2enconf zz-hardening
 
 COPY apache-vhost.conf /etc/apache2/sites-available/000-default.conf
 
