@@ -874,7 +874,9 @@ window.testiNav = testiNav;
     'event-thank-you.html',
     'event-thank-you',
     'thank-you.html',
-    'thank-you'
+    'thank-you',
+    'privacy-policy.html',
+    'privacy-policy'
   ];
 
   const SECRET_KEY = 'Paras@123';

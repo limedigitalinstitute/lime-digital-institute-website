@@ -790,7 +790,7 @@ if ($event) {
 <span class="ag-copyright">© 2026 Lime Digital Institute. All rights reserved.</span>
 </div>
 <div class="ag-footer-bottom-right">
-<a class="open-maintenance-modal" href="#">Privacy Policy</a>
+<a href="privacy-policy">Privacy Policy</a>
 <span class="ag-sep">•</span>
 <a class="open-maintenance-modal" href="#">Refund Policy</a>
 <span class="ag-sep">•</span>
