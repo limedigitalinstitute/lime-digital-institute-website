@@ -11,11 +11,10 @@
   function read() {
     try { return JSON.parse(localStorage.getItem(KEY)) || null; } catch (e) { return null; }
   }
-  function gpc() { return navigator.globalPrivacyControl === true; }
 
   function push(c) {
     var a = c.analytics ? 'granted' : 'denied';
-    var m = (c.marketing && !gpc()) ? 'granted' : 'denied';
+    var m = c.marketing ? 'granted' : 'denied';
     gtag('consent', 'update', {
       analytics_storage: a, ad_storage: m, ad_user_data: m, ad_personalization: m
     });
@@ -58,56 +57,24 @@
     el.setAttribute('role', 'dialog');
     el.setAttribute('aria-label', 'Cookie preferences');
     el.innerHTML =
-      '<h2>Your cookie choices</h2>' +
-      '<p>We use essential cookies to run this site. With your permission we also use analytics and marketing cookies to improve it and measure our ads. ' +
-      'You can change your mind any time. <a href="/privacy-policy#cookies">Cookie policy</a></p>' +
-      '<div class="lc-opts">' +
-      '<label><input type="checkbox" checked disabled><span><strong>Essential</strong><small>Needed for forms, security and basic site features. Always on.</small></span></label>' +
-      '<label><input type="checkbox" id="lcAn"><span><strong>Analytics</strong><small>Helps us see which pages work, so we can improve them.</small></span></label>' +
-      '<label><input type="checkbox" id="lcMk"><span><strong>Marketing</strong><small>Lets us measure ads and show relevant ads on other sites.</small></span></label>' +
-      '</div>' +
-      '<div class="lc-row">' +
-      '<button type="button" class="lc-acc" data-a="all">Accept all</button>' +
-      '<button type="button" class="lc-rej" data-a="none">Reject non-essential</button>' +
-      '<button type="button" class="lc-cus" data-a="cust">Customise</button>' +
-      '</div>';
+      '<h2>Cookies and tracking</h2>' +
+      '<p>We use cookies and tracking tools, including analytics and advertising pixels, to run this site, improve it and measure our ads. ' +
+      'By clicking Accept you agree to all of them. <a href="/privacy-policy#cookies">Cookie policy</a></p>' +
+      '<div class="lc-row"><button type="button" class="lc-acc">Accept</button></div>';
     document.body.appendChild(el);
     el.addEventListener('click', function (e) {
-      var b = e.target.closest('button[data-a]'); if (!b) return;
-      var a = b.getAttribute('data-a');
-      if (a === 'all') { save({ analytics: true, marketing: true }); hide(); }
-      else if (a === 'none') { save({ analytics: false, marketing: false }); hide(); }
-      else if (a === 'cust') {
-        if (el.classList.contains('cust')) {
-          save({ analytics: el.querySelector('#lcAn').checked, marketing: el.querySelector('#lcMk').checked }); hide();
-        } else {
-          el.classList.add('cust'); b.textContent = 'Save choices';
-          b.className = 'lc-acc'; b.style.textDecoration = 'none';
-        }
-      }
+      if (!e.target.closest('.lc-acc')) return;
+      save({ analytics: true, marketing: true });
+      hide();
     });
   }
-  function show(open) {
-    build();
-    var c = read() || {};
-    el.querySelector('#lcAn').checked = !!c.analytics;
-    el.querySelector('#lcMk').checked = !!c.marketing && !gpc();
-    el.classList.add('on');
-    if (open) {
-      el.classList.add('cust');
-      var b = el.querySelector('[data-a="cust"]'); b.textContent = 'Save choices'; b.className = 'lc-acc';
-    }
-  }
-  function hide() { if (el) { el.classList.remove('on'); el.classList.remove('cust'); } }
+  function show() { build(); el.classList.add('on'); }
+  function hide() { if (el) el.classList.remove('on'); }
 
   function init() {
     var c = read();
-    if (c) { push(c); } else { show(false); }
-    document.addEventListener('click', function (e) {
-      var t = e.target.closest('[data-cookie-settings]');
-      if (t) { e.preventDefault(); show(true); }
-    });
+    if (c) { push(c); } else { show(); }
   }
-  window.LimeConsent = { open: function () { show(true); } };
+  
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();

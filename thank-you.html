@@ -2,7 +2,7 @@
 
 <html lang="en">
 <head>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}(function(){var c=null;try{c=JSON.parse(localStorage.getItem('lime_consent'))}catch(e){}var m=(c&&c.marketing&&navigator.globalPrivacyControl!==true)?'granted':'denied',a=(c&&c.analytics)?'granted':'denied';gtag('consent','default',{ad_storage:m,ad_user_data:m,ad_personalization:m,analytics_storage:a,functionality_storage:'granted',security_storage:'granted',wait_for_update:500});})();</script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}(function(){var c=null;try{c=JSON.parse(localStorage.getItem('lime_consent'))}catch(e){}var m=(c&&c.marketing)?'granted':'denied',a=(c&&c.analytics)?'granted':'denied';gtag('consent','default',{ad_storage:m,ad_user_data:m,ad_personalization:m,analytics_storage:a,functionality_storage:'granted',security_storage:'granted',wait_for_update:500});})();</script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -218,7 +218,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     }
   }
 </style>
-<script src="assets/consent.js?v=20261005a" defer></script>
+<script src="assets/consent.js?v=20261005b" defer></script>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -245,7 +245,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <main class="thank-you-page-wrap">
 <div class="thank-you-card">
 <div class="thank-you-badge-wrap">
-<div class="thank-you-badge" id="tyBadge">Curriculum Ready</div>
+<div class="thank-you-badge" id="tyBadge">Request Received</div>
 </div>
 <div class="thank-you-icon">
         ✓
@@ -255,8 +255,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         Thank you <strong id="tyName">there</strong>! We have received your submission. Your course materials and details have been dispatched to your WhatsApp &amp; Email.
       </p>
 <div class="thank-you-actions" id="tyActions">
-<a class="thank-you-btn-primary" download="Lime-Digital-Curriculum-V5.pdf" href="assets/brochure/Lime-Digital-Curriculum-V5.pdf" id="tyPrimaryBtn" target="_blank">
-          Download Brochure PDF Now ↓
+<a class="thank-you-btn-primary" href="https://wa.me/917567787232?text=Hi%20Lime%20Digital%20Institute%2C%20I%20requested%20the%20brochure.%20Please%20connect%20me%20with%20a%20counsellor." id="tyPrimaryBtn" target="_blank" rel="noopener">
+          WhatsApp Counsellor
         </a>
 <a class="thank-you-btn-secondary" href="courses" id="tySecondaryBtn">
           Explore All Courses →
@@ -349,21 +349,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       }
     } else {
       // Default: Brochure
-      if (badge) badge.textContent = 'Curriculum Ready';
-      if (title) title.textContent = 'Download Complete Curriculum';
-      if (sub) {
-        sub.innerHTML = (cleanName ? `Hi <strong>${cleanName}</strong>! ` : '') +
-          'The complete 16-module Digital Marketing &amp; AI syllabus has been dispatched to your WhatsApp and Email. You can also download the PDF directly below.';
-      }
+      if (badge) badge.textContent = 'Request Received';
+      if (title) title.textContent = 'Check WhatsApp for Brochure';
+      if (sub) sub.style.display = 'none';
       if (primaryBtn) {
-        primaryBtn.textContent = 'Download Brochure PDF Now ↓';
-        primaryBtn.href = 'assets/brochure/Lime-Digital-Curriculum-V5.pdf';
-        primaryBtn.setAttribute('download', 'Lime-Digital-Curriculum-V5.pdf');
+        primaryBtn.textContent = 'WhatsApp Counsellor';
+        primaryBtn.href = 'https://wa.me/917567787232?text=Hi%20Lime%20Digital%20Institute%2C%20I%20requested%20the%20brochure.%20Please%20connect%20me%20with%20a%20counsellor.';
+        primaryBtn.target = '_blank';
+        primaryBtn.rel = 'noopener';
+        primaryBtn.removeAttribute('download');
       }
-      if (secondaryBtn) {
-        secondaryBtn.textContent = 'Explore All Courses →';
-        secondaryBtn.href = 'courses';
-      }
+      if (secondaryBtn) secondaryBtn.style.display = 'none';
     }
 
     // Google Tag Manager Event
