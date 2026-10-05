@@ -6254,3 +6254,6 @@ select.curr-country-select:hover {
     max-width: 82%;
   }
 }
+
+/* Intrinsic-size hints (width/height attrs) only reserve space; layout CSS still decides the size. */
+:where(img[data-ar]){width:auto;height:auto}

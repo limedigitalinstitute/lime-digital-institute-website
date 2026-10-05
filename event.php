@@ -87,6 +87,15 @@ if ($event) {
 
 <html lang="en">
 <head>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}(function(){var c=null;try{c=JSON.parse(localStorage.getItem('lime_consent'))}catch(e){}var m=(c&&c.marketing&&navigator.globalPrivacyControl!==true)?'granted':'denied',a=(c&&c.analytics)?'granted':'denied';gtag('consent','default',{ad_storage:m,ad_user_data:m,ad_personalization:m,analytics_storage:a,functionality_storage:'granted',security_storage:'granted',wait_for_update:500});})();</script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WGBXCPRW');</script>
+<!-- End Google Tag Manager -->
+
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title id="pageTitle"><?php echo htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8'); ?></title>
@@ -112,7 +121,7 @@ if ($event) {
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
-<link href="assets/style.css?v=20260928n" rel="stylesheet"/>
+<link href="assets/style.css?v=20261005c" rel="stylesheet"/>
 <style>
     /* EVENT LP SPECIFIC STYLES */
     :root {
@@ -546,8 +555,13 @@ if ($event) {
     }
   ]
   </script>
+<script src="assets/consent.js?v=20261005a" defer></script>
 </head>
 <body class="has-reveal-footer">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-WGBXCPRW" style="display:none;visibility:hidden" width="0"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
 <!-- TOP TICKER -->
 <div class="ticker-bar">
 <div class="ticker-scroll">
@@ -564,7 +578,7 @@ if ($event) {
 <div class="wrap">
 <div class="nav-inner">
 <a aria-label="Lime Digital Institute Home" class="nav-logo" href="/"><span class="sr-only" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Lime Digital Institute</span>
-<img alt="Lime Digital Institute" src="assets/lime-logo.png"/>
+<img width="2200" height="1429" data-ar="1" alt="Lime Digital Institute" src="assets/lime-logo.png"/>
 </a>
 <div class="nav-cta">
 <a class="btn btn-glow btn-sm" href="#registerCard">Claim Free Seat →</a>
@@ -646,7 +660,7 @@ if ($event) {
 <div class="event-form-rail" id="registerCard">
 <div class="event-form-card">
 <div class="ef-banner-wrap">
-<img alt="Masterclass Access Pass" class="ef-banner-img" id="formBannerImg" src="assets/webinars/event-registration-side.jpg"/>
+<img width="1200" height="896" data-ar="1" alt="Masterclass Access Pass" class="ef-banner-img" id="formBannerImg" src="assets/webinars/event-registration-side.webp"/>
 <div class="ef-banner-overlay">
 <span class="ef-pass-badge" id="formPassBadge">Official Free Pass</span>
 </div>
@@ -795,6 +809,8 @@ if ($event) {
 <a href="terms-of-use">Terms of Use</a>
 <span class="ag-sep">•</span>
 <a href="contact">Contact Us</a>
+<span class="ag-sep">•</span>
+<a href="#" data-cookie-settings>Cookie Settings</a>
 </div>
 </div>
 </div>
