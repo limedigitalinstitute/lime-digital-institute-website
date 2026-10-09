@@ -315,7 +315,7 @@
       const statusLabel = isUpcoming ? '<span class="live-dot"></span> Live / Upcoming' : '▶ Watch Recording';
       const toggleBtnClass = isUpcoming ? 'btn-toggle-recording' : 'btn-toggle-upcoming';
       const toggleBtnLabel = isUpcoming ? 'Switch to Recording' : 'Switch to Upcoming';
-      const viewUrl = `../event?id=${encodeURIComponent(e.id)}`;
+      const viewUrl = `../event/${encodeURIComponent(e.id)}`;
 
       return `
         <div class="session-admin-card" data-id="${e.id}">

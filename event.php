@@ -17,7 +17,7 @@ if ($event) {
     $pageDescription = !empty($event['subtitle']) ? $event['subtitle'] : 'Register for this free live masterclass at Lime Digital Institute.';
     $thumbPath = ltrim(isset($event['thumbnail']) ? $event['thumbnail'] : '', '/');
     $ogImage = $thumbPath ? $siteUrl . '/' . $thumbPath : $defaultImage;
-    $canonicalUrl = $siteUrl . '/event?id=' . urlencode($eventId);
+    $canonicalUrl = $siteUrl . '/event/' . rawurlencode($eventId);
 } else {
     $pageTitle = 'Upcoming Workshops & Masterclasses | Lime Digital Institute';
     $pageDescription = 'Register for free practical workshops and masterclasses on AI, SEO, Meta Ads, and Growth Hacking at Rajkot campus.';
@@ -98,6 +98,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
+<base href="/">
 <title id="pageTitle"><?php echo htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8'); ?></title>
 <meta content="<?php echo htmlspecialchars($pageDescription, ENT_QUOTES, 'UTF-8'); ?>" id="pageMetaDesc" name="description"/>
 <!-- Open Graph / Social Sharing -->
@@ -581,7 +582,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <img width="2200" height="1429" data-ar="1" alt="Lime Digital Institute" src="assets/lime-logo.png"/>
 </a>
 <div class="nav-cta">
-<a class="btn btn-glow btn-sm" href="#registerCard">Claim Free Seat →</a>
+<a class="btn btn-glow btn-sm" href="<?php echo htmlspecialchars(parse_url($canonicalUrl, PHP_URL_PATH), ENT_QUOTES); ?>#registerCard">Claim Free Seat →</a>
 </div>
 </div>
 </div>
@@ -819,7 +820,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     (async function() {
       // 1. Get event id from query string ?id=slug
       const urlParams = new URLSearchParams(window.location.search);
-      const eventSlug = urlParams.get('id') || 'ai-prompting-growth-hacking';
+      const pathSlug = (location.pathname.match(/^\/event\/([^\/]+)/) || [])[1];
+      const eventSlug = pathSlug || urlParams.get('id') || 'ai-prompting-growth-hacking';
 
       let currentEvent = null;
 

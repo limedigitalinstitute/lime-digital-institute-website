@@ -48,6 +48,11 @@ ErrorDocument 404 /404.html
   RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\s/+free-masterclass(\.html)?[?\s] [NC]
   RewriteRule ^ https://%{HTTP_HOST}/masterclass [R=301,L,QSA]
 
+  # Event detail pages use clean keyword URLs: /event/<slug>
+  RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\s/+event\?(?:.*&)?id=([a-z0-9-]+)(?:&|\s) [NC]
+  RewriteRule ^event/?$ https://%{HTTP_HOST}/event/%1? [R=301,L]
+  RewriteRule ^event/([a-z0-9-]+)$ event.php?id=$1 [L,QSA]
+
   # Redirect legacy /page.html URLs to the clean extension-less URL
   # (index.html -> /, everything-else.html -> /everything-else). Must run
   # on the ORIGINAL request (THE_REQUEST), not the internally rewritten
