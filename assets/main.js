@@ -879,9 +879,7 @@ window.testiNav = testiNav;
     'terms-of-use.html', 'terms-of-use',
     'brochure.php', 'brochure',
     'privacy-policy.html',
-    'privacy-policy',
-    'blog.html', 'blog',
-    'trainers.html', 'trainers'
+    'privacy-policy'
   ];
 
   // Staff preview unlock was removed: it relied on a password stored in this
@@ -891,7 +889,6 @@ window.testiNav = testiNav;
   function isPublicPage(url) {
     if (!url) return true;
     const path = url.split('#')[0].split('?')[0];
-    if (/^\/?blog\/[a-z0-9-]+$/.test(path)) return true;
     const cleanUrl = path.split('/').pop() || 'index.html';
     return PUBLIC_PAGES.includes(cleanUrl);
   }
