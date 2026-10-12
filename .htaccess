@@ -35,9 +35,13 @@ ErrorDocument 404 /404.html
   # courses. subdomain: the landing page is the only page that lives here.
   # Its old path goes to the root; every other page goes to the main domain
   # so Google does not index a second copy of the whole site.
+  # (REDIRECT_STATUS is empty only on the original request, not after the
+  # internal rewrite of / to 3-day-demo-class.html above.)
   RewriteCond %{HTTP_HOST} ^courses\. [NC]
+  RewriteCond %{ENV:REDIRECT_STATUS} ^$
   RewriteRule ^3-day-demo-class(\.html)?/?$ https://courses.limedigitalinstitute.org/ [R=301,L]
   RewriteCond %{HTTP_HOST} ^courses\. [NC]
+  RewriteCond %{ENV:REDIRECT_STATUS} ^$
   RewriteCond %{REQUEST_URI} !^/(assets|api|_private)/ [NC]
   RewriteCond %{REQUEST_URI} !^/(robots\.txt|sitemap\.xml|favicon\.ico|thank-you|brochure)$ [NC]
   RewriteRule ^(.+)$ https://limedigitalinstitute.org/$1 [R=301,L]
