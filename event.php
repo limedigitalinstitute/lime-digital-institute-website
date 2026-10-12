@@ -134,7 +134,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link href="/assets/apple-touch-icon.png" rel="apple-touch-icon"/>
 <link rel="preload" href="/assets/fonts/poppins-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/poppins-600.woff2" as="font" type="font/woff2" crossorigin>
-<link href="assets/style.css?v=20261012a" rel="stylesheet"/>
+<link href="assets/style.css?v=20261012b" rel="stylesheet"/>
 <style>
     /* EVENT LP SPECIFIC STYLES */
     :root {
