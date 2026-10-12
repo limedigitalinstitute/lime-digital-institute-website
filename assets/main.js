@@ -46,6 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const decimals = parseInt(el.dataset.decimal || '0');
         const dur = 1400;
         const start = performance.now();
+        el.textContent = (0).toFixed(decimals);
         function tick(now) {
           const p = Math.min(1, (now - start) / dur);
           const eased = 1 - Math.pow(1 - p, 3);

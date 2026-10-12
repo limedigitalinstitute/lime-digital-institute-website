@@ -12,7 +12,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Bachelor's in Digital Business (3-Year UG) | Lime Rajkot</title>
-<meta name="description" content="3-year UG degree in digital business and entrepreneurship at Lime Digital Institute, Rajkot. Digital marketing, AI tools and business skills on live projects.">
+<meta name="description" content="3-year UG degree in digital business and entrepreneurship at Lime Digital Institute, Rajkot. Digital marketing, AI tools and live projects.">
   <!-- Open Graph / Social Sharing -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://limedigitalinstitute.org/bachelors-in-digital-business">
@@ -34,10 +34,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <link rel="canonical" href="https://limedigitalinstitute.org/bachelors-in-digital-business">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=20261005c">
+<link rel="preload" href="/assets/fonts/poppins-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/poppins-600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/style.css?v=20261012a">
 
 <style>
 /* Page-Specific Styles for Bachelor's Program */
@@ -148,7 +147,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 .ug-hero-card-header {
   margin-bottom: 18px;
 }
-.ug-hero-card-header h3 {
+.ug-hero-card-header h2, .ug-hero-card-header h3 {
   font-size: 19px;
   font-weight: 700;
   color: var(--ink-900);
@@ -975,13 +974,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="ug-hero-card">
           <div class="ug-intake-badge">⚡ Limited to 60 Seats &middot; July 2026 Intake</div>
           <div class="ug-hero-card-header">
-            <h3>Request Degree Prospectus</h3>
+            <h2>Request Degree Prospectus</h2>
             <p>Get detailed semester modules, fee breakdowns, and scholarship criteria.</p>
           </div>
           <form id="heroForm">
             <div class="form-group" style="margin-bottom:12px;">
               <label style="font-size:11.5px; font-weight:600; color:var(--ink-600); display:block; margin-bottom:5px;">Student Full Name *</label>
-              <input type="text" id="heroName" name="name" class="form-input" placeholder="e.g. Priyansh Mehta" required>
+              <input type="text" id="heroName" name="name" class="form-input" placeholder="e.g. Priyansh Mehta" required aria-label="Full name">
             </div>
             <div class="form-group" style="margin-bottom:12px;">
               <label style="font-size:11.5px; font-weight:600; color:var(--ink-600); display:block; margin-bottom:5px;">WhatsApp Number *</label>
@@ -1009,16 +1008,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <option value="+880">🇧🇩 +880</option>
                 <option value="+94">🇱🇰 +94</option>
               </select>
-                <input type="tel" id="heroPhone" name="phone" class="lid-phone-input" placeholder="Enter 10-digit number" pattern="[0-9]{7,15}" maxlength="15" required>
+                <input type="tel" id="heroPhone" name="phone" class="lid-phone-input" placeholder="Enter 10-digit number" pattern="[0-9]{7,15}" maxlength="15" required aria-label="Phone number">
               </div>
             </div>
             <div class="form-group" style="margin-bottom:12px;">
               <label style="font-size:11.5px; font-weight:600; color:var(--ink-600); display:block; margin-bottom:5px;">Email Address *</label>
-              <input type="email" id="heroEmail" name="email" class="form-input" placeholder="e.g. priyansh@gmail.com" required>
+              <input type="email" id="heroEmail" name="email" class="form-input" placeholder="e.g. priyansh@gmail.com" required aria-label="Email address">
             </div>
             <div class="form-group" style="margin-bottom:16px;">
               <label style="font-size:11.5px; font-weight:600; color:var(--ink-600); display:block; margin-bottom:5px;">Select Your Current Status</label>
-              <select id="heroStatus" name="status" class="form-input" style="background:#fff;">
+              <select id="heroStatus" name="status" class="form-input" style="background:#fff;" aria-label="Status">
                 <option>Currently in 12th Grade (Appearing)</option>
                 <option>12th Passout (Seeking Degree)</option>
                 <option>FY Degree Student (Looking to Transfer/Switch)</option>
@@ -1640,7 +1639,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 <script src="assets/country-picker.js?v=20260918g"></script>
 <script src="assets/lime-form.js?v=20261005a"></script>
-<script src="assets/main.js?v=20261005d"></script>
+<script src="assets/main.js?v=20261012a"></script>
 <script>
 // Curriculum Tabs Interaction
 document.querySelectorAll('.curr-tab-btn').forEach(btn => {

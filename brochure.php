@@ -113,7 +113,7 @@ button:hover{background:#d62a2f}
 <p>This page is password protected. Enter the password to view the complete curriculum.</p>
 <?php if ($error): ?><div class="err" role="alert"><?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?></div><?php endif; ?>
 <form method="post" action="/brochure" autocomplete="off">
-<input type="password" name="password" placeholder="Password" required autofocus autocomplete="current-password">
+<input type="password" name="password" placeholder="Password" required autofocus autocomplete="current-password" aria-label="Password">
 <button type="submit">View Brochure</button>
 </form>
 <div class="small">Lime Digital Institute, Rajkot</div>

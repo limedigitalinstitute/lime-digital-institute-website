@@ -43,10 +43,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   "timeRequired": "P3M"
 }
 </script>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
-<link href="assets/style.css?v=20261005c" rel="stylesheet"/>
+<link rel="preload" href="/assets/fonts/poppins-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/poppins-600.woff2" as="font" type="font/woff2" crossorigin>
+<link href="assets/style.css?v=20261012a" rel="stylesheet"/>
 <style>
 :root{
   --lime-red:var(--primary); --deep-red:var(--primary-dim); --link-red:var(--primary-dim);
@@ -117,7 +116,7 @@ section[id]{scroll-margin-top:100px;}
 }
 .outcomes > .wrap, .final-cta > .wrap, .curriculum > .wrap, .pricing > .wrap{position:relative;z-index:1;}
 
-/* spotlight cursor-glow border, applied via .spotlight class + JS (main.js?v=20261005d) */
+/* spotlight cursor-glow border, applied via .spotlight class + JS (main.js?v=20261012a) */
 .spotlight{position:relative;isolation:isolate;}
 .spotlight::before{
   content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;
@@ -2172,10 +2171,10 @@ footer{background:#000000;color:#4D4D4D;padding:70px 0 30px;font-size:13px;}
 <!-- STATS / OUTCOMES STRIP -->
 <section class="stats-strip wrap" id="outcomes">
 <div class="stats-card reveal-stagger">
-<div class="stat-box"><div class="num"><span class="counter" data-target="400">0</span><span class="accent">+</span></div><div class="cap">Students Trained</div></div>
-<div class="stat-box"><div class="num"><span class="counter" data-decimal="1" data-target="4.9">0</span><span class="accent">/5</span></div><div class="cap">Rating · 500+ Reviews</div></div>
-<div class="stat-box"><div class="num"><span class="counter" data-target="89">0</span><span class="accent">%</span></div><div class="cap">Placed Within 3 Months*</div></div>
-<div class="stat-box"><div class="num"><span class="counter" data-target="50">0</span><span class="accent">+</span></div><div class="cap">Hiring Partners</div></div>
+<div class="stat-box"><div class="num"><span class="counter" data-target="400">400</span><span class="accent">+</span></div><div class="cap">Students Trained</div></div>
+<div class="stat-box"><div class="num"><span class="counter" data-decimal="1" data-target="4.9">4.9</span><span class="accent">/5</span></div><div class="cap">Rating · 500+ Reviews</div></div>
+<div class="stat-box"><div class="num"><span class="counter" data-target="89">89</span><span class="accent">%</span></div><div class="cap">Placed Within 3 Months*</div></div>
+<div class="stat-box"><div class="num"><span class="counter" data-target="50">50</span><span class="accent">+</span></div><div class="cap">Hiring Partners</div></div>
 </div>
 </section>
 <!-- PROGRAM HIGHLIGHTS -->
@@ -2498,7 +2497,7 @@ footer{background:#000000;color:#4D4D4D;padding:70px 0 30px;font-size:13px;}
 <p class="unlock-modal-sub">Get on a call with our counsellor</p>
 <form class="lid-consult-form" onsubmit="handleUnlockSubmit(event)">
 <div>
-<select class="lid-field-select" id="unlockCourseSelect" required="">
+<select class="lid-field-select" id="unlockCourseSelect" required="" aria-label="Select an option">
 <option disabled="" selected="" value="">Select Course</option>
 <option value="Marketing Foundations">Course 01: Marketing Foundations</option>
 <option value="Performance Marketing">Course 02: Performance Marketing</option>
@@ -2532,7 +2531,7 @@ footer{background:#000000;color:#4D4D4D;padding:70px 0 30px;font-size:13px;}
 <option value="+880">🇧🇩 +880</option>
 <option value="+94">🇱🇰 +94</option>
 </select>
-<input class="lid-phone-input" id="unlockPhone" maxlength="15" pattern="[0-9]{7,15}" placeholder="Enter phone number" required="" type="tel"/>
+<input class="lid-phone-input" id="unlockPhone" maxlength="15" pattern="[0-9]{7,15}" placeholder="Enter phone number" required="" type="tel" aria-label="Phone number"/>
 </div>
 </div>
 <div class="lid-whatsapp-hint">
@@ -2706,7 +2705,7 @@ footer{background:#000000;color:#4D4D4D;padding:70px 0 30px;font-size:13px;}
 <div class="roi-inputs">
 <div class="roi-field">
 <div class="row"><label style="margin:0;">Current Monthly Income</label><span class="val" id="roiIncomeVal">₹25,000</span></div>
-<input id="roiIncome" max="100000" min="10000" step="1000" type="range" value="25000"/>
+<input id="roiIncome" max="100000" min="10000" step="1000" type="range" value="25000" aria-label="Field"/>
 </div>
 <div class="roi-field">
 <label>Your Goal</label>
@@ -3062,15 +3061,15 @@ footer{background:#000000;color:#4D4D4D;padding:70px 0 30px;font-size:13px;}
 <form id="campusForm">
 <div class="form-group">
 <label>Full Name *</label>
-<input class="form-input" placeholder="e.g. Rahul Sharma" required="" type="text"/>
+<input class="form-input" placeholder="e.g. Rahul Sharma" required="" type="text" aria-label="Full name"/>
 </div>
 <div class="form-group">
 <label>Phone Number (WhatsApp) *</label>
-<input class="form-input" placeholder="e.g. 9876543210" required="" type="tel"/>
+<input class="form-input" placeholder="e.g. 9876543210" required="" type="tel" aria-label="Phone number"/>
 </div>
 <div class="form-group">
 <label>Preferred Visit Date</label>
-<input class="form-input" type="date"/>
+<input class="form-input" type="date" aria-label="Preferred date"/>
 </div>
 <button class="btn btn-glow" style="width:100%; margin-top:10px;" type="submit">Request Campus Visit →</button>
 </form>
@@ -3078,7 +3077,7 @@ footer{background:#000000;color:#4D4D4D;padding:70px 0 30px;font-size:13px;}
 </div>
 <script src="assets/country-picker.js?v=20260918g"></script>
 <script src="assets/lime-form.js?v=20261005a"></script>
-<script src="assets/main.js?v=20261005d"></script>
+<script src="assets/main.js?v=20261012a"></script>
 <script>
 // Toggle Module accordion
 function toggleModule(id) {
@@ -3088,7 +3087,7 @@ function toggleModule(id) {
   }
 }
 
-// Delegate curriculum modal and brochure handlers to centralized main.js?v=20261005d
+// Delegate curriculum modal and brochure handlers to centralized main.js?v=20261012a
 function handleStickyFormSubmit(e) {
   e.preventDefault();
   const name = document.getElementById('stickyName')?.value || '';

@@ -13,7 +13,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>Privacy Policy and Cookie Policy | Lime Digital Institute</title>
-<meta content="How Lime Digital Institute collects, uses, stores and protects your personal data, and how we use cookies on our website. Written under India’s DPDP Act, 2023." name="description"/>
+<meta content="How Lime Digital Institute collects, uses and protects your personal data and uses cookies on this website. Written under India&#x27;s DPDP Act, 2023." name="description"/>
 <!-- Open Graph / Social Sharing -->
 <meta content="website" property="og:type"/>
 <meta content="https://limedigitalinstitute.org/privacy-policy" property="og:url"/>
@@ -32,10 +32,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta content="https://limedigitalinstitute.org/assets/lime-logo.png" name="twitter:image"/>
 <link href="/favicon.ico" rel="icon" sizes="48x48"/>
 <link href="/assets/apple-touch-icon.png" rel="apple-touch-icon"/>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
-<link href="assets/style.css?v=20261005c" rel="stylesheet"/>
+<link rel="preload" href="/assets/fonts/poppins-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/poppins-600.woff2" as="font" type="font/woff2" crossorigin>
+<link href="assets/style.css?v=20261012a" rel="stylesheet"/>
 <!-- LID-STYLE CAMPUS EXPERIENCE MARQUEE GALLERY STYLES -->
 <style>
 .campus-marquee-container {
@@ -1008,15 +1007,15 @@ html{scroll-padding-top:110px}
 <form id="campusForm">
 <div class="form-group">
 <label>Full Name *</label>
-<input class="form-input" placeholder="e.g. Rahul Sharma" required="" type="text"/>
+<input class="form-input" placeholder="e.g. Rahul Sharma" required="" type="text" aria-label="Full name"/>
 </div>
 <div class="form-group">
 <label>Phone Number (WhatsApp) *</label>
-<input class="form-input" placeholder="e.g. 9876543210" required="" type="tel"/>
+<input class="form-input" placeholder="e.g. 9876543210" required="" type="tel" aria-label="Phone number"/>
 </div>
 <div class="form-group">
 <label>Preferred Visit Date</label>
-<input class="form-input" type="date"/>
+<input class="form-input" type="date" aria-label="Preferred date"/>
 </div>
 <button class="btn btn-glow" style="width:100%; margin-top:10px;" type="submit">Request Campus Visit →</button>
 </form>
@@ -1024,7 +1023,7 @@ html{scroll-padding-top:110px}
 </div>
 <script src="assets/country-picker.js?v=20260918g"></script>
 <script src="assets/lime-form.js?v=20261005a"></script>
-<script src="assets/main.js?v=20261005d"></script>
+<script src="assets/main.js?v=20261012a"></script>
 <script src="assets/section-loader.js?v=20260924"></script>
 <script>
 (function(){

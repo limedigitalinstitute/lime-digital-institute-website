@@ -12,6 +12,18 @@ if ($eventId && file_exists($eventsFile)) {
     }
 }
 
+// /event with no slug is the listing page at /masterclass; an unknown slug is a real 404.
+if ($eventId === '') {
+    header('Location: ' . $siteUrl . '/masterclass', true, 301);
+    exit;
+}
+if (!$event) {
+    http_response_code(404);
+    header('X-Robots-Tag: noindex');
+    readfile(__DIR__ . '/404.html');
+    exit;
+}
+
 if ($event) {
     $pageTitle = $event['title'] . ' | Lime Digital Institute';
     $pageDescription = !empty($event['subtitle']) ? $event['subtitle'] : 'Register for this free live masterclass at Lime Digital Institute.';
@@ -120,10 +132,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link href="<?php echo htmlspecialchars($canonicalUrl, ENT_QUOTES, 'UTF-8'); ?>" rel="canonical"/>
 <link href="/favicon.ico" rel="icon" sizes="48x48"/>
 <link href="/assets/apple-touch-icon.png" rel="apple-touch-icon"/>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
-<link href="assets/style.css?v=20261005c" rel="stylesheet"/>
+<link rel="preload" href="/assets/fonts/poppins-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/poppins-600.woff2" as="font" type="font/woff2" crossorigin>
+<link href="assets/style.css?v=20261012a" rel="stylesheet"/>
 <style>
     /* EVENT LP SPECIFIC STYLES */
     :root {
@@ -597,26 +608,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- Left: Overview & Countdown -->
 <div class="event-hero-left">
 <div class="event-badge-row">
-<span class="event-pill pill-format" id="eventFormatPill">Online Webinar</span>
+<span class="event-pill pill-format" id="eventFormatPill"><?php echo $isOffline ? 'Offline Campus Workshop' : 'Online Webinar'; ?></span>
 <span class="event-pill pill-live" id="eventStatusPill"><span class="dot"></span> Live / Upcoming</span>
 <span class="event-pill" id="eventCategoryBadge" style="background:rgba(255,255,255,0.1); color:#fff;">High Demand</span>
 </div>
-<h1 class="event-hero-title" id="eventTitle">AI Prompting &amp; Growth Hacking Masterclass</h1>
-<p class="event-hero-sub" id="eventSubtitle">
-              Master prompt engineering frameworks to write ad copy, design funnels, and build campaign workflows in minutes.
-            </p>
+<h1 class="event-hero-title" id="eventTitle"><?php echo htmlspecialchars(isset($event['title']) && $event['title'] !== '' ? $event['title'] : '', ENT_QUOTES, 'UTF-8'); ?></h1>
+<p class="event-hero-sub" id="eventSubtitle"><?php echo htmlspecialchars(isset($event['subtitle']) && $event['subtitle'] !== '' ? $event['subtitle'] : '', ENT_QUOTES, 'UTF-8'); ?></p>
 <div class="event-meta-card">
 <div class="em-item">
 <span class="em-label">Date</span>
-<span class="em-val" id="metaDate">Saturday, Sep 28</span>
+<span class="em-val" id="metaDate"><?php echo htmlspecialchars(isset($event['dateDisplay']) && $event['dateDisplay'] !== '' ? $event['dateDisplay'] : '', ENT_QUOTES, 'UTF-8'); ?></span>
 </div>
 <div class="em-item">
 <span class="em-label">Time &amp; Duration</span>
-<span class="em-val" id="metaTime">5:00 PM (90 Mins)</span>
+<span class="em-val" id="metaTime"><?php echo htmlspecialchars(isset($event['time']) && $event['time'] !== '' ? $event['time'] : '', ENT_QUOTES, 'UTF-8'); ?></span>
 </div>
 <div class="em-item">
 <span class="em-label">Venue / Mode</span>
-<span class="em-val" id="metaVenue">Live on Zoom</span>
+<span class="em-val" id="metaVenue"><?php echo htmlspecialchars(isset($event['location']) && $event['location'] !== '' ? $event['location'] : '', ENT_QUOTES, 'UTF-8'); ?></span>
 </div>
 </div>
 <!-- LIVE REGISTRATION STATE: COUNTDOWN -->
@@ -676,13 +685,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <label for="regFirstName">Name *</label>
 <div class="curr-phone-row">
 <input id="regFirstName" placeholder="First Name" required="" type="text"/>
-<input id="regLastName" placeholder="Last Name" type="text"/>
+<input id="regLastName" placeholder="Last Name" type="text" aria-label="Full name"/>
 </div>
 </div>
 <div class="curr-form-group">
 <label for="regPhone">WhatsApp Phone Number *</label>
 <div class="curr-phone-row">
-<select class="curr-phone-prefix curr-country-select" id="regCountryCode">
+<select class="curr-phone-prefix curr-country-select" id="regCountryCode" aria-label="Select an option">
 <option selected="" value="+91">🇮🇳 +91</option>
 <option value="+1">🇺🇸 +1</option>
 <option value="+44">🇬🇧 +44</option>
@@ -1074,6 +1083,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- NAV + SITE-WIDE SCRIPTS (same as index.html) -->
 <script src="assets/country-picker.js?v=20260919b"></script>
 <script src="assets/lime-form.js?v=20261005a"></script>
-<script src="assets/main.js?v=20261005d"></script>
+<script src="assets/main.js?v=20261012a"></script>
 </body>
 </html>

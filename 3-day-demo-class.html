@@ -55,9 +55,8 @@
 </script>
 <link href="/favicon.ico" rel="icon" sizes="48x48"/>
 <link href="/assets/apple-touch-icon.png" rel="apple-touch-icon"/>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link rel="preload" href="/assets/fonts/poppins-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/poppins-600.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 /* ============================================
    LIME DIGITAL — HIGH CONVERTING CRO LANDING PAGE
@@ -1968,8 +1967,8 @@ body.footer-revealed .desktop-dock {
   }
 }
 
-/* ===== CURRICULUM POPUP MODAL (ported from shared style.css?v=20261005c — this
-   standalone page doesn't load assets/style.css?v=20261005c) ===== */
+/* ===== CURRICULUM POPUP MODAL (ported from shared style.css?v=20261012a — this
+   standalone page doesn't load assets/style.css?v=20261012a) ===== */
 .curr-modal-overlay {
   position: fixed; inset: 0; background: rgba(0, 0, 0, 0.75);
   backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
@@ -3593,19 +3592,19 @@ select.curr-country-select:hover {
 <div class="wrap">
 <div class="stats-card">
 <div class="stat-box">
-<div class="num"><span class="counter" data-target="800">0</span><span class="accent">+</span></div>
+<div class="num"><span class="counter" data-target="800">800</span><span class="accent">+</span></div>
 <div class="cap">Students Placed</div>
 </div>
 <div class="stat-box">
-<div class="num"><span class="counter" data-target="93">0</span><span class="accent">%</span></div>
+<div class="num"><span class="counter" data-target="93">93</span><span class="accent">%</span></div>
 <div class="cap">Placed Within 60 Days</div>
 </div>
 <div class="stat-box">
-<div class="num"><span class="counter" data-target="60">0</span><span class="accent">+</span></div>
+<div class="num"><span class="counter" data-target="60">60</span><span class="accent">+</span></div>
 <div class="cap">Live Industry Tools</div>
 </div>
 <div class="stat-box">
-<div class="num"><span class="counter" data-decimal="1" data-target="4.9">0</span><span class="accent">/5</span></div>
+<div class="num"><span class="counter" data-decimal="1" data-target="4.9">4.9</span><span class="accent">/5</span></div>
 <div class="cap">Average Student Rating</div>
 </div>
 </div>
@@ -4806,8 +4805,8 @@ trialModal.addEventListener('click', (e) => {
 
 // ── 5. Lead Form Submission Handlers ────────────────────────────────
 // "Unlock Full Syllabus" buttons call openCurriculumModal(), same as
-// index.html/courses.html — this page doesn't load assets/main.js?v=20261005d (its own
-// inline scripts would collide with main.js?v=20261005d's top-level declarations), so
+// index.html/courses.html — this page doesn't load assets/main.js?v=20261012a (its own
+// inline scripts would collide with main.js?v=20261012a's top-level declarations), so
 // the same modal logic is duplicated here rather than shared.
 function ensureCurriculumModalExists() {
   let modal = document.getElementById('curriculumModal');

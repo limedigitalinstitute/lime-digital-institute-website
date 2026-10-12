@@ -13,7 +13,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>Digital Marketing Courses in Rajkot | Lime Digital Institute</title>
-<meta content="Compare Lime&#x27;s digital marketing courses in Rajkot: 1.5-month course, 3-month diploma, bachelor&#x27;s and master&#x27;s. 60+ AI tools, live projects, placement support." name="description"/>
+<meta content="Compare Lime&#x27;s digital marketing courses in Rajkot: 1.5-month course, 3-month diploma, bachelor&#x27;s and master&#x27;s. AI tools, live projects, placement support." name="description"/>
 <link href="https://limedigitalinstitute.org/courses" rel="canonical"/>
 <meta content="index, follow" name="robots"/>
 <!-- Open Graph / Social Sharing -->
@@ -43,10 +43,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   "timeRequired": "P3M"
 }
 </script>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
-<link href="assets/style.css?v=20261005c" rel="stylesheet"/>
+<link rel="preload" href="/assets/fonts/poppins-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/poppins-600.woff2" as="font" type="font/woff2" crossorigin>
+<link href="assets/style.css?v=20261012a" rel="stylesheet"/>
 <style>
 :root{
   --lime-red:var(--primary); --deep-red:var(--primary-dim); --link-red:var(--primary-dim);
@@ -296,7 +295,7 @@ h1,h2,h3,h4,h5,h6{font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe 
 .trust-row span{display:flex;align-items:center;gap:5px;}
 
 /* ===== STATS STRIP ===== */
-/* Floating card styling handled by assets/style.css?v=20261005c */
+/* Floating card styling handled by assets/style.css?v=20261012a */
 
 /* ===== PROGRAM HIGHLIGHTS ===== */
 
@@ -1823,7 +1822,7 @@ body.footer-revealed .sticky-bottom-bar {
 }
 
 /* alumni-videos card styling (.lid-testimonials-section, .lid-video-grid, etc.)
-   now lives only in assets/style.css?v=20261005c — this page used to duplicate it, which
+   now lives only in assets/style.css?v=20261012a — this page used to duplicate it, which
    let the two drift apart (this copy still had the old mobile-carousel
    behavior after the shared file was fixed to a plain grid). */
 
@@ -2947,19 +2946,19 @@ body.footer-revealed .sticky-bottom-bar {
 <section class="stats-strip wrap" id="outcomes">
 <div class="stats-card">
 <div class="stat-box">
-<div class="num"><span class="counter" data-target="800">0</span><span class="accent">+</span></div>
+<div class="num"><span class="counter" data-target="800">800</span><span class="accent">+</span></div>
 <div class="cap">Students Placed</div>
 </div>
 <div class="stat-box">
-<div class="num"><span class="counter" data-target="93">0</span><span class="accent">%</span></div>
+<div class="num"><span class="counter" data-target="93">93</span><span class="accent">%</span></div>
 <div class="cap">Placed Within 60 Days</div>
 </div>
 <div class="stat-box">
-<div class="num"><span class="counter" data-target="60">0</span><span class="accent">+</span></div>
+<div class="num"><span class="counter" data-target="60">60</span><span class="accent">+</span></div>
 <div class="cap">Live Industry Tools</div>
 </div>
 <div class="stat-box">
-<div class="num"><span class="counter" data-decimal="1" data-target="4.9">0</span><span class="accent">/5</span></div>
+<div class="num"><span class="counter" data-decimal="1" data-target="4.9">4.9</span><span class="accent">/5</span></div>
 <div class="cap">Average Student Rating</div>
 </div>
 </div>
@@ -4946,7 +4945,7 @@ body.footer-revealed .sticky-bottom-bar {
 <li><a href="placements">Placement Report</a></li>
 <li><a href="student-life">Campus Life &amp; Labs</a></li>
 <li><a href="blog">Marketing Playbooks</a></li>
-<li><a href="event">Workshops &amp; Masterclasses</a></li>
+<li><a href="masterclass">Workshops &amp; Masterclasses</a></li>
 </ul>
 </div>
 <div class="ag-footer-nav-col ag-contact-col">
@@ -4992,7 +4991,7 @@ body.footer-revealed .sticky-bottom-bar {
 <span class="ag-sep">•</span>
 <a href="terms-of-use">Terms of Use</a>
 <span class="ag-sep">•</span>
-<a href="event">Masterclasses</a>
+<a href="masterclass">Masterclasses</a>
 <span class="ag-sep">•</span>
 <a href="contact">Contact Us</a>
 </div>
@@ -5108,15 +5107,15 @@ body.footer-revealed .sticky-bottom-bar {
 <form id="campusForm">
 <div class="form-group">
 <label>Full Name *</label>
-<input class="form-input" placeholder="e.g. Rahul Sharma" required="" type="text"/>
+<input class="form-input" placeholder="e.g. Rahul Sharma" required="" type="text" aria-label="Full name"/>
 </div>
 <div class="form-group">
 <label>Phone Number (WhatsApp) *</label>
-<input class="form-input" placeholder="e.g. 9876543210" required="" type="tel"/>
+<input class="form-input" placeholder="e.g. 9876543210" required="" type="tel" aria-label="Phone number"/>
 </div>
 <div class="form-group">
 <label>Preferred Visit Date</label>
-<input class="form-input" type="date"/>
+<input class="form-input" type="date" aria-label="Preferred date"/>
 </div>
 <button class="btn btn-glow" style="width:100%; margin-top:10px;" type="submit">Request Campus Visit →</button>
 </form>
@@ -5124,7 +5123,7 @@ body.footer-revealed .sticky-bottom-bar {
 </div>
 <script src="assets/country-picker.js?v=20260919b"></script>
 <script src="assets/lime-form.js?v=20261005a"></script>
-<script src="assets/main.js?v=20261005d"></script>
+<script src="assets/main.js?v=20261012a"></script>
 <script>
 // Curriculum accordion: one card open at a time
 function toggleModule(btn) {
@@ -5153,7 +5152,7 @@ function toggleCurriculum() {
   if (collapsed) list.scrollIntoView({block:'start', behavior:'smooth'});
 }
 
-// Delegate curriculum modal and brochure handlers to centralized main.js?v=20261005d
+// Delegate curriculum modal and brochure handlers to centralized main.js?v=20261012a
 function handleStickyFormSubmit(e) {
   e.preventDefault();
   const name = document.getElementById('stickyName')?.value || '';

@@ -34,10 +34,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <link rel="canonical" href="https://limedigitalinstitute.org/masters-in-digital-business">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=20261005c">
+<link rel="preload" href="/assets/fonts/poppins-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/poppins-600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/style.css?v=20261012a">
 
 <style>
 /* Page-Specific Styles for Master's PG Program */
@@ -146,7 +145,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 .pg-hero-card-header {
   margin-bottom: 18px;
 }
-.pg-hero-card-header h3 {
+.pg-hero-card-header h2, .pg-hero-card-header h3 {
   font-size: 19px;
   font-weight: 700;
   color: var(--ink-900);
@@ -827,13 +826,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="pg-hero-card">
           <div class="pg-intake-badge">🎓 For Graduates &amp; Working Professionals</div>
           <div class="pg-hero-card-header">
-            <h3>Apply for Executive Screening</h3>
+            <h2>Apply for Executive Screening</h2>
             <p>Speak directly with program mentors to assess eligibility and career transition paths.</p>
           </div>
           <form id="pgHeroForm">
             <div class="form-group" style="margin-bottom:12px;">
               <label style="font-size:11.5px; font-weight:600; color:var(--ink-600); display:block; margin-bottom:5px;">Full Name *</label>
-              <input type="text" id="pgHeroName" name="name" class="form-input" placeholder="e.g. Ananya Patel" required>
+              <input type="text" id="pgHeroName" name="name" class="form-input" placeholder="e.g. Ananya Patel" required aria-label="Full name">
             </div>
             <div class="form-group" style="margin-bottom:12px;">
               <label style="font-size:11.5px; font-weight:600; color:var(--ink-600); display:block; margin-bottom:5px;">WhatsApp Number *</label>
@@ -861,16 +860,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <option value="+880">🇧🇩 +880</option>
                 <option value="+94">🇱🇰 +94</option>
               </select>
-                <input type="tel" id="pgHeroPhone" name="phone" class="lid-phone-input" placeholder="Enter 10-digit number" pattern="[0-9]{7,15}" maxlength="15" required>
+                <input type="tel" id="pgHeroPhone" name="phone" class="lid-phone-input" placeholder="Enter 10-digit number" pattern="[0-9]{7,15}" maxlength="15" required aria-label="Phone number">
               </div>
             </div>
             <div class="form-group" style="margin-bottom:12px;">
               <label style="font-size:11.5px; font-weight:600; color:var(--ink-600); display:block; margin-bottom:5px;">Email Address *</label>
-              <input type="email" id="pgHeroEmail" name="email" class="form-input" placeholder="e.g. ananya@gmail.com" required>
+              <input type="email" id="pgHeroEmail" name="email" class="form-input" placeholder="e.g. ananya@gmail.com" required aria-label="Email address">
             </div>
             <div class="form-group" style="margin-bottom:16px;">
               <label style="font-size:11.5px; font-weight:600; color:var(--ink-600); display:block; margin-bottom:5px;">Your Educational / Professional Background</label>
-              <select id="pgHeroBackground" name="background" class="form-input" style="background:#fff;">
+              <select id="pgHeroBackground" name="background" class="form-input" style="background:#fff;" aria-label="Background">
                 <option>Final Year College Student (Graduating Soon)</option>
                 <option>Recent Graduate (BBA, B.Com, BA, BCA, B.Tech)</option>
                 <option>Working Professional (0–3 Years Experience)</option>
@@ -1353,6 +1352,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 <script src="assets/country-picker.js?v=20260918g"></script>
 <script src="assets/lime-form.js?v=20261005a"></script>
-<script src="assets/main.js?v=20261005d"></script>
+<script src="assets/main.js?v=20261012a"></script>
 </body>
 </html>

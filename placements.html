@@ -33,10 +33,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link href="https://limedigitalinstitute.org/placements" rel="canonical"/>
 <link href="/favicon.ico" rel="icon" sizes="48x48"/>
 <link href="/assets/apple-touch-icon.png" rel="apple-touch-icon"/>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
-<link href="assets/style.css?v=20261005c" rel="stylesheet"/>
+<link rel="preload" href="/assets/fonts/poppins-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/poppins-600.woff2" as="font" type="font/woff2" crossorigin>
+<link href="assets/style.css?v=20261012a" rel="stylesheet"/>
 <script type="application/ld+json">
 [
   {
@@ -266,7 +265,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="page-hero-card">
 <svg aria-hidden="true" class="page-hero-deco page-hero-deco-l" fill="none" viewbox="0 0 220 300" xmlns="http://www.w3.org/2000/svg"><path d="M70 40C40 60 30 100 55 125C80 150 130 140 135 105C140 70 100 55 85 80C70 105 100 130 120 120" stroke="#ffffff" stroke-linecap="round" stroke-width="3"></path><path d="M60 150C70 190 90 220 120 235" stroke="#ffffff" stroke-linecap="round" stroke-width="3"></path><path d="M100 225L120 235L108 255" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path></svg>
 <svg aria-hidden="true" class="page-hero-deco page-hero-deco-r" fill="none" viewbox="0 0 220 300" xmlns="http://www.w3.org/2000/svg"><path d="M110 60L150 110L100 150L150 200L110 250" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path></svg>
-<h1 class="h1">100% Dedicated<br/><span class="underline-device">Placement Assistance</span></h1>
+<h1 class="h1">Digital Marketing Placements<br/><span class="underline-device">in Rajkot</span></h1>
+<p class="lead" style="color:rgba(255,255,255,.85);margin:10px 0 14px;">100% dedicated placement assistance for every batch.</p>
 <div class="breadcrumb"><a href="/">Home</a> / Placements</div>
 </div>
 </div>
@@ -281,19 +281,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <section class="stats-strip wrap" id="outcomes">
 <div class="stats-card">
 <div class="stat-box">
-<div class="num"><span class="counter" data-target="800">0</span><span class="accent">+</span></div>
+<div class="num"><span class="counter" data-target="800">800</span><span class="accent">+</span></div>
 <div class="cap">Students Placed</div>
 </div>
 <div class="stat-box">
-<div class="num"><span class="counter" data-target="93">0</span><span class="accent">%</span></div>
+<div class="num"><span class="counter" data-target="93">93</span><span class="accent">%</span></div>
 <div class="cap">Placed Within 60 Days</div>
 </div>
 <div class="stat-box">
-<div class="num"><span class="counter" data-target="60">0</span><span class="accent">+</span></div>
+<div class="num"><span class="counter" data-target="60">60</span><span class="accent">+</span></div>
 <div class="cap">Live Industry Tools</div>
 </div>
 <div class="stat-box">
-<div class="num"><span class="counter" data-decimal="1" data-target="4.9">0</span><span class="accent">/5</span></div>
+<div class="num"><span class="counter" data-decimal="1" data-target="4.9">4.9</span><span class="accent">/5</span></div>
 <div class="cap">Average Student Rating</div>
 </div>
 </div>
@@ -616,15 +616,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <form id="campusForm">
 <div class="form-group">
 <label>Full Name *</label>
-<input class="form-input" placeholder="e.g. Rahul Sharma" required="" type="text"/>
+<input class="form-input" placeholder="e.g. Rahul Sharma" required="" type="text" aria-label="Full name"/>
 </div>
 <div class="form-group">
 <label>Phone Number (WhatsApp) *</label>
-<input class="form-input" placeholder="e.g. 9876543210" required="" type="tel"/>
+<input class="form-input" placeholder="e.g. 9876543210" required="" type="tel" aria-label="Phone number"/>
 </div>
 <div class="form-group">
 <label>Preferred Visit Date</label>
-<input class="form-input" type="date"/>
+<input class="form-input" type="date" aria-label="Preferred date"/>
 </div>
 <button class="btn btn-glow" style="width:100%; margin-top:10px;" type="submit">Request Campus Visit →</button>
 </form>
@@ -632,6 +632,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </div>
 <script src="assets/country-picker.js?v=20260918g"></script>
 <script src="assets/lime-form.js?v=20261005a"></script>
-<script src="assets/main.js?v=20261005d"></script>
+<script src="assets/main.js?v=20261012a"></script>
 </body>
 </html>
