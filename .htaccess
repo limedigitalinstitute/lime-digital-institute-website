@@ -72,6 +72,10 @@ ErrorDocument 404 /404.html
   RewriteRule ^event/?$ https://%{HTTP_HOST}/event/%1? [R=301,L]
   RewriteRule ^event/([a-z0-9-]+)$ event.php?id=$1 [L,QSA]
 
+  # Blog posts live in /posts but are served at /blog/<slug>
+  RewriteCond %{DOCUMENT_ROOT}/posts/$1.html -f
+  RewriteRule ^blog/([a-z0-9-]+)$ posts/$1.html [L]
+
   # Redirect legacy /page.html URLs to the clean extension-less URL
   # (index.html -> /, everything-else.html -> /everything-else). Must run
   # on the ORIGINAL request (THE_REQUEST), not the internally rewritten

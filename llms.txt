@@ -30,12 +30,23 @@ Yes, Lime Digital Institute provides dedicated 100% placement support with 800+ 
 
 ## Key Pages
 - [All courses](https://limedigitalinstitute.org/courses): digital marketing course, diploma, bachelor's and master's programmes
+- [Foundation Program (1.5 months)](https://limedigitalinstitute.org/foundation-program)
 - [Digital Marketing Professional Program](https://limedigitalinstitute.org/digital-marketing-professional)
 - [Bachelor's in Digital Business](https://limedigitalinstitute.org/bachelors-in-digital-business)
 - [Master's in Digital Business](https://limedigitalinstitute.org/masters-in-digital-business)
 - [Placements](https://limedigitalinstitute.org/placements) and [Case studies](https://limedigitalinstitute.org/case-studies)
 - [Student reviews](https://limedigitalinstitute.org/reviews) and [Editorial & review policy](https://limedigitalinstitute.org/editorial-policy)
 - [Masterclasses & workshops](https://limedigitalinstitute.org/masterclass)
+- [Trainers](https://limedigitalinstitute.org/trainers) and [About](https://limedigitalinstitute.org/about)
+- [Contact](https://limedigitalinstitute.org/contact)
 - [Privacy & cookie policy](https://limedigitalinstitute.org/privacy-policy)
 - [Terms of use & refund policy](https://limedigitalinstitute.org/terms-of-use)
 - [Contact](https://limedigitalinstitute.org/contact)
+
+## Blog
+- [5 ChatGPT Prompts Every Marketer Should Know](https://limedigitalinstitute.org/blog/5-chatgpt-prompts-every-marketer-should-know): Five reusable ChatGPT prompt frameworks for ad copy, audience personas, content calendars, landing-page rewrites and campaign reports, with examples you can copy.
+- [How to Read a Google Ads Dashboard Like a Pro](https://limedigitalinstitute.org/blog/how-to-read-a-google-ads-dashboard): A beginner's guide to the Google Ads dashboard: which columns matter (CTR, CPC, conversions, cost per conversion, impression share), which are noise, and a 15-minute weekly routine.
+- [SEO vs Paid Ads: Where Should Beginners Start?](https://limedigitalinstitute.org/blog/seo-vs-paid-ads-where-should-beginners-start): SEO or Google and Meta Ads first? A practical comparison for beginners: speed of results, cost, what each teaches you, and a 90-day order that works for students and small businesses.
+- [Building a Resume Recruiters Actually Open](https://limedigitalinstitute.org/blog/building-a-resume-recruiters-actually-open): How to write a digital marketing resume that gets past a 10-second scan: the right order of sections, how to show campaigns as results, portfolio links, and the mistakes freshers make.
+- [Canva AI vs Midjourney: Which One Should You Learn First?](https://limedigitalinstitute.org/blog/canva-ai-vs-midjourney-which-to-learn-first): Canva's AI tools or Midjourney for marketing creatives? Compare what each is good at, cost, learning curve, and which one to learn first for ads, social posts and client work.
+- [Automating Client Reports with n8n: A Beginner's Walkthrough](https://limedigitalinstitute.org/blog/automating-client-reports-with-n8n): A step-by-step beginner's walkthrough for automating a weekly marketing report with n8n: pull Google Sheets data, summarise it with an AI model, and send it by email or WhatsApp.

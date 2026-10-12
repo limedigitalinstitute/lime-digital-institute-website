@@ -879,7 +879,9 @@ window.testiNav = testiNav;
     'terms-of-use.html', 'terms-of-use',
     'brochure.php', 'brochure',
     'privacy-policy.html',
-    'privacy-policy'
+    'privacy-policy',
+    'blog.html', 'blog',
+    'trainers.html', 'trainers'
   ];
 
   // Staff preview unlock was removed: it relied on a password stored in this
@@ -888,12 +890,13 @@ window.testiNav = testiNav;
 
   function isPublicPage(url) {
     if (!url) return true;
-    const cleanUrl = url.split('#')[0].split('?')[0].split('/').pop() || 'index.html';
+    const path = url.split('#')[0].split('?')[0];
+    if (/^\/?blog\/[a-z0-9-]+$/.test(path)) return true;
+    const cleanUrl = path.split('/').pop() || 'index.html';
     return PUBLIC_PAGES.includes(cleanUrl);
   }
 
-  const currentPath = window.location.pathname.split('/').pop() || 'index.html';
-  const isCurrentPageProtected = !isPublicPage(currentPath);
+  const isCurrentPageProtected = !isPublicPage(window.location.pathname);
 
   function ensureModalExists() {
     if (document.getElementById('siteMaintenanceModal')) return;
