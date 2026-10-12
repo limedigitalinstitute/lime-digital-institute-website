@@ -118,7 +118,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta content="<?php echo htmlspecialchars($pageDescription, ENT_QUOTES, 'UTF-8'); ?>" name="twitter:description"/>
 <meta content="<?php echo htmlspecialchars($ogImage, ENT_QUOTES, 'UTF-8'); ?>" name="twitter:image"/>
 <link href="<?php echo htmlspecialchars($canonicalUrl, ENT_QUOTES, 'UTF-8'); ?>" rel="canonical"/>
-<link href="assets/lime-logo.png" rel="icon"/>
+<link href="/favicon.ico" rel="icon" sizes="48x48"/>
+<link href="/assets/apple-touch-icon.png" rel="apple-touch-icon"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
@@ -579,7 +580,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="wrap">
 <div class="nav-inner">
 <a aria-label="Lime Digital Institute Home" class="nav-logo" href="/"><span class="sr-only" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Lime Digital Institute</span>
-<img width="2200" height="1429" data-ar="1" alt="Lime Digital Institute" src="assets/lime-logo.png"/>
+<img width="440" height="286" data-ar="1" alt="Lime Digital Institute" src="assets/lime-logo.png"/>
 </a>
 <div class="nav-cta">
 <a class="btn btn-glow btn-sm" href="<?php echo htmlspecialchars(parse_url($canonicalUrl, PHP_URL_PATH), ENT_QUOTES); ?>#registerCard">Claim Free Seat →</a>
@@ -661,7 +662,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="event-form-rail" id="registerCard">
 <div class="event-form-card">
 <div class="ef-banner-wrap">
-<img width="1200" height="896" data-ar="1" alt="Masterclass Access Pass" class="ef-banner-img" id="formBannerImg" src="assets/webinars/event-registration-side.webp"/>
+<img width="800" height="597" data-ar="1" alt="Masterclass Access Pass" class="ef-banner-img" id="formBannerImg" src="assets/webinars/event-registration-side.webp"/>
 <div class="ef-banner-overlay">
 <span class="ef-pass-badge" id="formPassBadge">Official Free Pass</span>
 </div>

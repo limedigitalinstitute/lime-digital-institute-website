@@ -108,7 +108,7 @@ button:hover{background:#d62a2f}
 </head>
 <body>
 <main class="card">
-<img src="/assets/lime-logo.png" alt="Lime Digital Institute" width="120" height="44">
+<img src="/assets/lime-logo.png" alt="Lime Digital Institute" width="440" height="286">
 <h1>Course Brochure</h1>
 <p>This page is password protected. Enter the password to view the complete curriculum.</p>
 <?php if ($error): ?><div class="err" role="alert"><?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?></div><?php endif; ?>

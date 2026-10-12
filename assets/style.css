@@ -6271,3 +6271,7 @@ select.curr-country-select:hover {
 .program-cta { font-size: 13px; font-weight: 700; color: var(--lime-red); }
 @media (max-width: 1024px) { .programs-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 600px) { .programs-grid { grid-template-columns: 1fr; } .programs-section { padding: 50px 0; } }
+
+/* Initials avatar used where no verified photo exists */
+.avatar-initials { display:flex; align-items:center; justify-content:center; width:48px; height:48px; border-radius:50%; background:var(--lime-red); color:#fff; font-weight:700; font-size:15px; flex:0 0 48px; }
+.mentor-team-photo .avatar-initials-lg { width:100%; height:100%; border-radius:0; font-size:56px; background:linear-gradient(135deg,#ED3237,#171414); }
