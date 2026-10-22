@@ -4,10 +4,18 @@ DirectoryIndex index.html
 # Custom Error Pages
 ErrorDocument 404 /404.html
 
+# No directory listings
+Options -Indexes
+
 # Enable Rewrite Engine
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
+
+  # Force https (works both on shared hosting and behind a TLS proxy)
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
 
   # Old /demo stub page: permanent redirect to the demo landing page
   RewriteRule ^demo(\.html)?/?$ https://courses.limedigitalinstitute.org/ [R=301,L]
