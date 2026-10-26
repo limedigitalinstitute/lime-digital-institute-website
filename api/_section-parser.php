@@ -13,7 +13,6 @@ function lime_page_files() {
         'homepage' => 'index.html',
         'about' => 'about.html',
         'courses' => 'courses.html',
-        'foundation-program' => 'foundation-program.html',
         'digital-marketing-professional' => 'digital-marketing-professional.html',
         'bachelors-in-digital-business' => 'bachelors-in-digital-business.html',
         'masters-in-digital-business' => 'masters-in-digital-business.html',

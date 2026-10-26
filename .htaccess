@@ -54,6 +54,9 @@ Options -Indexes
   RewriteCond %{REQUEST_URI} !^/(robots\.txt|sitemap\.xml|favicon\.ico|thank-you|brochure)$ [NC]
   RewriteRule ^(.+)$ https://limedigitalinstitute.org/$1 [R=301,L]
 
+  # Foundation Program page was merged into /courses
+  RewriteRule ^foundation-program(\.html)?/?$ https://%{HTTP_HOST}/courses [R=301,L]
+
   # Old WordPress URLs
   RewriteRule ^terms-and-conditions/?$ https://%{HTTP_HOST}/terms-of-use [R=301,L]
   RewriteRule ^about-us/?$ https://%{HTTP_HOST}/about [R=301,L]

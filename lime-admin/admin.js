@@ -671,7 +671,6 @@
     homepage: { label: 'Homepage', file: '../index.html' },
     about: { label: 'About', file: '../about.html' },
     courses: { label: 'Courses', file: '../courses.html' },
-    'foundation-program': { label: 'Foundation Program', file: '../foundation-program.html' },
     'digital-marketing-professional': { label: 'Digital Marketing Professional', file: '../digital-marketing-professional.html' },
     'bachelors-in-digital-business': { label: "Bachelor's in Digital Business", file: '../bachelors-in-digital-business.html' },
     'masters-in-digital-business': { label: "Master's in Digital Business", file: '../masters-in-digital-business.html' },
