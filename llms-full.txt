@@ -1,7 +1,7 @@
 # Lime Digital Institute — Full Program & Institute Documentation
 
 ## Overview
-Lime Digital Institute (LDI) is Rajkot's leading educational institute for practical digital marketing, performance advertising, and artificial intelligence automation. Founded with the mission to eliminate theoretical-only marketing education, LDI teaches students and business owners through live ad budgets, real Indian brand case studies, and agency simulations.
+Lime Digital Institute (LDI) is a Rajkot institute for practical digital marketing, performance advertising, and artificial intelligence automation. Founded with the mission to eliminate theoretical-only marketing education, LDI teaches students and business owners through live ad budgets, real Indian brand case studies, and agency simulations.
 
 ## Curriculum & 16 Modules
 1. Website Creation & Conversion Architecture (WordPress, Elementor, Landing Page CRO)
@@ -26,7 +26,7 @@ Lime Digital Institute (LDI) is Rajkot's leading educational institute for pract
 - 93% Placement Rate within 60 days
 - 60+ Live Industry Tools taught hands-on
 - 4.9/5 Average Student Rating
-- 100% Practical Training with Live Ad Budgets
+- Practical training with live ad budgets
 
 ## Campus & Contact
 - City: Rajkot, Gujarat, India

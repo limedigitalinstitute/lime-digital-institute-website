@@ -1,3 +1,25 @@
+# ------------------------------------------------------------------
+# robots.txt: Lime Digital Institute (limedigitalinstitute.org)
+# Last reviewed: 2026-10-29
+#
+# Policy:
+#  - Search engines may crawl all public pages.
+#  - /api/content and /api/sections stay open because public page
+#    content is loaded from them. All other /api/ paths, /data/,
+#    /lime-admin/ and /404 are blocked.
+#  - AI search crawlers, AI assistants and AI training crawlers are
+#    all allowed (current policy, kept as-is). To opt out of AI
+#    training later, change "Allow: /" to "Disallow: /" for the
+#    training-only bots: GPTBot, CCBot, Google-Extended,
+#    Applebot-Extended, Bytespider, anthropic-ai, cohere-ai,
+#    Meta-ExternalAgent. Google-Extended does not affect Google Search.
+#  - robots.txt is not access control. /lime-admin/ and /data/ must be
+#    protected by a login on the server; some user-triggered agents
+#    do not read robots.txt.
+#  - Raw /api/content JSON should also send "X-Robots-Tag: noindex"
+#    so it never appears in search results (see README.md).
+# ------------------------------------------------------------------
+
 User-agent: *
 Allow: /
 Allow: /api/content
@@ -7,74 +29,35 @@ Disallow: /data/
 Disallow: /lime-admin/
 Disallow: /404
 
-# AI Search Crawlers & Assistants (GEO & AEO)
+# AI search crawlers and assistants (GEO and AEO)
 User-agent: GPTBot
-Allow: /
-
 User-agent: ChatGPT-User
-Allow: /
-
-User-agent: ClaudeBot
-Allow: /
-
-User-agent: PerplexityBot
-Allow: /
-
-User-agent: Google-Extended
-Allow: /
-
-User-agent: Applebot-Extended
-Allow: /
-
-User-agent: Bytespider
-Allow: /
-
-User-agent: CCBot
-Allow: /
-
-User-agent: anthropic-ai
-Allow: /
-
-User-agent: FacebookBot
-Allow: /
-
-User-agent: Amazonbot
-Allow: /
-
 User-agent: OAI-SearchBot
-Allow: /
-
+User-agent: ClaudeBot
 User-agent: Claude-SearchBot
-Allow: /
-
 User-agent: Claude-User
-Allow: /
-
 User-agent: Claude-Web
-Allow: /
-
+User-agent: anthropic-ai
+User-agent: PerplexityBot
 User-agent: Perplexity-User
-Allow: /
-
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: Bytespider
+User-agent: CCBot
+User-agent: FacebookBot
 User-agent: Meta-ExternalAgent
-Allow: /
-
 User-agent: Meta-ExternalFetcher
-Allow: /
-
+User-agent: Amazonbot
 User-agent: DuckAssistBot
-Allow: /
-
 User-agent: MistralAI-User
-Allow: /
-
 User-agent: cohere-ai
-Allow: /
-
 User-agent: PetalBot
-Allow: /
-
 User-agent: YouBot
 Allow: /
+Disallow: /api/
+Allow: /api/content
+Allow: /api/sections
+Disallow: /data/
+Disallow: /lime-admin/
 
 Sitemap: https://limedigitalinstitute.org/sitemap.xml
