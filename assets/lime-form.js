@@ -23,6 +23,39 @@
     }
   };
 
+  // ===== Locked syllabus =====
+  // Curriculum topics past the first few are blurred behind "Unlock Full Syllabus".
+  // Submitting the form opened from that button reveals the syllabus on this page
+  // view only (nothing is stored, so every page load starts locked) and skips the
+  // thank-you redirect. Lives here because every page with the locked syllabus
+  // loads this file (3-day-demo-class.html does not load main.js or style.css).
+  let unlockSource = null;
+
+  function unlockSyllabus() {
+    document.documentElement.classList.add('syllabus-unlocked');
+    document.querySelectorAll('.cur-topics-blur[aria-hidden]').forEach(ul => ul.removeAttribute('aria-hidden'));
+  }
+  (function initSyllabusLock() {
+    const st = document.createElement('style');
+    st.textContent =
+      'html.syllabus-unlocked .cur-topics-blur{filter:none!important;opacity:1!important;' +
+      '-webkit-mask-image:none!important;mask-image:none!important;pointer-events:auto!important;user-select:auto!important}' +
+      'html.syllabus-unlocked .cur-locked-cta{display:none!important}';
+    document.head.appendChild(st);
+    // An earlier build remembered the unlock across pages; clear that leftover flag.
+    try { localStorage.removeItem('lime_syllabus_unlocked'); } catch (e) { /* storage blocked */ }
+    // Capture phase: runs before the button's own onclick opens the modal.
+    document.addEventListener('click', (e) => {
+      // Clicks inside the popup, the form, or the country-code picker (which is
+      // appended to <body>, outside the form) must not forget the unlock intent.
+      if (e.target.closest('.lf, .curr-modal-overlay, .modal-overlay, .lime-cp-trigger, .lime-cp-dropdown')) return;
+      const unlockBtn = e.target.closest('.btn-unlock, .btn-unlock-syllabus');
+      if (unlockBtn) { unlockSource = unlockBtn; return; }
+      if (e.target.closest('button, a')) unlockSource = null;
+    }, true);
+  })();
+  window.LimeSyllabus = { unlock: unlockSyllabus };
+
   const INTEREST = ['Yes', 'No', 'Not sure — help me decide'];
   const LEVELS = [
     'Complete beginner — never done marketing',
@@ -201,6 +234,9 @@
       const iframe = document.createElement('iframe');
       iframe.name = frameName;
       iframe.setAttribute('aria-hidden', 'true');
+      // No allow-top-navigation: Zoho's response page can't redirect our page away
+      // before the syllabus unlocks / the thank-you redirect runs.
+      iframe.setAttribute('sandbox', 'allow-forms allow-scripts allow-same-origin');
       iframe.style.cssText = 'position:fixed;left:-9999px;top:-9999px;width:1px;height:1px;border:0;opacity:0';
       document.body.appendChild(iframe);
 
@@ -299,11 +335,42 @@
       };
       await submitToZoho(cfg, formName, data);
       pushGTM('zoho_form_submit', cfg, formName);
+      // Copy of the lead for Durva OS CRM; Zoho above stays the main destination.
+      try {
+        fetch('/api/lead-copy', { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(Object.assign({ formName, countryCode: data.code, leadSource: cfg.thankYouType === 'brochure' ? 'Website' : 'Website - Demo Class Session' }, data, utms())) }).catch(() => {});
+      } catch (e) {}
 
       form.style.display = 'none';
-      root.querySelector('.lf-done').classList.add('is-on');
+      const done = root.querySelector('.lf-done');
+      done.classList.add('is-on');
+
+      const source = unlockSource;
+      if (source) {
+        unlockSource = null;
+        unlockSyllabus();
+        done.querySelector('h4').textContent = 'Full syllabus unlocked!';
+        done.querySelector('p').textContent = 'Every module is now open. We’ll also send the brochure on WhatsApp.';
+        setTimeout(() => {
+          const overlay = root.closest('.curr-modal-overlay, .modal-overlay');
+          if (overlay) overlay.classList.remove('active');
+          document.body.style.overflow = '';
+          const card = source.closest('.cur-card, .cur-locked') || source;
+          if (card.isConnected) card.scrollIntoView({ block: 'center', behavior: 'smooth' });
+          // Fresh form next time the popup opens
+          done.classList.remove('is-on');
+          done.querySelector('h4').textContent = 'You’re in!';
+          done.querySelector('p').textContent = 'Check WhatsApp — we’ll reach out shortly.';
+          form.reset();
+          form.style.display = '';
+          next.disabled = false;
+          go(1);
+        }, 1400);
+        return;
+      }
       setTimeout(() => {
-        window.location.href = 'thank-you?type=' + cfg.thankYouType + '&name=' + encodeURIComponent(data.name.split(/\s+/)[0]);
+        try { sessionStorage.setItem('lime_ty_name', data.name.split(/\s+/)[0]); } catch (e) {}
+        window.location.href = 'thank-you?type=' + cfg.thankYouType;
       }, 1200);
     });
   }

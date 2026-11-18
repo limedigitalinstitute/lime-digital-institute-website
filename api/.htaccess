@@ -1,4 +1,0 @@
-# Raw JSON stays crawlable (pages render from it) but never shows up in search results
-<IfModule mod_headers.c>
-  Header always set X-Robots-Tag "noindex"
-</IfModule>

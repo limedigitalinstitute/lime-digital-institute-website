@@ -26,7 +26,13 @@ if ($action === 'export') {
     header('Content-Disposition: attachment; filename="lime-masterclass-leads-' . date('Y-m-d') . '.csv"');
     $output = fopen('php://output', 'w');
     fputcsv($output, ['ID', 'Event Title', 'Attendee Name', 'Email', 'Phone', 'Goal', 'UTM Source', 'UTM Medium', 'UTM Campaign', 'UTM Term', 'UTM Content', 'UTM Form', 'Submitted At']);
+    // Cells starting with = + - @ run as formulas in Excel/Sheets; prefix them.
+    $cell = function ($v) {
+        $v = (string)$v;
+        return preg_match('/^[=+\-@\t\r]/', $v) ? "'" . $v : $v;
+    };
     foreach ($registrations as $r) {
+        $r = array_map($cell, array_filter($r, 'is_scalar'));
         fputcsv($output, [
             isset($r['id']) ? $r['id'] : '',
             isset($r['eventTitle']) ? $r['eventTitle'] : '',

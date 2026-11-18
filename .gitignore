@@ -24,4 +24,14 @@ GEO-AUDIT-REPORT.pdf
 # Local-only forms audit, not part of deployed site
 FORMS-AUDIT-REPORT.md
 FINAL-AUDIT-REPORT.*
+
+# Student records and project files - private, never deployed
+Student Data/
+
+# Local-only scratch copies of the live VPS tree
 _backups/
+
+# VPS runtime files, never committed
+.env
+.build.log
+*.bak-*

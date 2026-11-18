@@ -35,9 +35,37 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link href="/assets/apple-touch-icon.png" rel="apple-touch-icon"/>
 <link rel="preload" href="/assets/fonts/poppins-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/poppins-600.woff2" as="font" type="font/woff2" crossorigin>
-<link href="assets/style.css?v=20261012b" rel="stylesheet"/>
+<link href="assets/style.css?v=20261013b" rel="stylesheet"/>
 <!-- LID-STYLE CAMPUS EXPERIENCE MARQUEE GALLERY STYLES -->
 <style>
+/* Section rhythm: these blocks are bare .wrap sections with no padding. */
+#activity { padding: 78px 0 0; }
+#voices { padding: 78px 0 72px; }
+
+/* Recent activity: a two-column board instead of one very tall narrow list. */
+.sl-activity-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 0; }
+.sl-activity-item {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px 18px; border-radius: var(--r-lg);
+}
+.sl-activity-item .avatar-initials { flex: none; }
+.sl-activity-text { flex: 1; min-width: 0; font-size: 14px; line-height: 1.5; color: var(--ink-600); }
+.sl-activity-text strong { color: var(--ink-900); }
+.sl-activity-when {
+  flex: none; font-size: 11px; font-weight: 700; letter-spacing: .4px; text-transform: uppercase;
+  color: var(--lime-red); background: var(--red-50); border-radius: var(--r-full); padding: 5px 11px;
+}
+
+@media (max-width: 900px) {
+  .sl-activity-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  #activity { padding-top: 52px; }
+  #voices { padding: 52px 0 48px; }
+  .sl-activity-item { flex-wrap: wrap; gap: 10px 12px; padding: 14px 16px; }
+  .sl-activity-text { flex: 1 1 100%; order: 3; }
+}
+
 .campus-marquee-container {
   position: relative;
   width: 100%;
@@ -261,8 +289,38 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 }
 </script>
 <script src="assets/consent.js?v=20261005b" defer></script>
+<style>
+/* QA spacing fixes */
+/* #activity/#voices are .wrap sections; their padding shorthand dropped the
+   .wrap side gutters, so they ran wider than the page and touched the screen
+   edges on mobile. */
+#activity, #voices { padding-left: 24px; padding-right: 24px; }
+/* .founder-card is a column flexbox; the activity rows were meant to be
+   avatar | text | badge rows (column + wrap clipped text on mobile). */
+.sl-activity-item { flex-direction: row; justify-content: flex-start; }
+@media (max-width: 767px) {
+  #activity, #voices { padding-left: 16px; padding-right: 16px; }
+}
+/* Recent activity: three columns, one per period */
+#activity .sl-weeks { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; align-items:stretch; }
+#activity .sl-week { display:flex; flex-direction:column; background:#fff; border:1px solid var(--ink-200); border-radius:20px; overflow:hidden; transition:border-color .25s ease, transform .25s ease; }
+#activity .sl-week:hover { border-color:var(--lime-red); transform:translateY(-3px); }
+#activity .sl-week-head { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:16px 20px; background:#fafafa; border-bottom:1px solid var(--ink-100); }
+#activity .sl-week.is-current .sl-week-head { background:var(--lime-red); border-bottom-color:var(--lime-red); }
+#activity .sl-week-label { font-size:12px; font-weight:800; letter-spacing:1.6px; text-transform:uppercase; color:var(--ink-900); }
+#activity .sl-week-count { font-size:12px; font-weight:600; color:var(--ink-500); background:#fff; border:1px solid var(--ink-200); border-radius:9999px; padding:4px 10px; }
+#activity .sl-week.is-current .sl-week-label { color:#fff; }
+#activity .sl-week.is-current .sl-week-count { color:var(--lime-red); border-color:#fff; }
+#activity .sl-week-list { list-style:none; margin:0; padding:6px 20px 10px; flex:1; }
+#activity .sl-week-list li { display:flex; align-items:flex-start; gap:14px; padding:14px 0; }
+#activity .sl-week-list li + li { border-top:1px solid var(--ink-100); }
+#activity .sl-week-list .avatar-initials { flex:none; width:40px; height:40px; font-size:12.5px; }
+#activity .sl-week-list p { margin:0; font-size:14px; line-height:1.55; color:var(--ink-600); }
+#activity .sl-week-list p strong { display:block; color:var(--ink-900); font-size:15px; margin-bottom:2px; }
+@media (max-width:980px) { #activity .sl-weeks { grid-template-columns:1fr; max-width:560px; margin:0 auto; } }
+</style>
 </head>
-<body>
+<body class="has-reveal-footer">
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-WGBXCPRW" style="display:none;visibility:hidden" width="0"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
@@ -296,7 +354,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="mega-panel-inner">
 <div class="mega-grid">
 <a class="mega-link" href="courses">Digital Marketing Course<span>1.5 Months · Core essentials to launch campaigns</span></a>
-<a class="mega-link" href="digital-marketing-professional">Digital Marketing Professional<span>3 Months · 60+ AI tools &amp; full placement support</span></a>
+<a class="mega-link" href="digital-marketing-professional">Diploma Degree Program<span>3 Months · 60+ AI tools &amp; full placement support</span></a>
 <a class="mega-link" href="bachelors-in-digital-business">Bachelor's in Digital Business<span>3 Years · UG Degree &amp; Entrepreneurship</span></a>
 <a class="mega-link" href="masters-in-digital-business">Master's in Digital Business<span>11 Months · Post Graduate Program &amp; Leadership</span></a>
 </div>
@@ -424,6 +482,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </div>
 </div>
 </nav>
+<!-- MAIN WRAPPER (curtain reveal footer) -->
+<main class="site-main-wrapper" id="siteMainWrapper">
 <section class="page-hero" data-bg="5">
 <div class="wrap">
 <div class="page-hero-card">
@@ -446,51 +506,30 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <h2 class="h2">Recent Activity</h2>
 <p class="lead">A live-feeling snapshot of what students are building, earning and joining this month.</p>
 </div>
-<div class="reveal-stagger" style="max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:14px;">
-<div class="founder-card" style="display:flex;align-items:center;gap:16px;padding:16px 20px;">
-<span class="avatar-initials" aria-hidden="true">AD</span>
-<div style="flex:1;"><strong>Aashvi Doshi</strong> completed a live Meta Ads capstone project.</div>
-<span style="color:var(--red-300);font-size:0.85rem;white-space:nowrap;">2 days ago</span>
+<div class="sl-weeks reveal-stagger">
+<div class="sl-week is-current">
+<div class="sl-week-head"><span class="sl-week-label">This Week</span><span class="sl-week-count">4 updates</span></div>
+<ul class="sl-week-list">
+<li><span class="avatar-initials" aria-hidden="true">AD</span><p><strong>Aashvi Doshi</strong> completed a live Meta Ads capstone project.</p></li>
+<li><span class="avatar-initials" aria-hidden="true">SB</span><p><strong>Soham Bhide</strong> earned his Google Ads certification.</p></li>
+<li><span class="avatar-initials" aria-hidden="true">MS</span><p><strong>Mahi Shah</strong> joined the SEO workshop cohort.</p></li>
+<li><span class="avatar-initials" aria-hidden="true">DJ</span><p><strong>Diya Jain</strong> presented her group's brand growth strategy to peers.</p></li>
+</ul>
 </div>
-<div class="founder-card" style="display:flex;align-items:center;gap:16px;padding:16px 20px;">
-<span class="avatar-initials" aria-hidden="true">SB</span>
-<div style="flex:1;"><strong>Soham Bhide</strong> earned his Google Ads certification.</div>
-<span style="color:var(--red-300);font-size:0.85rem;white-space:nowrap;">3 days ago</span>
+<div class="sl-week">
+<div class="sl-week-head"><span class="sl-week-label">Last Week</span><span class="sl-week-count">2 updates</span></div>
+<ul class="sl-week-list">
+<li><span class="avatar-initials" aria-hidden="true">SS</span><p><strong>Soham Sule</strong> ran his first live Meta Ads campaign in class.</p></li>
+<li><span class="avatar-initials" aria-hidden="true">AD</span><p><strong>Akanksha Dhanavade</strong> completed the analytics &amp; reporting module.</p></li>
+</ul>
 </div>
-<div class="founder-card" style="display:flex;align-items:center;gap:16px;padding:16px 20px;">
-<span class="avatar-initials" aria-hidden="true">MS</span>
-<div style="flex:1;"><strong>Mahi Shah</strong> joined the SEO workshop cohort.</div>
-<span style="color:var(--red-300);font-size:0.85rem;white-space:nowrap;">4 days ago</span>
-</div>
-<div class="founder-card" style="display:flex;align-items:center;gap:16px;padding:16px 20px;">
-<span class="avatar-initials" aria-hidden="true">DJ</span>
-<div style="flex:1;"><strong>Diya Jain</strong> presented her group's brand growth strategy to peers.</div>
-<span style="color:var(--red-300);font-size:0.85rem;white-space:nowrap;">5 days ago</span>
-</div>
-<div class="founder-card" style="display:flex;align-items:center;gap:16px;padding:16px 20px;">
-<span class="avatar-initials" aria-hidden="true">SS</span>
-<div style="flex:1;"><strong>Soham Sule</strong> ran his first live Meta Ads campaign in class.</div>
-<span style="color:var(--red-300);font-size:0.85rem;white-space:nowrap;">1 week ago</span>
-</div>
-<div class="founder-card" style="display:flex;align-items:center;gap:16px;padding:16px 20px;">
-<span class="avatar-initials" aria-hidden="true">AD</span>
-<div style="flex:1;"><strong>Akanksha Dhanavade</strong> completed the analytics &amp; reporting module.</div>
-<span style="color:var(--red-300);font-size:0.85rem;white-space:nowrap;">1 week ago</span>
-</div>
-<div class="founder-card" style="display:flex;align-items:center;gap:16px;padding:16px 20px;">
-<span class="avatar-initials" aria-hidden="true">BM</span>
-<div style="flex:1;"><strong>Bhakti Mehta</strong> joined a peer study group ahead of her final assessment.</div>
-<span style="color:var(--red-300);font-size:0.85rem;white-space:nowrap;">2 weeks ago</span>
-</div>
-<div class="founder-card" style="display:flex;align-items:center;gap:16px;padding:16px 20px;">
-<span class="avatar-initials" aria-hidden="true">VG</span>
-<div style="flex:1;"><strong>Vidhi Garg</strong> wrapped up her SEO audit assignment with top marks.</div>
-<span style="color:var(--red-300);font-size:0.85rem;white-space:nowrap;">2 weeks ago</span>
-</div>
-<div class="founder-card" style="display:flex;align-items:center;gap:16px;padding:16px 20px;">
-<span class="avatar-initials" aria-hidden="true">SS</span>
-<div style="flex:1;"><strong>Saniya Shah</strong> started her Advance program specialization.</div>
-<span style="color:var(--red-300);font-size:0.85rem;white-space:nowrap;">3 weeks ago</span>
+<div class="sl-week">
+<div class="sl-week-head"><span class="sl-week-label">Earlier This Month</span><span class="sl-week-count">3 updates</span></div>
+<ul class="sl-week-list">
+<li><span class="avatar-initials" aria-hidden="true">BM</span><p><strong>Bhakti Mehta</strong> joined a peer study group ahead of her final assessment.</p></li>
+<li><span class="avatar-initials" aria-hidden="true">VG</span><p><strong>Vidhi Garg</strong> wrapped up her SEO audit assignment with top marks.</p></li>
+<li><span class="avatar-initials" aria-hidden="true">SS</span><p><strong>Saniya Shah</strong> started her Advance program specialization.</p></li>
+</ul>
 </div>
 </div>
 </section>
@@ -666,14 +705,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </div>
 </div>
 </section>
-<section class="stats-strip wrap">
-<div class="stats-card">
-<div class="stat-box"><div class="num"><span class="counter" data-target="800">800</span><span class="accent">+</span></div><div class="cap">Students Placed</div></div>
-<div class="stat-box"><div class="num"><span class="counter" data-target="93">93</span><span class="accent">%</span></div><div class="cap">Placed Within 60 Days</div></div>
-<div class="stat-box"><div class="num"><span class="counter" data-target="60">60</span><span class="accent">+</span></div><div class="cap">Live Industry Tools</div></div>
-<div class="stat-box"><div class="num"><span class="counter" data-decimal="1" data-target="4.9">4.9</span><span class="accent">/5</span></div><div class="cap">Average Student Rating</div></div>
-</div>
-</section>
 <section class="final-cta">
 <div class="wrap">
 <div class="eyebrow" style="color:#ffffff;">Come See It Yourself</div>
@@ -686,43 +717,150 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="badge-strip"><span>✓ No obligation visit</span><span>✓ Meet current students</span><span>✓ Rajkot campus</span></div>
 </div>
 </section>
-<!-- FOOTER -->
-<footer>
+</main><!-- /#siteMainWrapper -->
+<!-- FOOTER REVEAL SPACER (Guarantees scroll track for the sticky curtain reveal) -->
+<div aria-hidden="true" class="footer-reveal-spacer" id="footerRevealSpacer"></div>
+<!-- ANTIGRAVITY STICKY REVEAL FOOTER -->
+<footer class="antigravity-footer" id="antigravityFooter">
 <div class="wrap">
-<div class="footer-grid">
-<div class="footer-brand">
-<div class="footer-logo-plate">
-<img width="440" height="286" data-ar="1" alt="Lime Digital Institute" src="assets/lime-logo.png"/>
-</div>
-<p>India's leading digital marketing business school - live + recorded, AI-powered, Rajkot campus.</p>
-</div>
-<div class="footer-col">
-<div class="footer-col-title">Navigation</div>
-<a href="/">Home</a>
-<a href="courses">Courses</a>
-<a href="about">About Us</a>
-<a href="contact">Contact</a>
-</div>
-<div class="footer-col">
-<div class="footer-col-title">Programs</div>
-<a href="courses">Foundation Program (1.5 Mo)</a>
-<a href="digital-marketing-professional">Advance Program (3 Mo)</a>
-<a href="bachelors-in-digital-business">Bachelor's in Digital Business (3 Yrs)</a>
-<a href="masters-in-digital-business">Master's in Digital Business (11 Mo)</a>
-</div>
-<div class="footer-col">
-<div class="footer-col-title">Campus Contact</div>
-<a href="tel:+917567787232">+91 75677 87232</a>
-<a href="tel:+918980626323">Support: +91 89806 26323</a>
-<a href="contact">5th Floor, LIME Institute, Jyoti Nagar Main Rd, near Masoom School, behind Crystal Mall, Rajkot 360005</a>
+<!-- Top Row: Lead & Nav Columns -->
+<div class="ag-footer-top">
+<div class="ag-footer-brand-col">
+<span class="ag-footer-eyebrow">LIME DIGITAL INSTITUTE</span>
+<h2 class="ag-footer-headline">Experience liftoff</h2>
+<div class="ag-footer-actions">
+<div class="ag-footer-socials">
+<a aria-label="Lime Digital Institute on Instagram" class="ag-social-btn" href="https://www.instagram.com/limedigitalinstitute/" rel="noopener" target="_blank">
+<svg fill="currentColor" height="16" viewbox="0 0 24 24" width="16"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg>
+<span class="sr-only" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Instagram</span></a>
+<a aria-label="Lime Digital Institute on LinkedIn" class="ag-social-btn" href="https://www.linkedin.com/school/limedigitalinstitute/" rel="noopener" target="_blank">
+<svg fill="currentColor" height="16" viewbox="0 0 24 24" width="16"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path></svg>
+<span class="sr-only" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">LinkedIn</span></a>
+<a aria-label="Lime Digital Institute on YouTube" class="ag-social-btn" href="https://www.youtube.com/@limedigitalinstitute" rel="noopener" target="_blank">
+<svg fill="currentColor" height="16" viewbox="0 0 24 24" width="16"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path></svg>
+<span class="sr-only" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">YouTube</span></a>
 </div>
 </div>
-<div class="footer-bottom">
-<div>© Lime Digital Institute. All rights reserved.</div>
-<div>Instagram · Facebook · YouTube · LinkedIn - @limedigitalinstitute</div>
+</div>
+<div class="ag-footer-nav">
+<div class="ag-footer-nav-col">
+<span class="ag-col-label">Programs</span>
+<ul class="ag-col-list">
+<li><a href="courses">Foundation Program (1.5 Months)</a></li>
+<li><a href="digital-marketing-professional">Digital Marketing Professional (3 Months)</a></li>
+<li><a href="bachelors-in-digital-business">Bachelor's in Digital Business (3 Years)</a></li>
+<li><a href="masters-in-digital-business">Master's in Digital Business (11 Months)</a></li>
+<li><a href="courses">All Digital Marketing Courses</a></li>
+</ul>
+</div>
+<div class="ag-footer-nav-col">
+<span class="ag-col-label">Resources</span>
+<ul class="ag-col-list">
+<li><a href="case-studies">Case Studies &amp; Outcomes</a></li>
+<li><a href="placements">Placement Report</a></li>
+<li><a href="student-life">Campus Life &amp; Labs</a></li>
+<li><a href="blog">Marketing Playbooks</a></li>
+<li><a href="masterclass">Workshops &amp; Masterclasses</a></li>
+</ul>
+</div>
+<div class="ag-footer-nav-col ag-contact-col">
+<div class="ag-contact-group">
+<span class="ag-office-label">Get in Touch:</span>
+<div class="ag-contact-list">
+<a class="ag-contact-item" href="mailto:digital@limeinstitute.org">
+<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+<span>digital@<wbr/>limeinstitute.org</span>
+</a>
+<a class="ag-contact-item" href="tel:+917567787232">
+<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+<span>+91 75677 87232</span>
+</a>
+<a class="ag-contact-item" href="tel:+918980626323">
+<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+<span>+91 89806 26323</span>
+</a>
+</div>
+</div>
+<div class="ag-office-divider"></div>
+<div class="ag-office-box">
+<span class="ag-office-label">Campus Address:</span>
+<p class="ag-office-text">
+<a href="https://maps.google.com/maps?q=LIME%20Institute%2C%20Jyoti%20Nagar%20Main%20Rd%2C%20Rajkot%2C%20Gujarat%20360005" rel="noopener" style="color:inherit;text-decoration:none;" target="_blank">5th Floor, LIME Institute, Jyoti Nagar Main Rd, near Masoom School, behind Crystal Mall, Ghanshyam Nagar, Rajkot, Gujarat 360005</a>
+</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Group: Signature Wordmark & Utility Bar (Antigravity Architecture) -->
+<div class="ag-footer-bottom-group">
+<div aria-hidden="true" class="ag-footer-wordmark-wrap">
+<span class="ag-footer-wordmark">Lime Digital Institute</span>
+</div>
+<!-- Bottom Utility Bar -->
+<div class="ag-footer-bottom">
+<div class="ag-footer-bottom-left">
+<span class="ag-copyright">© 2026 Lime Digital Institute. All rights reserved.</span>
+</div>
+<div class="ag-footer-bottom-right">
+<a href="privacy-policy">Privacy Policy</a>
+<span class="ag-sep">•</span>
+<a href="terms-of-use">Terms of Use</a>
+<span class="ag-sep">•</span>
+<a href="contact">Contact Us</a>
+</div>
+</div>
 </div>
 </div>
 </footer>
+<script>
+  (function() {
+    function syncFooterSpacer() {
+      var footer = document.getElementById('antigravityFooter');
+      var spacer = document.getElementById('footerRevealSpacer');
+      if (!footer || !spacer) return;
+      if (window.innerWidth > 768) {
+        var reqH = footer.offsetHeight;
+        spacer.style.height = reqH + 'px';
+      } else {
+        spacer.style.height = '0px';
+      }
+    }
+    function checkFooterInView() {
+      var footer = document.getElementById('antigravityFooter');
+      if (!footer) return;
+      var rect = footer.getBoundingClientRect();
+      var winH = window.innerHeight;
+      if (rect.top < winH * 0.75) {
+        document.body.classList.add('footer-revealed');
+      } else {
+        document.body.classList.remove('footer-revealed');
+      }
+    }
+    syncFooterSpacer();
+    checkFooterInView();
+    window.addEventListener('scroll', checkFooterInView, { passive: true });
+    window.addEventListener('resize', function() {
+      syncFooterSpacer();
+      checkFooterInView();
+    }, { passive: true });
+    window.addEventListener('load', function() {
+      syncFooterSpacer();
+      checkFooterInView();
+    });
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function() {
+        syncFooterSpacer();
+        checkFooterInView();
+      });
+    }
+    if (window.ResizeObserver) {
+      new ResizeObserver(function() {
+        syncFooterSpacer();
+        checkFooterInView();
+      }).observe(document.getElementById('antigravityFooter'));
+    }
+  })();
+</script>
 <!-- FLOATING CALL & WHATSAPP BUTTONS -->
 <a class="float-btn float-call" href="tel:+917567787232">
 <svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
@@ -776,7 +914,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </div>
 </div>
 <script src="assets/country-picker.js?v=20260918g"></script>
-<script src="assets/lime-form.js?v=20261005a"></script>
-<script src="assets/main.js?v=20261012a"></script>
+<script src="assets/lime-form.js?v=20261023d"></script>
+<script src="assets/main.js?v=20261118a"></script>
 </body>
 </html>

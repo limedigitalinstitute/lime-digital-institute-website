@@ -35,7 +35,201 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link href="/assets/apple-touch-icon.png" rel="apple-touch-icon"/>
 <link rel="preload" href="/assets/fonts/poppins-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/poppins-600.woff2" as="font" type="font/woff2" crossorigin>
-<link href="assets/style.css?v=20261012b" rel="stylesheet"/>
+<link href="assets/style.css?v=20261013b" rel="stylesheet"/>
+<style>
+/* ---------- Capstone showcase (light: white, red tint, Racing Red) ---------- */
+/* Intro under the hero: copy left, stat cards right */
+.cs-intro { display:grid; grid-template-columns:1.05fr 1fr; gap:48px; align-items:center; margin-top:56px; }
+.cs-intro-copy { border-left:4px solid var(--lime-red); padding:6px 0 6px 26px; }
+.cs-intro-copy .eyebrow { margin-bottom:12px; }
+.cs-intro-lead { font-size:clamp(18px,1.9vw,22px); font-weight:500; line-height:1.6; color:var(--ink-700); }
+.cs-intro-lead mark { background:none; color:var(--ink-900); font-weight:700; }
+.cs-intro-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+.cs-stat-card { background:var(--red-50); border:1px solid var(--red-100); border-radius:20px; padding:22px 20px; transition:transform var(--dur-slow) var(--ease), border-color var(--dur-slow) var(--ease); }
+.cs-stat-card:hover { transform:translateY(-4px); border-color:var(--lime-red); }
+.cs-stat-icon { width:42px; height:42px; border-radius:12px; background:var(--lime-red); color:#fff; display:flex; align-items:center; justify-content:center; margin-bottom:16px; }
+.cs-stat-icon svg { width:20px; height:20px; }
+.cs-stat-card strong { display:block; font-size:clamp(30px,3.2vw,40px); font-weight:800; line-height:1; color:var(--lime-red); }
+.cs-stat-card span { display:block; font-size:13px; line-height:1.4; color:var(--ink-500); margin-top:8px; }
+.cs-stat-card.is-hot { background:var(--lime-red); border-color:var(--lime-red); }
+.cs-stat-card.is-hot .cs-stat-icon { background:#fff; color:var(--lime-red); }
+.cs-stat-card.is-hot strong, .cs-stat-card.is-hot span { color:#fff; }
+@media (max-width: 900px) {
+  .cs-intro { grid-template-columns:1fr; gap:28px; margin-top:40px; }
+  .cs-intro-stats { gap:10px; }
+  .cs-stat-card { padding:16px 14px; border-radius:16px; }
+  .cs-stat-icon { width:34px; height:34px; border-radius:10px; margin-bottom:12px; }
+  .cs-stat-card span { font-size:12px; }
+}
+
+.cs-section { padding:78px 0 40px; }
+.cs-filters { display:flex; flex-wrap:wrap; gap:10px; margin:0 0 34px; }
+.cs-chip { font:600 13px/1 'Poppins',sans-serif; padding:11px 18px; border-radius:var(--r-full); border:1px solid var(--ink-200); background:#fff; color:var(--ink-600); cursor:pointer; transition:all var(--dur-base) var(--ease); }
+.cs-chip:hover { border-color:var(--lime-red); color:var(--lime-red); }
+.cs-chip[aria-pressed="true"] { background:var(--lime-red); border-color:var(--lime-red); color:#fff; }
+
+/* Cards: clean image on top, readable white body, slim black action bar */
+.cs-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:28px; }
+.cs-card { position:relative; display:flex; flex-direction:column; width:100%; padding:0; border:1px solid var(--ink-200); border-radius:var(--r-xl); overflow:hidden; background:#fff; color:var(--ink-900); text-align:left; font:inherit; cursor:pointer; transition:transform var(--dur-slow) var(--ease), border-color var(--dur-slow) var(--ease); }
+.cs-card:hover { transform:translateY(-4px); border-color:var(--ink-900); }
+.cs-card:focus-visible { outline:3px solid var(--focus); outline-offset:3px; }
+.cs-card[hidden] { display:none; }
+.cs-media { position:relative; height:290px; overflow:hidden; background:var(--surface-sunk); }
+.cs-media img { width:100%; height:100%; object-fit:cover; transition:transform .7s var(--ease); }
+.cs-card:hover .cs-media img { transform:scale(1.05); }
+.cs-tag { position:absolute; top:18px; left:18px; z-index:2; font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--ink-900); padding:8px 14px; border-radius:var(--r-full); background:#fff; }
+.cs-body { position:relative; display:flex; flex-direction:column; flex:1; padding:26px 28px 0; }
+.cs-index { position:absolute; top:20px; right:26px; font-size:44px; font-weight:800; line-height:1; color:transparent; -webkit-text-stroke:1.5px var(--ink-200); pointer-events:none; transition:-webkit-text-stroke-color var(--dur-slow) var(--ease); }
+.cs-card:hover .cs-index { -webkit-text-stroke-color:var(--lime-red); }
+.cs-hook { font-size:clamp(21px,2.1vw,25px); font-weight:800; line-height:1.2; color:var(--ink-900); padding-right:70px; }
+.cs-title { font-size:14.5px; font-weight:600; color:var(--ink-500); margin-top:8px; }
+.cs-by { display:flex; align-items:center; gap:10px; margin-top:16px; font-size:13px; color:var(--ink-600); }
+.cs-avatar { flex:none; width:32px; height:32px; border-radius:50%; background:var(--ink-900); color:#fff; font-size:11.5px; font-weight:700; display:inline-flex; align-items:center; justify-content:center; letter-spacing:.5px; }
+.cs-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:20px 0 24px; padding-top:18px; border-top:1px solid var(--ink-200); }
+.cs-stats strong { display:block; color:var(--lime-red); font-size:24px; font-weight:800; line-height:1.15; }
+.cs-stats span { display:block; font-size:12.5px; color:var(--ink-500); line-height:1.35; margin-top:3px; }
+.cs-more { display:flex; justify-content:space-between; align-items:center; margin:auto -28px 0; padding:14px 28px; background:var(--ink-900); color:#fff; font-size:12.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; transition:background var(--dur-slow) var(--ease); }
+.cs-card:hover .cs-more { background:var(--lime-red); }
+.cs-arrow { width:34px; height:34px; border-radius:50%; background:var(--lime-red); color:#fff; display:inline-flex; align-items:center; justify-content:center; font-size:15px; transition:all var(--dur-slow) var(--ease); }
+.cs-card:hover .cs-arrow { background:#fff; color:var(--lime-red); transform:translateX(4px); }
+
+.cs-finding { position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; padding:72px 40px 40px; background:linear-gradient(135deg,#fff 0%,var(--red-50) 55%,var(--red-100) 100%); }
+.cs-finding-kicker { font-size:12px; font-weight:700; letter-spacing:1.6px; text-transform:uppercase; color:var(--ink-500); }
+.cs-finding-big { font-size:clamp(60px,7.5vw,96px); font-weight:800; color:var(--lime-red); line-height:1.15; margin-top:14px; }
+.cs-finding-label { font-size:16px; font-weight:600; color:var(--ink-700); margin-top:8px; }
+.cs-finding-row { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:28px; }
+.cs-finding-row span { display:block; background:#fff; border:1px solid var(--red-100); border-radius:var(--r-lg); padding:14px; font-size:12px; color:var(--ink-500); line-height:1.35; }
+.cs-finding-row b { display:block; font-size:22px; font-weight:800; color:var(--lime-red); margin-bottom:4px; }
+
+@media (max-width: 900px) {
+  .cs-grid { grid-template-columns:1fr; }
+  .cs-finding { padding:64px 22px 24px; }
+}
+
+/* ---------- Case study detail (dialog) ---------- */
+.cs-dialog { width:min(1120px, calc(100% - 32px)); height:calc(100dvh - 32px); max-height:none; padding:0; border:0; border-radius:var(--r-xl); background:#fff; color:var(--ink-700); overflow:hidden; }
+.cs-dialog::backdrop { background:rgba(20,6,5,.62); backdrop-filter:blur(5px); }
+.cs-dialog[open] { display:flex; flex-direction:column; animation:csIn .3s var(--ease); }
+@keyframes csIn { from { opacity:0; transform:translateY(18px) scale(.985); } to { opacity:1; transform:none; } }
+.cs-dialog-scroll { flex:1; overflow-y:auto; overscroll-behavior:contain; scroll-behavior:smooth; }
+.cs-close { position:absolute; top:16px; right:16px; z-index:6; width:44px; height:44px; border-radius:50%; border:0; background:var(--ink-900); color:#fff; font-size:24px; line-height:1; cursor:pointer; transition:background var(--dur-base) var(--ease), transform var(--dur-base) var(--ease); }
+.cs-close:hover { background:var(--lime-red); transform:rotate(90deg); }
+.cs-detail[hidden] { display:none; }
+
+/* Hero: copy left, framed work right */
+.csd-hero { display:grid; grid-template-columns:1.05fr 1fr; gap:44px; align-items:center; padding:56px 56px 48px; background:linear-gradient(135deg,#fff 0%,#fff 45%,var(--red-50) 100%); }
+.csd-tag { display:inline-block; font-size:11px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:var(--lime-red); background:#fff; border:1px solid var(--red-100); padding:7px 14px; border-radius:var(--r-full); }
+.csd-hero h2 { font-size:clamp(26px,3.1vw,38px); font-weight:800; line-height:1.15; letter-spacing:-.01em; color:var(--ink-900); margin-top:16px; }
+.csd-lede { font-size:15.5px; line-height:1.7; color:var(--ink-500); margin-top:16px; }
+.csd-author { display:flex; align-items:center; gap:12px; margin-top:24px; }
+.csd-author .cs-avatar { width:44px; height:44px; font-size:14px; background:var(--ink-900); color:#fff; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-weight:700; }
+.csd-author strong { display:block; font-size:15px; color:var(--ink-900); }
+.csd-author small { display:block; font-size:12.5px; color:var(--ink-500); margin-top:2px; }
+.csd-hero-media { position:relative; border-radius:20px; overflow:hidden; aspect-ratio:16/10; background:var(--surface-sunk); border:1px solid var(--ink-200); }
+.csd-hero-media > img { position:absolute; inset:0; width:100% !important; height:100% !important; max-width:none; object-fit:cover; }
+.csd-hero-media .cs-finding { position:absolute; inset:0; padding:32px; background:radial-gradient(circle at 20% 20%, rgba(237,50,55,.35), rgba(237,50,55,0) 60%), #141414; }
+.csd-hero-media .cs-finding-kicker { color:rgba(255,255,255,.6); font-size:11px; }
+.csd-hero-media .cs-finding-big { font-size:clamp(56px,6vw,80px); }
+.csd-hero-media .cs-finding-label { color:#fff; }
+.csd-hero-media .cs-finding-row { display:none; }
+.csd-hero-media .cs-finding-row span { background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.14); color:rgba(255,255,255,.7); padding:12px; }
+.csd-hero-media .cs-finding-row b { font-size:20px; }
+
+/* Key numbers: the one black band */
+.csd-numbers { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); background:var(--ink-900); }
+.csd-num { padding:26px 28px; border-right:1px solid rgba(255,255,255,.1); }
+.csd-num:last-child { border-right:0; }
+.csd-num strong { display:block; font-size:clamp(26px,2.8vw,34px); font-weight:800; line-height:1.1; color:var(--lime-red); }
+.csd-num span { display:block; font-size:13px; line-height:1.4; color:rgba(255,255,255,.75); margin-top:6px; }
+.csd-note { font-size:12.5px; color:var(--ink-400); padding:12px 56px 0; }
+
+/* Body: story left, snapshot right */
+.csd-layout { display:grid; grid-template-columns:minmax(0,1fr) 320px; gap:48px; padding:48px 56px 24px; align-items:start; }
+.csd-section + .csd-section { margin-top:44px; }
+.csd-eyebrow { display:block; font-size:12px; font-weight:700; letter-spacing:1.6px; text-transform:uppercase; color:var(--lime-red); margin-bottom:14px; }
+.csd-challenge { font-size:18px; line-height:1.7; color:var(--ink-700); font-weight:500; }
+.csd-delivs { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+.csd-deliv { position:relative; padding:20px 20px 20px; border:1px solid var(--ink-200); border-radius:16px; background:#fff; transition:border-color var(--dur-slow) var(--ease), transform var(--dur-slow) var(--ease); }
+.csd-deliv:hover { border-color:var(--lime-red); transform:translateY(-2px); }
+.csd-deliv-num { display:inline-flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:10px; background:var(--red-50); color:var(--lime-red); font-size:12px; font-weight:800; margin-bottom:12px; }
+.csd-deliv h4 { font-size:15px; font-weight:700; line-height:1.35; color:var(--ink-900); }
+.csd-deliv p { font-size:13.5px; line-height:1.6; color:var(--ink-500); margin-top:6px; }
+
+.cs-gallery { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); grid-auto-rows:150px; gap:12px; }
+.cs-gallery a { position:relative; display:block; border-radius:14px; overflow:hidden; cursor:zoom-in; }
+.cs-gallery a:first-child { grid-column:span 2; grid-row:span 2; }
+.cs-gallery a:only-child { grid-column:1 / -1; grid-row:span 2; }
+.cs-gallery img { width:100%; height:100%; object-fit:cover; transition:transform .5s var(--ease); }
+.cs-gallery a:hover img { transform:scale(1.05); }
+.cs-gallery a::after { content:"⤢"; position:absolute; right:10px; bottom:10px; width:30px; height:30px; border-radius:50%; background:rgba(255,255,255,.92); color:var(--ink-900); font-size:14px; display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity var(--dur-slow) var(--ease); }
+.cs-gallery a:hover::after { opacity:1; }
+
+.csd-side { position:sticky; top:24px; display:grid; gap:16px; }
+.csd-snap { border:1px solid var(--ink-200); border-radius:18px; padding:22px; }
+.csd-snap h4 { font-size:15px; font-weight:700; color:var(--ink-900); margin-bottom:6px; }
+.csd-snap dl { margin:0; }
+.csd-snap dl div { padding:12px 0; border-bottom:1px solid var(--ink-200); }
+.csd-snap dl div:last-child { border-bottom:0; }
+.csd-snap dt { font-size:11px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:var(--ink-400); }
+.csd-snap dd { margin:4px 0 0; font-size:14px; font-weight:600; color:var(--ink-900); line-height:1.45; }
+.csd-snap-label { font-size:11px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:var(--ink-400); margin:10px 0 10px; padding-top:12px; border-top:1px solid var(--ink-200); }
+.cs-tools { display:flex; flex-wrap:wrap; gap:8px; }
+.cs-tools span { font-size:12px; font-weight:600; padding:6px 12px; border-radius:var(--r-full); background:var(--red-50); color:var(--lime-red); }
+.csd-cta { border-radius:18px; padding:24px 22px; background:var(--lime-red); color:#fff; }
+.csd-cta p { font-size:18px; font-weight:800; line-height:1.3; color:#fff; }
+.csd-cta span { display:block; font-size:13px; color:rgba(255,255,255,.88); margin:8px 0 18px; }
+.csd-cta .btn { width:100%; justify-content:center; background:#fff !important; color:var(--lime-red) !important; }
+
+/* Pager */
+.csd-pager { display:grid; grid-template-columns:1fr 1fr; gap:14px; padding:24px 56px 48px; }
+.csd-pager button { text-align:left; font:inherit; padding:18px 22px; border-radius:16px; border:1px solid var(--ink-200); background:#fff; cursor:pointer; transition:all var(--dur-slow) var(--ease); }
+.csd-pager button:last-child { text-align:right; }
+.csd-pager button:hover { border-color:var(--ink-900); background:var(--ink-900); }
+.csd-pager small { display:block; font-size:11.5px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:var(--lime-red); }
+.csd-pager strong { display:block; font-size:16px; font-weight:700; color:var(--ink-900); margin-top:4px; }
+.csd-pager button:hover strong { color:#fff; }
+
+.cs-lightbox { position:absolute; inset:0; z-index:10; display:flex; align-items:center; justify-content:center; padding:64px 24px 24px; background:rgba(20,6,5,.94); cursor:zoom-out; }
+.cs-lightbox[hidden] { display:none; }
+.cs-lightbox img { max-width:100%; max-height:100%; object-fit:contain; border-radius:12px; }
+
+@media (max-width: 900px) {
+  .cs-dialog { width:100%; height:100dvh; max-width:100%; border-radius:0; }
+  .csd-hero { grid-template-columns:1fr; gap:26px; padding:64px 20px 28px; }
+  .csd-hero-media .cs-finding { padding:22px; }
+  .csd-num { padding:18px 20px; border-right:0; border-bottom:1px solid rgba(255,255,255,.1); }
+  .csd-note { padding:10px 20px 0; }
+  .csd-layout { grid-template-columns:1fr; gap:32px; padding:32px 20px 16px; }
+  .csd-side { position:static; }
+  .csd-delivs { grid-template-columns:1fr; }
+  .cs-gallery { grid-template-columns:1fr 1fr; grid-auto-rows:120px; }
+  .csd-pager { padding:16px 20px 32px; }
+  .csd-challenge { font-size:16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cs-card, .cs-media img, .cs-gallery img, .cs-dialog[open], .csd-deliv, .cs-close { transition:none; animation:none; }
+}
+
+/* ---------- Bold layer: marquee, dark featured card, bento grid ---------- */
+.cs-marquee { background:#0E0909; color:#fff; overflow:hidden; padding:22px 0; margin-top:64px; }
+.cs-marquee-track { display:flex; width:max-content; animation:csMarquee 38s linear infinite; }
+.cs-marquee-track span { display:inline-flex; align-items:center; gap:28px; padding-right:28px; font-size:clamp(18px,2.2vw,26px); font-weight:700; white-space:nowrap; }
+.cs-marquee-track span::after { content:""; width:10px; height:10px; border-radius:50%; background:var(--lime-red); }
+.cs-marquee-track span:nth-child(even) { color:transparent; -webkit-text-stroke:1px rgba(255,255,255,.75); }
+@keyframes csMarquee { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+
+@media (max-width: 900px) {
+  .cs-card { grid-column:1 / -1; }
+  .cs-media { height:230px; }
+  .cs-marquee { margin-top:44px; padding:16px 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cs-marquee-track { animation:none; }
+}
+/* Case study detail: key numbers in white */
+.csd-hero-media .cs-finding-big { color:#fff; }
+.csd-num strong { color:#fff; }
+</style>
 <script type="application/ld+json">
 [
   {
@@ -96,8 +290,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 }
 </script>
 <script src="assets/consent.js?v=20261005b" defer></script>
+<style>
+/* QA spacing fixes */
+/* .cs-section is a .wrap; its padding shorthand dropped the .wrap side gutters
+   (grid ran wider than the page, flush to the screen edge on mobile) and left
+   only 40px above the dark CTA band. */
+.cs-section { padding: 78px 24px 88px; }
+/* Antra ad: keep the brand name at the top of the creative in frame */
+.cs-card[data-case="antra"] .cs-media img { object-position: center top; }
+@media (max-width: 767px) { .cs-section { padding: 52px 16px 56px; } }
+</style>
 </head>
-<body>
+<body class="has-reveal-footer">
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-WGBXCPRW" style="display:none;visibility:hidden" width="0"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
@@ -131,7 +335,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="mega-panel-inner">
 <div class="mega-grid">
 <a class="mega-link" href="courses">Digital Marketing Course<span>1.5 Months · Core essentials to launch campaigns</span></a>
-<a class="mega-link" href="digital-marketing-professional">Digital Marketing Professional<span>3 Months · 60+ AI tools &amp; full placement support</span></a>
+<a class="mega-link" href="digital-marketing-professional">Diploma Degree Program<span>3 Months · 60+ AI tools &amp; full placement support</span></a>
 <a class="mega-link" href="bachelors-in-digital-business">Bachelor's in Digital Business<span>3 Years · UG Degree &amp; Entrepreneurship</span></a>
 <a class="mega-link" href="masters-in-digital-business">Master's in Digital Business<span>11 Months · Post Graduate Program &amp; Leadership</span></a>
 </div>
@@ -259,164 +463,671 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </div>
 </div>
 </nav>
+<!-- MAIN WRAPPER (curtain reveal footer) -->
+<main class="site-main-wrapper" id="siteMainWrapper">
 <section class="page-hero" data-bg="5">
 <div class="wrap">
 <div class="page-hero-card">
 <svg aria-hidden="true" class="page-hero-deco page-hero-deco-l" fill="none" viewbox="0 0 220 300" xmlns="http://www.w3.org/2000/svg"><path d="M70 40C40 60 30 100 55 125C80 150 130 140 135 105C140 70 100 55 85 80C70 105 100 130 120 120" stroke="#ffffff" stroke-linecap="round" stroke-width="3"></path><path d="M60 150C70 190 90 220 120 235" stroke="#ffffff" stroke-linecap="round" stroke-width="3"></path><path d="M100 225L120 235L108 255" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path></svg>
 <svg aria-hidden="true" class="page-hero-deco page-hero-deco-r" fill="none" viewbox="0 0 220 300" xmlns="http://www.w3.org/2000/svg"><path d="M110 60L150 110L100 150L150 200L110 250" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path></svg>
-<h1 class="h1">Real students. Real businesses.<br/><span class="underline-device">Built from the classroom.</span></h1>
+<h1 class="h1">Real briefs. Real brands.<br/><span class="underline-device">Built by our students.</span></h1>
 <div class="breadcrumb"><a href="/">Home</a> / Case Studies</div>
 </div>
 </div>
 <div class="wrap">
-<div class="page-hero-sub">
-<div class="eyebrow" style="color:var(--red-300);">Learning Centre - Case Studies</div>
-<p class="lead">Industry-relevant, not textbook-relevant. Every case study here is a Lime Digital Institute student who turned a course project into a working brand - export businesses, agri-tech content, and D2C labels that didn't exist before they walked in.</p>
+<div class="cs-intro">
+<div class="cs-intro-copy reveal">
+<div class="eyebrow">Learning Centre · Capstone Showcase</div>
+<p class="cs-intro-lead">Every project below was built by a Lime Digital Institute student for a <mark>real business</mark> - audits, brand systems, packaging and catalogues you can open and check for yourself.</p>
 </div>
+<div class="cs-intro-stats reveal">
+<div class="cs-stat-card">
+<div class="cs-stat-icon" aria-hidden="true"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" x2="7.01" y1="7" y2="7"></line></svg></div>
+<strong data-count="5">5</strong><span>Real brands</span>
 </div>
-</section>
-<section class="wrap" style="padding:60px 0 0;">
-<div class="section-head center reveal">
-<div class="eyebrow center">Real Students. Real Businesses.</div>
-<h2 class="h2">No theory. Just outcomes you can check.</h2>
-<p class="lead">From Rajkot's classrooms to global exports, farmer-first content, and a brand built in one hour a day - here's what our students actually did with what they learned.</p>
+<div class="cs-stat-card">
+<div class="cs-stat-icon" aria-hidden="true"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><rect height="7" width="7" x="3" y="3"></rect><rect height="7" width="7" x="14" y="3"></rect><rect height="7" width="7" x="14" y="14"></rect><rect height="7" width="7" x="3" y="14"></rect></svg></div>
+<strong data-count="5">5</strong><span>Industries</span>
 </div>
-</section>
-<section class="mentor wrap" style="padding:70px 0; border-bottom:1px solid var(--border);">
-<div class="mentor-grid">
-<div class="reveal">
-<div class="graphic-card spotlight">
-<div class="graphic-card-img" style="height:320px;"><img width="315" height="560" data-ar="1" alt="Patel Drashti" src="assets/student-drashti.jpg"/></div>
-<div class="graphic-card-body" style="background:var(--ink-900); text-align:center;">
-<h4 style="color:#fff; font-size:18px;">Patel Drashti</h4>
-<span style="color:var(--lime-red); font-size:13px; font-weight:700; text-transform:uppercase;">Founder - Dhritiva (1st Student)</span>
+<div class="cs-stat-card is-hot">
+<div class="cs-stat-icon" aria-hidden="true"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" x2="8" y1="13" y2="13"></line><line x1="16" x2="8" y1="17" y2="17"></line></svg></div>
+<strong data-count="78" data-suffix="+">78+</strong><span>Pages of audits, catalogues &amp; brand guides</span>
 </div>
-</div>
-</div>
-<div class="reveal">
-<div class="eyebrow">Case Study</div>
-<h2 class="h2">From zero business plan to a global export brand.</h2>
-<div style="margin-top:18px;">
-<strong style="display:block; font-size:12px; text-transform:uppercase; letter-spacing:.6px; color:var(--ink-400); margin-bottom:4px;">The Challenge</strong>
-<p style="font-size:14.5px; color:var(--ink-600); line-height:1.7;">Drashti joined Lime Digital Institute simply to learn digital marketing as a skill - she had no product, no business plan, and no export experience. She didn't know if a home-grown idea like incense sticks and essential oils could ever reach buyers outside India.</p>
-</div>
-<div style="margin-top:16px;">
-<strong style="display:block; font-size:12px; text-transform:uppercase; letter-spacing:.6px; color:var(--ink-400); margin-bottom:4px;">What We Did</strong>
-<p style="font-size:14.5px; color:var(--ink-600); line-height:1.7;">Using what she learned in class, she built an export-ready digital storefront and brand identity for "Dhritiva" from scratch, then used targeted outreach and content to put it in front of international buyers actively searching for incense and essential oil suppliers.</p>
-</div>
-<div style="margin-top:16px;">
-<strong style="display:block; font-size:12px; text-transform:uppercase; letter-spacing:.6px; color:var(--ink-400); margin-bottom:4px;">The Result</strong>
-<p style="font-size:14.5px; color:var(--ink-600); line-height:1.7;">Dhritiva now ships incense sticks and essential oils to buyers around the world - a business that exists today only because a course project became a real export brand.</p>
 </div>
 </div>
 </div>
 </section>
-<section class="mentor wrap" style="padding:70px 0; border-bottom:1px solid var(--border);">
-<div class="mentor-grid">
-<div class="reveal">
-<div class="graphic-card spotlight">
-<div class="graphic-card-img" style="height:320px;"><img width="256" height="320" data-ar="1" alt="Vedang Pedhadiya" src="assets/student-vedang.webp"/></div>
-<div class="graphic-card-body" style="background:var(--ink-900); text-align:center;">
-<h4 style="color:#fff; font-size:18px;">Vedang Pedhadiya</h4>
-<span style="color:var(--lime-red); font-size:13px; font-weight:700; text-transform:uppercase;">Co-Founder - Polygen</span>
+
+<div class="cs-marquee" aria-hidden="true"><div class="cs-marquee-track"><span>Brand Identity</span><span>Packaging Design</span><span>Technical SEO</span><span>Conversion Audits</span><span>Keyword Research</span><span>Export Catalogues</span><span>Marketing Strategy</span><span>AI Product Visuals</span><span>Social Content</span><span>Logo Design</span><span>Brand Identity</span><span>Packaging Design</span><span>Technical SEO</span><span>Conversion Audits</span><span>Keyword Research</span><span>Export Catalogues</span><span>Marketing Strategy</span><span>AI Product Visuals</span><span>Social Content</span><span>Logo Design</span></div></div>
+
+<section class="wrap cs-section" aria-labelledby="csShowcaseTitle">
+<div class="section-head reveal">
+<div class="eyebrow">Capstone Showcase</div>
+<h2 class="h2" id="csShowcaseTitle">The work our students leave with.</h2>
+<p class="lead" style="margin-top:12px;">Tap any project to see the brief, what was built and the numbers behind it.</p>
 </div>
+
+<div class="cs-filters" role="group" aria-label="Filter case studies">
+<button class="cs-chip" type="button" data-filter="all" aria-pressed="true">All work</button>
+<button class="cs-chip" type="button" data-filter="brand" aria-pressed="false">Brand Identity</button>
+<button class="cs-chip" type="button" data-filter="packaging" aria-pressed="false">Packaging</button>
+<button class="cs-chip" type="button" data-filter="seo" aria-pressed="false">SEO &amp; CRO</button>
+<button class="cs-chip" type="button" data-filter="strategy" aria-pressed="false">Strategy</button>
+<button class="cs-chip" type="button" data-filter="content" aria-pressed="false">Content</button>
 </div>
-</div>
-<div class="reveal">
-<div class="eyebrow">Case Study</div>
-<h2 class="h2">Stop selling the product. Start solving the farmer's problem.</h2>
-<div style="margin-top:18px;">
-<strong style="display:block; font-size:12px; text-transform:uppercase; letter-spacing:.6px; color:var(--ink-400); margin-bottom:4px;">The Challenge</strong>
-<p style="font-size:14.5px; color:var(--ink-600); line-height:1.7;">Vedang runs Polygen, an agrichem company, and walked in skeptical - he didn't believe farmers or an agricultural chemicals business belonged on social media at all, let alone that it could move the needle.</p>
-</div>
-<div style="margin-top:16px;">
-<strong style="display:block; font-size:12px; text-transform:uppercase; letter-spacing:.6px; color:var(--ink-400); margin-bottom:4px;">What We Did</strong>
-<p style="font-size:14.5px; color:var(--ink-600); line-height:1.7;">Director Paras Sir's advice reframed everything: "Don't sell your product, solve your farmer's problem." Vedang rebuilt Polygen's entire digital presence around practical, farmer-first content instead of direct product pitches - addressing real crop and field problems first.</p>
-</div>
-<div style="margin-top:16px;">
-<strong style="display:block; font-size:12px; text-transform:uppercase; letter-spacing:.6px; color:var(--ink-400); margin-bottom:4px;">The Result</strong>
-<p style="font-size:14.5px; color:var(--ink-600); line-height:1.7;">Polygen now shows up as a trusted problem-solver in farmers' feeds, not just another chemical supplier - turning a channel Vedang once dismissed into a steady source of credibility and inbound trust.</p>
-</div>
-</div>
+
+<div class="cs-grid" id="csGrid">
+
+<button class="cs-card reveal" type="button" data-case="antra" data-cats="seo strategy" aria-haspopup="dialog">
+<span class="cs-media">
+<img src="assets/case-studies/antra-ad.webp" width="1400" height="933" alt="Engine valve ad creative designed for Antra Auto Tech" loading="lazy"/>
+<span class="cs-tag">SEO + CRO</span>
+</span>
+<span class="cs-body">
+<span class="cs-index" aria-hidden="true">01</span>
+<span class="cs-hook">Only 1 of 12 pages on Google</span>
+<span class="cs-title">Antra Auto Tech - Engine-Valve Exporter</span>
+<span class="cs-by"><span class="cs-avatar">RD</span>Built by Ripal D. · Lime Digital student</span>
+<span class="cs-stats">
+<span><strong>25</strong><span>Conversion issues mapped</span></span>
+<span><strong>40</strong><span>Buyer-intent US keywords</span></span>
+<span><strong>10 wk</strong><span>Fix roadmap</span></span>
+</span>
+<span class="cs-more">Read case study <span class="cs-arrow">→</span></span>
+</span>
+</button>
+
+<button class="cs-card reveal" type="button" data-case="pletinus" data-cats="brand packaging strategy" aria-haspopup="dialog">
+<span class="cs-media">
+<img src="assets/case-studies/pletinus-catalogue.webp" width="1200" height="896" alt="Pletinus Group export catalogue on a table surrounded by spices" loading="lazy"/>
+<span class="cs-tag">Brand + Packaging</span>
+</span>
+<span class="cs-body">
+<span class="cs-index" aria-hidden="true">02</span>
+<span class="cs-hook">An export brand, built end to end</span>
+<span class="cs-title">Pletinus Group - Indian Agri-Export</span>
+<span class="cs-by"><span class="cs-avatar">AM</span>Built by Abhishek M. · Lime Digital student</span>
+<span class="cs-stats">
+<span><strong>16 pg</strong><span>Export catalogue</span></span>
+<span><strong>7</strong><span>Pouch designs</span></span>
+<span><strong>5</strong><span>Product categories</span></span>
+</span>
+<span class="cs-more">Read case study <span class="cs-arrow">→</span></span>
+</span>
+</button>
+
+<button class="cs-card reveal" type="button" data-case="surespool" data-cats="brand packaging" aria-haspopup="dialog">
+<span class="cs-media">
+<img src="assets/case-studies/surespool-card.webp" width="1600" height="713" alt="SureSpool filament spool, side label, kraft carton and print profile card" loading="lazy" style="object-fit:contain; background:#fff;"/>
+<span class="cs-tag">Brand Identity</span>
+</span>
+<span class="cs-body">
+<span class="cs-index" aria-hidden="true">03</span>
+<span class="cs-hook">No guessing. Just printing.</span>
+<span class="cs-title">SureSpool - 3D-Printer Filament</span>
+<span class="cs-by"><span class="cs-avatar">JB</span>Built by Jenish B. · Lime Digital student</span>
+<span class="cs-stats">
+<span><strong>11 pg</strong><span>Brand identity</span></span>
+<span><strong>6</strong><span>Logo colourways</span></span>
+<span><strong>2</strong><span>Concepts explored</span></span>
+</span>
+<span class="cs-more">Read case study <span class="cs-arrow">→</span></span>
+</span>
+</button>
+
+<button class="cs-card reveal" type="button" data-case="shirayuki" data-cats="brand packaging" aria-haspopup="dialog">
+<span class="cs-media">
+<img src="assets/case-studies/shirayuki-card.webp" width="1500" height="736" alt="Shirayuki business card, shirt box, hang tag and shopping bag mockups" loading="lazy"/>
+<span class="cs-tag">Brand Identity</span>
+</span>
+<span class="cs-body">
+<span class="cs-index" aria-hidden="true">04</span>
+<span class="cs-hook">Quiet luxury, cut from suvin cotton</span>
+<span class="cs-title">Shirayuki - Men's Formal Wear</span>
+<span class="cs-by"><span class="cs-avatar">NV</span>Built by Niyati V. · Lime Digital student</span>
+<span class="cs-stats">
+<span><strong>3</strong><span>Logo lockups</span></span>
+<span><strong>60/30/10</strong><span>Colour system</span></span>
+<span><strong>4</strong><span>Packaging mockups</span></span>
+</span>
+<span class="cs-more">Read case study <span class="cs-arrow">→</span></span>
+</span>
+</button>
+
+<button class="cs-card reveal" type="button" data-case="dhritiva" data-cats="brand content" aria-haspopup="dialog">
+<span class="cs-media">
+<img src="assets/case-studies/dhritiva-post.webp" width="1000" height="1000" alt="Dhritiva fragrance guide social post featuring a Pure Rose incense pouch" loading="lazy" style="object-position:center 8%;"/>
+<span class="cs-tag">Brand + Content</span>
+</span>
+<span class="cs-body">
+<span class="cs-index" aria-hidden="true">05</span>
+<span class="cs-hook">Bridging borders, building trust</span>
+<span class="cs-title">Dhritiva Ventures - Export &amp; Import Trading</span>
+<span class="cs-by"><span class="cs-avatar">DP</span>Built by Drashti P. · Lime Digital student</span>
+<span class="cs-stats">
+<span><strong>8</strong><span>Brand colours</span></span>
+<span><strong>8</strong><span>Guideline sections</span></span>
+<span><strong>5</strong><span>Semrush certifications</span></span>
+</span>
+<span class="cs-more">Read case study <span class="cs-arrow">→</span></span>
+</span>
+</button>
+
 </div>
 </section>
-<section class="mentor wrap" style="padding:70px 0; border-bottom:1px solid var(--border);">
-<div class="mentor-grid">
-<div class="reveal">
-<div class="graphic-card spotlight">
-<div class="graphic-card-img" style="height:320px;"><img width="257" height="320" data-ar="1" alt="Prapati Jignesh" src="assets/student-jignesh.webp"/></div>
-<div class="graphic-card-body" style="background:var(--ink-900); text-align:center;">
-<h4 style="color:#fff; font-size:18px;">Prapati Jignesh</h4>
-<span style="color:var(--lime-red); font-size:13px; font-weight:700; text-transform:uppercase;">Founder - Rivanta Naturals</span>
+
+<!-- CASE STUDY DETAIL DIALOG -->
+<dialog class="cs-dialog" id="csDialog" aria-label="Case study">
+<button class="cs-close" type="button" aria-label="Close case study" data-cs-close>×</button>
+<div class="cs-lightbox" id="csLightbox" hidden role="button" tabindex="-1" aria-label="Close image"><img alt=""/></div>
+<div class="cs-dialog-scroll">
+
+<article class="cs-detail" id="cs-antra" hidden>
+<header class="csd-hero">
+<div class="csd-hero-copy">
+<span class="csd-tag">SEO + CRO</span>
+<h2>Antra Auto Tech: from invisible to a 10-week fix plan</h2>
+<p class="csd-lede">Antra Auto Tech (Antra Industries), Metoda GIDC, Rajkot, makes and exports engine valves, valve guides, seat inserts and steering bearings for OEM and aftermarket buyers.</p>
+<div class="csd-author"><span class="cs-avatar">RD</span><span><strong>Ripal D.</strong><small>Lime Digital Institute student</small></span></div>
+</div>
+<div class="csd-hero-media">
+<div class="cs-finding" aria-hidden="true">
+<span class="cs-finding-kicker">Search visibility audit · antraautotech.com</span>
+<span class="cs-finding-big">1 / 12</span>
+<span class="cs-finding-label">pages indexed by Google</span>
+<span class="cs-finding-row" style="max-width:520px;">
+<span><b>308</b>Pages indexed by top competitor</span>
+<span><b>84%</b>Images with no alt text</span>
+<span><b>11</b>Pages hidden from search</span>
+</span>
 </div>
 </div>
+</header>
+<div class="csd-numbers">
+<div class="csd-num"><strong>1 / 12</strong><span>Pages indexed by Google</span></div>
+<div class="csd-num"><strong>308</strong><span>Pages indexed by the top competitor</span></div>
+<div class="csd-num"><strong>84%</strong><span>Images with no alt text (115 of 137)</span></div>
+<div class="csd-num"><strong>7</strong><span>Critical conversion issues of 25</span></div>
+<div class="csd-num"><strong>4,400</strong><span>US monthly searches for "engine valves"</span></div>
 </div>
-<div class="reveal">
-<div class="eyebrow">Case Study</div>
-<h2 class="h2">One hour a day. One brand that didn't exist before.</h2>
-<div style="margin-top:18px;">
-<strong style="display:block; font-size:12px; text-transform:uppercase; letter-spacing:.6px; color:var(--ink-400); margin-bottom:4px;">The Challenge</strong>
-<p style="font-size:14.5px; color:var(--ink-600); line-height:1.7;">Jignesh is a full-time working professional with exactly one open window in his day - 8 to 9 AM. Any training program that demanded more than that simply wasn't an option for him.</p>
-</div>
-<div style="margin-top:16px;">
-<strong style="display:block; font-size:12px; text-transform:uppercase; letter-spacing:.6px; color:var(--ink-400); margin-bottom:4px;">What We Did</strong>
-<p style="font-size:14.5px; color:var(--ink-600); line-height:1.7;">Lime Digital Institute built a special morning batch specifically for working professionals like him. In that one focused hour daily, he picked up real business and marketing insights he applied immediately outside class.</p>
-</div>
-<div style="margin-top:16px;">
-<strong style="display:block; font-size:12px; text-transform:uppercase; letter-spacing:.6px; color:var(--ink-400); margin-bottom:4px;">The Result</strong>
-<p style="font-size:14.5px; color:var(--ink-600); line-height:1.7;">"Rivanta Naturals" - a natural products brand that didn't exist before the course - now runs alongside his full-time job, proof that a single disciplined hour a day was enough to launch it.</p>
-</div>
-</div>
+<p class="csd-note">Measured during the audits in September 2026.</p>
+<div class="csd-layout">
+<div class="csd-main">
+<section class="csd-section">
+<span class="csd-eyebrow">01 · The challenge</span>
+<p class="csd-challenge">antraautotech.com wasn't showing up in search. A canonical tag on every page pointed Google back to the homepage, so only 1 of 12 pages was indexed. Placeholder text and no analytics made the site hard to trust and impossible to measure.</p>
+</section>
+<section class="csd-section">
+<span class="csd-eyebrow">02 · What Ripal built</span>
+<div class="csd-delivs">
+<div class="csd-deliv"><span class="csd-deliv-num">01</span><h4>Technical SEO &amp; search visibility audit (13 pages)</h4><p>Indexing, sitemap, JavaScript-set titles, soft 404s, image alt text and a competitor benchmark, ending in a prioritised action plan.</p></div>
+<div class="csd-deliv"><span class="csd-deliv-num">02</span><h4>CRO audit &amp; implementation plan (31 pages)</h4><p>25 issues, each with a marked-up screenshot, fix steps, owner and success metric, plus a 5-phase, 10-week roadmap and a GA4 measurement plan.</p></div>
+<div class="csd-deliv"><span class="csd-deliv-num">03</span><h4>US keyword research workbook</h4><p>71 keywords pulled, a 40-keyword purchase-intent shortlist, a page-1 competitor sheet and six new pages to build.</p></div>
+<div class="csd-deliv"><span class="csd-deliv-num">04</span><h4>Dealer reward programme</h4><p>QR plus unique-code scratch cards with server-side validation, planned as a 1,000-box pilot.</p></div>
+<div class="csd-deliv"><span class="csd-deliv-num">05</span><h4>Ad creative and logo lockups</h4><p>For product promotion.</p></div>
 </div>
 </section>
+<section class="csd-section">
+<span class="csd-eyebrow">03 · Gallery</span>
+<div class="cs-gallery">
+<a href="assets/case-studies/antra-seo-cover.webp" target="_blank" rel="noopener"><img src="assets/case-studies/antra-seo-cover.webp" alt="SEO audit cover" loading="lazy"/></a>
+<a href="assets/case-studies/antra-ad.webp" target="_blank" rel="noopener"><img src="assets/case-studies/antra-ad.webp" alt="Engine valve ad creative" loading="lazy"/></a>
+<a href="assets/case-studies/antra-logo.webp" target="_blank" rel="noopener"><img src="assets/case-studies/antra-logo.webp" alt="Antra logo lockups" loading="lazy"/></a>
+</div>
+</section>
+</div>
+<aside class="csd-side">
+<div class="csd-snap">
+<h4>Project snapshot</h4>
+<dl>
+<div><dt>Student</dt><dd>Ripal D.</dd></div>
+<div><dt>Company Name</dt><dd>Antra Auto Tech</dd></div>
+<div><dt>Industry</dt><dd>Auto parts manufacturing &amp; export</dd></div>
+<div><dt>Work Done</dt><dd>SEO audit, website conversion audit, keyword research</dd></div>
+</dl>
+<div class="csd-snap-label">Tools used</div>
+<div class="cs-tools"><span>Apify</span><span>Chrome DevTools</span><span>Google Search operators</span><span>GA4</span><span>AI image generation</span></div>
+</div>
+<div class="csd-cta">
+<p>Want to build audits like this?</p>
+<span>Join a free 3-day trial at our Rajkot campus.</span>
+<a class="btn btn-glow open-modal-btn" data-course="Free Trial Class" href="#">Book a Free Trial Class</a>
+</div>
+</aside>
+</div>
+<nav class="csd-pager" aria-label="More case studies">
+<button type="button" data-cs-go="dhritiva"><small>← Previous</small><strong>Dhritiva Ventures</strong></button>
+<button type="button" data-cs-go="pletinus"><small>Next →</small><strong>Pletinus Group</strong></button>
+</nav>
+</article>
+
+<article class="cs-detail" id="cs-pletinus" hidden>
+<header class="csd-hero">
+<div class="csd-hero-copy">
+<span class="csd-tag">Brand + Packaging</span>
+<h2>Pletinus Group: an agri-export brand that sells on trust, not price</h2>
+<p class="csd-lede">Pletinus Group, Rajkot, exports spices, pulses, seasonings, noodles &amp; pasta and dehydrated foods to importers, distributors and food manufacturers across the Middle East, Europe, Africa, the USA and Asia.</p>
+<div class="csd-author"><span class="cs-avatar">AM</span><span><strong>Abhishek M.</strong><small>Lime Digital Institute student</small></span></div>
+</div>
+<div class="csd-hero-media">
+<img src="assets/case-studies/pletinus-hero.webp" width="1400" height="788" alt="" loading="lazy" style="object-position:left center;"/>
+</div>
+</header>
+<div class="csd-numbers">
+<div class="csd-num"><strong>16</strong><span>Catalogue pages</span></div>
+<div class="csd-num"><strong>5</strong><span>Product categories</span></div>
+<div class="csd-num"><strong>7</strong><span>Pouch designs</span></div>
+<div class="csd-num"><strong>9</strong><span>Business Model Canvas blocks</span></div>
+</div>
+<div class="csd-layout">
+<div class="csd-main">
+<section class="csd-section">
+<span class="csd-eyebrow">01 · The challenge</span>
+<p class="csd-challenge">Overseas buyers had been burned by delayed shipments and weak paperwork from Indian traders, and Pletinus had already lost a deal on price. The brand needed to win on reliability and documentation instead of discounts.</p>
+</section>
+<section class="csd-section">
+<span class="csd-eyebrow">02 · What Abhishek built</span>
+<div class="csd-delivs">
+<div class="csd-deliv"><span class="csd-deliv-num">01</span><h4>Marketing strategy</h4><p>A 7Ps marketing mix and a full Business Model Canvas, including a QR traceability idea and farmer storytelling.</p></div>
+<div class="csd-deliv"><span class="csd-deliv-num">02</span><h4>Brand guidelines</h4><p>Positioning, archetype, buyer segments, messaging pillars, voice, logo, colour, type and channel playbooks, plus a 7-page brand book.</p></div>
+<div class="csd-deliv"><span class="csd-deliv-num">03</span><h4>16-page export catalogue (Edition 2026)</h4><p>Company story, quality and certifications, process, SKU grids per category, private label and a QR contact page.</p></div>
+<div class="csd-deliv"><span class="csd-deliv-num">04</span><h4>Packaging range</h4><p>Branded stand-up pouches for Peanuts, Coriander, Green Gram, Fenugreek, Fennel, Black Chickpeas and Cumin, plus jar, poly-pack and PP-bag mockups.</p></div>
+<div class="csd-deliv"><span class="csd-deliv-num">05</span><h4>AI product visuals</h4><p>Category heroes for spices, pulses and pasta, and a website hero banner.</p></div>
+</div>
+</section>
+<section class="csd-section">
+<span class="csd-eyebrow">03 · Gallery</span>
+<div class="cs-gallery">
+<a href="assets/case-studies/pletinus-catalogue.webp" target="_blank" rel="noopener"><img src="assets/case-studies/pletinus-catalogue.webp" alt="Export catalogue mockup" loading="lazy"/></a>
+<a href="assets/case-studies/pletinus-pouches.webp" target="_blank" rel="noopener"><img src="assets/case-studies/pletinus-pouches.webp" alt="Pouch packaging family" loading="lazy"/></a>
+<a href="assets/case-studies/pletinus-greengram.webp" target="_blank" rel="noopener"><img src="assets/case-studies/pletinus-greengram.webp" alt="Green Gram pouch" loading="lazy"/></a>
+<a href="assets/case-studies/pletinus-hero.webp" target="_blank" rel="noopener"><img src="assets/case-studies/pletinus-hero.webp" alt="Website hero banner" loading="lazy"/></a>
+<a href="assets/case-studies/pletinus-spices.webp" target="_blank" rel="noopener"><img src="assets/case-studies/pletinus-spices.webp" alt="Spices category visual" loading="lazy"/></a>
+<a href="assets/case-studies/pletinus-jar.webp" target="_blank" rel="noopener"><img src="assets/case-studies/pletinus-jar.webp" alt="Branded jar mockup" loading="lazy"/></a>
+</div>
+</section>
+</div>
+<aside class="csd-side">
+<div class="csd-snap">
+<h4>Project snapshot</h4>
+<dl>
+<div><dt>Student</dt><dd>Abhishek M.</dd></div>
+<div><dt>Company Name</dt><dd>Pletinus Group</dd></div>
+<div><dt>Industry</dt><dd>B2B agri-export</dd></div>
+<div><dt>Work Done</dt><dd>Marketing strategy, branding, packaging design</dd></div>
+</dl>
+<div class="csd-snap-label">Tools used</div>
+<div class="cs-tools"><span>Pomelli</span><span>Google Gemini</span><span>AI image generation</span><span>QR code generator</span></div>
+</div>
+<div class="csd-cta">
+<p>Want to build a brand like this?</p>
+<span>Join a free 3-day trial at our Rajkot campus.</span>
+<a class="btn btn-glow open-modal-btn" data-course="Free Trial Class" href="#">Book a Free Trial Class</a>
+</div>
+</aside>
+</div>
+<nav class="csd-pager" aria-label="More case studies">
+<button type="button" data-cs-go="antra"><small>← Previous</small><strong>Antra Auto Tech</strong></button>
+<button type="button" data-cs-go="surespool"><small>Next →</small><strong>SureSpool</strong></button>
+</nav>
+</article>
+
+<article class="cs-detail" id="cs-surespool" hidden>
+<header class="csd-hero">
+<div class="csd-hero-copy">
+<span class="csd-tag">Brand Identity</span>
+<h2>SureSpool: one promise, carried from the spool to Instagram</h2>
+<p class="csd-lede">SureSpool makes 1.75 mm PLA 3D-printer filament in Rajkot, Gujarat.</p>
+<div class="csd-author"><span class="cs-avatar">JB</span><span><strong>Jenish B.</strong><small>Lime Digital Institute student</small></span></div>
+</div>
+<div class="csd-hero-media">
+<img src="assets/case-studies/surespool-cover.webp" width="1400" height="788" alt="" loading="lazy"/>
+</div>
+</header>
+<div class="csd-numbers">
+<div class="csd-num"><strong>11</strong><span>Page brand identity</span></div>
+<div class="csd-num"><strong>6</strong><span>Logo colourways</span></div>
+<div class="csd-num"><strong>2</strong><span>Concepts explored</span></div>
+</div>
+<div class="csd-layout">
+<div class="csd-main">
+<section class="csd-section">
+<span class="csd-eyebrow">01 · The challenge</span>
+<p class="csd-challenge">Makers lose prints re-calibrating every time they switch to a new spool. The brand had to own one clear promise: one tested print profile for SureSpool PLA, with no re-calibrating when you switch spools.</p>
+</section>
+<section class="csd-section">
+<span class="csd-eyebrow">02 · What Jenish built</span>
+<div class="csd-delivs">
+<div class="csd-deliv"><span class="csd-deliv-num">01</span><h4>Logo</h4><p>A "filament S" icon where the strand leaving the spool becomes the letter, plus a custom wordmark and six colour variations.</p></div>
+<div class="csd-deliv"><span class="csd-deliv-num">02</span><h4>Colour and type</h4><p>Calibration Yellow and Ink Black with Inter, plus clear-space and misuse rules.</p></div>
+<div class="csd-deliv"><span class="csd-deliv-num">03</span><h4>Packaging</h4><p>Spool front, side label, kraft carton, shipping box and a QR print-profile card inside every box.</p></div>
+<div class="csd-deliv"><span class="csd-deliv-num">04</span><h4>Digital</h4><p>Instagram feed, website, favicon and social avatars.</p></div>
+<div class="csd-deliv"><span class="csd-deliv-num">05</span><h4>Print</h4><p>Business card, stickers, invoice and photo watermark.</p></div>
+<div class="csd-deliv"><span class="csd-deliv-num">06</span><h4>Concept exploration</h4><p>An earlier coral-and-cobalt direction tested before the final identity.</p></div>
+</div>
+</section>
+<section class="csd-section">
+<span class="csd-eyebrow">03 · Gallery</span>
+<div class="cs-gallery">
+<a href="assets/case-studies/surespool-cover.webp" target="_blank" rel="noopener"><img src="assets/case-studies/surespool-cover.webp" alt="Brand identity cover" loading="lazy"/></a>
+<a href="assets/case-studies/surespool-packaging.webp" target="_blank" rel="noopener"><img src="assets/case-studies/surespool-packaging.webp" alt="Spool, label and carton" loading="lazy"/></a>
+<a href="assets/case-studies/surespool-box.webp" target="_blank" rel="noopener"><img src="assets/case-studies/surespool-box.webp" alt="Kraft shipping box" loading="lazy"/></a>
+<a href="assets/case-studies/surespool-instagram.webp" target="_blank" rel="noopener"><img src="assets/case-studies/surespool-instagram.webp" alt="Instagram feed" loading="lazy"/></a>
+<a href="assets/case-studies/surespool-web.webp" target="_blank" rel="noopener"><img src="assets/case-studies/surespool-web.webp" alt="Website and favicon" loading="lazy"/></a>
+</div>
+</section>
+</div>
+<aside class="csd-side">
+<div class="csd-snap">
+<h4>Project snapshot</h4>
+<dl>
+<div><dt>Student</dt><dd>Jenish B.</dd></div>
+<div><dt>Company Name</dt><dd>SureSpool</dd></div>
+<div><dt>Industry</dt><dd>3D-printing supplies</dd></div>
+<div><dt>Work Done</dt><dd>Logo &amp; brand identity, packaging design, social media design</dd></div>
+</dl>
+</div>
+<div class="csd-cta">
+<p>Want to design identities like this?</p>
+<span>Join a free 3-day trial at our Rajkot campus.</span>
+<a class="btn btn-glow open-modal-btn" data-course="Free Trial Class" href="#">Book a Free Trial Class</a>
+</div>
+</aside>
+</div>
+<nav class="csd-pager" aria-label="More case studies">
+<button type="button" data-cs-go="pletinus"><small>← Previous</small><strong>Pletinus Group</strong></button>
+<button type="button" data-cs-go="shirayuki"><small>Next →</small><strong>Shirayuki</strong></button>
+</nav>
+</article>
+
+<article class="cs-detail" id="cs-shirayuki" hidden>
+<header class="csd-hero">
+<div class="csd-hero-copy">
+<span class="csd-tag">Brand Identity</span>
+<h2>Shirayuki: a premium menswear label, from logo to shopping bag</h2>
+<p class="csd-lede">Shirayuki - "white snow" in Japanese - makes suvin-cotton formal wear for premium-minded men aged 25-35, with custom embroidery and add-ons like collar pins, pocket squares and scarves.</p>
+<div class="csd-author"><span class="cs-avatar">NV</span><span><strong>Niyati V.</strong><small>Lime Digital Institute student</small></span></div>
+</div>
+<div class="csd-hero-media">
+<img src="assets/case-studies/shirayuki-photos.webp" width="1800" height="581" alt="" loading="lazy"/>
+</div>
+</header>
+<div class="csd-numbers">
+<div class="csd-num"><strong>3</strong><span>Logo lockups</span></div>
+<div class="csd-num"><strong>3</strong><span>Brand colours</span></div>
+<div class="csd-num"><strong>4</strong><span>Packaging mockups</span></div>
+</div>
+<div class="csd-layout">
+<div class="csd-main">
+<section class="csd-section">
+<span class="csd-eyebrow">01 · The challenge</span>
+<p class="csd-challenge">Give a new label an identity that feels elegant, premium and comfortable, and that holds together everywhere a customer meets it - from the Instagram grid to the shirt box.</p>
+</section>
+<section class="csd-section">
+<span class="csd-eyebrow">02 · What Niyati built</span>
+<div class="csd-delivs">
+<div class="csd-deliv"><span class="csd-deliv-num">01</span><h4>Logo system</h4><p>Horizontal, stacked and circular icon lockups pairing SHIRAYUKI with 白雪.</p></div>
+<div class="csd-deliv"><span class="csd-deliv-num">02</span><h4>Colour system</h4><p>Cloud White, Cyprus green and Antique Gold, used in a 60/30/10 ratio.</p></div>
+<div class="csd-deliv"><span class="csd-deliv-num">03</span><h4>Typography</h4><p>Lora for headings and Poppins for body text.</p></div>
+<div class="csd-deliv"><span class="csd-deliv-num">04</span><h4>Usage rules</h4><p>Clear space, minimum sizes, misuse examples and a photo watermark standard.</p></div>
+<div class="csd-deliv"><span class="csd-deliv-num">05</span><h4>Applications</h4><p>Instagram profile, business card, shirt box, hang tag and shopping bag.</p></div>
+<div class="csd-deliv"><span class="csd-deliv-num">06</span><h4>Brand essence</h4><p>Who we are, who we serve, what sets us apart and the brand promise.</p></div>
+</div>
+</section>
+<section class="csd-section">
+<span class="csd-eyebrow">03 · Gallery</span>
+<div class="cs-gallery">
+<a href="assets/case-studies/shirayuki-logo.webp" target="_blank" rel="noopener"><img src="assets/case-studies/shirayuki-logo.webp" alt="Primary logo" loading="lazy" style="object-fit:contain;background:#fafafa;"/></a>
+<a href="assets/case-studies/shirayuki-mockups.webp" target="_blank" rel="noopener"><img src="assets/case-studies/shirayuki-mockups.webp" alt="Packaging mockups" loading="lazy"/></a>
+<a href="assets/case-studies/shirayuki-photos.webp" target="_blank" rel="noopener"><img src="assets/case-studies/shirayuki-photos.webp" alt="Photo watermark examples" loading="lazy"/></a>
+</div>
+</section>
+</div>
+<aside class="csd-side">
+<div class="csd-snap">
+<h4>Project snapshot</h4>
+<dl>
+<div><dt>Student</dt><dd>Niyati V.</dd></div>
+<div><dt>Company Name</dt><dd>Shirayuki</dd></div>
+<div><dt>Industry</dt><dd>Men's fashion</dd></div>
+<div><dt>Work Done</dt><dd>Logo &amp; brand identity, packaging design</dd></div>
+</dl>
+</div>
+<div class="csd-cta">
+<p>Want to build a label like this?</p>
+<span>Join a free 3-day trial at our Rajkot campus.</span>
+<a class="btn btn-glow open-modal-btn" data-course="Free Trial Class" href="#">Book a Free Trial Class</a>
+</div>
+</aside>
+</div>
+<nav class="csd-pager" aria-label="More case studies">
+<button type="button" data-cs-go="surespool"><small>← Previous</small><strong>SureSpool</strong></button>
+<button type="button" data-cs-go="dhritiva"><small>Next →</small><strong>Dhritiva Ventures</strong></button>
+</nav>
+</article>
+
+<article class="cs-detail" id="cs-dhritiva" hidden>
+<header class="csd-hero">
+<div class="csd-hero-copy">
+<span class="csd-tag">Brand + Content</span>
+<h2>Dhritiva Ventures: a complete brand system from a single logo mark</h2>
+<p class="csd-lede">Dhritiva Ventures is an export and import trading brand built around one line: "Bridging Borders, Building Trust."</p>
+<div class="csd-author"><span class="cs-avatar">DP</span><span><strong>Drashti P.</strong><small>Lime Digital Institute student</small></span></div>
+</div>
+<div class="csd-hero-media">
+<img src="assets/case-studies/dhritiva-post.webp" width="1000" height="1000" alt="" loading="lazy" style="object-position:center 35%;"/>
+</div>
+</header>
+<div class="csd-numbers">
+<div class="csd-num"><strong>8</strong><span>Brand colours</span></div>
+<div class="csd-num"><strong>8</strong><span>Guideline sections</span></div>
+<div class="csd-num"><strong>5</strong><span>Semrush Academy certificates</span></div>
+</div>
+<div class="csd-layout">
+<div class="csd-main">
+<section class="csd-section">
+<span class="csd-eyebrow">01 · The challenge</span>
+<p class="csd-challenge">Turn a single logo mark into a brand system complete enough to run a business on - from web components to the email signature.</p>
+</section>
+<section class="csd-section">
+<span class="csd-eyebrow">02 · What Drashti built</span>
+<div class="csd-delivs">
+<div class="csd-deliv"><span class="csd-deliv-num">01</span><h4>Logo system</h4><p>Circular stamp mark and serif wordmark, with clear space, minimum size, approved backgrounds and misuse rules.</p></div>
+<div class="csd-deliv"><span class="csd-deliv-num">02</span><h4>Colour and type</h4><p>An 8-colour palette led by Ink Navy and Trade Gold, with Playfair Display and Karla.</p></div>
+<div class="csd-deliv"><span class="csd-deliv-num">03</span><h4>Design system</h4><p>Imagery rules, spacing and radius tokens, and UI components: buttons, cards, inputs, badges and icons.</p></div>
+<div class="csd-deliv"><span class="csd-deliv-num">04</span><h4>Voice and tone</h4><p>"warm, plainspoken", with do's and don'ts, plus a branded email signature.</p></div>
+<div class="csd-deliv"><span class="csd-deliv-num">05</span><h4>Social content</h4><p>A "Rose for Lakshmi" fragrance-guide post for Dhritiva Incense, and brand videos.</p></div>
+<div class="csd-deliv"><span class="csd-deliv-num">06</span><h4>Certifications</h4><p>Five Semrush Academy certificates: SEO Crash Course, International SEO, Content Marketing, Social Media Marketing and Marketing Analytics.</p></div>
+</div>
+</section>
+<section class="csd-section">
+<span class="csd-eyebrow">03 · Gallery</span>
+<div class="cs-gallery">
+<a href="assets/case-studies/dhritiva-post.webp" target="_blank" rel="noopener"><img src="assets/case-studies/dhritiva-post.webp" alt="Fragrance guide social post" loading="lazy"/></a>
+</div>
+</section>
+</div>
+<aside class="csd-side">
+<div class="csd-snap">
+<h4>Project snapshot</h4>
+<dl>
+<div><dt>Student</dt><dd>Drashti P.</dd></div>
+<div><dt>Company Name</dt><dd>Dhritiva Ventures</dd></div>
+<div><dt>Industry</dt><dd>Export &amp; import trading</dd></div>
+<div><dt>Work Done</dt><dd>Brand guidelines, social media content, SEO</dd></div>
+</dl>
+</div>
+<div class="csd-cta">
+<p>Want to build a brand like this?</p>
+<span>Join a free 3-day trial at our Rajkot campus.</span>
+<a class="btn btn-glow open-modal-btn" data-course="Free Trial Class" href="#">Book a Free Trial Class</a>
+</div>
+</aside>
+</div>
+<nav class="csd-pager" aria-label="More case studies">
+<button type="button" data-cs-go="shirayuki"><small>← Previous</small><strong>Shirayuki</strong></button>
+<button type="button" data-cs-go="antra"><small>Next →</small><strong>Antra Auto Tech</strong></button>
+</nav>
+</article>
+
+</div>
+</dialog>
+
 <section class="final-cta">
 <div class="wrap">
 <div class="eyebrow" style="color:#ffffff;">Your Story Starts Here</div>
 <h2 class="h2">Your business could be the next case study.</h2>
-<p class="lead">Drashti, Vedang, and Jignesh all started with a free trial class. Come see what one hour with Paras Sir can do for you.</p>
+<p class="lead">Every project on this page started in our classroom. Come see what one hour with Paras Sir can do for you.</p>
 <div class="btn-row">
 <a class="btn btn-glow" href="tel:+917567787232">Call +91 75677 87232</a>
 <a class="btn btn-inverse open-modal-btn" data-course="Free Trial Class" href="#">Book a Free Trial Class</a>
 </div>
 </div>
 </section>
-<!-- FOOTER -->
-<footer>
+</main><!-- /#siteMainWrapper -->
+<!-- FOOTER REVEAL SPACER (Guarantees scroll track for the sticky curtain reveal) -->
+<div aria-hidden="true" class="footer-reveal-spacer" id="footerRevealSpacer"></div>
+<!-- ANTIGRAVITY STICKY REVEAL FOOTER -->
+<footer class="antigravity-footer" id="antigravityFooter">
 <div class="wrap">
-<div class="footer-grid">
-<div class="footer-brand">
-<div class="footer-logo-plate">
-<img width="440" height="286" data-ar="1" alt="Lime Digital Institute" src="assets/lime-logo.png"/>
-</div>
-<p>India's leading digital marketing business school - live + recorded, AI-powered, Rajkot campus.</p>
-</div>
-<div class="footer-col">
-<div class="footer-col-title">Navigation</div>
-<a href="/">Home</a>
-<a href="courses">Courses</a>
-<a href="about">About Us</a>
-<a href="contact">Contact</a>
-</div>
-<div class="footer-col">
-<div class="footer-col-title">Programs</div>
-<a href="courses">Foundation Program (1.5 Mo)</a>
-<a href="courses">Advance Program (3 Mo)</a>
-<a href="bachelors-in-digital-business">Bachelor's in Digital Business (3 Yrs)</a>
-<a href="masters-in-digital-business">Master's in Digital Business (11 Mo)</a>
-</div>
-<div class="footer-col">
-<div class="footer-col-title">Campus Contact</div>
-<a href="tel:+917567787232">+91 75677 87232</a>
-<a href="tel:+918980626323">Support: +91 89806 26323</a>
-<a href="contact">5th Floor, LIME Institute, Jyoti Nagar Main Rd, near Masoom School, behind Crystal Mall, Rajkot 360005</a>
+<!-- Top Row: Lead & Nav Columns -->
+<div class="ag-footer-top">
+<div class="ag-footer-brand-col">
+<span class="ag-footer-eyebrow">LIME DIGITAL INSTITUTE</span>
+<h2 class="ag-footer-headline">Experience liftoff</h2>
+<div class="ag-footer-actions">
+<div class="ag-footer-socials">
+<a aria-label="Lime Digital Institute on Instagram" class="ag-social-btn" href="https://www.instagram.com/limedigitalinstitute/" rel="noopener" target="_blank">
+<svg fill="currentColor" height="16" viewbox="0 0 24 24" width="16"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg>
+<span class="sr-only" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Instagram</span></a>
+<a aria-label="Lime Digital Institute on LinkedIn" class="ag-social-btn" href="https://www.linkedin.com/school/limedigitalinstitute/" rel="noopener" target="_blank">
+<svg fill="currentColor" height="16" viewbox="0 0 24 24" width="16"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path></svg>
+<span class="sr-only" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">LinkedIn</span></a>
+<a aria-label="Lime Digital Institute on YouTube" class="ag-social-btn" href="https://www.youtube.com/@limedigitalinstitute" rel="noopener" target="_blank">
+<svg fill="currentColor" height="16" viewbox="0 0 24 24" width="16"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path></svg>
+<span class="sr-only" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">YouTube</span></a>
 </div>
 </div>
-<div class="footer-bottom">
-<div>© Lime Digital Institute. All rights reserved.</div>
-<div>Instagram · Facebook · YouTube · LinkedIn - @limedigitalinstitute</div>
+</div>
+<div class="ag-footer-nav">
+<div class="ag-footer-nav-col">
+<span class="ag-col-label">Programs</span>
+<ul class="ag-col-list">
+<li><a href="courses">Foundation Program (1.5 Months)</a></li>
+<li><a href="digital-marketing-professional">Digital Marketing Professional (3 Months)</a></li>
+<li><a href="bachelors-in-digital-business">Bachelor's in Digital Business (3 Years)</a></li>
+<li><a href="masters-in-digital-business">Master's in Digital Business (11 Months)</a></li>
+<li><a href="courses">All Digital Marketing Courses</a></li>
+</ul>
+</div>
+<div class="ag-footer-nav-col">
+<span class="ag-col-label">Resources</span>
+<ul class="ag-col-list">
+<li><a href="case-studies">Case Studies &amp; Outcomes</a></li>
+<li><a href="placements">Placement Report</a></li>
+<li><a href="student-life">Campus Life &amp; Labs</a></li>
+<li><a href="blog">Marketing Playbooks</a></li>
+<li><a href="masterclass">Workshops &amp; Masterclasses</a></li>
+</ul>
+</div>
+<div class="ag-footer-nav-col ag-contact-col">
+<div class="ag-contact-group">
+<span class="ag-office-label">Get in Touch:</span>
+<div class="ag-contact-list">
+<a class="ag-contact-item" href="mailto:digital@limeinstitute.org">
+<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+<span>digital@<wbr/>limeinstitute.org</span>
+</a>
+<a class="ag-contact-item" href="tel:+917567787232">
+<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+<span>+91 75677 87232</span>
+</a>
+<a class="ag-contact-item" href="tel:+918980626323">
+<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+<span>+91 89806 26323</span>
+</a>
+</div>
+</div>
+<div class="ag-office-divider"></div>
+<div class="ag-office-box">
+<span class="ag-office-label">Campus Address:</span>
+<p class="ag-office-text">
+<a href="https://maps.google.com/maps?q=LIME%20Institute%2C%20Jyoti%20Nagar%20Main%20Rd%2C%20Rajkot%2C%20Gujarat%20360005" rel="noopener" style="color:inherit;text-decoration:none;" target="_blank">5th Floor, LIME Institute, Jyoti Nagar Main Rd, near Masoom School, behind Crystal Mall, Ghanshyam Nagar, Rajkot, Gujarat 360005</a>
+</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Group: Signature Wordmark & Utility Bar (Antigravity Architecture) -->
+<div class="ag-footer-bottom-group">
+<div aria-hidden="true" class="ag-footer-wordmark-wrap">
+<span class="ag-footer-wordmark">Lime Digital Institute</span>
+</div>
+<!-- Bottom Utility Bar -->
+<div class="ag-footer-bottom">
+<div class="ag-footer-bottom-left">
+<span class="ag-copyright">© 2026 Lime Digital Institute. All rights reserved.</span>
+</div>
+<div class="ag-footer-bottom-right">
+<a href="privacy-policy">Privacy Policy</a>
+<span class="ag-sep">•</span>
+<a href="terms-of-use">Terms of Use</a>
+<span class="ag-sep">•</span>
+<a href="contact">Contact Us</a>
+</div>
+</div>
 </div>
 </div>
 </footer>
+<script>
+  (function() {
+    function syncFooterSpacer() {
+      var footer = document.getElementById('antigravityFooter');
+      var spacer = document.getElementById('footerRevealSpacer');
+      if (!footer || !spacer) return;
+      if (window.innerWidth > 768) {
+        var reqH = footer.offsetHeight;
+        spacer.style.height = reqH + 'px';
+      } else {
+        spacer.style.height = '0px';
+      }
+    }
+    function checkFooterInView() {
+      var footer = document.getElementById('antigravityFooter');
+      if (!footer) return;
+      var rect = footer.getBoundingClientRect();
+      var winH = window.innerHeight;
+      if (rect.top < winH * 0.75) {
+        document.body.classList.add('footer-revealed');
+      } else {
+        document.body.classList.remove('footer-revealed');
+      }
+    }
+    syncFooterSpacer();
+    checkFooterInView();
+    window.addEventListener('scroll', checkFooterInView, { passive: true });
+    window.addEventListener('resize', function() {
+      syncFooterSpacer();
+      checkFooterInView();
+    }, { passive: true });
+    window.addEventListener('load', function() {
+      syncFooterSpacer();
+      checkFooterInView();
+    });
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function() {
+        syncFooterSpacer();
+        checkFooterInView();
+      });
+    }
+    if (window.ResizeObserver) {
+      new ResizeObserver(function() {
+        syncFooterSpacer();
+        checkFooterInView();
+      }).observe(document.getElementById('antigravityFooter'));
+    }
+  })();
+</script>
 <!-- FLOATING CALL & WHATSAPP BUTTONS -->
 <a class="float-btn float-call" href="tel:+917567787232">
 <svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
@@ -470,7 +1181,106 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </div>
 </div>
 <script src="assets/country-picker.js?v=20260918g"></script>
-<script src="assets/lime-form.js?v=20261005a"></script>
-<script src="assets/main.js?v=20261012a"></script>
+<script src="assets/lime-form.js?v=20261023d"></script>
+<script src="assets/main.js?v=20261118a"></script>
+<script>
+(function () {
+  var grid = document.getElementById('csGrid');
+  var dialog = document.getElementById('csDialog');
+  if (!grid || !dialog) return;
+  var cards = grid.querySelectorAll('.cs-card');
+  var chips = document.querySelectorAll('.cs-chip');
+  var lastCard = null;
+
+  chips.forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      var f = chip.getAttribute('data-filter');
+      chips.forEach(function (c) { c.setAttribute('aria-pressed', c === chip ? 'true' : 'false'); });
+      cards.forEach(function (card) {
+        var cats = (card.getAttribute('data-cats') || '').split(' ');
+        card.hidden = !(f === 'all' || cats.indexOf(f) !== -1);
+      });
+    });
+  });
+
+  function openCase(id, card) {
+    var detail = document.getElementById('cs-' + id);
+    if (!detail) return;
+    dialog.querySelectorAll('.cs-detail').forEach(function (d) { d.hidden = d !== detail; });
+    var h = detail.querySelector('h2');
+    dialog.setAttribute('aria-label', h ? h.textContent : 'Case study');
+    lastCard = card || grid.querySelector('[data-case="' + id + '"]');
+    if (typeof dialog.showModal === 'function') dialog.showModal(); else dialog.setAttribute('open', '');
+    dialog.querySelector('.cs-dialog-scroll').scrollTop = 0;
+    if (history.replaceState) history.replaceState(null, '', '#' + id);
+  }
+  function closeCase() {
+    if (dialog.open) dialog.close();
+  }
+
+  cards.forEach(function (card) {
+    card.addEventListener('click', function () { openCase(card.getAttribute('data-case'), card); });
+  });
+  dialog.querySelector('[data-cs-close]').addEventListener('click', closeCase);
+  // Previous / next case without closing the dialog.
+  dialog.querySelectorAll('[data-cs-go]').forEach(function (btn) {
+    btn.addEventListener('click', function () { openCase(btn.getAttribute('data-cs-go')); });
+  });
+  dialog.addEventListener('click', function (e) { if (e.target === dialog) closeCase(); });
+  dialog.addEventListener('close', function () {
+    if (history.replaceState) history.replaceState(null, '', location.pathname + location.search);
+    if (lastCard) lastCard.focus();
+  });
+  // Gallery opens in a lightbox. Stopping propagation keeps main.js's page-lock
+  // click handler from treating the image link as a protected page.
+  var lightbox = document.getElementById('csLightbox');
+  var lightboxImg = lightbox.querySelector('img');
+  function closeLightbox() { lightbox.hidden = true; lightboxImg.removeAttribute('src'); }
+  dialog.querySelectorAll('.cs-gallery a').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      var img = a.querySelector('img');
+      lightboxImg.src = a.getAttribute('href');
+      lightboxImg.alt = img ? img.alt : '';
+      lightbox.hidden = false;
+      lightbox.focus();
+    });
+  });
+  lightbox.addEventListener('click', function (e) { e.stopPropagation(); closeLightbox(); });
+  dialog.addEventListener('cancel', function (e) {
+    if (!lightbox.hidden) { e.preventDefault(); closeLightbox(); }
+  });
+  // The trial-class buttons open the site's lead modal, which sits under the dialog's top layer.
+  dialog.querySelectorAll('.open-modal-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () { lastCard = null; closeCase(); });
+  });
+
+  // Intro numbers count up once when they scroll into view.
+  var counters = document.querySelectorAll('[data-count]');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (counters.length && 'IntersectionObserver' in window && !reduce) {
+    var countIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var el = entry.target, end = +el.getAttribute('data-count'), suffix = el.getAttribute('data-suffix') || '', start = null;
+        countIO.unobserve(el);
+        function step(ts) {
+          if (start === null) start = ts;
+          var p = Math.min((ts - start) / 1100, 1);
+          el.textContent = Math.round(end * (1 - Math.pow(1 - p, 3))) + (p === 1 ? suffix : '');
+          if (p < 1) requestAnimationFrame(step);
+        }
+        el.textContent = '0';
+        requestAnimationFrame(step);
+      });
+    }, { threshold: 0.6 });
+    counters.forEach(function (el) { countIO.observe(el); });
+  }
+
+  var hash = location.hash.replace('#', '');
+  if (hash && document.getElementById('cs-' + hash)) openCase(hash);
+})();
+</script>
 </body>
 </html>

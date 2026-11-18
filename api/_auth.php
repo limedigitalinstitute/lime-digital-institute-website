@@ -61,7 +61,17 @@ define('LOGIN_MAX_ATTEMPTS', 5);
 define('LOGIN_LOCKOUT_SECONDS', 15 * 60); // 15 minutes
 
 function _lime_client_ip() {
-    return isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'unknown';
+    $remote = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'unknown';
+    // Behind Traefik every request comes from the proxy's private IP, which made
+    // the lockout global. Trust X-Forwarded-For only when the direct peer is private.
+    $isPrivatePeer = filter_var($remote, FILTER_VALIDATE_IP) &&
+        !filter_var($remote, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE);
+    if ($isPrivatePeer && !empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        $hops = array_map('trim', explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']));
+        $last = end($hops); // the hop Traefik appended; earlier ones are client-supplied
+        if (filter_var($last, FILTER_VALIDATE_IP)) return $last;
+    }
+    return $remote;
 }
 
 function _lime_read_login_attempts() {

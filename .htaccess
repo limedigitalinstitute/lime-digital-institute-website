@@ -4,18 +4,10 @@ DirectoryIndex index.html
 # Custom Error Pages
 ErrorDocument 404 /404.html
 
-# No directory listings
-Options -Indexes
-
 # Enable Rewrite Engine
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
-
-  # Force https (works both on shared hosting and behind a TLS proxy)
-  RewriteCond %{HTTPS} !=on
-  RewriteCond %{HTTP:X-Forwarded-Proto} !=https
-  RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
 
   # Old /demo stub page: permanent redirect to the demo landing page
   RewriteRule ^demo(\.html)?/?$ https://courses.limedigitalinstitute.org/ [R=301,L]
@@ -23,11 +15,18 @@ Options -Indexes
   # Private page sources are only readable by PHP
   RewriteRule ^_private(/|$) - [F,L]
 
+  # Foundation Program page removed: its course now lives on /courses
+  RewriteRule ^foundation-program(\.html)?/?$ https://limedigitalinstitute.org/courses [R=301,L]
+
   # Old spelling of the brochure URL
   RewriteRule ^broucher/?$ /brochure [R=301,L]
 
-  # Never serve the git folder or other dot-directories
-  RewriteRule (^|/)\.git(/|$) - [F,L]
+  # Never serve dotfiles (.env, .git, .htaccess, ...) except .well-known
+  RewriteRule (^|/)\.(?!well-known/) - [F,L]
+
+  # Never serve build/deploy files, backups, reports or internal folders
+  RewriteRule ^(_backups|Forms|Student\sData|\.gstack)(/|$) - [F,L,NC]
+  RewriteRule (^|/)(Dockerfile[^/]*|docker-compose[^/]*|server\.js|apache-vhost[^/]*|[^/]*\.(md|log|bak|sql|sh|ya?ml|zip|tar|gz|tgz)|[^/]*-REPORT\.[a-z]+)$ - [F,L,NC]
 
   # Redirects below use an explicit https:// target: Apache sits behind Traefik
   # and would otherwise emit http:// Location headers (https -> http -> https).
@@ -53,9 +52,6 @@ Options -Indexes
   RewriteCond %{REQUEST_URI} !^/(assets|api|_private)/ [NC]
   RewriteCond %{REQUEST_URI} !^/(robots\.txt|sitemap\.xml|favicon\.ico|thank-you|brochure)$ [NC]
   RewriteRule ^(.+)$ https://limedigitalinstitute.org/$1 [R=301,L]
-
-  # Foundation Program page was merged into /courses
-  RewriteRule ^foundation-program(\.html)?/?$ https://%{HTTP_HOST}/courses [R=301,L]
 
   # Old WordPress URLs
   RewriteRule ^terms-and-conditions/?$ https://%{HTTP_HOST}/terms-of-use [R=301,L]

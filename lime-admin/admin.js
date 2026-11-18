@@ -599,6 +599,10 @@
     if (current) leadsEventFilter.value = current;
   }
 
+  function escHtml(v) {
+    return String(v).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  }
+
   function renderLeadsTable() {
     const eventFilter = leadsEventFilter.value;
     const term = leadsSearchInput.value.toLowerCase().trim();
@@ -625,15 +629,16 @@
       const utmParts = [r.utm_source, r.utm_medium, r.utm_campaign, r.utm_term, r.utm_content].filter(Boolean);
       const utmLabel = utmParts.length ? utmParts.join(' / ') : (r.utm_form || '—');
 
+      // Lead fields come from the public registration form: escape before innerHTML.
       return `
         <tr>
-          <td style="font-size:12px; color:var(--ink-500);">${dateStr}</td>
-          <td><strong>${r.name || '—'}</strong></td>
-          <td><a href="https://wa.me/${(r.phone || '').replace(/[^0-9]/g, '')}" target="_blank" style="color:var(--primary); font-weight:600; text-decoration:underline;">${r.phone || '—'}</a></td>
-          <td><a href="mailto:${r.email}" style="color:var(--ink-700);">${r.email || '—'}</a></td>
-          <td><span style="font-size:12px; font-weight:600;">${r.eventTitle || r.eventId || '—'}</span></td>
-          <td><span style="background:#F1F5F9; padding:3px 8px; border-radius:var(--r-pill); font-size:11.5px; font-weight:600;">${r.goal || 'General'}</span></td>
-          <td><span style="font-size:11.5px; color:var(--ink-500);">${utmLabel}</span></td>
+          <td style="font-size:12px; color:var(--ink-500);">${escHtml(dateStr)}</td>
+          <td><strong>${escHtml(r.name || '—')}</strong></td>
+          <td><a href="https://wa.me/${String(r.phone || '').replace(/[^0-9]/g, '')}" target="_blank" rel="noopener" style="color:var(--primary); font-weight:600; text-decoration:underline;">${escHtml(r.phone || '—')}</a></td>
+          <td><a href="mailto:${encodeURIComponent(r.email || '')}" style="color:var(--ink-700);">${escHtml(r.email || '—')}</a></td>
+          <td><span style="font-size:12px; font-weight:600;">${escHtml(r.eventTitle || r.eventId || '—')}</span></td>
+          <td><span style="background:#F1F5F9; padding:3px 8px; border-radius:var(--r-pill); font-size:11.5px; font-weight:600;">${escHtml(r.goal || 'General')}</span></td>
+          <td><span style="font-size:11.5px; color:var(--ink-500);">${escHtml(utmLabel)}</span></td>
         </tr>`;
     }).join('');
   }

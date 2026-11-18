@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
     restart: unless-stopped
-    ports:
+    expose:
       - "80"
     environment:
       ADMIN_USERNAME: ${ADMIN_USERNAME}
@@ -15,6 +15,13 @@ services:
       - traefik.http.routers.lime-website.rule=Host(`limedigitalinstitute.org`)
       - traefik.http.routers.lime-website.entrypoints=websecure
       - traefik.http.routers.lime-website.tls.certresolver=letsencrypt
+      - traefik.http.routers.lime-www.rule=Host(`www.limedigitalinstitute.org`)
+      - traefik.http.routers.lime-www.entrypoints=websecure
+      - traefik.http.routers.lime-www.tls.certresolver=letsencrypt
+      - traefik.http.routers.lime-www.middlewares=www-redirect
+      - traefik.http.middlewares.www-redirect.redirectregex.regex=^https?://www\.limedigitalinstitute\.org/(.*)
+      - traefik.http.middlewares.www-redirect.redirectregex.replacement=https://limedigitalinstitute.org/$${1}
+      - traefik.http.middlewares.www-redirect.redirectregex.permanent=true
       - traefik.http.services.lime-website.loadbalancer.server.port=80
     volumes:
       - lime-data:/var/www/html/data
@@ -25,7 +32,7 @@ services:
       context: .
       dockerfile: Dockerfile.landing
     restart: unless-stopped
-    ports:
+    expose:
       - "80"
     environment:
       ADMIN_USERNAME: ${ADMIN_USERNAME}

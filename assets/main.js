@@ -259,7 +259,8 @@ document.addEventListener('DOMContentLoaded', () => {
           btn.disabled = false;
         }
         form.reset();
-        window.location.href = 'thank-you?type=trial&name=' + encodeURIComponent(name);
+        try { sessionStorage.setItem('lime_ty_name', name); } catch (e) {}
+        window.location.href = 'thank-you?type=trial';
       }, 450);
     });
   }
@@ -375,6 +376,8 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
+    if (window.LimeSyllabus) window.LimeSyllabus.unlock();
+
     try {
       window.open(BROCHURE_PDF, '_blank', 'noopener');
     } catch(err) {}
@@ -382,7 +385,8 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       closeUnlockModal();
       if (form) form.reset();
-      window.location.href = 'thank-you?type=brochure&name=' + encodeURIComponent(name);
+      try { sessionStorage.setItem('lime_ty_name', name); } catch (e) {}
+      window.location.href = 'thank-you?type=brochure';
     }, 450);
   };
 
@@ -879,7 +883,23 @@ window.testiNav = testiNav;
     'terms-of-use.html', 'terms-of-use',
     'brochure.php', 'brochure',
     'privacy-policy.html',
-    'privacy-policy'
+    'privacy-policy',
+    'contact.html', 'contact',
+    'about.html', 'about',
+    'trainers.html', 'trainers',
+    'refer-earn.html', 'refer-earn',
+    'hire-from-us.html', 'hire-from-us',
+    'blog.html', 'blog',
+    'placements.html', 'placements',
+    'reviews.html', 'reviews',
+    'alumni.html', 'alumni',
+    'student-life.html', 'student-life',
+    'case-studies.html', 'case-studies',
+    'digital-marketing-professional.html', 'digital-marketing-professional',
+    'bachelors-in-digital-business.html', 'bachelors-in-digital-business',
+    'masters-in-digital-business.html', 'masters-in-digital-business',
+    'editorial-policy.html', 'editorial-policy',
+    'lime-terms-refund-policy.html', 'lime-terms-refund-policy'
   ];
 
   // Staff preview unlock was removed: it relied on a password stored in this
@@ -889,6 +909,11 @@ window.testiNav = testiNav;
   function isPublicPage(url) {
     if (!url) return true;
     const path = url.split('#')[0].split('?')[0];
+    // Pretty event URLs (/event/<slug>) end in the slug, not "event".
+    if (/(^|\/)event\/[^/]+\/?$/.test(path)) return true;
+    // Every article lives under /blog/<slug> (served from /posts/<slug>.html),
+    // so allow the whole section instead of listing each slug here.
+    if (/(^|\/)(blog|posts)\/[^/]+/.test(path)) return true;
     const cleanUrl = path.split('/').pop() || 'index.html';
     return PUBLIC_PAGES.includes(cleanUrl);
   }

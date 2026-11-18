@@ -6,3 +6,17 @@ GEO-AUDIT-REPORT.*
 FORMS-AUDIT-REPORT.md
 FINAL-AUDIT-REPORT.*
 *.md
+Student Data
+.gstack
+.claude
+.env
+.env.*
+.build.log
+_backups
+*.zip
+*.tar
+*.tar.gz
+*.bak*
+Dockerfile*
+docker-compose*
+server.js

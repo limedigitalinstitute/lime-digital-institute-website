@@ -24,6 +24,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo json_encode(["success" => false, "error" => "Name, Phone and Email are required"]);
         exit;
     }
+    // Public endpoint: reject junk and cap every stored field.
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL) || strlen($name) > 100 || !preg_match('/^[0-9 +\-()]{5,20}$/', $phone)) {
+        http_response_code(400);
+        echo json_encode(["success" => false, "error" => "Please enter a valid name, phone and email"]);
+        exit;
+    }
+    foreach ($body as $k => $v) {
+        $body[$k] = is_string($v) ? mb_substr(trim($v), 0, 200) : '';
+    }
+    $countryCode = mb_substr($countryCode, 0, 6);
 
     $registrations = file_exists($dataFile) ? json_decode(file_get_contents($dataFile), true) : [];
     if (!is_array($registrations)) $registrations = [];
@@ -66,6 +76,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         "success" => true,
         "message" => "Registration successful",
         "registrationId" => $reg['id']
+    ]);
+
+    // Copy to Durva OS after the visitor already has the response.
+    if (function_exists('fastcgi_finish_request')) fastcgi_finish_request(); else flush();
+    require_once __DIR__ . '/_durva.php';
+    durvaCopyLead([
+        'name' => $name, 'phone' => $phone, 'countryCode' => $countryCode ?: ($body['country_code'] ?? ''), 'email' => $email,
+        'formName' => 'Event: ' . $reg['eventTitle'],
+        'utm_source' => $reg['utm_source'], 'utm_medium' => $reg['utm_medium'], 'utm_campaign' => $reg['utm_campaign'],
+        'utm_term' => $reg['utm_term'], 'utm_content' => $reg['utm_content'],
     ]);
     exit;
 }

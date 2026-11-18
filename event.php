@@ -134,7 +134,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link href="/assets/apple-touch-icon.png" rel="apple-touch-icon"/>
 <link rel="preload" href="/assets/fonts/poppins-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/poppins-600.woff2" as="font" type="font/woff2" crossorigin>
-<link href="assets/style.css?v=20261012b" rel="stylesheet"/>
+<link href="assets/style.css?v=20261013b" rel="stylesheet"/>
 <style>
     /* EVENT LP SPECIFIC STYLES */
     :root {
@@ -1042,14 +1042,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           if (result.success) {
             const redirectParams = new URLSearchParams({
               id: currentEvent.id,
-              name: payload.name,
-              email: payload.email,
-              phone: payload.phone,
               title: currentEvent.title,
               date: currentEvent.dateDisplay || currentEvent.date,
               time: currentEvent.time || '',
               location: currentEvent.location || ''
             });
+            try { sessionStorage.setItem('lime_ty_name', payload.name); } catch (e) {}
             window.location.href = `event-thank-you?${redirectParams.toString()}`;
             return;
           }
@@ -1060,10 +1058,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         // ── 3. Fallback redirect ──
         const redirectParams = new URLSearchParams({
           id: currentEvent.id,
-          name: payload.name,
           title: currentEvent.title
         });
-        window.location.href = `event-thank-you?${redirectParams.toString()}`;
+        try { sessionStorage.setItem('lime_ty_name', payload.name); } catch (e) {}
+            window.location.href = `event-thank-you?${redirectParams.toString()}`;
       });
 
       // Footer spacer sync
@@ -1082,7 +1080,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </script>
 <!-- NAV + SITE-WIDE SCRIPTS (same as index.html) -->
 <script src="assets/country-picker.js?v=20260919b"></script>
-<script src="assets/lime-form.js?v=20261005a"></script>
-<script src="assets/main.js?v=20261012a"></script>
+<script src="assets/lime-form.js?v=20261023d"></script>
+<script src="assets/main.js?v=20261118a"></script>
 </body>
 </html>

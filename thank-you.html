@@ -16,7 +16,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta content="noindex, follow" name="robots"/>
 <link rel="preload" href="/assets/fonts/poppins-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/poppins-600.woff2" as="font" type="font/woff2" crossorigin>
-<link href="assets/style.css?v=20261012b" rel="stylesheet"/>
+<link href="assets/style.css?v=20261013b" rel="stylesheet"/>
 <style>
   .thank-you-page-wrap {
     min-height: calc(100vh - 200px);
@@ -218,6 +218,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
 </style>
 <script src="assets/consent.js?v=20261005b" defer></script>
+<style>
+/* QA spacing fixes */
+/* brochure variant hides the subtitle, leaving the button 12px under the title */
+.thank-you-title + .thank-you-sub[style*="none"] + .thank-you-actions{margin-top:24px;}
+/* header phone number wrapped onto 3 lines over the logo on phones */
+.top-nav .nav-phone{white-space:nowrap;}
+@media (max-width:480px){
+  .top-nav .nav-inner > div{gap:10px !important;}
+  .top-nav .nav-inner .thank-you-btn-primary{padding:8px 13px !important;font-size:12px !important;white-space:nowrap;}
+  .top-nav .nav-phone{font-size:12px !important;}
+}
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -298,8 +310,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   (function() {
     const params = new URLSearchParams(window.location.search);
     const type = (params.get('type') || 'brochure').toLowerCase();
-    const rawName = (params.get('name') || '').trim();
+    let storedName = ''; try { storedName = sessionStorage.getItem('lime_ty_name') || ''; } catch (e) {}
+    const rawName = (params.get('name') || storedName).trim();
+    // ?name= comes from the URL and is put into innerHTML below: escape it.
     const cleanName = rawName ? rawName.charAt(0).toUpperCase() + rawName.slice(1) : '';
+    const safeName = cleanName.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
     const badge = document.getElementById('tyBadge');
     const title = document.getElementById('tyTitle');
@@ -318,7 +333,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       if (badge) badge.textContent = '3-Day Free Trial Pass Reserved';
       if (title) title.textContent = 'Your 3-Day Free Trial Pass is Confirmed!';
       if (sub) {
-        sub.innerHTML = (cleanName ? `Hi <strong>${cleanName}</strong>, congratulations! ` : '') +
+        sub.innerHTML = (cleanName ? `Hi <strong>${safeName}</strong>, congratulations! ` : '') +
           'Your seat for the 3-Day Live Classroom Demo at our Rajkot campus has been reserved. Our academic mentor will reach out on WhatsApp shortly to confirm your batch timings.';
       }
       if (primaryBtn) {
@@ -334,7 +349,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       if (badge) badge.textContent = 'Inquiry Received';
       if (title) title.textContent = 'Thank You for Contacting Us!';
       if (sub) {
-        sub.innerHTML = (cleanName ? `Hi <strong>${cleanName}</strong>, ` : '') +
+        sub.innerHTML = (cleanName ? `Hi <strong>${safeName}</strong>, ` : '') +
           'we have received your message. Our team will review your query and get back to you within 2 hours.';
       }
       if (primaryBtn) {

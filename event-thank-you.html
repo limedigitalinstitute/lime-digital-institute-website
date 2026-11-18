@@ -17,7 +17,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
   <link rel="preload" href="/assets/fonts/poppins-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/poppins-600.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/style.css?v=20261012b">
+  <link rel="stylesheet" href="assets/style.css?v=20261013b">
   <style>
     .ty-hero {
       background: radial-gradient(circle at top right, rgba(237,50,55,0.28), transparent 45%),
@@ -135,6 +135,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .btn-cal-back:hover { background: rgba(255,255,255,0.2); }
   </style>
 <script src="assets/consent.js?v=20261005b" defer></script>
+<style>
+/* QA spacing fixes */
+.ty-title{text-wrap:balance;}
+@media (max-width:600px){
+  /* 48px card padding left only ~260px for content on phones */
+  .ty-card{padding:36px 20px;}
+  .ty-event-box{padding:20px;}
+  .ty-event-meta{flex-direction:column;gap:6px;}
+  .cal-actions-row{flex-direction:column;align-items:stretch;gap:10px;}
+  .btn-cal{justify-content:center;}
+}
+</style>
 </head>
 <body class="has-reveal-footer">
 <!-- Google Tag Manager (noscript) -->
@@ -235,7 +247,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <script>
     (function() {
       const p = new URLSearchParams(window.location.search);
-      const name = p.get('name') || '';
+      let storedName = ''; try { storedName = sessionStorage.getItem('lime_ty_name') || ''; } catch (e) {}
+      const name = p.get('name') || storedName;
       const title = p.get('title') || 'AI Marketing Masterclass';
       const date = p.get('date') || 'Upcoming Saturday';
       const time = p.get('time') || '5:00 PM IST';
@@ -276,8 +289,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </script>
   <!-- NAV + SITE-WIDE SCRIPTS (same as index.html) -->
   <script src="assets/country-picker.js?v=20260919b"></script>
-  <script src="assets/lime-form.js?v=20261005a"></script>
-<script src="assets/main.js?v=20261012a"></script>
+  <script src="assets/lime-form.js?v=20261023d"></script>
+<script src="assets/main.js?v=20261118a"></script>
 </body>
 </html>
 
