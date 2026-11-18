@@ -683,18 +683,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     var friendPhone = val('friendPhone');
     var program = val('friendProgram');
 
-    if (window.LimeLeadCollector) {
-      window.LimeLeadCollector.submitLead({
-        name: val('refName'),
-        phone: val('refPhone'),
-        email: val('refEmail'),
-        message: 'REFERRAL — Friend: ' + friendName + ' (' + friendPhone + '). Interested in: ' + program,
-        form_name: 'Refer & Earn - Friend Referral',
-        utm_form: 'refer_earn_referral',
-        cta_text: original.trim(),
-        button_id: 'btn-refer-submit'
-      });
-    }
 
     if (btn) {
       btn.textContent = '✔ Referral received — we\'ll call your friend soon';
@@ -709,6 +697,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </script>
 <script src="assets/country-picker.js?v=20260918g"></script>
 <script src="assets/lime-form.js?v=20261023d"></script>
-<script src="assets/main.js?v=20261118a"></script>
+<script src="assets/main.js?v=20261118b"></script>
 </body>
 </html>

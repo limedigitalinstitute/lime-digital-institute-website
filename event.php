@@ -989,7 +989,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         const formLabel = isCompletedEvent ? 'Free Masterclass - Get Recording Pass' : 'Free Masterclass - Register Free Seat';
         const utmFormLabel = isCompletedEvent ? 'masterclass_recording_pass' : 'masterclass_register_seat';
 
-        const storedUtms = (window.LimeLeadCollector && window.LimeLeadCollector.getUTMs) ? window.LimeLeadCollector.getUTMs() : {};
+        const storedUtms = {};
 
         const payload = {
           eventId: currentEvent.id,
@@ -1007,31 +1007,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           event: currentEvent.title
         };
 
-        // ── 1. Fire LimeLeadCollector (Supabase + Zoho) with full UTM attribution ──
-        if (window.LimeLeadCollector) {
-          try {
-            window.LimeLeadCollector.submitLead({
-              name,
-              first_name: firstName,
-              last_name: lastName,
-              phone,
-              country_code: countryCode,
-              email,
-              event_id: currentEvent.id,
-              event_title: currentEvent.title,
-              event: currentEvent.title,
-              form_name: formLabel,
-              utm_form: utmFormLabel,
-              zoho_form: 'events',
-              cta_text: originalText,
-              button_id: 'btn-event-register'
-            });
-          } catch (lcErr) {
-            console.warn('[Lime Leads] LimeLeadCollector call error:', lcErr);
-          }
-        }
-
-        // ── 2. Also POST to local /api/register (saves to registrations.json, decrements seats) ──
+        // ── Save registration via /api/register (registrations.json, seat count, Durva OS copy) ──
         try {
           const res = await fetch('/api/register', {
             method: 'POST',
@@ -1081,6 +1057,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- NAV + SITE-WIDE SCRIPTS (same as index.html) -->
 <script src="assets/country-picker.js?v=20260919b"></script>
 <script src="assets/lime-form.js?v=20261023d"></script>
-<script src="assets/main.js?v=20261118a"></script>
+<script src="assets/main.js?v=20261118b"></script>
 </body>
 </html>

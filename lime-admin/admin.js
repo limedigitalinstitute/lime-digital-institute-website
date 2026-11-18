@@ -589,6 +589,15 @@
       statTotalLeads.textContent = allLeads.length;
       badgeLeadsCount.textContent = allLeads.length;
       renderLeadsTable();
+    } else if (res.error === 'Unauthorized') {
+      // Stored token expired (7-day TTL): events/mentors are public so the
+      // dashboard still rendered, but leads silently showed 0. Force re-login.
+      authToken = '';
+      localStorage.removeItem('lime_admin_token');
+      dashboardScreen.classList.add('hidden');
+      loginScreen.classList.remove('hidden');
+      loginAlert.textContent = 'Session expired. Please log in again.';
+      loginAlert.classList.remove('hidden');
     }
   }
 

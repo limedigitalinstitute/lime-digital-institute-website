@@ -1,18 +1,19 @@
 .git
 .gitignore
 .asset-cleanup-quarantine
-Forms
-GEO-AUDIT-REPORT.*
-FORMS-AUDIT-REPORT.md
-FINAL-AUDIT-REPORT.*
-*.md
-Student Data
 .gstack
 .claude
 .env
 .env.*
 .build.log
+.dockerignore
+Forms
+Student Data
 _backups
+GEO-AUDIT-REPORT.*
+FORMS-AUDIT-REPORT.md
+FINAL-AUDIT-REPORT.*
+*.md
 *.zip
 *.tar
 *.tar.gz

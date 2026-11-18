@@ -646,18 +646,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     if (val('hrCount')) parts.push('Openings: ' + val('hrCount'));
     if (val('hrNotes')) parts.push('Notes: ' + val('hrNotes'));
 
-    if (window.LimeLeadCollector) {
-      window.LimeLeadCollector.submitLead({
-        name: val('hrPerson'),
-        phone: val('hrPhone'),
-        email: val('hrEmail'),
-        message: 'HIRING REQUEST — ' + parts.join(' | '),
-        form_name: 'Hire From Us - Request Talent',
-        utm_form: 'hire_from_us_request',
-        cta_text: original.trim(),
-        button_id: 'btn-hire-submit'
-      });
-    }
 
     if (btn) {
       btn.textContent = '✔ Request received — we\'ll reply within 24 hours';
@@ -672,6 +660,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </script>
 <script src="assets/country-picker.js?v=20260918g"></script>
 <script src="assets/lime-form.js?v=20261023d"></script>
-<script src="assets/main.js?v=20261118a"></script>
+<script src="assets/main.js?v=20261118b"></script>
 </body>
 </html>

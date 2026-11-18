@@ -197,18 +197,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const email = contactForm.querySelector('#email')?.value || contactForm.querySelector('input[name="email"]')?.value || '';
       const message = contactForm.querySelector('#message')?.value || '';
 
-      if (window.LimeLeadCollector) {
-        window.LimeLeadCollector.submitLead({
-          name: name,
-          phone: phone,
-          email: email,
-          message: message,
-          form_name: 'Contact Page - Book Free Counselling Call',
-          utm_form: 'contact_page_counselling',
-          cta_text: original.trim(),
-          button_id: 'btn-contact-submit'
-        });
-      }
 
       setTimeout(() => {
         if (btn) {
@@ -239,19 +227,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const email = (form.querySelector('input[name="email"]')?.value || '').trim();
       const extra = form.querySelector('select[name="background"], select[name="status"]')?.value || '';
 
-      if (window.LimeLeadCollector) {
-        window.LimeLeadCollector.submitLead({
-          name: name,
-          phone: phone,
-          country_code: countryCode,
-          email: email,
-          course: extra,
-          form_name: formName,
-          utm_form: utmForm,
-          cta_text: original.trim(),
-          button_id: btnId
-        });
-      }
 
       setTimeout(() => {
         if (btn) {
@@ -362,19 +337,6 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.disabled = true;
     }
 
-    if (window.LimeLeadCollector) {
-      window.LimeLeadCollector.submitLead({
-        name: name,
-        phone: phone,
-        country_code: countryCode,
-        email: email,
-        course: course,
-        form_name: 'Unlock Full Syllabus Button form Popup',
-        utm_form: 'modal_curriculum_unlock_syllabus',
-        cta_text: ctaText,
-        button_id: 'btn-unlock-submit'
-      });
-    }
 
     if (window.LimeSyllabus) window.LimeSyllabus.unlock();
 
@@ -456,18 +418,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const email = campusForm.querySelector('input[name="email"]')?.value || '';
         const date = campusForm.querySelector('input[name="visit_date"]')?.value || '';
 
-        if (window.LimeLeadCollector) {
-          window.LimeLeadCollector.submitLead({
-            name: name,
-            phone: phone,
-            email: email,
-            visit_date: date,
-            form_name: 'Campus Visit Request',
-            utm_form: 'campus_visit_popup',
-            cta_text: original.trim(),
-            button_id: 'btn-campus-submit'
-          });
-        }
 
         setTimeout(() => {
           if (btn) {

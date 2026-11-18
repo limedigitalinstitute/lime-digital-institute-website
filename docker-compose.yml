@@ -10,6 +10,8 @@ services:
       ADMIN_USERNAME: ${ADMIN_USERNAME}
       ADMIN_EMAIL: ${ADMIN_EMAIL}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      DURVA_OS_URL: ${DURVA_OS_URL:-https://os.limeinstitute.cloud}
+      DURVA_OS_AGENT_KEY: ${DURVA_OS_AGENT_KEY}
     labels:
       - traefik.enable=true
       - traefik.http.routers.lime-website.rule=Host(`limedigitalinstitute.org`)
