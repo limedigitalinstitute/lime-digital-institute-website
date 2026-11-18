@@ -84,7 +84,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     durvaCopyLead([
         'name' => $name, 'phone' => $phone, 'countryCode' => $countryCode ?: ($body['country_code'] ?? ''), 'email' => $email,
         'formName' => 'Event: ' . $reg['eventTitle'],
-        'utm_source' => $reg['utm_source'], 'utm_medium' => $reg['utm_medium'], 'utm_campaign' => $reg['utm_campaign'],
+        // CRM "UTM Source" = the webinar name, so every row shows which session it signed up for.
+        // A real ad source (e.g. facebook) is kept in brackets after the name.
+        'utm_source' => $reg['eventTitle'] . ($reg['utm_source'] !== '' ? ' (' . $reg['utm_source'] . ')' : ''),
+        'utm_medium' => $reg['utm_medium'], 'utm_campaign' => $reg['utm_campaign'],
         'utm_term' => $reg['utm_term'], 'utm_content' => $reg['utm_content'],
     ]);
     exit;
